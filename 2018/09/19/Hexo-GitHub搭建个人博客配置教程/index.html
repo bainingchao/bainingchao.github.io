@@ -171,7 +171,7 @@
 <meta property="og:image" content="https://i.imgur.com/bE1IhZp.png">
 <meta property="og:image" content="https://i.imgur.com/LWenBNU.png">
 <meta property="og:image" content="https://i.imgur.com/5rduPBm.png">
-<meta property="og:updated_time" content="2018-09-27T09:02:55.411Z">
+<meta property="og:updated_time" content="2018-10-09T07:42:52.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo-GitHub搭建个人博客配置教程">
 <meta name="twitter:description" content="摘要：创建一个自定义个人博客，即可以便于知识的记录，又可以分享知识。然而，诸多技术社区虽有便捷的优点，同时也存在限制性和专业化的问题。自己从头写网站成本较高，故而作者采用github建站，既可以支持markdown文档编写，又可以与github账号打通，便于资料上传保存。仅仅建站完成还是不够美观和功能扩展。这里github结合诸多插件可以实现，本文重点介绍Hexo的配置操作，具体以下实现可以根据">
@@ -483,7 +483,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-09-27 17:02:55" itemprop="dateModified" datetime="2018-09-27T17:02:55+08:00">2018-09-27</time>
+                <time title="修改时间：2018-10-09 15:42:52" itemprop="dateModified" datetime="2018-10-09T15:42:52+08:00">2018-10-09</time>
               
             
           </span>
@@ -793,6 +793,9 @@ npm install hexo-generator-baidu-sitemap --save
 <p>配置访问统计</p>
 </blockquote>
 <p>主题中查找 busuanzi_count</p>
+<p>如果你使用的是NexT主题（其他主题类似），打开/theme/next/layout/_partial/footer.swig文件，拷贝下面的代码至文件的开头。</p>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 <blockquote>
 <p>fatal: bad config file line 1 in .git/config</p>
 </blockquote>
@@ -1238,7 +1241,10 @@ npm install hexo-generator-baidu-sitemap --save
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1269,10 +1275,11 @@ npm install hexo-generator-baidu-sitemap --save
 
 
 
-        
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+
+
+<div class="busuanzi-count">
   
     <span class="site-uv" title="总访客量">
       <i class="fa fa-user"></i>
