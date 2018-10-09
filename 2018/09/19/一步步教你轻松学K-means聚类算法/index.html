@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="Python,K-均值算法,k-means,机器学习算法,文本分类,sklean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步步教你轻松学K-means聚类算法">
+<meta property="og:url" content="https://bainingchao.github.io/2018/09/19/一步步教你轻松学K-means聚类算法/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/F21lpQ9.gif">
+<meta property="og:image" content="https://i.imgur.com/lboN0FM.png">
+<meta property="og:image" content="https://i.imgur.com/zItcW74.png">
+<meta property="og:image" content="https://i.imgur.com/gKOUmLX.png">
+<meta property="og:image" content="https://i.imgur.com/DiOk1Kk.png">
+<meta property="og:image" content="https://i.imgur.com/55sH2AG.png">
+<meta property="og:image" content="https://i.imgur.com/BCv4mP2.png">
+<meta property="og:image" content="https://i.imgur.com/Z9eGXE6.png">
+<meta property="og:image" content="https://i.imgur.com/XEsawmS.png">
+<meta property="og:updated_time" content="2018-09-25T07:11:07.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步步教你轻松学K-means聚类算法">
+<meta name="twitter:description" content="摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://i.imgur.com/F21lpQ9.gif">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/09/19/一步步教你轻松学K-means聚类算法/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一步步教你轻松学K-means聚类算法 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/09/19/一步步教你轻松学K-means聚类算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">一步步教你轻松学K-means聚类算法
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-19 11:24:21" itemprop="dateCreated datePublished" datetime="2018-09-19T11:24:21+08:00">2018-09-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-25 15:11:07" itemprop="dateModified" datetime="2018-09-25T15:11:07+08:00">2018-09-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/K-Means/" itemprop="url" rel="index"><span itemprop="name">K-Means</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="理论介绍"><a href="#理论介绍" class="headerlink" title="理论介绍"></a>理论介绍</h1><h2 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h2><blockquote>
+<p>什么是聚类</p>
+</blockquote>
+<p>统计数据分析的一门技术，在许多领域受到广泛应用，包括机器学习，数据挖掘，模式识别，图像分析以及生物信息。聚类是把相似的对象通过静态分类的方法分成不同的组别或者更多的子集（subset），这样让在同一个子集中的成员对象都有相似的一些属性，常见的包括在坐标系中更加短的空间距离等。</p>
+<blockquote>
+<p>聚类的应用</p>
+</blockquote>
+<p>在商务上，聚类能帮助市场分析人员从客户基本库中发现不同的客户群，并且用购买模式来刻画不同的客户群的特征。在生物学上，聚类能用于推导植物和动物的分类，对基因进行分类，获得对种群中固有结构的认识。聚类在地球观测数据库中相似地区的确定，汽车保险单持有者的分组，及根据房子的类型、价值和地理位置对一个城市中房屋的分组上也可以发挥作用。聚类也能用于对Web上的文档进行分类，以发现信息。诸如此类，聚类有着广泛的实际应用。</p>
+<h2 id="K-means（k均值）聚类算法"><a href="#K-means（k均值）聚类算法" class="headerlink" title="K-means（k均值）聚类算法"></a>K-means（k均值）聚类算法</h2><blockquote>
+<p>什么是k-means聚类算法</p>
+</blockquote>
+<p>k-平均算法（英文：k-means clustering）源于信号处理中的一种向量量化方法，现在则更多地作为一种聚类分析方法流行于数据挖掘领域。k-平均聚类的目的是：把 n个点划分到k个聚类中，使得每个点都属于离他最近的均值（此即聚类中心）对应的聚类，以之作为聚类的标准。k-平均聚类与k-近邻之间没有任何关系（后者是另一流行的机器学习技术）。</p>
+<p>K-Means 是发现给定数据集的 K 个簇的聚类算法, 之所以称之为 K-均值 是因为它可以发现 K 个不同的簇, 且每个簇的中心采用簇中所含值的均值计算而成.簇个数 K 是用户指定的, 每一个簇通过其质心（centroid）, 即簇中所有点的中心来描述.<br>聚类与分类算法的最大区别在于, 分类的目标类别已知, 而聚类的目标类别是未知的.</p>
+<blockquote>
+<p>发展历史</p>
+</blockquote>
+<p>虽然其思想能够追溯到1957年的Hugo Steinhaus，术语“k-均值”于1967年才被James MacQueen 首次使用。标准算法则是在1957年被Stuart Lloyd作为一种脉冲码调制的技术所提出，但直到1982年才被贝尔实验室公开出版。在1965年，E.W.Forgy发表了本质上相同的方法，所以这一算法有时被称为Lloyd-Forgy方法。更高效的版本则被Hartigan and Wong提出。</p>
+<blockquote>
+<p>算法描述</p>
+</blockquote>
+<p>已知观测集\((x_1,x_2,…,x_n)\)，其中每个观测都是一个 d-维实向量，k-平均聚类要把这 n个观测划分到k个集合中(k≤n),使得组内平方和最小。换句话说，它的目标是找到使得下式满足的聚类\( S_i\)，</p>
+<p><img src="https://i.imgur.com/F21lpQ9.gif" alt=""></p>
+<p>其中 \( \mu_i\) 是\(S_i\) 中所有点的均值。</p>
+<blockquote>
+<p>k-means术语</p>
+</blockquote>
+<ul>
+<li>簇: 所有数据的点集合，簇中的对象是相似的。</li>
+<li>质心: 簇中所有点的中心（计算所有点的均值而来）.</li>
+<li>SSE: Sum of Sqared Error（误差平方和）, 它被用来评估模型的好坏，SSE 值越小，表示越接近它们的质心. 聚类效果越  好。由于对误差取了平方，因此更加注重那些远离中心的点（一般为边界点或离群点）。详情见kmeans的评价标准。<br>有关 簇 和 质心 术语更形象的介绍, 请参考下图:</li>
+</ul>
+<p><img src="https://i.imgur.com/lboN0FM.png" alt=""></p>
+<blockquote>
+<p>k-means应用场景</p>
+</blockquote>
+<p>kmeans，用于数据集内种类属性不明晰，希望能够通过数据挖掘出或自动归类出有相似特点的对象的场景。其商业界的应用场景一般为挖掘出具有相似特点的潜在客户群体以便公司能够重点研究、对症下药。</p>
+<p>例如，在2000年和2004年的美国总统大选中，候选人的得票数比较接近或者说非常接近。任一候选人得到的普选票数的最大百分比为50.7%而最小百分比为47.9% 如果1%的选民将手中的选票投向另外的候选人，那么选举结果就会截然不同。 实际上，如果妥善加以引导与吸引，少部分选民就会转换立场。尽管这类选举者占的比例较低，但当候选人的选票接近时，这些人的立场无疑会对选举结果产生非常大的影响。如何找出这类选民，以及如何在有限的预算下采取措施来吸引他们？ 答案就是聚类（Clustering)。</p>
+<p>那么，具体如何实施呢？首先，收集用户的信息，可以同时收集用户满意或不满意的信息，这是因为任何对用户重要的内容都可能影响用户的投票结果。然后，将这些信息输入到某个聚类算法中。接着，对聚类结果中的每一个簇（最好选择最大簇 ）， 精心构造能够吸引该簇选民的消息。最后， 开展竞选活动并观察上述做法是否有效。</p>
+<p>另一个例子就是产品部门的市场调研了。为了更好的了解自己的用户，产品部门可以采用聚类的方法得到不同特征的用户群体，然后针对不同的用户群体可以对症下药，为他们提供更加精准有效的服务。</p>
+<blockquote>
+<p>k-means算法思想</p>
+</blockquote>
+<p>先随机选取K个对象作为初始的聚类中心。然后计算每个对象与各个种子聚类中心之间的距离，把每个对象分配给距离它最近的聚类中心。聚类中心以及分配给它们的对象就代表一个聚类。一旦全部对象都被分配了，每个聚类的聚类中心会根据聚类中现有的对象被重新计算。这个过程将不断重复直到满足某个终止条件。终止条件可以是以下任何一个：</p>
+<ul>
+<li>没有（或最小数目）对象被重新分配给不同的聚类。</li>
+<li>没有（或最小数目）聚类中心再发生变化。</li>
+<li>误差平方和局部最小。</li>
+</ul>
+<p>得到相互分离的球状聚类，在这些聚类中，均值点趋向收敛于聚类中心。 一般会希望得到的聚类大小大致相当，这样把每个观测都分配到离它最近的聚类中心（即均值点）就是比较正确的分配方案。</p>
+<blockquote>
+<p>k-means工作流程</p>
+</blockquote>
+<pre><code>创建 k 个点作为起始质心（通常是随机选择）
+当任意一个点的簇分配结果发生改变时（不改变时算法结束）
+    对数据集中的每个数据点
+        对每个质心
+            计算质心与数据点之间的距离
+        将数据点分配到距其最近的簇
+    对每一个簇, 计算簇中所有点的均值并将均值作为质心
+</code></pre><blockquote>
+<p>k-means开发流程</p>
+</blockquote>
+<pre><code>收集数据：使用任意方法
+准备数据：需要数值型数据类计算距离, 也可以将标称型数据映射为二值型数据再用于距离计算
+分析数据：使用任意方法
+训练算法：不适用于无监督学习，即无监督学习不需要训练步骤
+测试算法：应用聚类算法、观察结果.可以使用量化的误差指标如误差平方和（后面会介绍）来评价算法的结果.
+使用算法：可以用于所希望的任何应用.通常情况下, 簇质心可以代表整个簇的数据来做出决策.
+</code></pre><blockquote>
+<p>k-means评价标准</p>
+</blockquote>
+<p>k-means算法因为手动选取k值和初始化随机质心的缘故，每一次的结果不会完全一样，而且由于手动选取k值，我们需要知道我们选取的k值是否合理，聚类效果好不好，那么如何来评价某一次的聚类效果呢？也许将它们画在图上直接观察是最好的办法，但现实是，我们的数据不会仅仅只有两个特征，一般来说都有十几个特征，而观察十几维的空间对我们来说是一个无法完成的任务。因此，我们需要一个公式来帮助我们判断聚类的性能，这个公式就是SSE (Sum of Squared Error, 误差平方和 ），它其实就是每一个点到其簇内质心的距离的平方值的总和，这个数值对应kmeans函数中clusterAssment矩阵的第一列之和。 SSE值越小表示数据点越接近于它们的质心，聚类效果也越好。 因为对误差取了平方，因此更加重视那些远离中心的点。一种肯定可以降低SSE值的方法是增加簇的个数，但这违背了聚类的目标。聚类的目标是在保持簇数目不变的情况下提高簇的质量。</p>
+<blockquote>
+<p>k-means优缺点</p>
+</blockquote>
+<ul>
+<li><p>优点:</p>
+<p>  属于无监督学习，无须准备训练集<br>  原理简单，实现起来较为容易<br>  结果可解释性较好</p>
+</li>
+<li><p>缺点:</p>
+<p>  聚类数目k是一个输入参数。选择不恰当的k值可能会导致糟糕的聚类结果。这也是为什么要进行特征检查来决定数据集的聚类数目了。<br>  可能收敛到局部最小值, 在大规模数据集上收敛较慢<br>  对于异常点、离群点敏感</p>
+</li>
+</ul>
+<p>使用数据类型 : 数值型数据</p>
+<hr>
+<h1 id="k-means聚类算法实现"><a href="#k-means聚类算法实现" class="headerlink" title="k-means聚类算法实现"></a>k-means聚类算法实现</h1><h2 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h2><p>我们假设这样的一个案例需求：某公司发布一批新型手机，根据客户热衷度进行投放。公司市场人员收集其中四个地区用户对手机的满意程度（由两个特征决定的）。分析哪个区域对手机产品比较热衷，对应的进行市场销售工作。这里就用到k-means聚类算法。</p>
+<h2 id="从文件加载数据集"><a href="#从文件加载数据集" class="headerlink" title="从文件加载数据集"></a>从文件加载数据集</h2><p>上文中我们收集好四个地区用户对产品满意的特征数据值，转化为向量预先保存到文本中（关于词向量转化及其词袋模型问题，参考：决策树算法模型研究与案例分析一文）。我们加载文件并以数据矩阵形式返回数据集，代码实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'''加载数据集'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    dataSet = [] <span class="comment"># 初始化一个空列表</span></span><br><span class="line">    fr = open(fileName)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">        <span class="comment"># 切割每一行的数据</span></span><br><span class="line">        curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">        <span class="comment"># 将数据追加到dataMat，映射所有的元素为 float类型</span></span><br><span class="line">        fltLine = list(map(float,curLine))    </span><br><span class="line">        dataSet.append(fltLine)</span><br><span class="line">    <span class="keyword">return</span> mat(dataSet)</span><br></pre></td></tr></table></figure>
+<p>我们打印看下结果：</p>
+<p><img src="https://i.imgur.com/zItcW74.png" alt=""></p>
+<h2 id="计算两个向量的欧氏距离"><a href="#计算两个向量的欧氏距离" class="headerlink" title="计算两个向量的欧氏距离"></a>计算两个向量的欧氏距离</h2><p>上文在k均值算法思想和工作流程都提到过，我们一个重要的方法就是随机设置质心，然后比较每条数据（可以理解为单一客户的特征数据）与质心之间的距离。这里距离公式包括很多，本文采用的是欧式距离计算，其代码实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''欧氏距离计算函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span><span class="params">(vecA, vecB)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sqrt(sum(power(vecA - vecB, <span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+<h2 id="构建一个包含-K-个随机质心的集合"><a href="#构建一个包含-K-个随机质心的集合" class="headerlink" title="构建一个包含 K 个随机质心的集合"></a>构建一个包含 K 个随机质心的集合</h2><p>接下来，我们构建随机质心（中心点），这里的K值是经过数据观察随机设置的值，假如k=3，代表我们将数据集分为3个簇，也就是说分为3个部分。我们随机质心在整个数据集的边界之内，这可以通过找到数据集每一维的最小和最大值来完成,然后生成0到1.0之间的随机数并通过取值范围和最小值,以便确保随机点在数据的边界之内。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">随机质心</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span><span class="params">(dataMat, k)</span>:</span></span><br><span class="line">    <span class="comment"># 获取样本数与特征值</span></span><br><span class="line">    m, n = shape(dataMat)</span><br><span class="line">    <span class="comment"># 初始化质心,创建(k,n)个以零填充的矩阵</span></span><br><span class="line">    centroids = mat(zeros((k, n)))</span><br><span class="line">    <span class="comment"># 循环遍历特征值</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="comment"># 计算每一列的最小值</span></span><br><span class="line">        minJ = min(dataMat[:, j])</span><br><span class="line">        <span class="comment"># 计算每一列的范围值</span></span><br><span class="line">        rangeJ = float(max(dataMat[:, j]) - minJ)</span><br><span class="line">        <span class="comment"># 计算每一列的质心,并将值赋给centroids</span></span><br><span class="line">        centroids[:, j] = mat(minJ + rangeJ * random.rand(k, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 返回质心</span></span><br><span class="line">    <span class="keyword">return</span> centroids</span><br></pre></td></tr></table></figure></p>
+<p>我们测试下k=3的随机质心结果：</p>
+<p><img src="https://i.imgur.com/gKOUmLX.png" alt=""></p>
+<h2 id="K-Means-聚类算法"><a href="#K-Means-聚类算法" class="headerlink" title="K-Means 聚类算法"></a>K-Means 聚类算法</h2><p>我们基于以上算法构建k均值算法，该算法会创建k个质心，然后将每个点分配到最近的质心，再重新计算质心。这个过程重复数次，直到数据点的簇分配结果不再改变位置。返回类质心与点分配结果（多次运行结果可能会不一样，可以试试，原因为随机质心的影响，但总的结果是对的，因为数据足够相似，也<strong>可能会陷入局部最小值</strong>），代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">创建K个质心,然后将每个点分配到最近的质心,再重新计算质心。</span></span><br><span class="line"><span class="string">这个过程重复数次,直到数据点的簇分配结果不再改变为止</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kMeans</span><span class="params">(dataMat, k, distMeas=distEclud, createCent=randCent)</span>:</span></span><br><span class="line">    <span class="comment"># 获取样本数和特征数</span></span><br><span class="line">    m, n = shape(dataMat)</span><br><span class="line">    <span class="comment"># 初始化一个矩阵来存储每个点的簇分配结果</span></span><br><span class="line">    <span class="comment"># clusterAssment包含两个列:一列记录簇索引值,第二列存储误差(误差是指当前点到簇质心的距离,后面会使用该误差来评价聚类的效果)</span></span><br><span class="line">    clusterAssment = mat(zeros((m, <span class="number">2</span>)))</span><br><span class="line">    <span class="comment"># 创建质心,随机K个质心</span></span><br><span class="line">    centroids = createCent(dataMat, k)</span><br><span class="line">    <span class="comment"># 初始化标志变量,用于判断迭代是否继续,如果True,则继续迭代</span></span><br><span class="line">    clusterChanged = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> clusterChanged:</span><br><span class="line">        clusterChanged = <span class="keyword">False</span></span><br><span class="line">        <span class="comment"># 遍历所有数据找到距离每个点最近的质心,</span></span><br><span class="line">        <span class="comment"># 可以通过对每个点遍历所有质心并计算点到每个质心的距离来完成</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            minDist = inf <span class="comment"># 正无穷</span></span><br><span class="line">            minIndex = <span class="number">-1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k):</span><br><span class="line">                <span class="comment"># 计算数据点到质心的距离</span></span><br><span class="line">                <span class="comment"># 计算距离是使用distMeas参数给出的距离公式,默认距离函数是distEclud</span></span><br><span class="line">                distJI = distMeas(centroids[j, :], dataMat[i, :])</span><br><span class="line">                <span class="comment"># 如果距离比minDist(最小距离)还小,更新minDist(最小距离)和最小质心的index(索引)</span></span><br><span class="line">                <span class="keyword">if</span> distJI &lt; minDist:</span><br><span class="line">                    minDist = distJI</span><br><span class="line">                    minIndex = j</span><br><span class="line">            <span class="comment"># 如果任一点的簇分配结果发生改变,则更新clusterChanged标志</span></span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i, <span class="number">0</span>] != minIndex:</span><br><span class="line">                <span class="comment"># print(clusterAssment[i, 0],minIndex)</span></span><br><span class="line">                clusterChanged = <span class="keyword">True</span></span><br><span class="line">            <span class="comment"># 更新簇分配结果为最小质心的index(索引),minDist(最小距离)的平方</span></span><br><span class="line">            clusterAssment[i, :] = minIndex, minDist ** <span class="number">2</span></span><br><span class="line">        <span class="comment"># print(centroids)</span></span><br><span class="line">        <span class="comment"># 遍历所有质心并更新它们的取值</span></span><br><span class="line">        <span class="keyword">for</span> cent <span class="keyword">in</span> range(k):</span><br><span class="line">            <span class="comment"># 通过数据过滤来获得给定簇的所有点</span></span><br><span class="line">            ptsInClust = dataMat[nonzero(clusterAssment[:, <span class="number">0</span>].A == cent)[<span class="number">0</span>]]</span><br><span class="line">            <span class="comment"># 计算所有点的均值,axis=0表示沿矩阵的列方向进行均值计算</span></span><br><span class="line">            centroids[cent, :] = mean(ptsInClust, axis=<span class="number">0</span>)<span class="comment"># axis=0列方向</span></span><br><span class="line">    <span class="comment"># 返回所有的类质心与点分配结果</span></span><br><span class="line">    <span class="keyword">return</span> centroids, clusterAssment</span><br></pre></td></tr></table></figure></p>
+<p>测试查看下运行结果：</p>
+<p><img src="https://i.imgur.com/DiOk1Kk.png" alt=""></p>
+<h2 id="分析数据：聚类可视化"><a href="#分析数据：聚类可视化" class="headerlink" title="分析数据：聚类可视化"></a>分析数据：聚类可视化</h2><p>通过上文返回的数据结果，似乎我们还不能直观感受，接下来我们采用可视化分析方法直观感受下，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">可视化展示</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmeanShow</span><span class="params">(dataMat,centers,clusterAssment)</span>:</span></span><br><span class="line">    plt.scatter(np.array(dataMat)[:, <span class="number">0</span>], np.array(dataMat)[:, <span class="number">1</span>], c=np.array(clusterAssment)[:, <span class="number">0</span>].T)</span><br><span class="line">    plt.scatter(centers[:, <span class="number">0</span>].tolist(), centers[:, <span class="number">1</span>].tolist(), c=<span class="string">"r"</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>测试查看可视化结果：</p>
+<p><img src="https://i.imgur.com/55sH2AG.png" alt=""></p>
+<h2 id="结果讨论与分析"><a href="#结果讨论与分析" class="headerlink" title="结果讨论与分析"></a>结果讨论与分析</h2><blockquote>
+<p>局部最小值（局部最优的结果，但不是全局最优的结果）</p>
+</blockquote>
+<p>上文可视化结果显示，其中两个簇聚集在一起，也就说说没有达到我们预期的效果。出现这个问题有很多原因，可能是k值取的不合适，可能是距离函数不合适，可能是最初随机选取的质心靠的太近，也可能是数据本身分布的问题。</p>
+<p>为了解决这个问题，我们可以对生成的簇进行后处理，一种方法是将具有最大SSE值的簇划分成两个簇。具体实现时可以将最大簇包含的点过滤出来并在这些点上运行K-均值算法，令k设为2。</p>
+<p>为了保持簇总数不变，可以将某两个簇进行合并。从上图中很明显就可以看出，应该将上图下部两个出错的簇质心进行合并。那么问题来了，我们可以很容易对二维数据上的聚类进行可视化， 但是如果遇到40维的数据应该如何去做？</p>
+<p>有两种可以量化的办法：合并最近的质心，或者合并两个使得SSE增幅最小的质心。 第一种思路通过计算所有质心之间的距离， 然后合并距离最近的两个点来实现。第二种方法需要合并两个簇然后计算总SSE值。必须在所有可能的两个簇上重复上述处理过程，直到找到合并最佳的两个簇为止。</p>
+<p>因为上述后处理过程实在是有些繁琐，所以有更厉害的大佬提出了另一个称之为二分K-均值（bisecting K-Means）的算法.</p>
+<h1 id="二分-K-Means-聚类算法"><a href="#二分-K-Means-聚类算法" class="headerlink" title="二分 K-Means 聚类算法"></a>二分 K-Means 聚类算法</h1><h2 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h2><p>该算法首先将所有点作为一个簇，然后将该簇一分为二。之后选择其中一个簇继续进行划分，选择哪一个簇进行划分取决于对其划分时候可以最大程度降低 SSE（平方和误差）的值。上述基于 SSE 的划分过程不断重复，直到得到用户指定的簇数目为止。</p>
+<h2 id="二分-K-Means-聚类算法伪代码"><a href="#二分-K-Means-聚类算法伪代码" class="headerlink" title="二分 K-Means 聚类算法伪代码"></a>二分 K-Means 聚类算法伪代码</h2><pre><code>将所有点看成一个簇
+当簇数目小于 k 时
+对于每一个簇
+    计算总误差
+    在给定的簇上面进行 KMeans 聚类（k=2）
+    计算将该簇一分为二之后的总误差
+选择使得误差最小的那个簇进行划分操作
+</code></pre><p>另一种做法是选择 SSE 最大的簇进行划分，直到簇数目达到用户指定的数目位置。</p>
+<h2 id="二分-K-Means-聚类算法代码"><a href="#二分-K-Means-聚类算法代码" class="headerlink" title="二分 K-Means 聚类算法代码"></a>二分 K-Means 聚类算法代码</h2><p>根据算法思想，我们基于k均值算法做了少许的改动，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''在给定数据集,所期望的簇数目和距离计算方法的条件下,函数返回聚类结果'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">biKmeans</span><span class="params">(dataMat, k, distMeas=distEclud)</span>:</span></span><br><span class="line">    m, n = shape(dataMat)</span><br><span class="line">    <span class="comment"># 创建一个矩阵来存储数据集中每个点的簇分配结果及平方误差</span></span><br><span class="line">    clusterAssment = mat(zeros((m, <span class="number">2</span>)))</span><br><span class="line">    <span class="comment"># 计算整个数据集的质心,并使用一个列表来保留所有的质心</span></span><br><span class="line">    centroid0 = mean(dataMat, axis=<span class="number">0</span>).tolist()[<span class="number">0</span>]</span><br><span class="line">    centList = [centroid0] <span class="comment"># [-0.15772275000000002, 1.2253301166666664]</span></span><br><span class="line">    <span class="comment"># 遍历数据集中所有点来计算每个点到质心的误差值</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(m):</span><br><span class="line">        clusterAssment[j, <span class="number">1</span>] = distMeas(mat(centroid0), dataMat[j, :]) ** <span class="number">2</span></span><br><span class="line">    <span class="comment"># 对簇不停的进行划分,直到得到想要的簇数目为止</span></span><br><span class="line">    <span class="keyword">while</span> (len(centList) &lt; k):</span><br><span class="line">        <span class="comment"># 初始化最小SSE为无穷大,用于比较划分前后的SSE</span></span><br><span class="line">        lowestSSE = inf</span><br><span class="line">        <span class="comment"># 通过考察簇列表中的值来获得当前簇的数目,遍历所有的簇来决定最佳的簇进行划分</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(centList)):</span><br><span class="line">            <span class="comment"># 对每一个簇,将该簇中的所有点堪称一个小的数据集</span></span><br><span class="line">            ptsInCurrCluster = dataMat[nonzero(clusterAssment[:, <span class="number">0</span>].A == i)[<span class="number">0</span>], :]</span><br><span class="line">            <span class="comment"># 将ptsInCurrCluster输入到函数kMeans中进行处理,k=2,</span></span><br><span class="line">            <span class="comment"># kMeans会生成两个质心(簇),同时给出每个簇的误差值</span></span><br><span class="line">            centroidMat, splitClustAss = kMeans(ptsInCurrCluster, <span class="number">2</span>, distMeas)</span><br><span class="line">            <span class="comment"># 将误差值与剩余数据集的误差之和作为本次划分的误差</span></span><br><span class="line">            sseSplit = sum(splitClustAss[:, <span class="number">1</span>])</span><br><span class="line">            sseNotSplit = sum(clusterAssment[nonzero(clusterAssment[:, <span class="number">0</span>].A != i)[<span class="number">0</span>], <span class="number">1</span>])</span><br><span class="line">            print(<span class="string">'sseSplit, and notSplit: '</span>, sseSplit, sseNotSplit)</span><br><span class="line">            <span class="comment"># 如果本次划分的SSE值最小,则本次划分被保存</span></span><br><span class="line">            <span class="keyword">if</span> (sseSplit + sseNotSplit) &lt; lowestSSE:</span><br><span class="line">                bestCentToSplit = i</span><br><span class="line">                bestNewCents = centroidMat</span><br><span class="line">                bestClustAss = splitClustAss.copy()</span><br><span class="line">                lowestSSE = sseSplit + sseNotSplit</span><br><span class="line">        <span class="comment"># 找出最好的簇分配结果</span></span><br><span class="line">        <span class="comment"># 调用kmeans函数并且指定簇数为2时,会得到两个编号分别为0和1的结果簇</span></span><br><span class="line">        bestClustAss[nonzero(bestClustAss[:, <span class="number">0</span>].A == <span class="number">1</span>)[<span class="number">0</span>], <span class="number">0</span>] = len(centList)</span><br><span class="line">        <span class="comment"># 更新为最佳质心</span></span><br><span class="line">        bestClustAss[nonzero(bestClustAss[:, <span class="number">0</span>].A == <span class="number">0</span>)[<span class="number">0</span>], <span class="number">0</span>] = bestCentToSplit</span><br><span class="line">        print(<span class="string">'the bestCentToSplit is: '</span>, bestCentToSplit)</span><br><span class="line">        print(<span class="string">'the len of bestClustAss is: '</span>, len(bestClustAss))</span><br><span class="line">        <span class="comment"># 更新质心列表</span></span><br><span class="line">        <span class="comment"># 更新原质心list中的第i个质心为使用二分kMeans后bestNewCents的第一个质心</span></span><br><span class="line">        centList[bestCentToSplit] = bestNewCents[<span class="number">0</span>, :].tolist()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 添加bestNewCents的第二个质心</span></span><br><span class="line">        centList.append(bestNewCents[<span class="number">1</span>, :].tolist()[<span class="number">0</span>])</span><br><span class="line">        <span class="comment"># 重新分配最好簇下的数据(质心)以及SSE</span></span><br><span class="line">        clusterAssment[nonzero(clusterAssment[:, <span class="number">0</span>].A == bestCentToSplit)[<span class="number">0</span>], :] = bestClustAss</span><br><span class="line">    <span class="keyword">return</span> mat(centList), clusterAssment</span><br></pre></td></tr></table></figure></p>
+<h2 id="测试二分-KMeans-聚类算法"><a href="#测试二分-KMeans-聚类算法" class="headerlink" title="测试二分 KMeans 聚类算法"></a>测试二分 KMeans 聚类算法</h2><p>经过改进后，我们运行biKmeans函数得到可视化结果如下：</p>
+<p><img src="https://i.imgur.com/BCv4mP2.png" alt=""></p>
+<p>总结：如此我们得到预想的结果，解决了局部最优的问题，聚类会收敛到全局最小值。而原始的 kMeans() 函数偶尔会陷入局部最小值。</p>
+<h1 id="调用机器学习库sklearn实现k-means-聚类"><a href="#调用机器学习库sklearn实现k-means-聚类" class="headerlink" title="调用机器学习库sklearn实现k-means 聚类"></a>调用机器学习库sklearn实现k-means 聚类</h1><h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">dataMat = []</span><br><span class="line">fr = open(<span class="string">"./testSet2.txt"</span>) <span class="comment"># 注意，这个是相对路径</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">    curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">    fltLine = list(map(float,curLine))    <span class="comment"># 映射所有的元素为 float（浮点数）类型</span></span><br><span class="line">    dataMat.append(fltLine)</span><br></pre></td></tr></table></figure>
+<h2 id="训练k-means算法模型"><a href="#训练k-means算法模型" class="headerlink" title="训练k-means算法模型"></a>训练k-means算法模型</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">km = KMeans(n_clusters=<span class="number">3</span>) <span class="comment"># 初始化</span></span><br><span class="line">km.fit(dataMat) <span class="comment"># 拟合</span></span><br><span class="line">km_pred = km.predict(dataMat) <span class="comment"># 预测</span></span><br><span class="line">centers = km.cluster_centers_ <span class="comment"># 质心</span></span><br></pre></td></tr></table></figure>
+<h2 id="可视化结果"><a href="#可视化结果" class="headerlink" title="可视化结果"></a>可视化结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(np.array(dataMat)[:, <span class="number">1</span>], np.array(dataMat)[:, <span class="number">0</span>], c=km_pred)</span><br><span class="line">plt.scatter(centers[:, <span class="number">1</span>], centers[:, <span class="number">0</span>], c=<span class="string">"r"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="聚类结果"><a href="#聚类结果" class="headerlink" title="聚类结果"></a>聚类结果</h2><p><img src="https://i.imgur.com/Z9eGXE6.png" alt=""></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>scikit中文社区：<a href="http://sklearn.apachecn.org/cn/0.19.0/" target="_blank" rel="noopener">http://sklearn.apachecn.org/cn/0.19.0/</a></li>
+<li>中文维基百科：<a href="https://zh.wikipedia.org/wiki/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/K-%E5%B9%B3%E5%9D%87%E7%AE%97%E6%B3%95</a></li>
+<li>GitHub：<a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">https://github.com/BaiNingchao/MachineLearning-1</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/XEsawmS.png" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/K-均值算法/" rel="tag"><i class="fa fa-tag"></i> K-均值算法</a>
+          
+            <a href="/tags/k-means/" rel="tag"><i class="fa fa-tag"></i> k-means</a>
+          
+            <a href="/tags/机器学习算法/" rel="tag"><i class="fa fa-tag"></i> 机器学习算法</a>
+          
+            <a href="/tags/文本分类/" rel="tag"><i class="fa fa-tag"></i> 文本分类</a>
+          
+            <a href="/tags/sklean/" rel="tag"><i class="fa fa-tag"></i> sklean</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/19/一步步教你轻松学逻辑回归模型算法/" rel="next" title="一步步教你轻松学逻辑回归模型算法">
+                <i class="fa fa-chevron-left"></i> 一步步教你轻松学逻辑回归模型算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/19/一步步教你轻松学KNN模型算法/" rel="prev" title="一步步教你轻松学KNN模型算法">
+                一步步教你轻松学KNN模型算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理论介绍"><span class="nav-number">1.</span> <span class="nav-text">理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类"><span class="nav-number">1.1.</span> <span class="nav-text">聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-means（k均值）聚类算法"><span class="nav-number">1.2.</span> <span class="nav-text">K-means（k均值）聚类算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k-means聚类算法实现"><span class="nav-number">2.</span> <span class="nav-text">k-means聚类算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述"><span class="nav-number">2.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从文件加载数据集"><span class="nav-number">2.2.</span> <span class="nav-text">从文件加载数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算两个向量的欧氏距离"><span class="nav-number">2.3.</span> <span class="nav-text">计算两个向量的欧氏距离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建一个包含-K-个随机质心的集合"><span class="nav-number">2.4.</span> <span class="nav-text">构建一个包含 K 个随机质心的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-Means-聚类算法"><span class="nav-number">2.5.</span> <span class="nav-text">K-Means 聚类算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：聚类可视化"><span class="nav-number">2.6.</span> <span class="nav-text">分析数据：聚类可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果讨论与分析"><span class="nav-number">2.7.</span> <span class="nav-text">结果讨论与分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分-K-Means-聚类算法"><span class="nav-number">3.</span> <span class="nav-text">二分 K-Means 聚类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法描述"><span class="nav-number">3.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分-K-Means-聚类算法伪代码"><span class="nav-number">3.2.</span> <span class="nav-text">二分 K-Means 聚类算法伪代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分-K-Means-聚类算法代码"><span class="nav-number">3.3.</span> <span class="nav-text">二分 K-Means 聚类算法代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试二分-KMeans-聚类算法"><span class="nav-number">3.4.</span> <span class="nav-text">测试二分 KMeans 聚类算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调用机器学习库sklearn实现k-means-聚类"><span class="nav-number">4.</span> <span class="nav-text">调用机器学习库sklearn实现k-means 聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加载数据集"><span class="nav-number">4.1.</span> <span class="nav-text">加载数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练k-means算法模型"><span class="nav-number">4.2.</span> <span class="nav-text">训练k-means算法模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化结果"><span class="nav-number">4.3.</span> <span class="nav-text">可视化结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类结果"><span class="nav-number">4.4.</span> <span class="nav-text">聚类结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/09/19/一步步教你轻松学K-means聚类算法/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

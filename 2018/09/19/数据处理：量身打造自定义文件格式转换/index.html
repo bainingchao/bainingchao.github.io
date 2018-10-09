@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预">
+<meta name="keywords" content="Python,自然语言处理,数据预处理,NLP,pdf2txt,格式转化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据处理：量身打造自定义文件格式转换">
+<meta property="og:url" content="https://bainingchao.github.io/2018/09/19/数据处理：量身打造自定义文件格式转换/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/GaH2aV8.png">
+<meta property="og:image" content="https://i.imgur.com/d1ZIdpD.png">
+<meta property="og:image" content="https://i.imgur.com/8yy3S7E.png">
+<meta property="og:image" content="https://i.imgur.com/XZS36SK.png">
+<meta property="og:image" content="https://i.imgur.com/daUfeXj.png">
+<meta property="og:image" content="https://i.imgur.com/W5WXgfQ.png">
+<meta property="og:image" content="https://i.imgur.com/dUxk7Jo.png">
+<meta property="og:image" content="https://i.imgur.com/Z513TTk.png">
+<meta property="og:image" content="https://i.imgur.com/EWJof18.png">
+<meta property="og:image" content="https://i.imgur.com/3y2teO7.png">
+<meta property="og:image" content="https://i.imgur.com/K8ePzT7.png">
+<meta property="og:image" content="https://i.imgur.com/qN4fpJm.png">
+<meta property="og:image" content="https://i.imgur.com/i0WdEma.png">
+<meta property="og:image" content="https://i.imgur.com/HuhjYMi.png">
+<meta property="og:image" content="https://i.imgur.com/EDdqonh.png">
+<meta property="og:image" content="https://i.imgur.com/T0XmvRU.png">
+<meta property="og:image" content="https://i.imgur.com/pDlENwI.png">
+<meta property="og:image" content="https://i.imgur.com/sdDO9Rh.png">
+<meta property="og:image" content="https://i.imgur.com/Pl72HY4.png">
+<meta property="og:image" content="https://i.imgur.com/XUNZ4tV.png">
+<meta property="og:image" content="https://i.imgur.com/VbMIHW1.png">
+<meta property="og:image" content="https://i.imgur.com/TYl13aT.png">
+<meta property="og:image" content="https://i.imgur.com/fDcgSzw.png">
+<meta property="og:updated_time" content="2018-09-25T06:55:42.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据处理：量身打造自定义文件格式转换">
+<meta name="twitter:description" content="摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预">
+<meta name="twitter:image" content="https://i.imgur.com/GaH2aV8.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/09/19/数据处理：量身打造自定义文件格式转换/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据处理：量身打造自定义文件格式转换 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/09/19/数据处理：量身打造自定义文件格式转换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">数据处理：量身打造自定义文件格式转换
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-19 13:40:46" itemprop="dateCreated datePublished" datetime="2018-09-19T13:40:46+08:00">2018-09-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-25 14:55:42" itemprop="dateModified" datetime="2018-09-25T14:55:42+08:00">2018-09-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/自然语言处理/" itemprop="url" rel="index"><span itemprop="name">自然语言处理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预处理工作。笔者采用一些工具转换效果都不理想，于是才出现本系统的研究与实现。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="本文概述"><a href="#本文概述" class="headerlink" title="本文概述"></a>本文概述</h1><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><blockquote>
+<p>为什么要文件格式转换？</p>
+</blockquote>
+<p>无论读者现在是做数据挖掘、数据分析、自然语言处理、智能对话系统、商品推荐系统等等，都不可避免的涉及语料的问题即大数据。数据来源无非分为结构化数据、半结构化数据和非结构化数据。其中结构化数据以规范的文档、数据库文件等等为代表；半结构化数据以网页、json文件等为代表；非结构化数据以自由文本为主，诸如随想录、中医病症记录等等。遗憾的是现实生活中半结构化和非结构化数据居多，而且往往还需要自己去收集。<br>读者试想以下情况：</p>
+<ol>
+<li>你的技术主管交给你一堆数据文件，让你做数据分析工作。你打开一看文件格式繁杂，诸如pdf、doc、docx、txt、excel等。更悲催的是有些pdf文件还是加密的，或者是图片格式的等复杂情况。此刻你采用什么方法做数据分析与预处理工作呢？</li>
+<li>上面情况算你幸运，隔几天技术主管直接给你一堆网站，让你自己去采集信息。你或许会惊喜的说的，那不简单，使用爬虫技术不就可以啦？恭喜你思路完全正确，可是爬取过程中遇到一些网页是pdf格式的情况，你不能直接抓取页面了。你此刻如何去采集信息呢？</li>
+</ol>
+<blockquote>
+<p>现有工具的转换效果如何</p>
+</blockquote>
+<p>针对以上典型的情况，自定义插件PDFMiner、win2com等将派上用场（本文主要讲述文件格式转化，网络爬虫解析读者自行研究）。首先我们看看常规方式的处理，比如我下载个格式转化软件或者在线格式转化软件，具体如下所示：<br>在线格式转换工具1页面效果如下：</p>
+<p><img src="https://i.imgur.com/GaH2aV8.png" alt=""></p>
+<p>pdf格式转化为txt后的效果如下：</p>
+<p><img src="https://i.imgur.com/d1ZIdpD.png" alt=""></p>
+<p>上面转换效果读者是否满意？是否因为某一个在线转换工具不完备，那我们再尝试一个,在线格式转换工具2页面效果如下：</p>
+<p><img src="https://i.imgur.com/8yy3S7E.png" alt=""></p>
+<p>pdf格式转化为txt后的效果如下：</p>
+<p><img src="https://i.imgur.com/XZS36SK.png" alt=""></p>
+<p>继续我们的格式转换工作，我们这次采用offic软件内带的pdf另存为效果如下：</p>
+<p><img src="https://i.imgur.com/daUfeXj.png" alt=""></p>
+<blockquote>
+<p>总结</p>
+</blockquote>
+<p>通过上面现有常规的方法，我们总结出以下问题：<br>    1、 格式转换后，识别乱码较多。<br>    2、 不支持或者限制支持批量处理。<br>    3、 格式转换后的txt文件存在编码问题。<br>    4、 生成目标文件的标题跟原标题不一致。<br>    5、 操作不够灵活便捷。</p>
+<h2 id="基于自定义格式转换介绍"><a href="#基于自定义格式转换介绍" class="headerlink" title="基于自定义格式转换介绍"></a>基于自定义格式转换介绍</h2><blockquote>
+<p>预期效果</p>
+</blockquote>
+<pre><code>1、 将带有嵌套的目录放在一个根目录文件下，只需要传入文件名即可自动转化。
+2、 自动过滤掉不符合指定格式的文件。
+3、 对处理的pdf文件不能识别的（加密文件等）给出日志记录其路径。
+4、 生成目标文件的标题跟原文件目录标题保持一致。
+5、 生成的文件按照统一的utf-8编码格式保存。
+6、 支持默认保存路径与自定义保存路径。
+</code></pre><blockquote>
+<p>预期效果展示</p>
+</blockquote>
+<p>待处理语料数据如下：</p>
+<p><img src="https://i.imgur.com/W5WXgfQ.png" alt=""></p>
+<p>处理后默认自动保存的结果（支持自定义指定保存目录）：</p>
+<p><img src="https://i.imgur.com/dUxk7Jo.png" alt=""></p>
+<p>基于自定义插件的文本转化效果：</p>
+<p><img src="https://i.imgur.com/Z513TTk.png" alt=""></p>
+<p>基于pdfminer插件的运行效果</p>
+<p><img src="https://i.imgur.com/EWJof18.png" alt=""></p>
+<h1 id="基础配置工作"><a href="#基础配置工作" class="headerlink" title="基础配置工作"></a>基础配置工作</h1><h2 id="基础准备工作"><a href="#基础准备工作" class="headerlink" title="基础准备工作"></a>基础准备工作</h2><blockquote>
+<p>运行环境</p>
+</blockquote>
+<pre><code>1、windows7以上64bit操作系统
+2、sublime运行环境
+3、python3.0+
+</code></pre><blockquote>
+<p>需要插件</p>
+</blockquote>
+<pre><code>1、 pdfminer插件： 链接: https://pan.baidu.com/s/1p7X430bvBpjJ-qGNO-Fmcg 密码: v5th
+   或者：pip install pdfminer3k
+</code></pre><p><img src="https://i.imgur.com/3y2teO7.png" alt=""></p>
+<pre><code>2、 win2com 插件：链接: https://pan.baidu.com/s/1-2BsiTs8XjMIe5Gnh_GFjw 密码: 7j3t
+   pip install pypiwin32
+</code></pre><p><img src="https://i.imgur.com/K8ePzT7.png" alt=""></p>
+<h2 id="类库重构"><a href="#类库重构" class="headerlink" title="类库重构"></a>类库重构</h2><blockquote>
+<p>算法基础类库重构</p>
+</blockquote>
+<p>重构又称高度代码封装，旨在代码重用和面向对象编程。本文将相关基本方法封装在一个类库中供外部类调用，提高代码复用性和可读性。具体重构文件结构如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">重构文件名：BaseClass.py</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：遍历目录，对子文件单独处理</span></span><br><span class="line"><span class="string">参数描述：</span></span><br><span class="line"><span class="string">        1 rootdir：待处理的目录路径</span></span><br><span class="line"><span class="string">        2 deffun： 方法参数，默认为空</span></span><br><span class="line"><span class="string">        3 savepath: 保存路径</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TraversalFun</span><span class="params">()</span>:</span></span><br><span class="line">	TraversalDir：遍历目录文件方法</span><br><span class="line">	creat_savepath：支持默认和自定义保存目录方法</span><br><span class="line">	AllFiles：递归遍历所有文件，并提供具体文件操作功能</span><br><span class="line">	TranType：通过指定关键字操作，检查文件类型并转化目标类型</span><br><span class="line">	filelogs：记录文件处理日志方法</span><br><span class="line">	cleardir：清空目录文件方法</span><br><span class="line">	writeFile：文件的写操作方法</span><br><span class="line">	readFile：文件的读操作方法</span><br><span class="line">	mkdir：创建目录方法</span><br><span class="line"></span><br><span class="line">	<span class="string">'''</span></span><br><span class="line"><span class="string">	功能描述：提供全局变量类</span></span><br><span class="line"><span class="string">	作    者：白宁超</span></span><br><span class="line"><span class="string">	时    间：2017年10月24日15:07:38</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Global</span><span class="params">(object)</span>:</span>提高各个公共全局变量</span><br><span class="line"></span><br><span class="line">	<span class="string">'''</span></span><br><span class="line"><span class="string">	功能描述：测试类</span></span><br><span class="line"><span class="string">	作    者：白宁超</span></span><br><span class="line"><span class="string">	时    间：2017年10月24日15:07:38</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">TestMethod</span><span class="params">(filepath,newpath)</span>:</span>方法测试类</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>核心方法详解</p>
+</blockquote>
+<p>1 TraversalFun类方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,rootdir,deffun=None,savedir=<span class="string">""</span>)</span>:</span></span><br><span class="line">    self.rootdir = rootdir <span class="comment"># 目录路径</span></span><br><span class="line">    self.deffun = deffun   <span class="comment"># 参数方法</span></span><br><span class="line">    self.savedir = savedir <span class="comment"># 保存路径</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">''' 遍历目录文件'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TraversalDir</span><span class="params">(self,defpar=<span class="string">'newpath'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 支持默认和自定义保存目录</span></span><br><span class="line">        newdir = TraversalFun.creat_savepath(self,defpar)</span><br><span class="line">        <span class="comment"># 递归遍历word文件并将其转化txt文件</span></span><br><span class="line">        TraversalFun.AllFiles(self,self.rootdir,newdir)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">raise</span> e</span><br><span class="line"></span><br><span class="line"><span class="string">'''支持默认和自定义保存目录'''</span></span><br><span class="line"><span class="comment"># @staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">creat_savepath</span><span class="params">(self,defpar)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名('F:\\kjxm\\kjt', '1.txt')</span></span><br><span class="line">    prapath,filename = os.path.split(self.rootdir)</span><br><span class="line">    newdir = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> self.savedir==<span class="string">""</span>:</span><br><span class="line">        newdir = os.path.abspath(os.path.join(prapath,filename+<span class="string">"_"</span>+defpar))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newdir = self.savedir</span><br><span class="line">    print(<span class="string">"保存目录路径：\n"</span>+newdir)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newdir):</span><br><span class="line">        os.mkdir(newdir)</span><br><span class="line">    <span class="keyword">return</span> newdir</span><br><span class="line"></span><br><span class="line"><span class="string">'''递归遍历所有文件，并提供具体文件操作功能。'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AllFiles</span><span class="params">(self,rootdir,newdir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 返回指定目录包含的文件或文件夹的名字的列表</span></span><br><span class="line">    <span class="keyword">for</span> lists <span class="keyword">in</span> os.listdir(rootdir):</span><br><span class="line">        <span class="comment"># 待处理文件夹名字集合</span></span><br><span class="line">        path = os.path.join(rootdir, lists)</span><br><span class="line">        <span class="comment"># 核心算法，对文件具体操作</span></span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">            self.deffun(path,newdir) <span class="comment"># 具体方法实现功能</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># TraversalFun.filelogs(rootdir)  # 日志文件</span></span><br><span class="line">        <span class="comment"># 递归遍历文件目录</span></span><br><span class="line">        <span class="keyword">if</span> os.path.isdir(path):</span><br><span class="line">            newpath = os.path.join(newdir, lists)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newpath):</span><br><span class="line">                os.mkdir(newpath)</span><br><span class="line">            TraversalFun.AllFiles(self,path,newpath)</span><br><span class="line"></span><br><span class="line"><span class="string">''' 通过指定关键字操作，检查文件类型并转化目标类型'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TranType</span><span class="params">(filename,typename)</span>:</span></span><br><span class="line">    <span class="comment"># print("本方法支持文件类型处理格式：pdf2txt，代表pdf转化为txt；word2txt，代表word转化txt；word2pdf，代表word转化pdf。")</span></span><br><span class="line">    <span class="comment"># 新的文件名称</span></span><br><span class="line">    new_name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">"pdf2txt"</span> :</span><br><span class="line">        <span class="comment">#如果不是pdf文件，或者是pdf临时文件退出</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> fnmatch.fnmatch(filename, <span class="string">'*.pdf'</span>) <span class="keyword">or</span> <span class="keyword">not</span> fnmatch.fnmatch(filename, <span class="string">'*.PDF'</span>) <span class="keyword">or</span> fnmatch.fnmatch(filename, <span class="string">'~$*'</span>):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># 如果是pdf文件，修改文件名</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.pdf'</span>) <span class="keyword">or</span> fnmatch.fnmatch(filename, <span class="string">'*.PDF'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span> <span class="comment"># 截取".pdf"之前的文件名</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">"word2txt"</span> :</span><br><span class="line">        <span class="comment">#如果是word文件：</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.doc'</span>) :</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span></span><br><span class="line">            print(new_name)</span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.docx'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-5</span>]+<span class="string">'.txt'</span></span><br><span class="line">        <span class="comment"># 如果不是word文件，或者是word临时文件退出</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">"word2pdf"</span> :</span><br><span class="line">        <span class="comment">#如果是word文件：</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.doc'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.pdf'</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.docx'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-5</span>]+<span class="string">'.pdf'</span></span><br><span class="line">        <span class="comment">#如果不是word文件：继续</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">return</span> new_name</span><br><span class="line"></span><br><span class="line"><span class="string">'''记录文件处理日志'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filelogs</span><span class="params">(rootdir)</span>:</span></span><br><span class="line">    prapath,filename = os.path.split(rootdir)</span><br><span class="line">    <span class="comment"># 创建日志目录</span></span><br><span class="line">    dirpath = prapath+<span class="string">r"/"</span>+filename+<span class="string">"_logs"</span></span><br><span class="line">    TraversalFun.mkdir(dirpath)</span><br><span class="line">    <span class="comment"># 错误文件路径</span></span><br><span class="line">    errorpath = dirpath+<span class="string">r"/errorlogs.txt"</span></span><br><span class="line">    <span class="comment"># 限制文件路径</span></span><br><span class="line">    limitpath = dirpath+<span class="string">r"/limitlogs.txt"</span></span><br><span class="line">    <span class="comment"># 错误文件日志写入</span></span><br><span class="line">    TraversalFun.writeFile(errorpath,<span class="string">'\n'</span>.join(Global.error_file_list))</span><br><span class="line">    <span class="comment"># # 限制文件日志写入</span></span><br><span class="line">    TraversalFun.writeFile(limitpath,<span class="string">'\n'</span>.join(Global.limit_file_list))</span><br><span class="line"></span><br><span class="line"><span class="string">'''清空目录文件'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cleardir</span><span class="params">(dirpath)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(dirpath):</span><br><span class="line">        TraversalFun.mkdir(dirpath)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        shutil.rmtree(dirpath)</span><br><span class="line">        TraversalFun.mkdir(dirpath)</span><br><span class="line"></span><br><span class="line"><span class="string">''' 文件的写操作'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">writeFile</span><span class="params">(filepath,strs)</span>:</span> <span class="comment">#encoding="utf-8"</span></span><br><span class="line">    <span class="keyword">with</span> open(filepath,<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(strs.encode())</span><br><span class="line"></span><br><span class="line"><span class="string">''' 文件的读操作'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readFile</span><span class="params">(filepath)</span>:</span></span><br><span class="line">    isfile = os.path.exists(filepath)</span><br><span class="line">    readstr = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> isfile:</span><br><span class="line">        <span class="keyword">with</span> open(filepath,<span class="string">"r"</span>,encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">            readstr = f.read()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">return</span> readstr</span><br><span class="line"></span><br><span class="line"><span class="string">''' 创建目录 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mkdir</span><span class="params">(dirpath)</span>:</span></span><br><span class="line">    <span class="comment"># 判断路径是否存在</span></span><br><span class="line">    isExists=os.path.exists(dirpath)</span><br><span class="line">    <span class="comment"># 判断结果</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> isExists:</span><br><span class="line">        os.makedirs(dirpath)</span><br><span class="line">        print(dirpath+<span class="string">' 创建成功'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>2 TestMethod测试类<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestMethod</span><span class="params">(filepath,newpath)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> os.path.isfile(filepath) :</span><br><span class="line">        print(<span class="string">"this is file name:"</span>+filepath)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>3 利用测试类方法运行方法参数效果图</p>
+<p>方法的调用：传达参数分别是跟目录和测试类中的方法参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">t1=time.time()</span><br><span class="line"><span class="comment"># 根目录文件路径</span></span><br><span class="line">rootDir = <span class="string">r"../../Corpus/DataSet"</span></span><br><span class="line">tra=TraversalFun(rootDir,TestMethod) <span class="comment"># 默认方法参数打印所有文件路径</span></span><br><span class="line">tra.TraversalDir()                   <span class="comment"># 遍历文件并进行相关操作</span></span><br><span class="line"></span><br><span class="line">t2=time.time()</span><br><span class="line">totalTime=Decimal(str(t2-t1)).quantize(Decimal(<span class="string">'0.0000'</span>))</span><br><span class="line">print(<span class="string">"耗时："</span>+str(totalTime)+<span class="string">" s"</span>+<span class="string">"\n"</span>)</span><br><span class="line">input()</span><br></pre></td></tr></table></figure></p>
+<p>运行结果如图所示：<br><img src="https://i.imgur.com/qN4fpJm.png" alt=""></p>
+<h1 id="基于pdfminer插件的pdf批量格式转换代码实现"><a href="#基于pdfminer插件的pdf批量格式转换代码实现" class="headerlink" title="基于pdfminer插件的pdf批量格式转换代码实现"></a>基于pdfminer插件的pdf批量格式转换代码实现</h1><blockquote>
+<p>pdfminer原理介绍</p>
+</blockquote>
+<p><img src="https://i.imgur.com/i0WdEma.png" alt=""></p>
+<p>由于解析PDF是一件非常耗时和内存的工作，因此PDFMiner使用了一种称作lazy parsing的策略，只在需要的时候才去解析，以减少时间和内存的使用。要解析PDF至少需要两个类：PDFParser 和 PDFDocument，PDFParser 从文件中提取数据，PDFDocument保存数据。另外还需要PDFPageInterpreter去处理页面内容，PDFDevice将其转换为我们所需要的。PDFResourceManager用于保存共享内容例如字体或图片。</p>
+<p><img src="https://i.imgur.com/HuhjYMi.png" alt=""></p>
+<ol>
+<li>LTPage :表示整个页。可能会含有LTTextBox，LTFigure，LTImage，LTRect，LTCurve和LTLine子对象。</li>
+<li>LTTextBox:表示一组文本块可能包含在一个矩形区域。注意此box是由几何分析中创建，并且不一定表示该文本的一个逻辑边界。它包含TTextLine对象的列表。使用 get_text（）方法返回的文本内容。</li>
+<li>LTTextLine :包含表示单个文本行LTChar对象的列表。字符对齐要么 水平或垂直，取决于文本的写入模式。 </li>
+<li>get_text（）方法返回的文本内容。</li>
+<li>LTAnno:在文本中实际的字母表示为Unicode字符串（？）。需要注意的是，虽然一个LTChar对象具有实际边界，LTAnno对象没有，因为这些是“虚拟”的字符，根据两个字符间的关系（例如，一个空格）由布局分析后插入。</li>
+<li>LTImage:表示一个图像对象。嵌入式图像可以是JPEG或其它格式，但是目前PDFMiner没有放置太多精力在图形对象。</li>
+<li>LTLine:代表一条直线。可用于分离文本或附图。</li>
+<li>LTRect:表示矩形。可用于框架的另一图片或数字。</li>
+<li>LTCurve:表示一个通用的 Bezier曲线</li>
+</ol>
+<blockquote>
+<p>pdfminer学习文献</p>
+</blockquote>
+<p>英文官方：<a href="https://euske.github.io/pdfminer/index.html" target="_blank" rel="noopener">https://euske.github.io/pdfminer/index.html</a><br>中文：<a href="https://blog.csdn.net/robolinux/article/details/43318229" target="_blank" rel="noopener">https://blog.csdn.net/robolinux/article/details/43318229</a></p>
+<blockquote>
+<p>pdfminer代码实现</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pdfminer库的地址 https://pypi.python.org/pypi/pdfminer3k</span></span><br><span class="line"><span class="comment"># 下载后，用cmd执行命令 setup.py install</span></span><br><span class="line"><span class="keyword">from</span> pdfminer.pdfparser <span class="keyword">import</span> PDFParser,PDFDocument</span><br><span class="line"><span class="keyword">from</span> pdfminer.pdfinterp <span class="keyword">import</span> PDFResourceManager, PDFPageInterpreter</span><br><span class="line"><span class="keyword">from</span> pdfminer.converter <span class="keyword">import</span> PDFPageAggregator</span><br><span class="line"><span class="keyword">from</span> pdfminer.layout <span class="keyword">import</span> LTTextBoxHorizontal,LAParams</span><br><span class="line"><span class="keyword">from</span> pdfminer.pdfinterp <span class="keyword">import</span> PDFTextExtractionNotAllowed</span><br><span class="line"><span class="keyword">from</span> decimal <span class="keyword">import</span> Decimal</span><br><span class="line"><span class="keyword">import</span> time,fnmatch,os,re,sys</span><br><span class="line"><span class="keyword">from</span> BaseClass <span class="keyword">import</span> *  <span class="comment">#全局变量</span></span><br><span class="line"><span class="comment"># from BaseClass import TraversalFun # 文件遍历处理基类函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除警告</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.Logger.propagate = <span class="keyword">False</span></span><br><span class="line">logging.getLogger().setLevel(logging.ERROR)</span><br><span class="line"></span><br><span class="line"><span class="string">'''pdf文件格式转换为txt'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PdfToText</span><span class="params">(filepath,newdir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名</span></span><br><span class="line">    prapath,filename = os.path.split(filepath)</span><br><span class="line">    new_txt_name=TraversalFun.TranType(filename,<span class="string">"pdf2txt"</span>) <span class="comment"># 更改文件名</span></span><br><span class="line">    <span class="keyword">if</span> new_txt_name ==<span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    newpath = os.path.join(newdir,new_txt_name) <span class="comment"># 文件保存路径</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">"-&gt;格式转换后保留路径：\n"</span>+newpath)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        praser = PDFParser(open(filepath, <span class="string">'rb'</span>)) <span class="comment"># 创建一个pdf文档分析器</span></span><br><span class="line">        doc = PDFDocument()  <span class="comment"># 创建一个PDF文档</span></span><br><span class="line">        praser.set_document(doc)  <span class="comment"># 连接分析器 与文档对象</span></span><br><span class="line">        doc.set_parser(praser)</span><br><span class="line">        doc.initialize()  <span class="comment"># 提供初始化密码，如果没有密码 就创建一个空的字符串</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检测文档是否提供txt转换，不提供就忽略</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> doc.is_extractable:</span><br><span class="line">            Global.error_file_list.append(filepath)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        rsrcmgr = PDFResourceManager() <span class="comment"># 创建PDf 资源管理器管理共享资源</span></span><br><span class="line">        laparams = LAParams() <span class="comment"># 创建一个PDF设备对象</span></span><br><span class="line">        device = PDFPageAggregator(rsrcmgr, laparams=laparams)</span><br><span class="line">        interpreter = PDFPageInterpreter(rsrcmgr, device)  <span class="comment"># 创建一个PDF解释器对象</span></span><br><span class="line">        pdfStr = <span class="string">""</span> <span class="comment"># 存储解析后的提取内容</span></span><br><span class="line">        <span class="comment"># 循环遍历列表，每次处理一个page的内容</span></span><br><span class="line">        <span class="keyword">for</span> page <span class="keyword">in</span> doc.get_pages(): <span class="comment"># doc.get_pages()获取page列表</span></span><br><span class="line">            interpreter.process_page(page)</span><br><span class="line">            layout = device.get_result()  <span class="comment"># 接受该页面的LTPage对象</span></span><br><span class="line">            <span class="comment"># 这里layout是一个LTPage对象 里面存放着 这个page解析出的各种对象 一般包括LTTextBox, LTFigure, LTImage, LTTextBoxHorizontal 等等 想要获取文本就获得对象的text属性，</span></span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> layout:</span><br><span class="line">                <span class="keyword">if</span> (isinstance(x, LTTextBoxHorizontal)):</span><br><span class="line">                    pdfStr = pdfStr + x.get_text()</span><br><span class="line"></span><br><span class="line">        TraversalFun.writeFile(newpath,pdfStr) <span class="comment"># 写文件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 限制文件列表</span></span><br><span class="line">        filesize = os.path.getsize(newpath)</span><br><span class="line">        <span class="keyword">if</span> filesize &lt; Global.limit_file_size :</span><br><span class="line">            Global.limit_file_list.append(newpath+<span class="string">"\t"</span>+ str(Decimal(filesize/<span class="number">1024</span>).quantize(Decimal(<span class="string">'0.00'</span>))) +<span class="string">"KB"</span>)</span><br><span class="line">            os.remove(newpath)</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            Global.all_FileNum+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        Global.error_file_list.append(filepath)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    t1=time.time()</span><br><span class="line"></span><br><span class="line">    rootDir =  <span class="string">r"../../Corpus/DataSet"</span> <span class="comment"># 默认处理路径</span></span><br><span class="line">    TraversalFun.cleardir(<span class="string">r'../../Corpus/DataSet_newpath'</span>) <span class="comment"># 每次加载清空目录</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'【批量生成的文件:】'</span>)</span><br><span class="line">    tra=TraversalFun(rootDir,PdfToText) <span class="comment"># 默认方法参数打印所有文件路径</span></span><br><span class="line">    tra.TraversalDir()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 写入日志文件</span></span><br><span class="line">    TraversalFun.filelogs(rootDir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'共处理文档数目：'</span>+str(Global.all_FileNum+len(Global.error_file_list)+len(Global.limit_file_list))+<span class="string">' 个,其中:\n \</span></span><br><span class="line"><span class="string">        1) 筛选文件(可用)'</span>+str(Global.all_FileNum)+<span class="string">'个.\n \</span></span><br><span class="line"><span class="string">        2) 错误文件(不能识别)'</span>+ str(len(Global.error_file_list)) +<span class="string">'个.\n \</span></span><br><span class="line"><span class="string">        3) 限制文件(&lt;5K)'</span>+ str(len(Global.limit_file_list))+<span class="string">'个.'</span> )</span><br><span class="line">    t2=time.time()</span><br><span class="line">    totalTime=Decimal(str(t2-t1)).quantize(Decimal(<span class="string">'0.0000'</span>))</span><br><span class="line">    print(<span class="string">"耗时："</span>+str(totalTime)+<span class="string">" s"</span>+<span class="string">"\n"</span>)</span><br><span class="line">    input()</span><br></pre></td></tr></table></figure>
+<p>解析pdf文件用到的类：</p>
+<ol>
+<li>PDFParser：从一个文件中获取数据</li>
+<li>PDFDocument：保存获取的数据，和PDFParser是相互关联的</li>
+<li>PDFPageInterpreter处理页面内容</li>
+<li>PDFDevice将其翻译成你需要的格式</li>
+<li>PDFResourceManager用于存储共享资源，如字体或图像。</li>
+</ol>
+<blockquote>
+<p>pdfminer页面结果：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/EDdqonh.png" alt=""></p>
+<blockquote>
+<p>pdfminer转化结果</p>
+</blockquote>
+<p><img src="https://i.imgur.com/T0XmvRU.png" alt=""></p>
+<blockquote>
+<p>实验结论</p>
+</blockquote>
+<p>错误分析，打开日志文件查看</p>
+<p><img src="https://i.imgur.com/pDlENwI.png" alt=""></p>
+<p>错误原因分析：因为我们在全局变量中限制了最小文件读取1KB，该文件0KB不符合要求故而过滤出来。打开查看发现该pdf是一张图片转换出来的，没有成功识别。但是，通过技术研究是可以实现的，本文没有深入进行。还有以下结论：</p>
+<pre><code>1 可以支持批量文本和单文本转化。
+2 编码格式一致，默认utf-8。
+3 生成文件名誉原始处理文件名保存一致。
+4 生成的文本信息相对比较规范。
+</code></pre><p>支持多方式转化，其他案例读者自行研究。</p>
+<blockquote>
+<p>扩展学习</p>
+</blockquote>
+<p>在解析有些PDF的时候会报这样的异常：pdfminer.pdfdocument.PDFEncryptionError: Unknown algorithm: param={‘CF’: {‘StdCF’: {‘Length’: 16, ‘CFM’: /AESV2, ‘AuthEvent’: /DocOpen}}, ‘O’: ‘\xe4\xe74\xb86/\xa8)\xa6x\xe6\xa3/U\xdf\x0fWR\x9cPh\xac\xae\x88B\x06_\xb0\x93@\x9f\x8d’, ‘Filter’: /Standard, ‘P’: -1340, ‘Length’: 128, ‘R’: 4, ‘U’: ‘|UTX#f\xc9V\x18\x87z\x10\xcb\xf5{\xa7\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00’, ‘V’: 4, ‘StmF’: /StdCF, ‘StrF’: /StdCF}<br>如上是加密的PDF，所以无法解析 ，但是如果直接打开PDF却是可以的并没有要求输密码什么的，原因是这个PDF虽然是加过密的，但密码是空，所以就出现了这样的问题。<br>解决这个的问题的办法是通过qpdf命令来解密文件（要确保已经安装了qpdf），要想在python中调用该命令只需使用call即可：<br>    1 from subprocess import call<br>    2 call(‘qpdf —password=%s —decrypt %s %s’ %(‘’, file_path, new_file_path), shell=True)<br>其中参数file_path是要解密的PDF的路径，new_file_path是解密后的PDF文件路径，然后使用解密后的文件去做解析就OK了</p>
+<h1 id="基于win32com插件的代码实现"><a href="#基于win32com插件的代码实现" class="headerlink" title="基于win32com插件的代码实现"></a>基于win32com插件的代码实现</h1><blockquote>
+<p>导入相关包</p>
+</blockquote>
+<pre><code>from win32com import client as wc
+from win32com.client import Dispatch, constants, gencache
+import os,fnmatch,time,sys
+from decimal import Decimal
+from BaseClass import *  # 自定义类库
+</code></pre><blockquote>
+<p>word的doc或docx文件转化pdf文本</p>
+</blockquote>
+<p>1 代码实现<br>    ‘’’<br>    功能名称：word的doc或docx文件转化pdf文本<br>    功能描述：输入一个doc或docx文件路径，自动转化为pdf文件，并存储在当前路径下。<br>              用户可以指定存储文件路径。<br>    参数描述：<br>              1 filepath：单个文件路径<br>              2 newdir： 指定保存路径<br>    测试路径： F:\corper\kjt\1.docx<br>    ‘’’<br>    def doc2pdf(filepath,newDir=’’):</p>
+<pre><code>    # 文件路径切分为上级路径和文件名
+    prapath,filename = os.path.split(filepath)
+    # 单文件处理使用
+    if newDir==&#39;&#39;:
+        newDir = prapath
+    else:
+        newDir =newDir
+    new_txt_name=TraversalFun.TranType(filename,&quot;word2pdf&quot;)
+    if new_txt_name ==None:
+        return
+    else:
+        print(new_txt_name)
+        newpath = os.path.join(newDir,new_txt_name)
+        word = wc.DispatchEx(&quot;Word.Application&quot;)
+        worddoc = word.Documents.Open(filepath,ReadOnly = 1)
+        worddoc.SaveAs(newpath, FileFormat = 17)
+        worddoc.Close()
+
+        Global.all_FileNum+=1
+</code></pre><p>2 单个word转换pdf<br>主程序运行代码：</p>
+<pre><code># 单个word转换pdf
+filepath=os.path.abspath(r&quot;../../Corpus/DataSet/2012/科技项目数据挖掘决策架构.docx&quot;)
+doc2pdf(filepath)
+</code></pre><p>控制台打印效果：<br>    科技项目数据挖掘决策架构.pdf<br>    共处理文档数目：1 个<br>    耗时：3.6121 s</p>
+<p>结果：</p>
+<p><img src="https://i.imgur.com/sdDO9Rh.png" alt=""></p>
+<p>打开显示：</p>
+<p><img src="https://i.imgur.com/Pl72HY4.png" alt=""></p>
+<p>3 批量word转换pdf<br>主程序运行代码：<br>    rootDir =os.path.abspath(r”../../Corpus/DataSet”)</p>
+<pre><code># 1 批量的word转换pdf
+tra=TraversalFun(rootDir,doc2pdf) # 默认方法参数打印所有文件路径
+tra.TraversalDir(&#39;word2pdf&#39;)
+</code></pre><p>控制台打印效果：<br>    保存目录路径：<br>    F:\AllNote\AllProject\TechDataMining\Corpus\DataSet_word2pdf<br>    科技项目数据挖掘决策架构.pdf<br>    科技项目数据挖掘决策架构.pdf<br>    共处理文档数目：2 个<br>    耗时：7.1494 s<br>结果：</p>
+<p><img src="https://i.imgur.com/XUNZ4tV.png" alt=""></p>
+<blockquote>
+<p>word的doc或docx文件转化txt文本</p>
+</blockquote>
+<p>1 代码实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能名称：单个word的doc或docx文件转化txt文本</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">WordTranslate</span><span class="params">(filepath,newDir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名</span></span><br><span class="line">    prapath,filename = os.path.split(os.path.abspath(filepath))</span><br><span class="line">    <span class="keyword">if</span> newDir==<span class="string">''</span>:</span><br><span class="line">        newDir = prapath</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newDir =newDir</span><br><span class="line">    new_txt_name=TraversalFun.TranType(filename,<span class="string">'word2txt'</span>)</span><br><span class="line">    <span class="keyword">if</span> new_txt_name == <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        word_to_txt = os.path.join(newDir,new_txt_name)</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">"格式转换后保留路径：\n"</span>+word_to_txt)</span><br><span class="line">        <span class="comment">#加载处理应用</span></span><br><span class="line">        wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">        doc = wordapp.Documents.Open(filepath)</span><br><span class="line">        <span class="comment">#为了让python可以在后续操作中r方式读取txt和不产生乱码，参数为4</span></span><br><span class="line">        doc.SaveAs(word_to_txt,<span class="number">4</span>)</span><br><span class="line">        doc.Close()</span><br><span class="line">        <span class="comment"># print(word_to_txt)</span></span><br><span class="line">        Global.all_FileNum += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>2  单个word转换txt</p>
+<pre><code># 单个word转换txt  
+filepath=os.path.abspath(r&quot;../../Corpus/DataSet/2012/科技项目数据挖掘决策架构.docx&quot;)
+WordTranslate(filepath)
+</code></pre><p>3 批量的word转换txt</p>
+<pre><code># 批量的word转换txt
+tra=TraversalFun(rootDir,WordTranslate) # 默认方法参数打印所有文件路径
+tra.TraversalDir(&#39;word2txt&#39;)
+</code></pre><p>4 批量的word转换txt结果</p>
+<p><img src="https://i.imgur.com/VbMIHW1.png" alt=""></p>
+<blockquote>
+<p>pdf文件转化txt文本</p>
+</blockquote>
+<p>1 代码实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能名称：pdf文件转化txt文本</span></span><br><span class="line"><span class="string">功能描述：输入一个pdf文件路径，自动转化为txt文件，并存储在当前路径下。</span></span><br><span class="line"><span class="string">          用户可以指定存储文件路径。</span></span><br><span class="line"><span class="string">参数描述：</span></span><br><span class="line"><span class="string">          1 filepath：单个文件路径</span></span><br><span class="line"><span class="string">          2 newdir： 指定保存路径</span></span><br><span class="line"><span class="string">测试路径： F:\corper\kjt\申报书.pdf</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PdfTranslate</span><span class="params">(filepath,newDir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名</span></span><br><span class="line">    prapath,filename = os.path.split(filepath)</span><br><span class="line">    <span class="keyword">if</span> newDir==<span class="string">""</span>:</span><br><span class="line">        newDir = prapath</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newDir = newDir</span><br><span class="line">    new_txt_name=TraversalFun.TranType(filename,<span class="string">"pdf2txt"</span>)</span><br><span class="line">    <span class="keyword">if</span> new_txt_name ==<span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        word_to_txt = os.path.join(newDir,new_txt_name)</span><br><span class="line">        <span class="comment"># print(word_to_txt)</span></span><br><span class="line">        <span class="comment">#加载处理应用</span></span><br><span class="line">        wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">        doc = wordapp.Documents.Open(filepath)</span><br><span class="line">        <span class="comment">#为了让python可以在后续操作中r方式读取txt和不产生乱码，参数为4</span></span><br><span class="line">        doc.SaveAs(word_to_txt,<span class="number">4</span>)</span><br><span class="line">        doc.Close()</span><br><span class="line">        Global.all_FileNum += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>2  单个pdf文件转化txt文本</p>
+<pre><code># 单个pdf转换txt
+filepath=os.path.abspath(r&quot;../../Corpus/DataSet/2012/改进朴素贝叶斯文本分类方法研究.pdf&quot;)
+PdfTranslate(filepath)
+</code></pre><p>3 批量pdf文件转化txt文本</p>
+<pre><code># 3 批量的pdf转换txt
+tra=TraversalFun(rootDir,PdfTranslate) # 默认方法参数打印所有文件路径
+tra.TraversalDir(&quot;pdf2txt&quot;)
+</code></pre><p>4 批量pdf文件转化txt文本结果</p>
+<p><img src="https://i.imgur.com/TYl13aT.png" alt=""></p>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进机器学习和自然语言QQ群：436303759文件下载：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/fDcgSzw.png" alt=""></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="http://www.unixuser.org/~euske/python/pdfminer/programming.html" target="_blank" rel="noopener">http://www.unixuser.org/~euske/python/pdfminer/programming.html</a></li>
+<li><a href="https://www.cnblogs.com/jamespei/p/5339769.html" target="_blank" rel="noopener">https://www.cnblogs.com/jamespei/p/5339769.html</a></li>
+<li><a href="https://blog.csdn.net/u011389474/article/details/60139786" target="_blank" rel="noopener">https://blog.csdn.net/u011389474/article/details/60139786</a></li>
+<li><a href="https://blog.csdn.net/u010983763/article/details/78654651" target="_blank" rel="noopener">https://blog.csdn.net/u010983763/article/details/78654651</a></li>
+<li><a href="https://blog.csdn.net/zyc121561/article/details/77879831" target="_blank" rel="noopener">https://blog.csdn.net/zyc121561/article/details/77879831</a></li>
+<li><a href="https://blog.csdn.net/zyc121561/article/details/77877912?locationNum=7&amp;fps=1" target="_blank" rel="noopener">https://blog.csdn.net/zyc121561/article/details/77877912?locationNum=7&amp;fps=1</a></li>
+</ol>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/自然语言处理/" rel="tag"><i class="fa fa-tag"></i> 自然语言处理</a>
+          
+            <a href="/tags/数据预处理/" rel="tag"><i class="fa fa-tag"></i> 数据预处理</a>
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          
+            <a href="/tags/pdf2txt/" rel="tag"><i class="fa fa-tag"></i> pdf2txt</a>
+          
+            <a href="/tags/格式转化/" rel="tag"><i class="fa fa-tag"></i> 格式转化</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/19/一步步教你轻松学决策树算法/" rel="next" title="一步步教你轻松学决策树模型算法">
+                <i class="fa fa-chevron-left"></i> 一步步教你轻松学决策树模型算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/20/Sublime-Anaconda开发环境部署教程/" rel="prev" title="Sublime+Anaconda开发环境部署教程">
+                Sublime+Anaconda开发环境部署教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文概述"><span class="nav-number">1.</span> <span class="nav-text">本文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于自定义格式转换介绍"><span class="nav-number">1.2.</span> <span class="nav-text">基于自定义格式转换介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础配置工作"><span class="nav-number">2.</span> <span class="nav-text">基础配置工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">基础准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类库重构"><span class="nav-number">2.2.</span> <span class="nav-text">类库重构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于pdfminer插件的pdf批量格式转换代码实现"><span class="nav-number">3.</span> <span class="nav-text">基于pdfminer插件的pdf批量格式转换代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于win32com插件的代码实现"><span class="nav-number">4.</span> <span class="nav-text">基于win32com插件的代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/09/19/数据处理：量身打造自定义文件格式转换/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

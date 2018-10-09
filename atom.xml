@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>白宁超的官网</title>
+  <icon>https://www.gravatar.com/avatar/7b1ce8b1ee45b64e3c7c3bdcbe1c5c1b</icon>
+  <subtitle>专注人工智能领域研究</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://bainingchao.github.io/"/>
+  <updated>2018-10-09T06:52:15.580Z</updated>
+  <id>https://bainingchao.github.io/</id>
+  
+  <author>
+    <name>白宁超</name>
+    <email>1938036263@qq.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>谈谈自然语言处理技术的应用领域</title>
+    <link href="https://bainingchao.github.io/2018/10/09/%E8%B0%88%E8%B0%88%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E7%9A%84%E5%BA%94%E7%94%A8%E9%A2%86%E5%9F%9F/"/>
+    <id>https://bainingchao.github.io/2018/10/09/谈谈自然语言处理技术的应用领域/</id>
+    <published>2018-10-09T06:10:05.000Z</published>
+    <updated>2018-10-09T06:52:15.580Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>十分钟速览自然语言处理</title>
+    <link href="https://bainingchao.github.io/2018/10/09/%E5%8D%81%E5%88%86%E9%92%9F%E9%80%9F%E8%A7%88%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    <id>https://bainingchao.github.io/2018/10/09/十分钟速览自然语言处理/</id>
+    <published>2018-10-09T05:29:10.000Z</published>
+    <updated>2018-10-09T06:34:56.504Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：随着人工智能的快速发展，自然语言处理和机器学习技术应用愈加广泛。但是，初学者入门还是有一定难度，对该领域整体概况不能明晰。本章主要从发展历程、研究现状、应用前景等角度整体介绍自然语言处理及相关的机器学习技术，使读者对该技术领域有个系统而全面的认识。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学主成分分析PCA降维算法</title>
+    <link href="https://bainingchao.github.io/2018/09/29/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA%E9%99%8D%E7%BB%B4%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/09/29/一步步教你轻松学主成分分析PCA降维算法/</id>
+    <published>2018-09-29T08:34:29.158Z</published>
+    <updated>2018-09-29T08:39:36.715Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数据准备" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87/"/>
+    
+      <category term="PCA" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87/PCA/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="PCA" scheme="https://bainingchao.github.io/tags/PCA/"/>
+    
+      <category term="数据降维" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%99%8D%E7%BB%B4/"/>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学关联规则Apriori算法</title>
+    <link href="https://bainingchao.github.io/2018/09/27/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99Apriori%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/09/27/一步步教你轻松学关联规则Apriori算法/</id>
+    <published>2018-09-27T07:13:49.814Z</published>
+    <updated>2018-09-27T07:53:27.266Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：先验算法（Apriori Algorithm）是关联规则学习的经典算法之一，常常应用在商业等诸多领域。本文首先介绍什么是Apriori算法，与其相关的基本术语，之后对算法原理进行多方面剖析，其中包括思路、原理、优缺点、流程步骤和应用场景。接着再通过一个实际案例进行语言描述性逐步剖析。至此，读者基本了解该算法思想和过程。紧接着我们进行实验，重点的频繁项集的生成和关联规则的生成。最后我们采用综合实例进行实际演示。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Apriori" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Apriori/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
+    
+      <category term="Apriori" scheme="https://bainingchao.github.io/tags/Apriori/"/>
+    
+      <category term="关联规则" scheme="https://bainingchao.github.io/tags/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sublime+Anaconda开发环境部署教程</title>
+    <link href="https://bainingchao.github.io/2018/09/20/Sublime-Anaconda%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/"/>
+    <id>https://bainingchao.github.io/2018/09/20/Sublime-Anaconda开发环境部署教程/</id>
+    <published>2018-09-20T01:38:48.277Z</published>
+    <updated>2018-10-09T06:03:35.935Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：随着人工智能的快速发展，深度学习、机器学习、自然语言处理和数据挖掘等技术的应用愈加广泛。然而身为初学者，要想快速入门这些前沿技术总是存在着各种各样的困难。古语说“工欲善其事，必先利其器”，本课程的“器”就是开发环境部署，本文主要介绍Sublime的安装部署与使用。最后，我们将用一个简单的实战案例让读者亲身领略编程之美。（本文原创编著，转载注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://bainingchao.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Sublime" scheme="https://bainingchao.github.io/tags/Sublime/"/>
+    
+      <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
+    
+      <category term="Anaconda" scheme="https://bainingchao.github.io/tags/Anaconda/"/>
+    
+      <category term="开发环境" scheme="https://bainingchao.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据处理：量身打造自定义文件格式转换</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%EF%BC%9A%E9%87%8F%E8%BA%AB%E6%89%93%E9%80%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+    <id>https://bainingchao.github.io/2018/09/19/数据处理：量身打造自定义文件格式转换/</id>
+    <published>2018-09-19T05:40:46.000Z</published>
+    <updated>2018-09-25T06:55:42.263Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预处理工作。笔者采用一些工具转换效果都不理想，于是才出现本系统的研究与实现。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
+    
+      <category term="pdf2txt" scheme="https://bainingchao.github.io/tags/pdf2txt/"/>
+    
+      <category term="格式转化" scheme="https://bainingchao.github.io/tags/%E6%A0%BC%E5%BC%8F%E8%BD%AC%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学决策树模型算法</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学决策树算法/</id>
+    <published>2018-09-19T05:19:08.743Z</published>
+    <updated>2018-09-25T07:05:42.297Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：决策树算法是一种基本的分类与回归方法，是最经常使用的算法之一。决策树模型呈树形结构，在分类问题中，表示基于特征对实例进行分类的过程。它可以认为是基于规则的集合。本文首先介绍决策树定义、工作原理、算法流程、优缺点等，然后结合案例进行分析。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="决策树" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%86%B3%E7%AD%96%E6%A0%91/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
+    
+      <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
+    
+      <category term="决策树" scheme="https://bainingchao.github.io/tags/%E5%86%B3%E7%AD%96%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学KNN模型算法</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6KNN%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学KNN模型算法/</id>
+    <published>2018-09-19T03:57:35.625Z</published>
+    <updated>2018-09-25T07:10:04.383Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：机器学习算法中KNN属于比较简单的典型算法，既可以做聚类又可以做分类使用。本文通过一个模拟的实际案例进行讲解。整个流程包括：采集数据、数据格式化处理、数据分析、数据归一化处理、构造算法模型、评估算法模型和算法模型的应用。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="KNN" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/KNN/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
+    
+      <category term="K近邻算法" scheme="https://bainingchao.github.io/tags/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="kNN" scheme="https://bainingchao.github.io/tags/kNN/"/>
+    
+      <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学K-means聚类算法</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学K-means聚类算法/</id>
+    <published>2018-09-19T03:24:21.152Z</published>
+    <updated>2018-09-25T07:11:07.262Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="K-Means" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/K-Means/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="K-均值算法" scheme="https://bainingchao.github.io/tags/K-%E5%9D%87%E5%80%BC%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="k-means" scheme="https://bainingchao.github.io/tags/k-means/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学逻辑回归模型算法</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学逻辑回归模型算法/</id>
+    <published>2018-09-19T03:17:08.930Z</published>
+    <updated>2018-09-25T07:41:43.946Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="逻辑回归" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
+    
+    
+      <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="逻辑回归" scheme="https://bainingchao.github.io/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95Sklearn%E6%B7%B1%E5%BA%A6%E7%AF%873/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3/</id>
+    <published>2018-09-19T02:55:09.605Z</published>
+    <updated>2018-09-25T07:01:45.504Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模型、朴素贝叶斯模型训练和优化等。然后结合复旦大学新闻语料进行朴素贝叶斯的应用。最后，大家熟悉其原理和实现之后，采用机器学习sklearn包进行实现和优化。由于篇幅较长，采用理论理解、案例实现、sklearn优化三个部分进行学习。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
+    
+      <category term="ML" scheme="https://bainingchao.github.io/tags/ML/"/>
+    
+      <category term="sklearn" scheme="https://bainingchao.github.io/tags/sklearn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学朴素贝叶斯模型算法实现篇2</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%AF%872/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法实现篇2/</id>
+    <published>2018-09-19T02:50:47.518Z</published>
+    <updated>2018-09-25T04:30:16.922Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模型、朴素贝叶斯模型训练和优化等。然后结合复旦大学新闻语料进行朴素贝叶斯的应用。最后，大家熟悉其原理和实现之后，采用机器学习sklearn包进行实现和优化。由于篇幅较长，采用理论理解、案例实现、sklearn优化三个部分进行学习。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
+    
+      <category term="ML" scheme="https://bainingchao.github.io/tags/ML/"/>
+    
+      <category term="实战案例" scheme="https://bainingchao.github.io/tags/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学朴素贝叶斯模型算法理论篇1</title>
+    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E7%AF%871/"/>
+    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法理论篇1/</id>
+    <published>2018-09-19T02:14:17.262Z</published>
+    <updated>2018-09-25T06:56:57.788Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模型、朴素贝叶斯模型训练和优化等。然后结合复旦大学新闻语料进行朴素贝叶斯的应用。最后，大家熟悉其原理和实现之后，采用机器学习sklearn包进行实现和优化。由于篇幅较长，采用理论理解、案例实现、sklearn优化三个部分进行学习。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
+    
+      <category term="ML" scheme="https://bainingchao.github.io/tags/ML/"/>
+    
+      <category term="理论学习" scheme="https://bainingchao.github.io/tags/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo-GitHub搭建个人博客配置教程</title>
+    <link href="https://bainingchao.github.io/2018/09/19/Hexo-GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/"/>
+    <id>https://bainingchao.github.io/2018/09/19/Hexo-GitHub搭建个人博客配置教程/</id>
+    <published>2018-09-19T02:01:13.346Z</published>
+    <updated>2018-09-27T09:02:55.411Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：创建一个自定义个人博客，即可以便于知识的记录，又可以分享知识。然而，诸多技术社区虽有便捷的优点，同时也存在限制性和专业化的问题。自己从头写网站成本较高，故而作者采用github建站，既可以支持markdown文档编写，又可以与github账号打通，便于资料上传保存。仅仅建站完成还是不够美观和功能扩展。这里github结合诸多插件可以实现，本文重点介绍Hexo的配置操作，具体以下实现可以根据需要选择。（本文原创，转载注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://bainingchao.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="hexo" scheme="https://bainingchao.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>

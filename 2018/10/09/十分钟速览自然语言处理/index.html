@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：随着人工智能的快速发展，自然语言处理和机器学习技术应用愈加广泛。但是，初学者入门还是有一定难度，对该领域整体概况不能明晰。本章主要从发展历程、研究现状、应用前景等角度整体介绍自然语言处理及相关的机器学习技术，使读者对该技术领域有个系统而全面的认识。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="Python,自然语言处理,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十分钟速览自然语言处理">
+<meta property="og:url" content="https://bainingchao.github.io/2018/10/09/十分钟速览自然语言处理/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：随着人工智能的快速发展，自然语言处理和机器学习技术应用愈加广泛。但是，初学者入门还是有一定难度，对该领域整体概况不能明晰。本章主要从发展历程、研究现状、应用前景等角度整体介绍自然语言处理及相关的机器学习技术，使读者对该技术领域有个系统而全面的认识。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/BRZKLYB.png">
+<meta property="og:image" content="https://i.imgur.com/iEtQh4G.png">
+<meta property="og:image" content="https://i.imgur.com/xzGO7Da.png">
+<meta property="og:image" content="https://i.imgur.com/crSylap.png">
+<meta property="og:image" content="https://i.imgur.com/dO6YCrx.png">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/zmKK4xs.jpg">
+<meta property="og:updated_time" content="2018-10-09T06:34:56.504Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="十分钟速览自然语言处理">
+<meta name="twitter:description" content="摘要：随着人工智能的快速发展，自然语言处理和机器学习技术应用愈加广泛。但是，初学者入门还是有一定难度，对该领域整体概况不能明晰。本章主要从发展历程、研究现状、应用前景等角度整体介绍自然语言处理及相关的机器学习技术，使读者对该技术领域有个系统而全面的认识。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://i.imgur.com/BRZKLYB.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/10/09/十分钟速览自然语言处理/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>十分钟速览自然语言处理 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/10/09/十分钟速览自然语言处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">十分钟速览自然语言处理
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-09 13:29:10 / 修改时间：14:34:56" itemprop="dateCreated datePublished" datetime="2018-10-09T13:29:10+08:00">2018-10-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/自然语言处理/" itemprop="url" rel="index"><span itemprop="name">自然语言处理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：随着人工智能的快速发展，自然语言处理和机器学习技术应用愈加广泛。但是，初学者入门还是有一定难度，对该领域整体概况不能明晰。本章主要从发展历程、研究现状、应用前景等角度整体介绍自然语言处理及相关的机器学习技术，使读者对该技术领域有个系统而全面的认识。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="课程导读"><a href="#课程导读" class="headerlink" title="课程导读"></a>课程导读</h1><blockquote>
+<p>适合人群</p>
+</blockquote>
+<p>具备一定编程基础的计算机专业、软件工程专业、通信专业、电子技术专业和自动化专业的学生和自然语言处理感兴趣的人群。</p>
+<blockquote>
+<p>学习前技术储备</p>
+</blockquote>
+<ul>
+<li>具备Python编程语言基础</li>
+<li>具备面向对象的编程思想</li>
+<li>具备一定的数学基础知识</li>
+</ul>
+<hr>
+<h1 id="快速了解自然语言处理"><a href="#快速了解自然语言处理" class="headerlink" title="快速了解自然语言处理"></a>快速了解自然语言处理</h1><h2 id="什么是自然语言处理"><a href="#什么是自然语言处理" class="headerlink" title="什么是自然语言处理"></a>什么是自然语言处理</h2><blockquote>
+<p>自然语言</p>
+</blockquote>
+<p>我们要对自然语言进行理解，其实就是我们日常使用的语言（书面文字和语音视频等）。简言之，汉语、日语、韩语、英语、法语等语言都属于此范畴。而自然语言处理是对自然语言处理的一种技术，就是通过我们的语音文字与计算机进行通信，我们称之为“人机交互”。</p>
+<blockquote>
+<p>自然语言处理</p>
+</blockquote>
+<p>自然语言处理（英语：Natural Language Processing，简称NLP）是人工智能和语言学领域的分支学科。此领域探讨如何处理及运用自然语言；自然语言认知则是指让电脑“懂”人类的语言。自然语言生成系统把计算机数据转化为自然语言。自然语言理解系统把自然语言转化为计算机程序更易于处理的形式。</p>
+<p>我们要对自然语言进行理解，其实就是我们日常使用的语言（书面文字和语音视频等）。简言之，汉语、日语、韩语、英语、法语等语言都属于此范畴。而自然语言处理是对自然语言处理的一种技术，就是通过我们的语音文字与计算机进行通信，我们称之为“人机交互”。</p>
+<h2 id="自然语言处理发展背景和历程"><a href="#自然语言处理发展背景和历程" class="headerlink" title="自然语言处理发展背景和历程"></a>自然语言处理发展背景和历程</h2><blockquote>
+<p>自然语言处理发展背景</p>
+</blockquote>
+<p>自然语言处理相关研究，最早是从机器翻译系统的研究开始的。20世纪60年代，国外对机器翻译曾有大规模的研究工作，投入了大量的人力物力财力。但是，受的客观历史因素的限制，当时人们低估了自然语言的复杂性，语言处理的理论和技术均不成热，所以进展并不大。其主要的做法是存储两种语言的单词、短语对应译法的大辞典，翻译时一一对应，技术上只是调整语言的同条顺序。但日常生活中语言的翻译远不是如此简单，很多时候还要参考某句话前后的意思。</p>
+<p>我国机器翻译的起步较晚，是继美国、前苏联、英国之后世界上第四个开展机器翻译研究的国家。早在20世纪50年代机器翻译就被列入我国科学研究的发展规划。一些研究人员还进行了俄汉机器翻译实验，取得了一定的研究成果，但60年代的有关研究很快因“文革”而完全停顿。我国机器翻译研究的全面展开始于80年代中期以后，特别是90年代以来，一批机器翻译系统相继问世，其中影响力较大的有:中软总公司开发的汉英-汉日翻译系统(1993);中科院计算所研制的IMTEC英汉翻译系统(1992)等。</p>
+<blockquote>
+<p>自然语言处理发展历史</p>
+</blockquote>
+<ul>
+<li><p>1948年，香农（Shannon）把离散马尔可夫过程的概率模型应用于描述语言的自动机;同时又把“熵” (entropy)的概念引用到语言处理中。而克莱尼(Kleene)在同一时期研究了有限自动机和正则表达式。 </p>
+</li>
+<li><p>1956年，乔姆斯基（Chomsky）又提出了上下文无关语法。这些工作导致了基于规则和基于概率两种不同的自然语言处理方法的诞生，使得该领域的研究分成了采用规则方法的符号派和采用概率方法的随机派两大阵营，进而引发了数十年有关这两种方法孰优孰劣的争执 。同年，人工智能诞生以后，自然语言处理迅速融入了人工智能的研究中。随机派学者在这一时期利用贝叶斯方法等统计学原理取得了一定的进步;而以乔姆斯基为代表的符号派也进行了形式语言理论生成句法和形式逻辑系统的研究。由于这一时期， 多数学者注重研究推理和逻辑问题，只有少数学者在研究统计方法和神经网络，所以 ，符号派的势头明显强于随机派的势头。</p>
+</li>
+<li><p>1967 年美国心理学家 奈瑟尔(Neisser)提出了认知心理学， 从而把自然语言处理与人类的认知联系起来。</p>
+</li>
+<li><p>70年代初，由于自然语言处理研究中的一些问题未能在短时间内得到解决，而新的问题又不断地涌现，许多人因此丧失了信心，自然语言处理的研究进入了低谷时期。尽管如此，一些发达国家的学者依旧地研究着。基于隐马尔可夫模型 (Hidden Markov Model，HMM)的统计方法和话语分析 (Discourse Analysis)在这一时期取得了重大进展 。</p>
+</li>
+<li><p>80年代， 在人们对于过去的工作反思之后 ， 有限状态模型和经验主义的研究方法开始复苏 。</p>
+</li>
+<li><p>90年代以后，随着计算机的速度和存储量大幅增加，自然语言处理的物质基础大幅改善，语音和语言处理的商品化开发成为可能;同时，网络技术的发展和Internet商业化使得基于自然语言的信息检索和信息抽取的需求变得更加突出。然语言处理的应用面不再局限于机器翻译、语音控制等早期研究领域了。</p>
+</li>
+<li><p>从90年代末到21世纪初 ，人们逐渐认识到，仅用基于规则的方法或仅用基于统计的方法都是无法成功进行自然语言处理的。基于统计、基于实例和基于规则的语料库技术在这一时期开始蓬勃发展， 各种处理技术开始融合，自然语言处理的研究又开始兴旺起来。</p>
+</li>
+</ul>
+<blockquote>
+<p>思考？</p>
+</blockquote>
+<pre><code>基于规则的方法和基于统计的方法孰优孰劣？
+</code></pre><h2 id="自然语言处理工作原理"><a href="#自然语言处理工作原理" class="headerlink" title="自然语言处理工作原理"></a>自然语言处理工作原理</h2><p>计算机对自然语言处理的过程：形式化描述-数学模型算法化-程序化-实用化。具体步骤如下：</p>
+<ol>
+<li>形式化描述： 把需要研究是问题在语言上建立形式化模型，使其可以数学形式表示出来。</li>
+<li>数学模型算法化： 把数学模型表示为算法的过程称之为“算法化“。</li>
+<li>程序化： 根据算法，计算机进行实现，建立各种自然语言处理系统，这个过程是“程序化“。</li>
+<li>实用化： 对系统进行评测和改进最终满足现实需求，这个过程是“实用化“。</li>
+</ol>
+<h2 id="自然语言处理涉及的学科领域"><a href="#自然语言处理涉及的学科领域" class="headerlink" title="自然语言处理涉及的学科领域"></a>自然语言处理涉及的学科领域</h2><ul>
+<li>语言学</li>
+<li>计算机科学（提供模型表示、算法设计、计算机实现）</li>
+<li>数学（数学模型）</li>
+<li>心理学（人类言语心理模型和理论）</li>
+<li>哲学（提供人类思维和语言的更深层次理论）</li>
+<li>统计学（提供样本数据的预测统计技术）</li>
+<li>电子工程（信息论基础和语言信号处理技术）</li>
+<li>生物学（人类言语行为机制理论）。</li>
+</ul>
+<h2 id="自然语言处理技术体系"><a href="#自然语言处理技术体系" class="headerlink" title="自然语言处理技术体系"></a>自然语言处理技术体系</h2><p><img src="https://i.imgur.com/BRZKLYB.png" alt=""></p>
+<h2 id="自然语言处理就业与发展前景"><a href="#自然语言处理就业与发展前景" class="headerlink" title="自然语言处理就业与发展前景"></a>自然语言处理就业与发展前景</h2><p>随着自然语言处理的蓬勃发展和深入研究，新的应用方向会不断呈现出来。自然语言处理发展前景广阔，主要研究领域有：</p>
+<ul>
+<li>文本方面：基于自然语言理解的智能搜索引擎和智能检索、智能机器翻译、自动摘要与文本综合、文本分类与文件整理、智能自动作文系统、自动判卷系统、信息过滤与垃圾邮件处理、文学研究与古文研究、语法校对、文本数据挖掘与智能决策、基于自然语言的计算机程序设计等。</li>
+<li>语音方面：机器同声传译、智能远程教学与答疑、语音控制、智能客户服务、机器聊天与智能参谋、智能交通信息服务、智能解说与体育新闻实时解说 、语音挖掘与多媒体挖掘、多媒体信息提取与文本转化、对残疾人智能帮助系统等。</li>
+</ul>
+<blockquote>
+<p>发展前景</p>
+</blockquote>
+<ul>
+<li>自然语言处理的十个发展趋势：<a href="https://blog.csdn.net/heyc861221/article/details/80130981" target="_blank" rel="noopener">https://blog.csdn.net/heyc861221/article/details/80130981</a></li>
+<li>自然语言处理产业情况：<a href="https://www.itjuzi.com/ai#map" target="_blank" rel="noopener">https://www.itjuzi.com/ai#map</a></li>
+</ul>
+<p><img src="https://i.imgur.com/iEtQh4G.png" alt=""></p>
+<ul>
+<li>自然语言处理相关工作的前景：<a href="http://www.52nlp.cn/job-prospects-for-natural-language-processing" target="_blank" rel="noopener">http://www.52nlp.cn/job-prospects-for-natural-language-processing</a></li>
+</ul>
+<p><img src="https://i.imgur.com/xzGO7Da.png" alt=""></p>
+<ul>
+<li>2017 年中国人工智能产业数据报告：<a href="http://www.caict.ac.cn/kxyj/qwfb/qwsj/201804/P020180213603539476032.pdf" target="_blank" rel="noopener">http://www.caict.ac.cn/kxyj/qwfb/qwsj/201804/P020180213603539476032.pdf</a><br><img src="https://i.imgur.com/crSylap.png" alt=""></li>
+</ul>
+<blockquote>
+<p>思考：如何学习自然语言处理的问题？</p>
+</blockquote>
+<pre><code>- 综述了解，整体技术框架掌握
+- 侧重方向，多看论文和会议文章
+- 知其原理，重在实际应用
+- 归纳总结，提高研究效率
+- 资料检索，高效学习效率
+</code></pre><hr>
+<h1 id="自然语言处理相关学科"><a href="#自然语言处理相关学科" class="headerlink" title="自然语言处理相关学科"></a>自然语言处理相关学科</h1><h2 id="NLP与数学"><a href="#NLP与数学" class="headerlink" title="NLP与数学"></a>NLP与数学</h2><blockquote>
+<p>线性数学</p>
+</blockquote>
+<p>自然语言处理是以计算机科学、统计学、数学和信息论等多个领域交叉的学科。线性代数又是数学的一个重要分支，对自然语言处理有着很直接的影响。诸如：算法建模、参数设置、验证策略、识别欠拟合和过拟合等等。读者往往知道线性代数很有用，常常全书通读。造成时间不足和效率较低。归因于对线性代数在机器学习中的重点和用途不明。本章主要以简明的方式介绍最常用的线性代数知识，并使读者知道线性代数常用于哪些方面。</p>
+<blockquote>
+<p>概率论</p>
+</blockquote>
+<p>由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。</p>
+<h2 id="NLP与统计学"><a href="#NLP与统计学" class="headerlink" title="NLP与统计学"></a>NLP与统计学</h2><p>在数据科学中，统计地位尤为显著。其在数据分析的基础上，研究如何测定、收集、整理、归纳和分析反映数据规律，以便给出正确消息的科学。通过揭示数据背后的规律和隐藏信息，给相关角色提供参照价值，做出相应的决策。这在数据挖掘、自然语言处理、机器学习都广泛应用。</p>
+<p>百度EChart：<a href="http://echarts.baidu.com/examples/" title="百度EChart" target="_blank" rel="noopener">http://echarts.baidu.com/examples/</a></p>
+<blockquote>
+<p>地图案例应用场景</p>
+</blockquote>
+<p>适合的场景</p>
+<ul>
+<li>某年度国家各个省州的人口情况。 分级统计地图较多的是反映呈面状但属分散分布的现象，如反映人口密度、某农作物播种面积的比、人均收入等。</li>
+</ul>
+<p>不适合的场景</p>
+<ul>
+<li>2008 年美国总统大选结果。 民主党候选人奥巴马和共和党候选人麦凯恩胜出的州分别用蓝色和红色表示。这个例子的选举可视化很容易给用户造成简介中提到的错觉：数据分布和地理区域大小的不对称。共和党比民主党获得了更多的投票，因为红色的区域所占的面积更大。但是在美国总统大选中，最后的结果是看候选人获得的选举人票数，每个州拥有的选举人票数是不一样的，在一个州获胜的选举人将得到该州所有的选举人票数。纽约州虽然面积很小，却拥有33张选举人票，而蒙大拿州虽然面积很大，却只有3票。</li>
+</ul>
+<blockquote>
+<p>统计可视化</p>
+</blockquote>
+<p><img src="https://i.imgur.com/dO6YCrx.png" alt=""></p>
+<blockquote>
+<p>统计学知识</p>
+</blockquote>
+<ul>
+<li>信息图形化（饼图，线形图等）</li>
+<li>集中趋势度量（平均值 中位数 众数 方差等）</li>
+<li>概率</li>
+<li>排列组合</li>
+<li>分布（几何二项泊松正态卡方）</li>
+<li>统计抽样</li>
+<li>样本估计</li>
+<li>假设检验</li>
+<li>回归</li>
+</ul>
+<h2 id="NLP与机器学习"><a href="#NLP与机器学习" class="headerlink" title="NLP与机器学习"></a>NLP与机器学习</h2><blockquote>
+<p>什么是机器学习</p>
+</blockquote>
+<p>机器学习是人工智能的一个分支。人工智能的研究是从以“推理”为重点到以“知识”为重点，再到以“学习”为重点，一条自然、清晰的脉络。显然，机器学习是实现人工智能的一个途径，即以机器学习为手段解决人工智能中的问题。机器学习在近30多年已发展为一门多领域交叉学科，涉及概率论、统计学、逼近论、凸分析、计算复杂性理论等多门学科。机器学习理论主要是设计和分析一些让计算机可以自动“学习”的算法。机器学习算法是一类从数据中自动分析获得规律，并利用规律对未知数据进行预测的算法。因为学习算法中涉及了大量的统计学理论，机器学习与推断统计学联系尤为密切，也被称为统计学习理论。算法设计方面，机器学习理论关注可以实现的，行之有效的学习算法。很多推论问题属于无程序可循难度，所以部分的机器学习研究是开发容易处理的近似算法。<br>机器学习已广泛应用于数据挖掘、计算机视觉、自然语言处理、生物特征识别、搜索引擎、医学诊断、检测信用卡欺诈、证券市场分析、DNA序列测序、语音和手写识别、战略游戏和机器人等领域。</p>
+<p>机器学习就是指“计算机利用经验自动改善系统自身性能的行为”。简言之，机器学习是指通过计算机学习数据中的内在规律性信息，获得新的经验和知识，以提高计算机的智能性，使计算机能够像人那样去决策。本质上机器学习是一个从未知到已知的过程。假设计算机拥有这样一个程序，随着机器解决问题的增多，在该程序的作用下，机器性能或解决问题的能力增强，我们就说这台机器拥有学习能力。机器解决问题能力的增强主要表现在：初始状态下，对于问题Q，机器给出结果A，该机器在解决问题{Q1，Q2，… ，Qn}后，再次遇到问题Q时给出结果A1，而结果 A1比结果A更精确，我们就说机器解决问题的能力得到了增强。</p>
+<blockquote>
+<p>机器学习发展历程</p>
+</blockquote>
+<ul>
+<li>1943年， Warren McCulloch 和 Walter Pitts 提出了神经网络层次结构模型 ， 确立为神经网络的计算模型理论， 从而为机器学习的发展奠定了基础。</li>
+<li>1950年， “人工智能之父”图灵发提出了著名的“图灵测试”，使人工智能成为了计算机科学领域一个重要的研究课题。</li>
+<li>1957年， 康内尔大学教授 Frank Rosenblatt 提出Perceptron 概念，并且首次用算法精确定义了自组织自学习的神经网络数学模型， 设计出了第一个计算机神经网络，这个机器学习算法成为神经网络模型的开山鼻祖。</li>
+<li>1959年， 美国 IBM 公司的 A． M． Samuel设计了一个具有学习能力的跳棋程序， 曾经战胜了美国一个保持 8 年不败的冠军。这个程序向人们初步展示了机器学习的能力。</li>
+<li>1962年， Hubel 和 Wiesel 发现猫脑皮层中独特的神经网络结构可以有效降低学习的复杂性， 从而提出著名的 Hubel－Wiesel 生物视觉模型， 以后提出的神经网络模型均受此启迪。</li>
+<li>1969 年， 人工智能研究的先驱者 Marvin Minsky和 Seymour Papert 出版了对机器学习研究具有深远影响的著作《Perceptron》， 虽然提出的 XOR 问题把感知机研究送上不归路、此后的十几年基于神经网络的人工智能研究进入低潮， 但是对于机器学习基本思想的论断:解决问题的算法能力和计算复杂性，影响深远、延续至今。</li>
+<li>1980 年， 在美国卡内基·梅隆大学举行了第一届机器学习国际研讨会， 标志着机器学习研究在世界范围内兴起。1986 年， 《Machine Learning》创刊，标志着机器学习逐渐为世人瞩目并开始加速发展。</li>
+<li>1982 年， Hopfield 发表了一篇关于神经网络模型的论文 ， 构造出能量函数并把这一概念引入Hopfield 网络，同时通过对动力系统性质的认识， 实现了 Hopfield 网络的最优化求解， 推动了神经网络的深入研究和发展应用。</li>
+<li>1986 年，Rumelhart、Hinton 和 Williams 联合在《自然》杂志发表了著名的反向传播算法(BP) ， 首次阐述了 BP 算法在浅层前向型神经网络模型的应用， 不但明显降低了最优化问题求解的运算量，还通过增加一个隐层解决了感知器无法解决的 XOR Gate 难题，该算法成为神经网络的最基本算法。从此，神经网络的研究与应用开始复苏。</li>
+<li>1989 年， 美国贝尔实验室学者 Yann LeCun 教授提出了目前最为流行的卷积神经网络( CNN) 计算模型，推导出基于 BP 算法的高效训练方法， 并成功地应用于英文手写体识别。CNN 是第一个被成功训练的人工神经网络，也是后来深度学习最成功、应用最广泛的模型之一。</li>
+<li>90 年代后， 多种浅层机器学习模型相继问世，诸如逻辑回归、支持向量机等， 这些机器学习算法的共性是数学模型为凸代价函数的最优化问题，理论分析相对简单，训练方法也容易掌握，易于从训练样本中学习到内在模式，来完成对象识别、任务分类等初级智能工作。基于统计规律的浅层学习方法比起传统的基于规则的方法具备很多优越性， 取得了不少成功的商业应用的同时， 浅层学习的问题逐渐暴露出来，由于有限的样本和计算单元导致对数据间复杂函数的表示能力有限，学习能力不强，只能提取初级特征。</li>
+<li>2006 年， 在学界及业界巨大需求刺激下， 特别是计算机硬件技术的迅速发展提供了强大的计算能力。机器学习领域的泰斗 Geoffrey Hinton 和 Ruslan Salakhutdinov 发表文章 ，提出了深度学习模型， 主要论点包括:多个隐层的人工神经网络具有良好的特征学习能力;通过逐层初始化来克服训练的难度，实现网络整体调优。这个模型的提出， 开启了深度神经网络机器学习的新时代。</li>
+<li>2012 年， Hinton 研究团队采用深度学习模型赢得计算机视觉领域最具影响力的 ImageNet 比赛冠军，从而标志着深度学习进入第二个阶段。</li>
+</ul>
+<p>至今， 随着Hinton、LeCun 和 Andrew Ng 对深度学习的研究，以及云计算、大数据、计算机硬件技术发展的支撑下，深度学习近年来在多个领域取得了令人赞叹的进展，推出一批成功的商业应用，诸如谷歌翻译，苹果语音工具 Siri， 微软的 Cortana 个人语音助手，蚂蚁金服的 Smile to Pay 扫脸技术， 特别是谷歌 AlphaGo 人机大战获胜的奇迹等， 使机器学习成<br>为计算机科学的一个新的领域。深度学习是目前最接近人类大脑的分层智能学习方法，通过建立类似于人脑的分层模型结构，突破浅层学习的限制，能够表征复杂函数关系，对输入数据逐层提取从底层到高层的特征，并且逐层抽象，从而建立从底层简单特征到高层抽象语义的非线性映<br>射关系 ，实现机器学习智能化的进一步提升， 成为机器学习的一个里程碑。</p>
+<blockquote>
+<p>机器学习应用前景</p>
+</blockquote>
+<p>2016年，引世人关注的人机大战以 AlphaGo 以 4:1 胜利而告终，这为世人所震撼惊叹的同时，更让人感受到机器学习的强大威力，更昭示出机器学习研究与应用的灿烂前景。以此为契机， 机器学习理论研究将会成为一个新的热点，在认知计算、类脑计算的支撑下将促进机器学习向更高阶段发展，在此基础上将会出现性能更好、结构优化、学习高效、功能强大的机器模型，非监督机器学习将会取得实质性的进展。机器学习的自主学习能力将进一步提高，逐渐跨越弱人工智能阶段，不断提高智能性。机器学习将向人类的学习、认知、理解、思考、推理和预测能力迈进，必将推动人工智能及整个科学技术的迈向更高台阶。随着机器学习与大数据、云计算、物联网的深度融合，将会掀起一场新的数字化技术革命，借助自然语言理解、情感及行为理解将会开启更加友好的人机交互新界面、自动驾驶汽车将成为现实，我们的工作、生活中将出现更多的智能机器人，在医疗、金融、教育等行业将能够给我们提供更多智能化、个性化服务定制服务，机器学习一定会造福于我们整个人类，使明天的生活更美好!</p>
+<blockquote>
+<p>自然语言处理和机器学习的联系</p>
+</blockquote>
+<p>语言是人类区别其他动物的本质特性。在所有生物中，只有人类才具有语言能力。人类的多种智能都与语言有着密切的关系。人类的逻辑思维以语言为形式，人类的绝大部分知识也是以语言文字的形式记载和流传下来的。因而，它也是人工智能（机器学习和深度学习为代表的人工智能）的一个重要，甚至核心部分。<br>用自然语言与计算机进行通信，这是人们长期以来所追求的。因为它既有明显的实际意义和理论意义。实现人机间自然语言通信意味着要使计算机既能理解自然语言文本的意义，也能以自然语言文本来表达给定的意图、思想等。前者称为自然语言理解，后者称为自然语言生成。因此，自然语言处理大体包括了自然语言理解和自然语言生成两个部分。无论实现自然语言理解，还是自然语言生成，都远不如人们原来想象的那么简单，而是十分困难的。从现有的理论和技术现状看，通用的、高质量的自然语言处理系统，仍然是较长期的努力目标，但是针对一定应用，具有相当自然语言处理能力的实用系统已经出现，有些已商品化，甚至开始产业化。典型的例子有：多语种数据库和专家系统的自然语言接口、各种机器翻译系统、全文信息检索系统、自动文摘系统等。</p>
+<p>现代NLP算法是基于机器学习，特别是统计机器学习。机器学习范式是不同于一般之前的尝试语言处理。语言处理任务的实现，通常涉及直接用手的大套规则编码。许多不同类的机器学习算法已应用于自然语言处理任务。这些算法的输入是一大组从输入数据生成的“特征”。一些最早使用的算法，如决策树，产生硬的if-then规则类似于手写的规则，是再普通的系统体系。然而，越来越多的研究集中于统计模型，这使得基于附加实数值的权重，每个输入要素柔软，概率的决策。此类模型具有能够表达许多不同的可能的答案，而不是只有一个相对的确定性，产生更可靠的结果时，这种模型被包括作为较大系统的一个组成部分的优点。<br>自然语言处理研究逐渐从词汇语义成分的语义转移，进一步的，叙事的理解。然而人类水平的自然语言处理，是一个人工智能完全问题。它是相当于解决中央的人工智能问题使计算机和人一样聪明，或强大的AI。自然语言处理的未来一般也因此密切结合人工智能发展。</p>
+<hr>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://www.cnblogs.com/baiboy/p/learnnlp.html" target="_blank" rel="noopener">自然语言处理概述</a></li>
+<li><a href="https://zh.wikipedia.org/zh/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86" target="_blank" rel="noopener">中文维基百科</a></li>
+<li><a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">GitHub</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/zmKK4xs.jpg" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/自然语言处理/" rel="tag"><i class="fa fa-tag"></i> 自然语言处理</a>
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/29/一步步教你轻松学主成分分析PCA降维算法/" rel="next" title="一步步教你轻松学主成分分析PCA降维算法">
+                <i class="fa fa-chevron-left"></i> 一步步教你轻松学主成分分析PCA降维算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/09/谈谈自然语言处理技术的应用领域/" rel="prev" title="谈谈自然语言处理技术的应用领域">
+                谈谈自然语言处理技术的应用领域 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#课程导读"><span class="nav-number">1.</span> <span class="nav-text">课程导读</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速了解自然语言处理"><span class="nav-number">2.</span> <span class="nav-text">快速了解自然语言处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是自然语言处理"><span class="nav-number">2.1.</span> <span class="nav-text">什么是自然语言处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自然语言处理发展背景和历程"><span class="nav-number">2.2.</span> <span class="nav-text">自然语言处理发展背景和历程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自然语言处理工作原理"><span class="nav-number">2.3.</span> <span class="nav-text">自然语言处理工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自然语言处理涉及的学科领域"><span class="nav-number">2.4.</span> <span class="nav-text">自然语言处理涉及的学科领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自然语言处理技术体系"><span class="nav-number">2.5.</span> <span class="nav-text">自然语言处理技术体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自然语言处理就业与发展前景"><span class="nav-number">2.6.</span> <span class="nav-text">自然语言处理就业与发展前景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理相关学科"><span class="nav-number">3.</span> <span class="nav-text">自然语言处理相关学科</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NLP与数学"><span class="nav-number">3.1.</span> <span class="nav-text">NLP与数学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NLP与统计学"><span class="nav-number">3.2.</span> <span class="nav-text">NLP与统计学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NLP与机器学习"><span class="nav-number">3.3.</span> <span class="nav-text">NLP与机器学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/10/09/十分钟速览自然语言处理/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模">
+<meta name="keywords" content="Python,自然语言处理,文本分类,Naive Bayes,ML,理论学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步步教你轻松学朴素贝叶斯模型算法理论篇1">
+<meta property="og:url" content="https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法理论篇1/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;P(x_1,&space;\dots&space;x_n&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(x_i&space;|&space;y,&space;x_1,&space;\dots,&space;x_{i-1},&space;x_{i+1},&space;\dots,&space;x_n)&space;=&space;P(x_i&space;|&space;y)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;\propto&space;P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)&space;\Rightarrow&space;\hat{y}&space;=&space;\arg\max_y&space;P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y),">
+<meta property="og:image" content="https://i.imgur.com/bGatTln.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;posterior(male)={\frac&space;{P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)}{evidence}}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;posterior(female)={\frac&space;{P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)}{evidence}}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;evidence=P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)+P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(male)=0.5">
+<meta property="og:image" content="https://i.imgur.com/qn0cZpD.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;{\displaystyle&space;\mu&space;=5.855}&space;\mu&space;=5.855，&space;{\displaystyle&space;\sigma&space;^{2}=3.5033e^{-02}}&space;\sigma&space;^{2}=3.5033e^2">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;\\&space;p(weight|male)=5.9881e^6&space;\\&space;p(footsize|male)=1.3112e^3&space;\\&space;posteriornumerator(male)=6.1984e^9&space;\\&space;P(female)=0.5&space;\\&space;p(height|female)=2.2346e^1&space;\\&space;p(weight|female)=1.6789e^2&space;\\&space;p(footsize|female)=2.8669e^1&space;\\&space;posteriornumerator(female)=5.3778e^4">
+<meta property="og:image" content="https://i.imgur.com/Fl1W5mB.png">
+<meta property="og:updated_time" content="2018-09-25T06:56:57.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步步教你轻松学朴素贝叶斯模型算法理论篇1">
+<meta name="twitter:description" content="摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;P(x_1,&space;\dots&space;x_n&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法理论篇1/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一步步教你轻松学朴素贝叶斯模型算法理论篇1 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法理论篇1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">一步步教你轻松学朴素贝叶斯模型算法理论篇1
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-19 10:14:17" itemprop="dateCreated datePublished" datetime="2018-09-19T10:14:17+08:00">2018-09-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-25 14:56:57" itemprop="dateModified" datetime="2018-09-25T14:56:57+08:00">2018-09-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/朴素贝叶斯/" itemprop="url" rel="index"><span itemprop="name">朴素贝叶斯</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模型、朴素贝叶斯模型训练和优化等。然后结合复旦大学新闻语料进行朴素贝叶斯的应用。最后，大家熟悉其原理和实现之后，采用机器学习sklearn包进行实现和优化。由于篇幅较长，采用理论理解、案例实现、sklearn优化三个部分进行学习。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="朴素贝叶斯理论"><a href="#朴素贝叶斯理论" class="headerlink" title="朴素贝叶斯理论"></a>朴素贝叶斯理论</h2><h3 id="朴素贝叶斯概述"><a href="#朴素贝叶斯概述" class="headerlink" title="朴素贝叶斯概述"></a>朴素贝叶斯概述</h3><p>朴素贝叶斯是一种构建分类器的简单方法。该分类器模型会给问题实例分配用特征值表示的类标签，类标签取自有限集合。所有朴素贝叶斯分类器都假定样本每个特征与其他特征都不相关。</p>
+<ul>
+<li>特征独立理解的例子：如果一种水果其具有红，圆，直径大概3英寸等特征，该水果可以被判定为是苹果。尽管这些特征相互依赖或者有些特征由其他特征决定，然而朴素贝叶斯分类器认为这些属性在判定该水果是否为苹果的概率分布上独立的。</li>
+</ul>
+<p>尽管是带着这些朴素思想和过于简单化的假设，但朴素贝叶斯分类器在很多复杂的现实情形中仍能够获取相当好的效果。朴素贝叶斯分类器的一个优势在于只需要根据少量的训练数据估计出必要的参数（变量的均值和方差）。</p>
+<h3 id="朴素贝叶斯模型"><a href="#朴素贝叶斯模型" class="headerlink" title="朴素贝叶斯模型"></a>朴素贝叶斯模型</h3><p>朴素贝叶斯方法是基于贝叶斯定理的一组有监督学习算法，即“简单”地假设每对特征之间相互独立。 给定一个类别 \(y\) 和一个从\(x_1\)&gt;到\(x_n\) 的相关的特征向量，贝叶斯定理阐述了以下关系:</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;P(x_1,&space;\dots&space;x_n&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;P(x_1,&space;\dots&space;x_n&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}" title="\small P(y \mid x_1, \dots, x_n) = \frac{P(y) P(x_1, \dots x_n \mid y)} {P(x_1, \dots, x_n)}"></a></p>
+<p>使用简单(naive)的假设-每对特征之间都相互独立:</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;P(x_i&space;|&space;y,&space;x_1,&space;\dots,&space;x_{i-1},&space;x_{i&plus;1},&space;\dots,&space;x_n)&space;=&space;P(x_i&space;|&space;y)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(x_i&space;|&space;y,&space;x_1,&space;\dots,&space;x_{i-1},&space;x_{i&plus;1},&space;\dots,&space;x_n)&space;=&space;P(x_i&space;|&space;y)" title="\small P(x_i | y, x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) = P(x_i | y)"></a></p>
+<p>对于所有的 math: i ，这个关系式可以简化为</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;=&space;\frac{P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)}&space;{P(x_1,&space;\dots,&space;x_n)}" title="\small P(y \mid x_1, \dots, x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i \mid y)} {P(x_1, \dots, x_n)}"></a></p>
+<p>由于在给定的输入中\( P(x_1, \dots, x_n)\) 是一个常量，我们使用下面的分类规则:</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;\propto&space;P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)&space;\Rightarrow&space;\hat{y}&space;=&space;\arg\max_y&space;P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)," target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(y&space;\mid&space;x_1,&space;\dots,&space;x_n)&space;\propto&space;P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)&space;\Rightarrow&space;\hat{y}&space;=&space;\arg\max_y&space;P(y)&space;\prod_{i=1}^{n}&space;P(x_i&space;\mid&space;y)," title="\small P(y \mid x_1, \dots, x_n) \propto P(y) \prod_{i=1}^{n} P(x_i \mid y) \Rightarrow \hat{y} = \arg\max_y P(y) \prod_{i=1}^{n} P(x_i \mid y),"></a></p>
+<p>我们可以使用最大后验概率(Maximum A Posteriori, MAP) 来估计 \(P(y)\)和\(P(x_i\mid y)\); 前者是训练集中类别 y 的相对频率。各种各样的的朴素贝叶斯分类器的差异大部分来自于处理 \( P(x_i \mid y)\) 分布时的所做的假设不同。尽管其假设过于简单，在很多实际情况下，朴素贝叶斯工作得很好，特别是文档分类和垃圾邮件过滤。相比于其他更复杂的方法，朴素贝叶斯学习器和分类器非常快。</p>
+<h3 id="朴素贝叶斯算法思想"><a href="#朴素贝叶斯算法思想" class="headerlink" title="朴素贝叶斯算法思想"></a>朴素贝叶斯算法思想</h3><p>假设有一个数据集，它由两类数据组成，数据分布如下图所示：</p>
+<p><img src="https://i.imgur.com/bGatTln.png" alt=""></p>
+<p>我们现在用\(p_1(x,y)\) 表示数据点 (x,y) 属于类别 1（图中用圆点表示的类别）的概率，用 \(p_2(x,y)\) 表示数据点 (x,y) 属于类别 2（图中三角形表示的类别）的概率，那么对于一个新数据点 (x,y)，可以用下面的规则来判断它的类别：</p>
+<ul>
+<li>如果\( p_1(x,y)&gt;p_2(x,y)\)，那么类别为1</li>
+<li>如果 \( p_1(x,y)&lt;p_2(x,y)\)，那么类别为2</li>
+</ul>
+<p>也就是说，我们会选择高概率对应的类别。这就是贝叶斯决策理论的核心思想，即选择具有最高概率的决策。</p>
+<h3 id="朴素贝叶斯工作原理"><a href="#朴素贝叶斯工作原理" class="headerlink" title="朴素贝叶斯工作原理"></a>朴素贝叶斯工作原理</h3><pre><code>提取所有文档中的词条并进行去重
+获取文档的所有类别
+计算每个类别中的文档数目
+对每篇训练文档: 
+    对每个类别: 
+        如果词条出现在文档中--&gt;增加该词条的计数值（for循环或者矩阵相加）
+        增加所有词条的计数值（此类别下词条总数）
+对每个类别: 
+    对每个词条: 
+        将该词条的数目除以总词条数目得到的条件概率（P(词条|类别)）
+返回该文档属于每个类别的条件概率（P(类别|文档的所有词条)）
+</code></pre><h3 id="朴素贝叶斯算法流程"><a href="#朴素贝叶斯算法流程" class="headerlink" title="朴素贝叶斯算法流程"></a>朴素贝叶斯算法流程</h3><pre><code>收集数据: 可以使用任何方法。
+准备数据: 需要数值型或者布尔型数据。
+分析数据: 有大量特征时，绘制特征作用不大，此时使用直方图效果更好。
+训练算法: 计算不同的独立特征的条件概率。
+测试算法: 计算错误率。
+使用算法: 一个常见的朴素贝叶斯应用是文档分类。可以在任意的分类场景中使用朴素贝叶斯分类器，不一定非要是文本。
+</code></pre><h3 id="朴素贝叶斯优缺点"><a href="#朴素贝叶斯优缺点" class="headerlink" title="朴素贝叶斯优缺点"></a>朴素贝叶斯优缺点</h3><pre><code>优点: 在数据较少的情况下仍然有效，可以处理多类别问题。
+缺点: 对于输入数据的准备方式较为敏感。
+适用数据类型: 标称型数据。
+</code></pre><h2 id="案例描述：形式化理解朴素贝叶斯性别分类"><a href="#案例描述：形式化理解朴素贝叶斯性别分类" class="headerlink" title="案例描述：形式化理解朴素贝叶斯性别分类"></a>案例描述：形式化理解朴素贝叶斯性别分类</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>通过一些测量的特征，包括身高、体重、脚的尺寸，判定一个人是男性还是女性。</p>
+<h3 id="训练数据"><a href="#训练数据" class="headerlink" title="训练数据"></a>训练数据</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">性别</th>
+<th style="text-align:center">身高(英尺)</th>
+<th style="text-align:center">体重(磅)</th>
+<th style="text-align:center">脚的尺寸(英寸)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">男</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">180</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center">男</td>
+<td style="text-align:center">5.92</td>
+<td style="text-align:center">190</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:center">男</td>
+<td style="text-align:center">5.58</td>
+<td style="text-align:center">170</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center">男</td>
+<td style="text-align:center">5.92</td>
+<td style="text-align:center">165</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">女</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">女</td>
+<td style="text-align:center">5.5</td>
+<td style="text-align:center">150</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">女</td>
+<td style="text-align:center">5.42</td>
+<td style="text-align:center">130</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center">女</td>
+<td style="text-align:center">5.75</td>
+<td style="text-align:center">150</td>
+<td style="text-align:center">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>假设训练集样本的特征满足高斯分布，得到下表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">性别</th>
+<th style="text-align:center">均值(身高)</th>
+<th style="text-align:center">方差(身高)</th>
+<th style="text-align:center">均值(体重)</th>
+<th style="text-align:center">方差(体重)</th>
+<th style="text-align:center">均值(脚的尺寸)</th>
+<th style="text-align:center">方差(脚的尺寸)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">男性</td>
+<td style="text-align:center">5.855</td>
+<td style="text-align:center">3.5033e-02</td>
+<td style="text-align:center">176.25</td>
+<td style="text-align:center">1.2292e+02</td>
+<td style="text-align:center">11.25</td>
+<td style="text-align:center">9.1667e-01</td>
+</tr>
+<tr>
+<td style="text-align:center">女性</td>
+<td style="text-align:center">5.4175</td>
+<td style="text-align:center">9.7225e-02</td>
+<td style="text-align:center">132.5</td>
+<td style="text-align:center">5.5833e+02</td>
+<td style="text-align:center">7.5</td>
+<td style="text-align:center">1.6667e+00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们认为两种类别是等概率的，也就是P(male)= P(female) = 0.5。在没有做辨识的情况下就做这样的假设并不是一个好的点子。但我们通过数据集中两类样本出现的频率来确定P(C)，我们得到的结果也是一样的。</p>
+<h3 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h3><p>以下给出一个待分类是男性还是女性的样本。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">性别</th>
+<th style="text-align:center">身高(英尺)</th>
+<th style="text-align:center">体重(磅)</th>
+<th style="text-align:center">脚的尺寸(英尺)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">sample</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">130</td>
+<td style="text-align:center">8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们希望得到的是男性还是女性哪类的后验概率大。男性的后验概率通过下面式子来求取</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;posterior(male)={\frac&space;{P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)}{evidence}}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;posterior(male)={\frac&space;{P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)}{evidence}}" title="\small posterior(male)={\frac {P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)}{evidence}}"></a></p>
+<p>女性的后验概率通过下面式子来求取</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;posterior(female)={\frac&space;{P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)}{evidence}}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;posterior(female)={\frac&space;{P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)}{evidence}}" title="\small posterior(female)={\frac {P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)}{evidence}}"></a></p>
+<p>证据因子（通常是常数）用来对各类的后验概率之和进行归一化.</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;evidence=P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)&plus;P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;evidence=P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)&plus;P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)" title="\small evidence=P(male)\,p(height|male)\,p(weight|male)\,p(footsize|male)+P(female)\,p(height|female)\,p(weight|female)\,p(footsize|female)"></a></p>
+<p>证据因子是一个常数（在正态分布中通常是正数），所以可以忽略。接下来我们来判定这样样本的性别。</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;P(male)=0.5" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;P(male)=0.5" title="\small P(male)=0.5"></a></p>
+<p><img src="https://i.imgur.com/qn0cZpD.png" alt=""></p>
+<p>其中 <a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{90}&space;\small&space;{\displaystyle&space;\mu&space;=5.855}&space;\mu&space;=5.855，&space;{\displaystyle&space;\sigma&space;^{2}=3.5033e^{-02}}&space;\sigma&space;^{2}=3.5033e^2" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;{\displaystyle&space;\mu&space;=5.855}&space;\mu&space;=5.855，&space;{\displaystyle&space;\sigma&space;^{2}=3.5033e^{-02}}&space;\sigma&space;^{2}=3.5033e^2" title="\small {\displaystyle \mu =5.855} \mu =5.855， {\displaystyle \sigma ^{2}=3.5033e^{-02}} \sigma ^{2}=3.5033e^2"></a>是训练集样本的正态分布参数. 注意，这里的值大于1也是允许的 – 这里是概率密度而不是概率，因为身高是一个连续的变量.</p>
+<p>集样本的正态分布参数. 注意，这里的值大于1也是允许的 – 这里是概率密度而不是概率，因为身高是一个连续的变量.</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\small&space;\\&space;p(weight|male)=5.9881e^6&space;\\&space;p(footsize|male)=1.3112e^3&space;\\&space;posteriornumerator(male)=6.1984e^9&space;\\&space;P(female)=0.5&space;\\&space;p(height|female)=2.2346e^1&space;\\&space;p(weight|female)=1.6789e^2&space;\\&space;p(footsize|female)=2.8669e^1&space;\\&space;posteriornumerator(female)=5.3778e^4" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\small&space;\\&space;p(weight|male)=5.9881e^6&space;\\&space;p(footsize|male)=1.3112e^3&space;\\&space;posteriornumerator(male)=6.1984e^9&space;\\&space;P(female)=0.5&space;\\&space;p(height|female)=2.2346e^1&space;\\&space;p(weight|female)=1.6789e^2&space;\\&space;p(footsize|female)=2.8669e^1&space;\\&space;posteriornumerator(female)=5.3778e^4" title="\small \\ p(weight|male)=5.9881e^6 \\ p(footsize|male)=1.3112e^3 \\ posteriornumerator(male)=6.1984e^9 \\ P(female)=0.5 \\ p(height|female)=2.2346e^1 \\ p(weight|female)=1.6789e^2 \\ p(footsize|female)=2.8669e^1 \\ posteriornumerator(female)=5.3778e^4"></a></p>
+<h3 id="模型预测结果"><a href="#模型预测结果" class="headerlink" title="模型预测结果"></a>模型预测结果</h3><p>由于女性后验概率的分子比较大，所以我们预计这个样本是女性。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>scikit中文社区：<a href="http://sklearn.apachecn.org/cn/0.19.0/" target="_blank" rel="noopener">http://sklearn.apachecn.org/cn/0.19.0/</a></li>
+<li>中文维基百科：<a href="https://zh.wikipedia.org/wiki/" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/</a></li>
+<li>文本分类特征选择：<a href="https://www.cnblogs.com/june0507/p/7601001.html" target="_blank" rel="noopener">https://www.cnblogs.com/june0507/p/7601001.html</a></li>
+<li>GitHub：<a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">https://github.com/BaiNingchao/MachineLearning-1</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h2 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h2><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/Fl1W5mB.png" alt=""></p>
+<h2 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h2><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/自然语言处理/" rel="tag"><i class="fa fa-tag"></i> 自然语言处理</a>
+          
+            <a href="/tags/文本分类/" rel="tag"><i class="fa fa-tag"></i> 文本分类</a>
+          
+            <a href="/tags/Naive-Bayes/" rel="tag"><i class="fa fa-tag"></i> Naive Bayes</a>
+          
+            <a href="/tags/ML/" rel="tag"><i class="fa fa-tag"></i> ML</a>
+          
+            <a href="/tags/理论学习/" rel="tag"><i class="fa fa-tag"></i> 理论学习</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/19/Hexo-GitHub搭建个人博客配置教程/" rel="next" title="Hexo-GitHub搭建个人博客配置教程">
+                <i class="fa fa-chevron-left"></i> Hexo-GitHub搭建个人博客配置教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法实现篇2/" rel="prev" title="一步步教你轻松学朴素贝叶斯模型算法实现篇2">
+                一步步教你轻松学朴素贝叶斯模型算法实现篇2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#朴素贝叶斯理论"><span class="nav-number">1.</span> <span class="nav-text">朴素贝叶斯理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素贝叶斯概述"><span class="nav-number">1.1.</span> <span class="nav-text">朴素贝叶斯概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素贝叶斯模型"><span class="nav-number">1.2.</span> <span class="nav-text">朴素贝叶斯模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素贝叶斯算法思想"><span class="nav-number">1.3.</span> <span class="nav-text">朴素贝叶斯算法思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素贝叶斯工作原理"><span class="nav-number">1.4.</span> <span class="nav-text">朴素贝叶斯工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素贝叶斯算法流程"><span class="nav-number">1.5.</span> <span class="nav-text">朴素贝叶斯算法流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#朴素贝叶斯优缺点"><span class="nav-number">1.6.</span> <span class="nav-text">朴素贝叶斯优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述：形式化理解朴素贝叶斯性别分类"><span class="nav-number">2.</span> <span class="nav-text">案例描述：形式化理解朴素贝叶斯性别分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练数据"><span class="nav-number">2.2.</span> <span class="nav-text">训练数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试数据"><span class="nav-number">2.3.</span> <span class="nav-text">测试数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型预测结果"><span class="nav-number">2.4.</span> <span class="nav-text">模型预测结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">4.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">5.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/09/19/一步步教你轻松学朴素贝叶斯模型算法理论篇1/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

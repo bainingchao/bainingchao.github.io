@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。">
+<meta name="keywords" content="Python,PCA,数据降维,数据预处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步步教你轻松学主成分分析PCA降维算法">
+<meta property="og:url" content="https://bainingchao.github.io/2018/09/29/一步步教你轻松学主成分分析PCA降维算法/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/wGdEvxm.png">
+<meta property="og:image" content="https://i.imgur.com/3Ng3Ya4.png">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/zmKK4xs.jpg">
+<meta property="og:updated_time" content="2018-09-29T08:39:36.715Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步步教你轻松学主成分分析PCA降维算法">
+<meta name="twitter:description" content="摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。">
+<meta name="twitter:image" content="https://i.imgur.com/wGdEvxm.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/09/29/一步步教你轻松学主成分分析PCA降维算法/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一步步教你轻松学主成分分析PCA降维算法 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/09/29/一步步教你轻松学主成分分析PCA降维算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">一步步教你轻松学主成分分析PCA降维算法
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-29 16:34:29 / 修改时间：16:39:36" itemprop="dateCreated datePublished" datetime="2018-09-29T16:34:29+08:00">2018-09-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据准备/" itemprop="url" rel="index"><span itemprop="name">数据准备</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据准备/PCA/" itemprop="url" rel="index"><span itemprop="name">PCA</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="数据降维"><a href="#数据降维" class="headerlink" title="数据降维"></a>数据降维</h2><h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><ul>
+<li>均值</li>
+<li>方差</li>
+<li>标准差</li>
+<li>协方差</li>
+<li>正交矩阵</li>
+</ul>
+<h3 id="什么是降维"><a href="#什么是降维" class="headerlink" title="什么是降维"></a>什么是降维</h3><p>降维是对数据高维度特征的一种预处理方法。降维是将高维度的数据保留下最重要的一些特征，去除噪声和不重要的特征，从而实现提升数据处理速度的目的。在实际的生产和应用中，降维在一定的信息损失范围内，可以为我们节省大量的时间和成本。降维也成为了应用非常广泛的数据预处理方法。</p>
+<p>我们正通过电视观看体育比赛，在电视的显示器上有一个足球。显示器大概包含了100万像素点，而球则可能是由较少的像素点组成，例如说一千个像素点。人们实时的将显示器上的百万像素转换成为一个三维图像，该图像就给出运动场上球的位置。在这个过程中，人们已经将百万像素点的数据，降至为三维。这个过程就称为降维(dimensionality reduction)</p>
+<blockquote>
+<p>数据降维的目的：</p>
+</blockquote>
+<ul>
+<li>使得数据集更容易使用</li>
+<li>确保这些变量是相互独立的</li>
+<li>降低很多算法的计算开销</li>
+<li>去除噪音</li>
+<li>使得结果易懂</li>
+</ul>
+<blockquote>
+<p>适用范围:</p>
+</blockquote>
+<ul>
+<li>在已标注与未标注的数据上都有降维技术。</li>
+<li>本文主要关注未标注数据上的降维技术，将技术同样也可以应用于已标注的数据。</li>
+</ul>
+<blockquote>
+<p>常见降维技术（PCA的应用目前最为广泛）</p>
+</blockquote>
+<ul>
+<li>主成分分析就是找出一个最主要的特征，然后进行分析。例如： 考察一个人的智力情况，就直接看数学成绩就行(数学、语文、英语成绩)</li>
+<li>因子分析(Factor Analysis),将多个实测变量转换为少数几个综合指标。它反映一种降维的思想，通过降维将相关性高的变量聚在一起,从而减少需要分析的变量的数量,而减少问题分析的复杂性.例如： 考察一个人的整体情况，就直接组合3样成绩(隐变量)，看平均成绩就行(存在：数学、语文、英语成绩),应用的领域包括社会科学、金融等。在因子分析中，<ul>
+<li>假设观察数据的成分中有一些观察不到的隐变量(latent variable)。</li>
+<li>假设观察数据是这些隐变量和某些噪音的线性组合。</li>
+<li>那么隐变量的数据可能比观察数据的数目少，也就说通过找到隐变量就可以实现数据的降维。</li>
+</ul>
+</li>
+<li>独立成分分析(Independ Component Analysis, ICA)，ICA 认为观测信号是若干个独立信号的线性组合，ICA 要做的是一个解混过程。<ul>
+<li>例如：我们去ktv唱歌，想辨别唱的是什么歌曲？ICA 是观察发现是原唱唱的一首歌【2个独立的声音（原唱／主唱）】。</li>
+<li>ICA 是假设数据是从 N 个数据源混合组成的，这一点和因子分析有些类似，这些数据源之间在统计上是相互独立的，而在 PCA 中只假设数据是不 相关（线性关系）的。同因子分析一样，如果数据源的数目少于观察数据的数目，则可以实现降维过程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="PCA-概述"><a href="#PCA-概述" class="headerlink" title="PCA 概述"></a>PCA 概述</h2><p>主成分分析(Principal Component Analysis, PCA)：通俗理解：就是找出一个最主要的特征，然后进行分析。</p>
+<p>主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。这是通过保留低阶主成分，忽略高阶主成分做到的。这样低阶成分往往能够保留住数据的最重要方面。但是，这也不是一定的，要视具体应用而定。由于主成分分析依赖所给数据，所以数据的准确性对分析结果影响很大。</p>
+<p>主成分分析由卡尔·皮尔逊于1901年发明，用于分析数据及建立数理模型。其方法主要是通过对协方差矩阵进行特征分解，以得出数据的主成分（即特征向量）与它们的权值（即特征值）。PCA是最简单的以特征量分析多元统计分布的方法。其结果可以理解为对原数据中的方差做出解释：哪一个方向上的数据值对方差的影响最大？换而言之，PCA提供了一种降低数据维度的有效办法；如果分析者在原数据中除掉最小的特征值所对应的成分，那么所得的低维度数据必定是最优化的（也即，这样降低维度必定是失去讯息最少的方法）。主成分分析在分析复杂数据时尤为有用，比如人脸识别。</p>
+<p>PCA是最简单的以特征量分析多元统计分布的方法。通常情况下，这种运算可以被看作是揭露数据的内部结构，从而更好的解释数据的变量的方法。如果一个多元数据集能够在一个高维数据空间坐标系中被显现出来，那么PCA就能够提供一幅比较低维度的图像，这幅图像即为在讯息最多的点上原对象的一个‘投影’。这样就可以利用少量的主成分使得数据的维度降低了。PCA跟因子分析密切相关，并且已经有很多混合这两种分析的统计包。而真实要素分析则是假定底层结构，求得微小差异矩阵的特征向量。</p>
+<blockquote>
+<p>PCA 场景</p>
+</blockquote>
+<p>例如： 考察一个人的智力情况，就直接看数学成绩就行(存在：数学、语文、英语成绩)</p>
+<blockquote>
+<p>PCA 思想</p>
+</blockquote>
+<pre><code>去除平均值
+计算协方差矩阵
+计算协方差矩阵的特征值和特征向量
+将特征值排序
+保留前N个最大的特征值对应的特征向量
+将数据转换到上面得到的N个特征向量构建的新空间中（实现了特征压缩）
+</code></pre><blockquote>
+<p>PCA 原理</p>
+</blockquote>
+<ol>
+<li>找出第一个主成分的方向，也就是数据方差最大的方向。</li>
+<li>找出第二个主成分的方向，也就是数据方差次大的方向，并且该方向与第一个主成分方向正交(orthogonal 如果是二维空间就叫垂直)。</li>
+<li>通过这种方式计算出所有的主成分方向。</li>
+<li>通过数据集的协方差矩阵及其特征值分析，我们就可以得到这些主成分的值。</li>
+<li>一旦得到了协方差矩阵的特征值和特征向量，我们就可以保留最大的 N 个特征。这些特征向量也给出了 N 个最重要特征的真实结构，我们就可以通过将数据乘上这 N 个特征向量 从而将它转换到新的空间上。</li>
+</ol>
+<blockquote>
+<p>PCA 算法流程</p>
+</blockquote>
+<p>下面我们看看具体的算法流程。</p>
+<p>输入：n维样本集\( D=(x^{(1)},x^{(2)},…,x^{(m)}) \)，要降维到的维数n.<br>输出：降维后的样本集\( D^′\)<br>1) 对所有的样本进行中心化：\( x^{(i)}=x^{(i)}−\frac{1}{m}\sum_{j=1}^{m}x^{(j)} \)<br>2) 计算样本的协方差矩阵\( XX^T\)<br>3) 对矩阵\( XX^T\)进行特征值分解<br>4）取出最大的n’个特征值对应的特征向量\( (w_1,w_2,…,w_n^′) \), 将所有的特征向量标准化后，组成特征向量矩阵W。<br>5）对样本集中的每一个样本\( x^{(i)}\),转化为新的样本\( z^{(i)}=W^Tx^{(i)} \)<br>6) 得到输出样本集\( D^′=(z^{(1)},z^{(2)},…,z^{(m)}) \)</p>
+<blockquote>
+<p>PCA 优缺点</p>
+</blockquote>
+<p>优点：降低数据的复杂性，识别最重要的多个特征。<br>缺点：不一定需要，且可能损失有用信息。<br>适用数据类型：数值型数据。</p>
+<h2 id="实例理解"><a href="#实例理解" class="headerlink" title="实例理解"></a>实例理解</h2><p>真实的训练数据总是存在各种各样的问题：</p>
+<ol>
+<li>比如拿到一个汽车的样本，里面既有以“千米/每小时”度量的最大速度特征，也有“英里/小时”的最大速度特征，显然这两个特征有一个多余。</li>
+<li>拿到一个数学系的本科生期末考试成绩单，里面有三列，一列是对数学的兴趣程度，一列是复习时间，还有一列是考试成绩。我们知道要学好数学，需要有浓厚的兴趣，所以第二项与第一项强相关，第三项和第二项也是强相关。那是不是可以合并第一项和第二项呢？</li>
+<li>拿到一个样本，特征非常多，而样例特别少，这样用回归去直接拟合非常困难，容易过度拟合。比如北京的房价：假设房子的特征是（大小、位置、朝向、是否学区房、建造年代、是否二手、层数、所在层数），搞了这么多特征，结果只有不到十个房子的样例。要拟合房子特征-&gt;房价的这么多特征，就会造成过度拟合。</li>
+<li>这个与第二个有点类似，假设在IR中我们建立的文档-词项矩阵中，有两个词项为“learn”和“study”，在传统的向量空间模型中，认为两者独立。然而从语义的角度来讲，两者是相似的，而且两者出现频率也类似，是不是可以合成为一个特征呢？</li>
+<li>在信号传输过程中，由于信道不是理想的，信道另一端收到的信号会有噪音扰动，那么怎么滤去这些噪音呢？</li>
+</ol>
+<p>这时可以采用主成分分析（PCA）的方法来解决部分上述问题。PCA的思想是将n维特征映射到k维上（k&lt;n），这k维是全新的正交特征。这k维特征称为主元，是重新构造出来的k维特征，而不是简单地从n维特征中去除其余n-k维特征。</p>
+<h2 id="PCA-算法实现"><a href="#PCA-算法实现" class="headerlink" title="PCA 算法实现"></a>PCA 算法实现</h2><h3 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h3><p>收集数据：提供文本文件,文件名：testSet.txt.文本文件部分数据格式如下：</p>
+<pre><code>10.235186    11.321997
+10.122339    11.810993
+9.190236    8.904943
+9.306371    9.847394
+8.330131    8.340352
+10.152785    10.123532
+10.408540    10.821986
+9.003615    10.039206
+9.534872    10.096991
+9.498181    10.825446
+9.875271    9.233426
+10.362276    9.376892
+10.191204    11.250851
+</code></pre><p>数据集处理代码实现如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''加载数据集'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName, delim=<span class="string">'\t'</span>)</span>:</span></span><br><span class="line">    fr = open(fileName)</span><br><span class="line">    stringArr = [line.strip().split(delim) <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines()]</span><br><span class="line">    datArr = [list(map(float, line)) <span class="keyword">for</span> line <span class="keyword">in</span> stringArr]</span><br><span class="line">    <span class="comment">#注意这里和python2的区别，需要在map函数外加一个list（），否则显示结果为 map at 0x3fed1d0</span></span><br><span class="line">    <span class="keyword">return</span> mat(datArr)</span><br></pre></td></tr></table></figure>
+<h3 id="PCA-数据降维"><a href="#PCA-数据降维" class="headerlink" title="PCA 数据降维"></a>PCA 数据降维</h3><p>在等式 Av=λv 中，v 是特征向量， λ 是特征值。表示 如果特征向量 v 被某个矩阵 A 左乘，那么它就等于某个标量 λ 乘以 v.<br>幸运的是： Numpy 中有寻找特征向量和特征值的模块 linalg，它有 eig() 方法，该方法用于求解特征向量和特征值。具体代码实现如下：</p>
+<ul>
+<li>方差：（一维）度量两个随机变量关系的统计量,数据离散程度，方差越小越稳定</li>
+<li>协方差： （二维）度量各个维度偏离其均值的程度</li>
+<li>协方差矩阵：（多维）度量各个维度偏离其均值的程度<ul>
+<li>当 cov(X, Y)&gt;0时，表明X与Y正相关(X越大，Y也越大；X越小Y，也越小。)</li>
+<li>当 cov(X, Y)&lt;0时，表明X与Y负相关；</li>
+<li>当 cov(X, Y)=0时，表明X与Y不相关。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''pca算法</span></span><br><span class="line"><span class="string">    cov协方差=[(x1-x均值)*(y1-y均值)+(x2-x均值)*(y2-y均值)+...+(xn-x均值)*(yn-y均值)]/(n-1)</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        dataMat   原数据集矩阵</span></span><br><span class="line"><span class="string">        topNfeat  应用的N个特征</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        lowDDataMat  降维后数据集</span></span><br><span class="line"><span class="string">        reconMat     新的数据集空间</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pca</span><span class="params">(dataMat, topNfeat=<span class="number">9999999</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 计算每一列的均值</span></span><br><span class="line">    meanVals = mean(dataMat, axis=<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># print('meanVals', meanVals)</span></span><br><span class="line">    <span class="comment"># 每个向量同时都减去均值</span></span><br><span class="line">    meanRemoved = dataMat - meanVals</span><br><span class="line">    <span class="comment"># print('meanRemoved=', meanRemoved)</span></span><br><span class="line">    <span class="comment"># rowvar=0，传入的数据一行代表一个样本，若非0，传入的数据一列代表一个样本</span></span><br><span class="line">    covMat = cov(meanRemoved, rowvar=<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># eigVals为特征值， eigVects为特征向量</span></span><br><span class="line">    eigVals, eigVects = linalg.eig(mat(covMat))</span><br><span class="line">    <span class="comment"># print('eigVals=', eigVals)</span></span><br><span class="line">    <span class="comment"># print('eigVects=', eigVects)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对特征值，进行从小到大的排序，返回从小到大的index序号</span></span><br><span class="line">    <span class="comment"># 特征值的逆序就可以得到topNfeat个最大的特征向量</span></span><br><span class="line">    eigValInd = argsort(eigVals)</span><br><span class="line">    <span class="comment"># print('eigValInd1=', eigValInd)</span></span><br><span class="line">    <span class="comment"># -1表示倒序，返回topN的特征值[-1到-(topNfeat+1)不包括-(topNfeat+1)]</span></span><br><span class="line">    eigValInd = eigValInd[:-(topNfeat+<span class="number">1</span>):<span class="number">-1</span>]</span><br><span class="line">    <span class="comment"># print('eigValInd2=', eigValInd)</span></span><br><span class="line">    <span class="comment"># 重组 eigVects 最大到最小</span></span><br><span class="line">    redEigVects = eigVects[:, eigValInd]</span><br><span class="line">    <span class="comment"># print('redEigVects=', redEigVects.T)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将数据转换到新空间</span></span><br><span class="line">    <span class="comment"># print( "---", shape(meanRemoved), shape(redEigVects))</span></span><br><span class="line">    lowDDataMat = meanRemoved * redEigVects</span><br><span class="line">    reconMat = (lowDDataMat * redEigVects.T) + meanVals</span><br><span class="line">    <span class="comment"># print('lowDDataMat=', lowDDataMat)</span></span><br><span class="line">    <span class="comment"># print('reconMat=', reconMat)</span></span><br><span class="line">    <span class="keyword">return</span> lowDDataMat, reconMat</span><br></pre></td></tr></table></figure>
+<h3 id="可视化结果分析"><a href="#可视化结果分析" class="headerlink" title="可视化结果分析"></a>可视化结果分析</h3><p>接下来我们查看降维后的数据与原始数据可视化效果，我们将原始数据采用绿色△表示，降维后的数据采用红色○表示。可视化代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''降维后的数据和原始数据可视化'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_picture</span><span class="params">(dataMat, reconMat)</span>:</span></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax.scatter(dataMat[:, <span class="number">0</span>].flatten().A[<span class="number">0</span>], dataMat[:, <span class="number">1</span>].flatten().A[<span class="number">0</span>], marker=<span class="string">'^'</span>, s=<span class="number">90</span>,c=<span class="string">'green'</span>)</span><br><span class="line">    ax.scatter(reconMat[:, <span class="number">0</span>].flatten().A[<span class="number">0</span>], reconMat[:, <span class="number">1</span>].flatten().A[<span class="number">0</span>], marker=<span class="string">'o'</span>, s=<span class="number">50</span>, c=<span class="string">'red'</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<p>调用代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2 主成分分析降维特征向量设置</span></span><br><span class="line">lowDmat, reconMat = pca(dataMat, <span class="number">1</span>)</span><br><span class="line">print(shape(lowDmat))</span><br><span class="line"><span class="comment"># 3 将降维后的数据和原始数据一起可视化</span></span><br><span class="line">show_picture(dataMat, reconMat)</span><br></pre></td></tr></table></figure>
+<p>运行结果显示：</p>
+<p><img src="https://i.imgur.com/wGdEvxm.png" alt=""></p>
+<h2 id="PCA对半导体制造数据降维"><a href="#PCA对半导体制造数据降维" class="headerlink" title="PCA对半导体制造数据降维"></a>PCA对半导体制造数据降维</h2><h3 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h3><p>半导体是在一些极为先进的工厂中制造出来的。设备的生命早期有限，并且花费极其巨大。虽然通过早期测试和频繁测试来发现有瑕疵的产品，但仍有一些存在瑕疵的产品通过测试。如果我们通过机器学习技术用于发现瑕疵产品，那么它就会为制造商节省大量的资金。具体来讲，它拥有590个特征。我们看看能否对这些特征进行降维处理。对于数据的缺失值的问题，将缺失值NaN(Not a Number缩写)，全部用平均值来替代(如果用0来处理的策略就太差了)。收集数据：提供文本文件,文件名：secom.data.文本文件部分数据格式如下：</p>
+<pre><code>3030.93 2564 2187.7333 1411.1265 1.3602 100 97.6133 0.1242 1.5005 0.0162
+-0.0034 0.9455 202.4396 0 7.9558 414.871 10.0433 0.968 192.3963 12.519 1.4026 
+-5419 2916.5 -4043.75 751 0.8955 1.773 3.049 64.2333 2.0222 0.1632 3.5191 
+83.3971 9.5126 50.617 64.2588 49.383 66.3141 86.9555 117.5132 61.29 4.515 70 
+352.7173 10.1841 130.3691 723.3092 1.3072 141.2282 1 624.3145 218.3174 0 4.592
+</code></pre><h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>将数据集中NaN替换成平均值，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''将NaN替换成平均值函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replaceNanWithMean</span><span class="params">()</span>:</span></span><br><span class="line">    datMat = loadDataSet(<span class="string">'./secom.data'</span>, <span class="string">' '</span>)</span><br><span class="line">    numFeat = shape(datMat)[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numFeat):</span><br><span class="line">        <span class="comment"># 对value不为NaN的求均值</span></span><br><span class="line">        <span class="comment"># .A 返回矩阵基于的数组</span></span><br><span class="line">        meanVal = mean(datMat[nonzero(~isnan(datMat[:, i].A))[<span class="number">0</span>], i])</span><br><span class="line">        <span class="comment"># 将value为NaN的值赋值为均值</span></span><br><span class="line">        datMat[nonzero(isnan(datMat[:, i].A))[<span class="number">0</span>],i] = meanVal</span><br><span class="line">    <span class="keyword">return</span> datMat</span><br></pre></td></tr></table></figure></p>
+<h3 id="分析数据"><a href="#分析数据" class="headerlink" title="分析数据"></a>分析数据</h3><p>我们拿到数据进行数据预处理之后，再跑下程序，看看中间结果如果，分析数据代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''分析数据'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">analyse_data</span><span class="params">(dataMat)</span>:</span></span><br><span class="line">    meanVals = mean(dataMat, axis=<span class="number">0</span>)</span><br><span class="line">    meanRemoved = dataMat-meanVals</span><br><span class="line">    covMat = cov(meanRemoved, rowvar=<span class="number">0</span>)</span><br><span class="line">    eigvals, eigVects = linalg.eig(mat(covMat))</span><br><span class="line">    eigValInd = argsort(eigvals)</span><br><span class="line"></span><br><span class="line">    topNfeat = <span class="number">20</span></span><br><span class="line">    eigValInd = eigValInd[:-(topNfeat+<span class="number">1</span>):<span class="number">-1</span>]</span><br><span class="line">    cov_all_score = float(sum(eigvals))</span><br><span class="line">    sum_cov_score = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(eigValInd)):</span><br><span class="line">        line_cov_score = float(eigvals[eigValInd[i]])</span><br><span class="line">        sum_cov_score += line_cov_score</span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        我们发现其中有超过20%的特征值都是0。</span></span><br><span class="line"><span class="string">        这就意味着这些特征都是其他特征的副本，也就是说，它们可以通过其他特征来表示，而本身并没有提供额外的信息。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        最前面15个值的数量级大于10^5，实际上那以后的值都变得非常小。</span></span><br><span class="line"><span class="string">        这就相当于告诉我们只有部分重要特征，重要特征的数目也很快就会下降。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        print(<span class="string">'主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%'</span> % (format(i+<span class="number">1</span>, <span class="string">'2.0f'</span>), format(line_cov_score/cov_all_score*<span class="number">100</span>, <span class="string">'4.2f'</span>), format(sum_cov_score/cov_all_score*<span class="number">100</span>, <span class="string">'4.1f'</span>)))</span><br></pre></td></tr></table></figure>
+<p>去均值化的特征值结果显示如下：</p>
+<pre><code>[ 5.34151979e+07  2.17466719e+07  8.24837662e+06  2.07388086e+06
+  1.31540439e+06  4.67693557e+05  2.90863555e+05  2.83668601e+05
+  2.37155830e+05  2.08513836e+05  1.96098849e+05  1.86856549e+05
+  1.52422354e+05  1.13215032e+05  1.08493848e+05  1.02849533e+05
+  1.00166164e+05  8.33473762e+04  8.15850591e+04  7.76560524e+04
+...
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+  0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00
+]
+</code></pre><p>数据分析结果如下：</p>
+<pre><code>主成分： 1, 方差占比：59.25%, 累积方差占比：59.3%
+主成分： 2, 方差占比：24.12%, 累积方差占比：83.4%
+主成分： 3, 方差占比：9.15%, 累积方差占比：92.5%
+主成分： 4, 方差占比：2.30%, 累积方差占比：94.8%
+主成分： 5, 方差占比：1.46%, 累积方差占比：96.3%
+主成分： 6, 方差占比：0.52%, 累积方差占比：96.8%
+主成分： 7, 方差占比：0.32%, 累积方差占比：97.1%
+主成分： 8, 方差占比：0.31%, 累积方差占比：97.4%
+主成分： 9, 方差占比：0.26%, 累积方差占比：97.7%
+主成分：10, 方差占比：0.23%, 累积方差占比：97.9%
+主成分：11, 方差占比：0.22%, 累积方差占比：98.2%
+主成分：12, 方差占比：0.21%, 累积方差占比：98.4%
+主成分：13, 方差占比：0.17%, 累积方差占比：98.5%
+主成分：14, 方差占比：0.13%, 累积方差占比：98.7%
+主成分：15, 方差占比：0.12%, 累积方差占比：98.8%
+主成分：16, 方差占比：0.11%, 累积方差占比：98.9%
+主成分：17, 方差占比：0.11%, 累积方差占比：99.0%
+主成分：18, 方差占比：0.09%, 累积方差占比：99.1%
+主成分：19, 方差占比：0.09%, 累积方差占比：99.2%
+主成分：20, 方差占比：0.09%, 累积方差占比：99.3%
+</code></pre><p>我们发现其中有超过20%的特征值都是0。这就意味着这些特征都是其他特征的副本，也就是说，它们可以通过其他特征来表示，而本身并没有提供额外的信息。最前面值的数量级大于10^5，实际上那以后的值都变得非常小。这就相当于告诉我们只有部分重要特征，重要特征的数目也很快就会下降。最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.</p>
+<p>根据实验结果我们绘制半导体数据中前七个主要成分所占的方差百分比如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">主成分</th>
+<th style="text-align:center">方差百分比（%）</th>
+<th style="text-align:center">累积方差百分比（%）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">59.25</td>
+<td style="text-align:center">59.3</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">24.12</td>
+<td style="text-align:center">83.4</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">9.15</td>
+<td style="text-align:center">92.5</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">2.30</td>
+<td style="text-align:center">94.8</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1.46</td>
+<td style="text-align:center">96.3</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0.52</td>
+<td style="text-align:center">96.8</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0.32</td>
+<td style="text-align:center">97.1</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">0.09</td>
+<td style="text-align:center">99.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="PCA降维结果可视化"><a href="#PCA降维结果可视化" class="headerlink" title="PCA降维结果可视化"></a>PCA降维结果可视化</h3><p>调用我们上文写的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lowDmat, reconMat = pca(dataMat, <span class="number">20</span>)</span><br><span class="line">print(shape(lowDmat))</span><br><span class="line">show_picture(dataMat, reconMat)</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：</p>
+<p><img src="https://i.imgur.com/3Ng3Ya4.png" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a href="https://yoyoyohamapi.gitbooks.io/mit-ml/content/%E7%89%B9%E5%BE%81%E9%99%8D%E7%BB%B4/articles/PCA.html" target="_blank" rel="noopener">主成分分析</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90" target="_blank" rel="noopener">中文维基百科</a></li>
+<li><a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">GitHub</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+<li><a href="https://www.cnblogs.com/hadoop2015/p/7419087.html" target="_blank" rel="noopener">一篇深入剖析PCA的好文</a></li>
+<li><a href="https://www.cnblogs.com/pinard/p/6239403.html" target="_blank" rel="noopener">主成分分析原理总结</a></li>
+</ol>
+<h2 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h2><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/zmKK4xs.jpg" alt=""></p>
+<h2 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h2><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/PCA/" rel="tag"><i class="fa fa-tag"></i> PCA</a>
+          
+            <a href="/tags/数据降维/" rel="tag"><i class="fa fa-tag"></i> 数据降维</a>
+          
+            <a href="/tags/数据预处理/" rel="tag"><i class="fa fa-tag"></i> 数据预处理</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/一步步教你轻松学关联规则Apriori算法/" rel="next" title="一步步教你轻松学关联规则Apriori算法">
+                <i class="fa fa-chevron-left"></i> 一步步教你轻松学关联规则Apriori算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/09/十分钟速览自然语言处理/" rel="prev" title="十分钟速览自然语言处理">
+                十分钟速览自然语言处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据降维"><span class="nav-number">1.</span> <span class="nav-text">数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预备知识"><span class="nav-number">1.1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是降维"><span class="nav-number">1.2.</span> <span class="nav-text">什么是降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-概述"><span class="nav-number">2.</span> <span class="nav-text">PCA 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例理解"><span class="nav-number">3.</span> <span class="nav-text">实例理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-算法实现"><span class="nav-number">4.</span> <span class="nav-text">PCA 算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备数据"><span class="nav-number">4.1.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA-数据降维"><span class="nav-number">4.2.</span> <span class="nav-text">PCA 数据降维</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化结果分析"><span class="nav-number">4.3.</span> <span class="nav-text">可视化结果分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA对半导体制造数据降维"><span class="nav-number">5.</span> <span class="nav-text">PCA对半导体制造数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目概述"><span class="nav-number">5.1.</span> <span class="nav-text">项目概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理"><span class="nav-number">5.2.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析数据"><span class="nav-number">5.3.</span> <span class="nav-text">分析数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA降维结果可视化"><span class="nav-number">5.4.</span> <span class="nav-text">PCA降维结果可视化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/09/29/一步步教你轻松学主成分分析PCA降维算法/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

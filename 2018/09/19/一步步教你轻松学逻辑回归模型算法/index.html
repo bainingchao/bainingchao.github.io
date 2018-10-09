@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="Logistic regression,Python,机器学习算法,文本分类,逻辑回归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步步教你轻松学逻辑回归模型算法">
+<meta property="og:url" content="https://bainingchao.github.io/2018/09/19/一步步教你轻松学逻辑回归模型算法/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(z)=\frac{1}{1+e^{-z}}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f^{'}(z)=\frac{e^{-z}}{(1+e^{-z})^2}=f(z)(1-f(z)))">
+<meta property="og:image" content="https://i.imgur.com/hPTHXOo.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?z=w_0x_0&space;+&space;w_1x_1+w_2x_2+...+w_nx_n">
+<meta property="og:image" content="https://i.imgur.com/HxUUJfP.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;w&space;:=w&space;+\alpha&space;\nabla_w&space;f(w&space;)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;w&space;:=w&space; - \alpha&space;\nabla_w&space;f(w&space;)">
+<meta property="og:image" content="https://i.imgur.com/hnPHiUT.png">
+<meta property="og:image" content="https://i.imgur.com/0kXiZWs.png">
+<meta property="og:image" content="https://i.imgur.com/PFWw6FI.png">
+<meta property="og:image" content="https://i.imgur.com/vkDN1aJ.png">
+<meta property="og:image" content="https://i.imgur.com/I7lHYOk.png">
+<meta property="og:image" content="https://i.imgur.com/8fddzwM.png">
+<meta property="og:updated_time" content="2018-09-25T07:41:43.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步步教你轻松学逻辑回归模型算法">
+<meta name="twitter:description" content="摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?f(z)=\frac{1}{1+e^{-z}}">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/09/19/一步步教你轻松学逻辑回归模型算法/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>一步步教你轻松学逻辑回归模型算法 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/09/19/一步步教你轻松学逻辑回归模型算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">一步步教你轻松学逻辑回归模型算法
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-19 11:17:08" itemprop="dateCreated datePublished" datetime="2018-09-19T11:17:08+08:00">2018-09-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-25 15:41:43" itemprop="dateModified" datetime="2018-09-25T15:41:43+08:00">2018-09-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/逻辑回归/" itemprop="url" rel="index"><span itemprop="name">逻辑回归</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="理论介绍"><a href="#理论介绍" class="headerlink" title="理论介绍"></a>理论介绍</h1><h2 id="逻辑回归和Sigmoid-函数"><a href="#逻辑回归和Sigmoid-函数" class="headerlink" title="逻辑回归和Sigmoid 函数"></a>逻辑回归和Sigmoid 函数</h2><blockquote>
+<p>逻辑回归</p>
+</blockquote>
+<p>回归：假设现在有一些数据点，我们用一条直线对这些点进行拟合（这条直线称为最佳拟合直线），这个拟合的过程就叫做回归。</p>
+<p>逻辑回归（Logistic Regression）是一种用于解决二分类（0 or 1）问题的机器学习方法，用于估计某种事物的可能性。比如某用户购买某商品的可能性，某病人患有某种疾病的可能性，以及某广告被用户点击的可能性等。 注意，这里用的是“可能性”，而非数学上的“概率”，logisitc回归的结果并非数学定义中的概率值，不可以直接当做概率值来用。该结果往往用于和其他特征值加权求和，而非直接相乘。</p>
+<blockquote>
+<p>Sigmoid 函数</p>
+</blockquote>
+<p>Sigmoid函数是一个常见的S型数学函数，在信息科学中，由于其单增以及反函数单增等性质，Sigmoid函数常被用作神经网络的阈值函数，将变量映射到0,1之间。在逻辑回归、人工神经网络中有着广泛的应用。Sigmoid函数的数学形式是： </p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=f(z)=\frac{1}{1&plus;e^{-z}}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?f(z)=\frac{1}{1&plus;e^{-z}}" title="f(z)=\frac{1}{1+e^{-z}}"></a></p>
+<p>对x求导可以推出如下结论：</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=f^{'}(z)=\frac{e^{-z}}{(1&plus;e^{-z})^2}=f(z)(1-f(z)))" target="_blank"><img src="http://latex.codecogs.com/gif.latex?f^{'}(z)=\frac{e^{-z}}{(1&plus;e^{-z})^2}=f(z)(1-f(z)))" title="f^{'}(z)=\frac{e^{-z}}{(1+e^{-z})^2}=f(z)(1-f(z)))"></a></p>
+<p>下图给出了 Sigmoid 函数在不同坐标尺度下的两条曲线图。当 x 为 0 时，Sigmoid 函数值为 0.5 。随着 x 的增大，对应的 Sigmoid 值将逼近于 1 ; 而随着 x 的减小， Sigmoid 值将逼近于 0 。如果横坐标刻度足够大， Sigmoid 函数看起来很像一个阶跃函数。</p>
+<p><img src="https://i.imgur.com/hPTHXOo.png" alt=""></p>
+<p>因此，为了实现 Logistic 回归分类器，我们可以在每个特征上都乘以一个回归系数，然后把所有结果值相加，将这个总和代入 Sigmoid 函数中，进而得到一个范围在 0~1 之间的数值。任何大于 0.5 的数据被分入 1 类，小于 0.5 即被归入 0 类。所以，Logistic 回归也是一种概率估计，比如这里Sigmoid 函数得出的值为0.5，可以理解为给定数据和参数，数据被分入 1 类的概率为0.5。(注意：针对二分类问题，0.5不是唯一确定分类的值，你可以根据需求调整这个概率值。)</p>
+<blockquote>
+<p>逻辑回归与线性回归的关系</p>
+</blockquote>
+<p>逻辑回归（Logistic Regression）与线性回归（Linear Regression）都是一种广义线性模型（generalized linear model）。逻辑回归假设因变量 y 服从伯努利分布，而线性回归假设因变量 y 服从高斯分布。 因此与线性回归有很多相同之处，去除Sigmoid映射函数的话，逻辑回归算法就是一个线性回归。可以说，逻辑回归是以线性回归为理论支持的，但是逻辑回归通过Sigmoid函数引入了非线性因素，因此可以轻松处理0/1分类问题。</p>
+<h2 id="最优化方法的回归系数"><a href="#最优化方法的回归系数" class="headerlink" title="最优化方法的回归系数"></a>最优化方法的回归系数</h2><p>Sigmoid 函数的输入记为 z ，由下面公式得到:</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=z=w_0x_0&space;&plus;&space;w_1x_1&plus;w_2x_2&plus;...&plus;w_nx_n" target="_blank"><img src="http://latex.codecogs.com/gif.latex?z=w_0x_0&space;&plus;&space;w_1x_1&plus;w_2x_2&plus;...&plus;w_nx_n" title="x=w_0x_0 + w_1x_1+w_2x_2+...+w_nx_n"></a></p>
+<p>如果采用向量的写法，上述公式可以写成 Sigmoid 函数计算公式向量形式\( z=w^Tx\)，它表示将这两个数值向量对应元素相乘然后全部加起来即得到 z 值。其中的向量 x 是分类器的输入数据，向量 w 也就是我们要找到的最佳参数（系数），从而使得分类器尽可能地精确。为了寻找该最佳参数，需要用到最优化理论的一些知识。我们这里使用的是——梯度上升法（Gradient Ascent）。</p>
+<h2 id="梯度上升与梯度下降"><a href="#梯度上升与梯度下降" class="headerlink" title="梯度上升与梯度下降"></a>梯度上升与梯度下降</h2><blockquote>
+<p>梯度</p>
+</blockquote>
+<p>对于梯度这个词一些人比较陌生，我们先看看维基百科的解释：在向量微积分中，标量场（向量场）中某一点的梯度指向在这点标量场增长最快的方向（当然要比较的话必须固定方向的长度），梯度的绝对值是长度为1的方向中函数最大的增加率，也就是说\( |\nabla f|=\max_{|v|=1} {\nabla_v f}\)，其中 \( \nabla_v\) 代表方向导数。</p>
+<ul>
+<li>在单变量的实值函数的情况，梯度只是导数，或者，对于一个线性函数，也就是线的斜率。</li>
+<li>梯度一词有时用于斜度，也就是一个曲面沿着给定方向的倾斜程度。可以通过取向量梯度和所研究的方向的内积来得到斜度。梯度的数值有时也被称为梯度。（<a href="https://zh.wikipedia.org/wiki/%E6%A2%AF%E5%BA%A6" target="_blank" rel="noopener">更多梯度相关知识参照维基百科词条</a>）</li>
+</ul>
+<blockquote>
+<p>梯度形式化描述</p>
+</blockquote>
+<p>考虑一座高度在 (x, y)点是  H(x, y)的山。H这一点的梯度是在该点坡度（或者说斜度）最陡的方向。梯度的大小告诉我们坡度到底有多陡。这个现象可以如下数学的表示。山的高度函数 H的梯度点积一个单位向量给出了表面在该向量的方向上的斜率。这称为方向导数。</p>
+<blockquote>
+<p>理解梯度</p>
+</blockquote>
+<p>为了大家更容易理解什么是梯度，我们介意向量的概念，向量是一个矢量具有大小和方向的。同样，梯度也可以类比为具备大小和方向的这么一个概念。其两者比较如下：（这里严格意义上讲是不成立的，便于大家理解。）</p>
+<pre><code>向量 = 值 + 方向  
+梯度 = 向量
+梯度 = 梯度值 + 梯度方向
+</code></pre><blockquote>
+<p>梯度上升</p>
+</blockquote>
+<p>要找到某函数的最大值，最好的方法是沿着该函数的梯度方向探寻。如果梯度记为 ▽ ，则函数 f(x, y) 的梯度由下式表示:</p>
+<script type="math/tex; mode=display">
+\nabla f(x,y) = \begin{pmatrix} {\frac{\partial f(x,y)}{\partial x}}, {\frac{\partial f(x,y)}{\partial y}} \end{pmatrix}</script><p>这个梯度意味着要沿 x 的方向移动\( {\frac{\partial f(x,y)}{\partial x}} \)，沿 y 的方向移动\({\frac{\partial f(x,y)}{\partial x}}\)。其中，函数f(x, y) 必须要在待计算的点上有定义并且可微。下图是一个具体的例子。</p>
+<p><img src="https://i.imgur.com/HxUUJfP.png" alt=""></p>
+<p>上图展示的，梯度上升算法到达每个点后都会重新估计移动的方向。从 P0 开始，计算完该点的梯度，函数就根据梯度移动到下一点 P1。在 P1 点，梯度再次被重新计算，并沿着新的梯度方向移动到 P2 。如此循环迭代，直到满足停止条件。迭代过程中，梯度算子总是保证我们能选取到最佳的移动方向。</p>
+<p>上图中的梯度上升算法沿梯度方向移动了一步。可以看到，梯度算子总是指向函数值增长最快的方向。这里所说的是移动方向，而未提到移动量的大小。该量值称为步长，记作 α 。用向量来表示的话，梯度上升算法的迭代公式如下:</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;w&space;:=w&space;&plus;\alpha&space;\nabla_w&space;f(w&space;)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;w&space;:=w&space;&plus;\alpha&space;\nabla_w&space;f(w&space;)" title="w :=w +\alpha \nabla_w f(w )"></a></p>
+<pre><code>例如：y = w0 + w1x1 + w2x2 + ... + wnxn
+梯度：参考上图的例子，二维图像，x方向代表第一个系数，也就是 w1，y方向代表第二个系数也就是 w2，这样的向量就是梯度。
+α：上面的梯度算法的迭代公式中的阿尔法，这个代表的是移动步长（step length）。移动步长会影响最终结果的拟合程度，最好的方法就是随着迭代次数更改移动步长。步长通俗的理解，100米，如果我一步走10米，我需要走10步；如果一步走20米，我只需要走5步。这里的一步走多少米就是步长的意思。
+▽f(w)：代表沿着梯度变化的方向，也可以理解该方向求导。
+</code></pre><p>该公式将一直被迭代执行，直至达到某个停止条件为止，比如迭代次数达到某个指定值或者算法达到某个可以允许的误差范围。</p>
+<blockquote>
+<p>梯度上升与梯度下降的区别</p>
+</blockquote>
+<p>梯度下降是大家听的最多的，本质上梯度下降与梯度上升算法是一样的，只是公司中加法变减法，梯度下降的公式如下：</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;w&space;:=w&space;&plus;\alpha&space;\nabla_w&space;f(w&space;)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;w&space;:=w&space; - \alpha&space;\nabla_w&space;f(w&space;)" title="w :=w - \alpha \nabla_w f(w )"></a></p>
+<p>在求极值的问题中，有梯度上升和梯度下降两个最优化方法。梯度上升用于求最大值，梯度下降用于求最小值。如logistic回归的目标函数：代表的是概率，我们想求概率最大值，即对数似然函数的最大值，所以使用梯度上升算法。而线性回归的代价函数：代表的则是误差，我们想求误差最小值，所以用梯度下降算法。</p>
+<h2 id="逻辑回归分类核心思想"><a href="#逻辑回归分类核心思想" class="headerlink" title="逻辑回归分类核心思想"></a>逻辑回归分类核心思想</h2><p>根据现有数据对分类边界建立回归公司，以此进行分类。回归即最佳拟合。</p>
+<h2 id="逻辑回归工作原理"><a href="#逻辑回归工作原理" class="headerlink" title="逻辑回归工作原理"></a>逻辑回归工作原理</h2><pre><code>每个回归系数初始化为 1
+重复 R 次:
+    计算整个数据集的梯度
+    使用 步长 x 梯度 更新回归系数的向量
+返回回归系数
+</code></pre><h2 id="逻辑回归算法流程"><a href="#逻辑回归算法流程" class="headerlink" title="逻辑回归算法流程"></a>逻辑回归算法流程</h2><pre><code>收集数据: 采用任意方法收集数据
+准备数据: 由于需要进行距离计算，因此要求数据类型为数值型。另外，结构化数据格式则最佳。
+分析数据: 采用任意方法对数据进行分析。
+训练算法: 大部分时间将用于训练，训练的目的是为了找到最佳的分类回归系数。
+测试算法: 一旦训练步骤完成，分类将会很快。
+使用算法: 首先，我们需要输入一些数据，并将其转换成对应的结构化数值；接着，基于训练好的回归系数就可以对这些数值进行简单的回归计算，判定它们属于哪个类别；
+</code></pre><h2 id="逻辑回归优缺点"><a href="#逻辑回归优缺点" class="headerlink" title="逻辑回归优缺点"></a>逻辑回归优缺点</h2><pre><code>优点: 计算代价不高，易于理解和实现。
+缺点: 容易欠拟合，分类精度可能不高。
+适用数据类型: 数值型和标称型数据。  
+</code></pre><hr>
+<h1 id="案例分析1：Logistic回归在简单数据集上的分类"><a href="#案例分析1：Logistic回归在简单数据集上的分类" class="headerlink" title="案例分析1：Logistic回归在简单数据集上的分类"></a>案例分析1：Logistic回归在简单数据集上的分类</h1><h2 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h2><p>在一个简单的数据集上，采用梯度上升法找到 Logistic 回归分类器在此数据集上的最佳回归系数</p>
+<p><b>开发流程</b></p>
+<pre><code>收集数据: 可以使用任何方法
+准备数据: 由于需要进行距离计算，因此要求数据类型为数值型。另外，结构化数据格式则最佳
+分析数据: 画出决策边界
+训练算法: 使用梯度上升找到最佳参数
+测试算法: 使用 Logistic 回归进行分类
+使用算法: 对简单数据集中数据进行分类
+</code></pre><h2 id="数据采集"><a href="#数据采集" class="headerlink" title="数据采集"></a>数据采集</h2><p>本文采用100行的测试集文本。其中前两列是特征1，和特征2，第三类是对应的标签。（这里特征1，特征2作为测试使用没有实际意义，你可以理解为特征1 是水里游的，特征2是有鱼鳞。类别判断是否为鱼类。）</p>
+<p><img src="https://i.imgur.com/hnPHiUT.png" alt=""></p>
+<p>读取文本文件，加载数据集和类标签，这里将特征集第一列加1，便于后续回归系数的计算：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''加载数据集和类标签'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    <span class="comment"># dataMat为原始数据， labelMat为原始数据的标签</span></span><br><span class="line">    dataMat,labelMat = [],[]</span><br><span class="line">    fr = open(file_name)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">        lineArr = line.strip().split(<span class="string">','</span>)</span><br><span class="line">        <span class="keyword">if</span> len(lineArr) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">continue</span>    <span class="comment"># 这里如果就一个空的元素，则跳过本次循环</span></span><br><span class="line">        <span class="comment"># 为了方便计算，我们将每一行的开头添加一个 1.0 作为 X0</span></span><br><span class="line">        dataMat.append([<span class="number">1.0</span>, float(lineArr[<span class="number">0</span>]), float(lineArr[<span class="number">1</span>])])</span><br><span class="line">        labelMat.append(int(lineArr[<span class="number">2</span>]))</span><br><span class="line">    <span class="keyword">return</span> dataMat, labelMat</span><br></pre></td></tr></table></figure></p>
+<h2 id="梯度上升训练算法模型"><a href="#梯度上升训练算法模型" class="headerlink" title="梯度上升训练算法模型"></a>梯度上升训练算法模型</h2><blockquote>
+<p>梯度上升算法</p>
+</blockquote>
+<p>使用梯度上升训练算法模型，其代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 正常的梯度上升法，得到的最佳回归系数 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradAscent</span><span class="params">(dataMatIn, classLabels)</span>:</span></span><br><span class="line">    dataMatrix = mat(dataMatIn)  <span class="comment"># 转换为 NumPy 矩阵</span></span><br><span class="line">    <span class="comment"># 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]</span></span><br><span class="line">    <span class="comment"># transpose() 行列转置函数</span></span><br><span class="line">    <span class="comment"># 将行向量转化为列向量   =&gt;  矩阵的转置</span></span><br><span class="line">    labelMat = mat(classLabels).transpose()  <span class="comment"># 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量</span></span><br><span class="line">    <span class="comment"># m-&gt;数据量，样本数 n-&gt;特征数</span></span><br><span class="line">    m, n = shape(dataMatrix) <span class="comment"># 矩阵的行数和列数</span></span><br><span class="line">    <span class="comment"># print(m,n)</span></span><br><span class="line">    alpha = <span class="number">0.001</span>  <span class="comment"># alpha代表向目标移动的步长</span></span><br><span class="line">    maxCycles = <span class="number">500</span> <span class="comment"># 迭代次数</span></span><br><span class="line">    weights = ones((n, <span class="number">1</span>)) <span class="comment"># 代表回归系数,ones((n,1)) 长度和特征数相同矩阵全是1</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(maxCycles):</span><br><span class="line">        h = sigmoid(dataMatrix * weights)  <span class="comment"># 矩阵乘法</span></span><br><span class="line">        <span class="comment"># labelMat是实际值</span></span><br><span class="line">        error = (labelMat - h)  <span class="comment"># 向量相减</span></span><br><span class="line">        <span class="comment"># 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量</span></span><br><span class="line">        weights = weights + alpha * dataMatrix.transpose() * error  <span class="comment"># 矩阵乘法，最后得到回归系数</span></span><br><span class="line">    <span class="keyword">return</span> array(weights)</span><br></pre></td></tr></table></figure></p>
+<p>其中sigmoid函数实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' sigmoid跳跃函数 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(ZVar)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span> / (<span class="number">1</span> + exp(-ZVar))</span><br></pre></td></tr></table></figure></p>
+<p>代码分析：函数的两个参数是数据加载返回的特征集和标签类集合。对数据集进行mat矩阵话转化，而类标签集进行矩阵之后转置，便于行列式的计算。然后设定步长，和迭代次数。整个特征矩阵与回归系数乘积求sigmoid值，最后返回回归系数的值。运行结果如下：</p>
+<pre><code>[[ 4.12414349]
+ [ 0.48007329]
+ [-0.6168482 ]]
+</code></pre><p><strong>思考？步长和迭代次数的初始值如何设定？</strong></p>
+<blockquote>
+<p>随机梯度上升算法</p>
+</blockquote>
+<p>梯度上升算法在每次更新回归系数时都需要遍历整个数据集，该方法在处理 100 个左右的数据集时尚可，但如果有数十亿样本和成千上万的特征，那么该方法的计算复杂度就太高了。一种改进方法是一次仅用一个样本点来更新回归系数，该方法称为 随机梯度上升算法。由于可以在新样本到来时对分类器进行增量式更新，因而随机梯度上升算法是一个在线学习(online learning)算法。与 “在线学习” 相对应，一次处理所有数据被称作是 “批处理” （batch） 。其伪代码是：</p>
+<pre><code>所有回归系数初始化为 1
+对数据集中每个样本
+    计算该样本的梯度
+    使用 alpha x gradient 更新回归系数值
+返回回归系数值
+</code></pre><p>随机梯度上升算法的代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 随机梯度上升'''</span></span><br><span class="line"><span class="comment"># 梯度上升与随机梯度上升的区别？梯度下降在每次更新数据集时都需要遍历整个数据集，计算复杂都较高；随机梯度下降一次只用一个样本点来更新回归系数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradAscent0</span><span class="params">(dataMatrix, classLabels)</span>:</span></span><br><span class="line">    m, n = shape(dataMatrix)</span><br><span class="line">    alpha = <span class="number">0.01</span></span><br><span class="line">    weights = ones(n)  <span class="comment"># 初始化长度为n的数组，元素全部为 1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        <span class="comment"># sum(dataMatrix[i]*weights)为了求 f(x)的值，f(x)=a1*x1+b2*x2+..+nn*xn</span></span><br><span class="line">        h = sigmoid(sum(dataMatrix[i] * weights))</span><br><span class="line">        <span class="comment"># 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数</span></span><br><span class="line">        error = classLabels[i] - h</span><br><span class="line">        <span class="comment"># 0.01*(1*1)*(1*n)</span></span><br><span class="line">        weights = array(weights) + alpha * error * array(mat(dataMatrix[i]))</span><br><span class="line">    <span class="keyword">return</span> array(weights.transpose())</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，随机梯度上升算法与梯度上升算法在代码上很相似，但也有一些区别: 第一，后者的变量 h 和误差 error 都是向量，而前者则全是数值；第二，前者没有矩阵的转换过程，所有变量的数据类型都是 NumPy 数组。</p>
+<p>判断优化算法优劣的可靠方法是看它是否收敛，也就是说参数是否达到了稳定值，是否还会不断地变化？下图展示了随机梯度上升算法在 200 次迭代过程中回归系数的变化情况。其中的系数2，也就是 X2 只经过了 50 次迭代就达到了稳定值，但系数 1 和 0 则需要更多次的迭代。如下图所示:</p>
+<p><img src="https://i.imgur.com/0kXiZWs.png" alt=""></p>
+<p>针对波动问题，我们改进了之前的随机梯度上升算法，具体代码实现如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 改进版的随机梯度上升，使用随机的一个样本来更新回归系数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradAscent1</span><span class="params">(dataMatrix, classLabels, numIter=<span class="number">150</span>)</span>:</span></span><br><span class="line">    m, n = shape(dataMatrix)</span><br><span class="line">    weights = ones(n)  <span class="comment"># 创建与列数相同的矩阵的系数矩阵</span></span><br><span class="line">    <span class="comment"># 随机梯度, 循环150,观察是否收敛</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(numIter):</span><br><span class="line">        dataIndex = list(range(m)) <span class="comment"># [0, 1, 2 .. m-1]</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="comment"># i和j的不断增大，导致alpha的值不断减少，但是不为0</span></span><br><span class="line">            alpha = <span class="number">4</span> / (<span class="number">1.0</span> + j + i) + <span class="number">0.0001</span> <span class="comment"># alpha随着迭代不断减小非0</span></span><br><span class="line">            <span class="comment"># random.uniform(x, y) 随机生成下一个实数，它在[x,y]范围内</span></span><br><span class="line">            Index = int(random.uniform(<span class="number">0</span>, len(dataIndex)))</span><br><span class="line">            <span class="comment"># sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn</span></span><br><span class="line">            h = sigmoid(sum(dataMatrix[dataIndex[Index]] * weights))</span><br><span class="line">            error = classLabels[dataIndex[Index]] - h</span><br><span class="line">            weights = weights + alpha * error *array(mat(dataMatrix[dataIndex[Index]]))</span><br><span class="line">            <span class="keyword">del</span> (dataIndex[Index])</span><br><span class="line">    <span class="comment"># print(weights.transpose())</span></span><br><span class="line">    <span class="keyword">return</span> weights.transpose()</span><br></pre></td></tr></table></figure></p>
+<p>上面的改进版随机梯度上升算法改了两处代码。</p>
+<ul>
+<li>改进为 alpha 的值。alpha 在每次迭代的时候都会调整，这回缓解上面波动图的数据波动或者高频波动。另外，虽然 alpha 会随着迭代次数不断减少，但永远不会减小到 0，因为我们在计算公式中添加了一个常数项。</li>
+<li>修改为 randIndex 更新，这里通过随机选取样本拉来更新回归系数。这种方法将减少周期性的波动。这种方法每次随机从列表中选出一个值，然后从列表中删掉该值（再进行下一次迭代）。</li>
+</ul>
+<h2 id="分析数据：画出决策边界"><a href="#分析数据：画出决策边界" class="headerlink" title="分析数据：画出决策边界"></a>分析数据：画出决策边界</h2><p>边界可视化的代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 数据可视化展示 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plotBestFit</span><span class="params">(dataArr, labelMat, weights)</span>:</span></span><br><span class="line">    n = shape(dataArr)[<span class="number">0</span>]</span><br><span class="line">    xcord1,xcord2,ycord1,ycord2 = [],[],[],[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="keyword">if</span> int(labelMat[i]) == <span class="number">1</span>:</span><br><span class="line">            xcord1.append(dataArr[i, <span class="number">1</span>])</span><br><span class="line">            ycord1.append(dataArr[i, <span class="number">2</span>])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            xcord2.append(dataArr[i, <span class="number">1</span>])</span><br><span class="line">            ycord2.append(dataArr[i, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax.scatter(xcord1, ycord1, s=<span class="number">30</span>, c=<span class="string">'red'</span>, marker=<span class="string">'s'</span>)</span><br><span class="line">    ax.scatter(xcord2, ycord2, s=<span class="number">30</span>, c=<span class="string">'green'</span>)</span><br><span class="line">    x = arange(<span class="number">-3.0</span>, <span class="number">3.0</span>, <span class="number">0.1</span>)</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])</span></span><br><span class="line"><span class="string">    w0*x0+w1*x1+w2*x2=f(x)</span></span><br><span class="line"><span class="string">    x0最开始就设置为1， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了</span></span><br><span class="line"><span class="string">    所以： w0+w1*x+w2*y=0 =&gt; y = (-w0-w1*x)/w2</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    y = (-weights[<span class="number">0</span>] - weights[<span class="number">1</span>] * x) / weights[<span class="number">2</span>]</span><br><span class="line">    ax.plot(x, y)</span><br><span class="line">    plt.xlabel(<span class="string">'X'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'Y'</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>运行结果分别是：</p>
+<p>梯度上升算法可视化结果图1-1：</p>
+<p><img src="https://i.imgur.com/PFWw6FI.png" alt=""></p>
+<p>随机梯度上升算法可视化结果：<br><img src="https://i.imgur.com/vkDN1aJ.png" alt=""></p>
+<p>优化随机梯度上升算法可视化结果：<br><img src="https://i.imgur.com/I7lHYOk.png" alt=""></p>
+<p>结果分析：</p>
+<p>图1-1的梯度上升算法在每次更新回归系数时都需要遍历整个数据集，虽然分类结果还不错该方法的计算复杂度就太高了。图1-2的随机梯度上升算法虽然分类效果不是很好（分类1/3左右），但是其迭代次数远远小于图1-1迭代次数（500次）。整体性能有所改进，但是其存在局部波动现象。基于此改进后的图1-3效果显示好很多。</p>
+<h2 id="测试算法-使用Logistic回归进行分类"><a href="#测试算法-使用Logistic回归进行分类" class="headerlink" title="测试算法: 使用Logistic回归进行分类"></a>测试算法: 使用Logistic回归进行分类</h2><p>代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''数据集决策可视化'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">simpleTest</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    <span class="comment"># 1.收集并准备数据</span></span><br><span class="line">    dataMat, labelMat = loadDataSet(file_name)</span><br><span class="line">    <span class="comment"># 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值</span></span><br><span class="line">    dataArr = array(dataMat)</span><br><span class="line">    weights = stocGradAscent1(dataArr, labelMat)</span><br><span class="line">    <span class="comment"># 数据可视化</span></span><br><span class="line">    plotBestFit(dataArr, labelMat, weights)</span><br></pre></td></tr></table></figure></p>
+<h1 id="案例分析2：从病毒性流感预测病人的死亡情况"><a href="#案例分析2：从病毒性流感预测病人的死亡情况" class="headerlink" title="案例分析2：从病毒性流感预测病人的死亡情况"></a>案例分析2：从病毒性流感预测病人的死亡情况</h1><h2 id="案例描述-1"><a href="#案例描述-1" class="headerlink" title="案例描述"></a>案例描述</h2><p>使用 Logistic 回归来预测病毒性流感预测病人的死亡问题。这个数据集中包含了医院检测病毒性流感的一些指标，有的指标比较主观，有的指标难以测量，例如人的疼痛级别。</p>
+<p><strong>开发流程</strong></p>
+<pre><code>收集数据: 给定数据文件
+准备数据: 用 Python 解析文本文件并填充缺失值
+分析数据: 可视化并观察数据
+训练算法: 使用优化算法，找到最佳的系数
+测试算法: 为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，
+         通过改变迭代的次数和步长的参数来得到更好的回归系数
+使用算法: 实现一个简单的命令行程序来收集马的症状并输出预测结果并非难事，
+         这可以作为留给大家的一道习题
+</code></pre><h2 id="收集数据-给定数据文件"><a href="#收集数据-给定数据文件" class="headerlink" title="收集数据: 给定数据文件"></a>收集数据: 给定数据文件</h2><p>训练数据已经给出，这里对文件处理即可，代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''加载数据集和类标签2'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet2</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    frTrain = open(file_name)</span><br><span class="line">    trainingSet,trainingLabels = [],[]</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> frTrain.readlines():</span><br><span class="line">        currLine = line.strip().split(<span class="string">','</span>)</span><br><span class="line">        <span class="comment"># print(len(currLine))</span></span><br><span class="line">        lineArr = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(currLine)<span class="number">-1</span>):</span><br><span class="line">            lineArr.append(float(currLine[i]))</span><br><span class="line">        trainingSet.append(lineArr)</span><br><span class="line">        trainingLabels.append(float(currLine[len(currLine)<span class="number">-1</span>]))</span><br><span class="line">    <span class="keyword">return</span> trainingSet,trainingLabels</span><br></pre></td></tr></table></figure></p>
+<h2 id="准备数据-用-Python-解析文本文件并填充缺失值"><a href="#准备数据-用-Python-解析文本文件并填充缺失值" class="headerlink" title="准备数据: 用 Python 解析文本文件并填充缺失值"></a>准备数据: 用 Python 解析文本文件并填充缺失值</h2><blockquote>
+<p>处理数据中的缺失值</p>
+</blockquote>
+<p>假设有100个样本和20个特征，这些数据都是机器收集回来的。若机器上的某个传感器损坏导致一个特征无效时该怎么办？此时是否要扔掉整个数据？这种情况下，另外19个特征怎么办？ 它们是否还可以用？答案是肯定的。因为有时候数据相当昂贵，扔掉和重新获取都是不可取的，所以必须采用一些方法来解决这个问题。下面给出了一些可选的做法：</p>
+<ul>
+<li>使用可用特征的均值来填补缺失值；</li>
+<li>使用特殊值来填补缺失值，如 -1；</li>
+<li>忽略有缺失值的样本；</li>
+<li>使用有相似样本的均值添补缺失值；</li>
+<li>使用另外的机器学习算法预测缺失值。</li>
+</ul>
+<p>现在，我们对下一节要用的数据集进行预处理，使其可以顺利地使用分类算法。在预处理需要做两件事:所有的缺失值必须用一个实数值来替换，因为我们使用的 NumPy 数据类型不允许包含缺失值。我们这里选择实数 0 来替换所有缺失值，恰好能适用于 Logistic 回归。这样做的直觉在于，我们需要的是一个在更新时不会影响系数的值。回归系数的更新公式如下:<br>weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]<br>如果 dataMatrix 的某个特征对应值为 0，那么该特征的系数将不做更新，即:weights = weights<br>另外，由于 Sigmoid(0) = 0.5 ，即它对结果的预测不具有任何倾向性，因此我们上述做法也不会对误差造成任何影响。基于上述原因，将缺失值用 0 代替既可以保留现有数据，也不需要对优化算法进行修改。此外，该数据集中的特征取值一般不为 0，因此在某种意义上说它也满足 “特殊值” 这个要求。<br>如果在测试数据集中发现了一条数据的类别标签已经缺失，那么我们的简单做法是将该条数据丢弃。这是因为类别标签与特征不同，很难确定采用某个合适的值来替换。采用 Logistic 回归进行分类时这种做法是合理的，而如果采用类似 kNN 的方法，则保留该条数据显得更加合理。</p>
+<h2 id="训练算法-使用优化算法，找到最佳的系数"><a href="#训练算法-使用优化算法，找到最佳的系数" class="headerlink" title="训练算法: 使用优化算法，找到最佳的系数"></a>训练算法: 使用优化算法，找到最佳的系数</h2><p>训练算法模型代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''测试Logistic算法分类'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testClassier</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 使用改进后的随机梯度上升算法 求得在此数据集上的最佳回归系数 trainWeights</span></span><br><span class="line">    file_name = <span class="string">'./HorseColicTraining.txt'</span></span><br><span class="line">    trainingSet,trainingLabels = loadDataSet2(file_name)</span><br><span class="line">    trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, <span class="number">500</span>)</span><br><span class="line">    <span class="comment"># 根据特征向量预测结果</span></span><br><span class="line">    teststr = <span class="string">'2.000000,1.000000,38.300000,40.000000,24.000000,1.000000,1.000000,3.000000,1.000000,3.000000,3.000000,1.000000,0.000000,0.000000,0.000000,1.000000,1.000000,33.000000,6.700000,0.000000,0.000000'</span></span><br><span class="line">    currLine = teststr.strip().split(<span class="string">','</span>)</span><br><span class="line">    lineArr = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(currLine)):</span><br><span class="line">        lineArr.append(float(currLine[i]))</span><br><span class="line">    res = classifyVector(array(lineArr), trainWeights)</span><br><span class="line">    <span class="comment"># 打印预测结果</span></span><br><span class="line">    reslut = [<span class="string">'死亡'</span>,<span class="string">'存活'</span>]</span><br><span class="line">    print(<span class="string">'预测结果是：'</span>,int(res))</span><br></pre></td></tr></table></figure></p>
+<p>分类函数代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''分类函数，根据回归系数和特征向量来计算 Sigmoid的值,大于0.5函数返回1，否则返回0'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classifyVector</span><span class="params">(featuresV, weights)</span>:</span></span><br><span class="line">    prob = sigmoid(sum(featuresV * weights))</span><br><span class="line">    print(prob)</span><br><span class="line">    <span class="keyword">if</span> prob &gt; <span class="number">0.9</span>: <span class="keyword">return</span> <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> <span class="number">0.0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="测试算法：使用决策树执行分类"><a href="#测试算法：使用决策树执行分类" class="headerlink" title="测试算法：使用决策树执行分类"></a>测试算法：使用决策树执行分类</h2><p>为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，通过改变迭代的次数和步长的参数来得到更好的回归系数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''打开测试集和训练集,并对数据进行格式化处理'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">colicTest</span><span class="params">()</span>:</span></span><br><span class="line">    file_name = <span class="string">'./HorseColicTraining.txt'</span></span><br><span class="line">    trainingSet,trainingLabels = loadDataSet2(file_name)</span><br><span class="line">    <span class="comment"># 使用改进后的随机梯度上升算法 求得在此数据集上的最佳回归系数 trainWeights</span></span><br><span class="line">    trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, <span class="number">500</span>)</span><br><span class="line">    frTest = open(<span class="string">'./HorseColicTest.txt'</span>)</span><br><span class="line">    errorCount = <span class="number">0</span> ; numTestVec = <span class="number">0.0</span></span><br><span class="line">    <span class="comment"># 读取 测试数据集 进行测试，计算分类错误的样本条数和最终的错误率</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> frTest.readlines():</span><br><span class="line">        numTestVec += <span class="number">1.0</span></span><br><span class="line">        currLine = line.strip().split(<span class="string">','</span>)</span><br><span class="line">        lineArr = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">21</span>):</span><br><span class="line">            lineArr.append(float(currLine[i]))</span><br><span class="line">        <span class="keyword">if</span> int(classifyVector(array(lineArr), trainWeights)) != int(</span><br><span class="line">                currLine[<span class="number">21</span>]):</span><br><span class="line">            errorCount += <span class="number">1</span></span><br><span class="line">    errorRate = (float(errorCount) / numTestVec)</span><br><span class="line">    print(<span class="string">"逻辑回归算法测试集的错误率为: %f"</span> % errorRate)</span><br><span class="line">    <span class="keyword">return</span> errorRate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用 colicTest() 10次并求结果的平均值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiTest</span><span class="params">()</span>:</span></span><br><span class="line">    numTests = <span class="number">10</span>;errorSum = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(numTests):</span><br><span class="line">        errorSum += colicTest()</span><br><span class="line">    print(<span class="string">"迭代 %d 次后的平均错误率是: %f"</span> % (numTests, errorSum / float(numTests)))</span><br></pre></td></tr></table></figure></p>
+<p>其运行结果如下：</p>
+<pre><code>逻辑回归算法测试集的错误率为: 0.298507
+</code></pre><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>scikit中文社区：<a href="http://sklearn.apachecn.org/cn/0.19.0/" target="_blank" rel="noopener">http://sklearn.apachecn.org/cn/0.19.0/</a></li>
+<li>中文维基百科：<a href="https://zh.wikipedia.org/wiki/%E9%82%8F%E8%BC%AF%E8%BF%B4%E6%AD%B8" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E9%82%8F%E8%BC%AF%E8%BF%B4%E6%AD%B8</a></li>
+<li>GitHub：<a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">https://github.com/BaiNingchao/MachineLearning-1</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/8fddzwM.png" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Logistic-regression/" rel="tag"><i class="fa fa-tag"></i> Logistic regression</a>
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/机器学习算法/" rel="tag"><i class="fa fa-tag"></i> 机器学习算法</a>
+          
+            <a href="/tags/文本分类/" rel="tag"><i class="fa fa-tag"></i> 文本分类</a>
+          
+            <a href="/tags/逻辑回归/" rel="tag"><i class="fa fa-tag"></i> 逻辑回归</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3/" rel="next" title="一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3">
+                <i class="fa fa-chevron-left"></i> 一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/19/一步步教你轻松学K-means聚类算法/" rel="prev" title="一步步教你轻松学K-means聚类算法">
+                一步步教你轻松学K-means聚类算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理论介绍"><span class="nav-number">1.</span> <span class="nav-text">理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归和Sigmoid-函数"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑回归和Sigmoid 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最优化方法的回归系数"><span class="nav-number">1.2.</span> <span class="nav-text">最优化方法的回归系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度上升与梯度下降"><span class="nav-number">1.3.</span> <span class="nav-text">梯度上升与梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归分类核心思想"><span class="nav-number">1.4.</span> <span class="nav-text">逻辑回归分类核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归工作原理"><span class="nav-number">1.5.</span> <span class="nav-text">逻辑回归工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归算法流程"><span class="nav-number">1.6.</span> <span class="nav-text">逻辑回归算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归优缺点"><span class="nav-number">1.7.</span> <span class="nav-text">逻辑回归优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例分析1：Logistic回归在简单数据集上的分类"><span class="nav-number">2.</span> <span class="nav-text">案例分析1：Logistic回归在简单数据集上的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述"><span class="nav-number">2.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据采集"><span class="nav-number">2.2.</span> <span class="nav-text">数据采集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度上升训练算法模型"><span class="nav-number">2.3.</span> <span class="nav-text">梯度上升训练算法模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：画出决策边界"><span class="nav-number">2.4.</span> <span class="nav-text">分析数据：画出决策边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试算法-使用Logistic回归进行分类"><span class="nav-number">2.5.</span> <span class="nav-text">测试算法: 使用Logistic回归进行分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例分析2：从病毒性流感预测病人的死亡情况"><span class="nav-number">3.</span> <span class="nav-text">案例分析2：从病毒性流感预测病人的死亡情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述-1"><span class="nav-number">3.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收集数据-给定数据文件"><span class="nav-number">3.2.</span> <span class="nav-text">收集数据: 给定数据文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据-用-Python-解析文本文件并填充缺失值"><span class="nav-number">3.3.</span> <span class="nav-text">准备数据: 用 Python 解析文本文件并填充缺失值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练算法-使用优化算法，找到最佳的系数"><span class="nav-number">3.4.</span> <span class="nav-text">训练算法: 使用优化算法，找到最佳的系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试算法：使用决策树执行分类"><span class="nav-number">3.5.</span> <span class="nav-text">测试算法：使用决策树执行分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/09/19/一步步教你轻松学逻辑回归模型算法/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

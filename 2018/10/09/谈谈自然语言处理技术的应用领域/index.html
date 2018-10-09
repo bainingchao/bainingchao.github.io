@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="Python,自然语言处理,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈自然语言处理技术的应用领域">
+<meta property="og:url" content="https://bainingchao.github.io/2018/10/09/谈谈自然语言处理技术的应用领域/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/QlpbxXv.png">
+<meta property="og:image" content="https://i.imgur.com/gIyBE03.jpg">
+<meta property="og:image" content="https://i.imgur.com/Gyb1PWs.jpg">
+<meta property="og:image" content="https://i.imgur.com/siMrWOW.png">
+<meta property="og:image" content="https://i.imgur.com/KlLK1Te.png">
+<meta property="og:image" content="https://i.imgur.com/1SxLnTT.jpg">
+<meta property="og:image" content="https://i.imgur.com/3YWeGx3.png">
+<meta property="og:image" content="https://i.imgur.com/3oHq8DE.png">
+<meta property="og:image" content="https://i.imgur.com/jaLGNC1.png">
+<meta property="og:image" content="https://i.imgur.com/LpFfAH2.jpg">
+<meta property="og:image" content="https://i.imgur.com/eNS65aV.jpg">
+<meta property="og:image" content="https://i.imgur.com/xtf9wnu.png">
+<meta property="og:image" content="https://i.imgur.com/S78QJlJ.png">
+<meta property="og:image" content="https://i.imgur.com/TIeEi2b.jpg">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/zmKK4xs.jpg">
+<meta property="og:updated_time" content="2018-10-09T06:52:15.580Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈谈自然语言处理技术的应用领域">
+<meta name="twitter:description" content="摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://i.imgur.com/QlpbxXv.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/10/09/谈谈自然语言处理技术的应用领域/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>谈谈自然语言处理技术的应用领域 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/10/09/谈谈自然语言处理技术的应用领域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">谈谈自然语言处理技术的应用领域
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-09 14:10:05 / 修改时间：14:52:15" itemprop="dateCreated datePublished" datetime="2018-10-09T14:10:05+08:00">2018-10-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/自然语言处理/" itemprop="url" rel="index"><span itemprop="name">自然语言处理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="https://i.imgur.com/QlpbxXv.png" alt=""></p>
+<h1 id="自然语言处理的任务和限制"><a href="#自然语言处理的任务和限制" class="headerlink" title="自然语言处理的任务和限制"></a>自然语言处理的任务和限制</h1><blockquote>
+<p>任务和限制</p>
+</blockquote>
+<p>NLP是一种很吸引人的人机交互方式。早期的语言处理系统如SHRDLU，当它们处于一个有限的“积木世界”，运用有限的词汇表会话时，工作得相当好。这使得研究员们对此系统相当乐观，然而，当把这个系统拓展到充满了现实世界的含糊与不确定性的环境中时，他们很快丧失了信心。<br>由于理解自然语言，需要关于外在世界的广泛知识以及运用操作这些知识的能力，自然语言认知，同时也被视为一个人工智能完备的问题。在自然语言处理中，”理解”的定义也变成一个主要的问题。</p>
+<blockquote>
+<p>一些NLP面临的问题实例：</p>
+</blockquote>
+<p>句子“我们把香蕉给猴子，因为(它们)饿了”和“我们把香蕉给猴子，因为(它们)熟透了”有同样的结构。但是代词“它们”在第一句中指的是“猴子”，在第二句中指的是“香蕉”。如果不了解猴子和香蕉的属性，无法区分。(英文的it没有区分，但在中文里“它”和“它”是有区别的，只是代词在中文里常常被省略，因此需区别属性并且标示出来)</p>
+<hr>
+<h1 id="自然语言处理的主要技术范畴"><a href="#自然语言处理的主要技术范畴" class="headerlink" title="自然语言处理的主要技术范畴"></a>自然语言处理的主要技术范畴</h1><h2 id="语音合成"><a href="#语音合成" class="headerlink" title="语音合成"></a>语音合成</h2><blockquote>
+<p>语音合成（Speech synthesis）/文本朗读（Text to speech）</p>
+</blockquote>
+<p>语音合成是将人类语音用人工的方式所产生。若是将电脑系统用在语音合成上，则称为语音合成器，而语音合成器可以用软/硬件所实现。文字转语音（text-to-speech，TTS）系统则是将一般语言的文字转换为语音，其他的系统可以描绘语言符号的表示方式，就像音标转换至语音一样。</p>
+<p><img src="https://i.imgur.com/gIyBE03.jpg" alt=""></p>
+<p>一个语音合成器的质量通常是决定于人声的相似度以及语义是否能被了解。一个清晰的文字转语音程序应该提供人类在视觉受到伤害或是得到失读症时，能够听到并且在个人电脑上完成工作。从80年代早期开始，许多的电脑操作系统已经包含了语音合成器了。<br>语音合成的应用包括：智能仪表、智能玩具、电子地图、电子导游、电子词典等。</p>
+<h2 id="语音识别"><a href="#语音识别" class="headerlink" title="语音识别"></a>语音识别</h2><blockquote>
+<p>语音识别（Speech recognition）</p>
+</blockquote>
+<p>语音识别（speech recognition）技术，也被称为语音转文本识别（英语：Speech To Text, STT），其目标是以电脑自动将人类的语音内容转换为相应的文字。与说话人识别及说话人确认不同，后者尝试识别或确认发出语音的说话人而非其中所包含的词汇内容。</p>
+<p><img src="https://i.imgur.com/Gyb1PWs.jpg" alt=""></p>
+<p>语音识别技术的应用包括语音拨号、语音导航、室内设备控制、语音文档检索、简单的听写数据录入等。语音识别技术与其他自然语言处理技术如机器翻译及语音合成技术相结合，可以构建出更加复杂的应用，例如语音到语音的翻译。<br>语音识别技术所涉及的领域包括：信号处理、模式识别、概率论和信息论、发声机理和听觉机理、人工智能等等。</p>
+<h2 id="中文自动分词"><a href="#中文自动分词" class="headerlink" title="中文自动分词"></a>中文自动分词</h2><blockquote>
+<p>中文自动分词（Chinese word segmentation）</p>
+</blockquote>
+<p>中文自动分词指的是使用计算机自动对中文文本进行词语的切分，即像英文那样使得中文句子中的词之间有空格以标识。中文自动分词被认为是中文自然语言处理中的一个最基本的环节。</p>
+<p><img src="https://i.imgur.com/siMrWOW.png" alt=""></p>
+<p>现有方法包括：</p>
+<ul>
+<li>基于词典的匹配：前向最大匹配、后向最大匹配。</li>
+<li>基于字的标注：最大熵模型、条件随机场模型、感知器模型。</li>
+<li>其它方法：与词性标注结合、与句法分析结合。</li>
+</ul>
+<blockquote>
+<p>常用中文分词</p>
+</blockquote>
+<p>中文文本词与词之间没有像英文那样有空格分隔，因此很多时候中文文本操作都涉及切词，这里整理了一些中文分词工具。</p>
+<ul>
+<li>结巴分词（个人推荐，基于Python开发的）</li>
+<li>StanfordNLP汉语分词工具</li>
+<li>哈工大语言云</li>
+<li>庖丁解牛分词</li>
+<li>盘古分词  </li>
+<li>ICTCLAS（中科院）汉语词法分析系统 </li>
+<li>IKAnalyzer（Luence项目下，基于java的）</li>
+<li>FudanNLP(复旦大学)</li>
+</ul>
+<h2 id="词性标注"><a href="#词性标注" class="headerlink" title="词性标注"></a>词性标注</h2><blockquote>
+<p>词性标注（Part-of-speech tagging）</p>
+</blockquote>
+<p>词性标注（Part-of-Speech tagging 或POS tagging)，又称词类标注或者简称标注，是指在词性标记集已确定，并且词典中每个词都有确定词性的基础上，对一个输入词串转换成相应词性标记串的过程叫做词性标注。</p>
+<p><img src="https://i.imgur.com/KlLK1Te.png" alt=""></p>
+<p>在汉语中，因为汉语词汇词性多变的情况比较少见，大多词语只有一个词性，或者出现频次最高的词性远远高于第二位的词性，相对比较简单。同时，它也受到一些条件约束。比如：兼类词在具体语境中的词性判定问题、未登录词即新词词性问题、兼类词问题等。<br>词性标注方法包括：概率方法、隐马尔可夫模型的词性标注方法、机器学习规则的方法等</p>
+<blockquote>
+<p>词性标注原理</p>
+</blockquote>
+<p>原理描述：标注一篇文章中的句子，即语句标注，使用标注方法BIO标注或者BIEO标注（B代表开始，I中间相关字词，E代表结束，O代表其他词）。则观察序列X就是一个语料库（此处假设一篇文章，seg代表文章中的每一句，SEG是seg的集合），标识序列Y是BIO，即对应SEG序列的识别，从而可以根据条件概率P(标注|句子)，推测出正确的句子标注。  </p>
+<p>显然，这里针对的是序列状态，即CRF是用来标注或划分序列结构数据的概率化结构模型，CRF可以看作无向图模型或者马尔科夫随机场。   用过CRF的都知道，CRF是一个序列标注模型，指的是把一个词序列的每个词打上一个标记。一般通过，在词的左右开一个小窗口，根据窗口里面的词，和待标注词语来实现特征模板的提取。最后通过特征的组合决定需要打的tag是什么。</p>
+<h2 id="句法分析"><a href="#句法分析" class="headerlink" title="句法分析"></a>句法分析</h2><blockquote>
+<p>句法分析（Parsing）</p>
+</blockquote>
+<p>句法分析(Parsing)就是指对句子中的词语语法功能进行分析。比如“我来晚了”，这里“我”是主语，“来”是谓语，“晚了”是补语。</p>
+<p><img src="https://i.imgur.com/1SxLnTT.jpg" alt=""></p>
+<p>句法分析在中文信息处理中的主要应用包括：如机器翻译、命名实体识别等。</p>
+<blockquote>
+<p>自然语言生成（Natural language generation）</p>
+</blockquote>
+<p>自然语言生成是研究使计算机具有人一样的表达和写作的功能。即能够根据一些关键信息及其在机器内部的表达形式，经过一个规划过程，来自动生成一段高质量的自然语言文本。<br>自然语言处理包括自然语言理解和自然语言生成。自然语言生成是人工智能和计算语言学的分支,相应的语言生成系统是基于语言信息处理的计算机模型,其工作过程与自然语言分析相反,是从抽象的概念层次开始,通过选择并执行一定的语义和语法规则来生成文本。</p>
+<h2 id="文本挖掘"><a href="#文本挖掘" class="headerlink" title="文本挖掘"></a>文本挖掘</h2><p>文本挖掘是信息挖掘的一个研究分支，用于基于文本信息的知识发现。文本挖掘的准备工作由文本收集、文本分析和特征修剪三个步骤组成。目前研究和应用最多的几种文本挖掘技术有：文档聚类、文档分类和摘要抽取。</p>
+<h2 id="文本分类"><a href="#文本分类" class="headerlink" title="文本分类"></a>文本分类</h2><blockquote>
+<p>文本分类（Text categorization）</p>
+</blockquote>
+<p>文本分类用电脑对文本集按照一定的分类器模型进行自动分类标记。文本分类的总体过程如下：</p>
+<ol>
+<li>预处理：将原始语料格式化为同一格式，便于后续的统一处理；</li>
+<li>索引：将文档分解为基本处理单元，同时降低后续处理的开销；</li>
+<li>统计：词频统计，项（单词、概念）与分类的相关概率；</li>
+<li>特征抽取：从文档中抽取出反映文档主题的特征；</li>
+<li>分类器：分类器的训练；</li>
+<li>评价：分类器的测试结果分析。</li>
+</ol>
+<p><img src="https://i.imgur.com/3YWeGx3.png" alt=""></p>
+<p>文本分类常用算法包括：决策树、朴素贝叶斯、神经网络、支持向量机、线性最小平方拟合、kNN、遗传算法、最大熵等。广泛应用于垃圾过滤，新闻分类，词性标注等。</p>
+<h2 id="文本挖掘-1"><a href="#文本挖掘-1" class="headerlink" title="文本挖掘"></a>文本挖掘</h2><blockquote>
+<p>文本挖掘</p>
+</blockquote>
+<p>文本挖掘一般指文本处理过程中产生高质量的信息。高质量的信息通常通过分类和预测来产生，如模式识别。文本挖掘通常涉及输入文本的处理过程，产生结构化数据，并最终评价和解释输出。</p>
+<p><img src="https://i.imgur.com/3oHq8DE.png" alt=""></p>
+<p>典型的文本挖掘方法包括文本分类、文本聚类、信息抽取、概念/实体挖掘、情感分析和观点分析等。</p>
+<h2 id="命名实体识别"><a href="#命名实体识别" class="headerlink" title="命名实体识别"></a>命名实体识别</h2><p>命名实体识别常见三种主流算法即基于CRF，字典法和混合的方法</p>
+<ol>
+<li>CRF：在CRF for Chinese NER这个任务中，提取的特征大多是该词是否为中国人名姓氏用字，该词是否为中国人名名字用字之类的，True or false的特征。所以一个可靠的百家姓的表就十分重要啦~在国内学者做的诸多实验中，效果最好的人名可以F1测度达到90%，最差的机构名达到85%。  </li>
+<li>字典法：在NER中就是把每个字都当开头的字放到trie-tree中查一遍，查到了就是NE。中文的trie-tree需要进行哈希，因为中文字符太多了，不像英文就26个。  </li>
+<li>对六类不同的命名实体采取不一样的手段进行处理，例如对于人名，进行字级别的条件概率计算。   中文：哈工大（语言云）上海交大    英文：stanfordNER等。</li>
+</ol>
+<h2 id="信息抽取"><a href="#信息抽取" class="headerlink" title="信息抽取"></a>信息抽取</h2><blockquote>
+<p>信息抽取（Information extraction）</p>
+</blockquote>
+<p>信息抽取（Information Extraction）主要是从大量文字数据中自动抽取特定消息作为数据库访问之用的技术。</p>
+<p><img src="https://i.imgur.com/jaLGNC1.png" alt=""></p>
+<p>简单可以理解为从给定文本中抽取重要的信息，比如，时间、地点、人物、事件、原因、结果、数字、日期、货币、专有名词等等。通俗说来，就是要了解谁在什么时候、什么原因、对谁、做了什么事、有什么结果。涉及到实体识别、时间抽取、因果关系抽取等关键技术。</p>
+<h2 id="问答系统"><a href="#问答系统" class="headerlink" title="问答系统"></a>问答系统</h2><blockquote>
+<p>问答系统（Question answering）</p>
+</blockquote>
+<p>问答系统（英语：Question answering），是，当下自然语言处理研究的热点，未来自然语言处理的明日之星。问答系统外部的行为上来看，其与目前主流资讯检索技术有两点不同：首先是查询方式为完整而口语化的问句，再来则是其回传的为高精准度网页结果或明确的答案字串。</p>
+<p><img src="https://i.imgur.com/LpFfAH2.jpg" alt=""></p>
+<p>以Ask Jeeves为例，使用者不需要思考该使用什么样的问法才能够得到理想的答案，只需要用口语化的方式直接提问如“请问谁是美国总统？”即可。而系统在了解使用者问句后，会非常清楚地回答“特朗普是美国总统”。从系统内部来看，问答系统使用了大量有别于传统资讯检索系统自然语言处理技术，如自然语言剖析（Natural Language Parsing）、问题分类（Question Classification）、专名辨识（Named Entity Recognition）等等。</p>
+<h2 id="机器翻译"><a href="#机器翻译" class="headerlink" title="机器翻译"></a>机器翻译</h2><blockquote>
+<p>机器翻译（Machine translation）</p>
+</blockquote>
+<p>机器翻译（英语：Machine Translation，经常简写为MT）属于计算语言学的范畴，其研究借由计算机程序将文字或演说从一种自然语言翻译成另一种自然语言。</p>
+<p><img src="https://i.imgur.com/eNS65aV.jpg" alt=""></p>
+<p>简单来说，机器翻译是通过将一个自然语言的字辞取代成另一个语言的字辞。借由使用语料库的技术，可达成更加复杂的自动翻译，包含可更佳的处理不同的文法结构、辞汇辨识、惯用语的对应等。<br>一般而言，大众使用机器翻译的目的只是为了获知原文句子或段落的要旨，而不是精确的翻译。总的来说，机器翻译的效果并没有达到可以取代人工翻译的程度，所以无法成为正式的翻译。<br>不过现在已有越来越多的公司尝试以机器翻译的技术来提供其公司网站多语系支援的服务。例如微软公司试将其 MSDN 以机器翻译来自动翻译成多国语言，如上文所说，知识库作为专业领域 ，其文法较为制式化，翻译结果亦更加符合自然语言。</p>
+<h2 id="情感分析"><a href="#情感分析" class="headerlink" title="情感分析"></a>情感分析</h2><blockquote>
+<p>文本情感分析</p>
+</blockquote>
+<p>文本情感分析（也称为意见挖掘）是指用自然语言处理、文本挖掘以及计算机语言学等方法来识别和提取原素材中的主观信息。</p>
+<p><img src="https://i.imgur.com/xtf9wnu.png" alt=""></p>
+<p>通常来说，情感分析的目的是为了找出说话者/作者在某些话题上或者针对一个文本两极的观点的态度。这个态度或许是他或她的个人判断或是评估，也许是他当时的情感状态（就是说，作者在做出这个言论时的情绪状态），或是作者有意向的情感交流（就是作者想要读者所体验的情绪）。</p>
+<h2 id="自动摘要"><a href="#自动摘要" class="headerlink" title="自动摘要"></a>自动摘要</h2><blockquote>
+<p>自动摘要（Automatic summarization）</p>
+</blockquote>
+<p>所谓自动文摘就是利用计算机自动地从原始文献中提取文摘，文摘是全面准确地反映某一文献中心内容地简单连贯的短文。常用方法是自动摘要将文本作为句子的线性序列，将句子视为词的线性序列。</p>
+<p><img src="https://i.imgur.com/S78QJlJ.png" alt=""></p>
+<p>自动摘要可以按照技术类型和信息提取分为如下：</p>
+<ul>
+<li>技术应用类型：自动提取给定文章的摘要信息、自动计算文章中词的权重、自动计算文章中句子的权重。</li>
+<li>信息提取：单篇文章的摘要自动提取、大规模文档的摘要自动提取、基于分类的摘要自动提取。</li>
+</ul>
+<h2 id="文字蕴涵"><a href="#文字蕴涵" class="headerlink" title="文字蕴涵"></a>文字蕴涵</h2><blockquote>
+<p>文字蕴涵（Textual entailment）</p>
+</blockquote>
+<p>文字蕴涵（Textual entailment，TE）在自然语言处理是一个文字片段之间的定向关系。拥有一个文字片段的含意时，可以从另一个文字如下关系。</p>
+<p>范例</p>
+<ul>
+<li>正向蕴涵</li>
+</ul>
+<p>文本T:日本时间2011年3日11日，日本宫城县发生里氏震级9.0强震，造死伤失踪约3万多人。</p>
+<p>假设H:日本时间2011年3日11日，日本宫城县发生里氏震级9.0强震。</p>
+<ul>
+<li>矛盾蕴涵</li>
+</ul>
+<p>文本T:张学友在1961年7月10日，生于香港，祖籍天津。</p>
+<p>假设H:张学友生于1960年。</p>
+<ul>
+<li>独立蕴涵</li>
+</ul>
+<p>文本T:黎姿与”残障富豪”马廷强结婚。</p>
+<p>假设H:马廷强为香港”东方报业集团”创办人之一马惜如之子。</p>
+<hr>
+<h1 id="自然语言处理的难点"><a href="#自然语言处理的难点" class="headerlink" title="自然语言处理的难点"></a>自然语言处理的难点</h1><h2 id="语言环境复杂"><a href="#语言环境复杂" class="headerlink" title="语言环境复杂"></a>语言环境复杂</h2><p>自然语言处理语言环境较为复杂，以命名实体识别进行分析，对于同一个汉字某些情况下可以看作实体处理，某些情况就不能看作实体。例如：</p>
+<ul>
+<li>人名，比如《天龙八部》中“婢子四姊妹一胎孪生，童姥姥给婢子取名为梅剑，这三位妹子是兰剑、竹剑、菊剑。”人物“竹剑”，某些情况下就是指的一种竹子做的剑。</li>
+<li>地名，比如《射雕英雄传》中“陆庄主知道此人是湖南铁掌帮的帮主”中地点“湖南”，在某种情况下就指代地理方位“湖的那边”。</li>
+<li>机构名，比如《鹿鼎记》中“这位是莲花堂香主蔡德忠蔡伯伯。”组织机构名(帮派名)“莲花堂”，在某种情况就指代种植莲花的一个地方，变成地点名了。</li>
+</ul>
+<h2 id="文本结构形式多样"><a href="#文本结构形式多样" class="headerlink" title="文本结构形式多样"></a>文本结构形式多样</h2><p>文本内部结构形式多样。还是以自然语言处理中的命名实体识别任务为例子，诸如：</p>
+<ul>
+<li>人名，人名由姓和名构成。其中姓氏包括单姓和复姓(如：赵、钱、孙、李、慕容、东方、西门等)，名由若干个汉字组成。姓氏的用字范围相对有限，比较容易识别。然而名就比较灵活，既可以用名、字、号表示，也可以使用职务名和用典。比如：“李白、李十二、李翰林 、李供奉、李拾遗、李太白、青莲居士，谪仙人”都是同一个人。</li>
+<li>地名，一般由若干个字组成地名，可以为作为后缀关键字或者别名(比如：“成都、蓉城、锦城、芙蓉城、锦官城、天府之国”)都是指代一个地方，其中“蓉城、锦城、芙蓉城、锦官城、天府之国”为别名。除了全称的名称之外，还有地理位置代表地名的。比如：“河南、河南省、豫”都是指的一个省份，其中“豫”是简称。</li>
+<li>组织机构名，组织机构命名方式比较复杂，有些是修饰性的命名，有些表示历史典故，有些表示地理方位，有些表示地名，有些表示风俗习惯和关键字等等。例如：组织名“广州恒大淘宝足球俱乐部”中，“广州”表示地名的成分，“恒大”“淘宝”表示公司名称成分，“足球”是一项体育赛事成分，“俱乐部”是关键字的成分。比如：“四川大学附属中学”(四川省成都市第十二中学)中包括另一个机构名“四川大学”。机构名还可以以简称形式表示，比如：“四川大学附属中学”简称“川大附中”，“成都信息工程大学”简称“成信大”。</li>
+</ul>
+<h2 id="边界识别限制"><a href="#边界识别限制" class="headerlink" title="边界识别限制"></a>边界识别限制</h2><p>在自然语言处理任务中，边界识别最广泛应用于在命名识别识别当中，边界识别可以分解为两大任务。(1)如何去识别实体的边界？(2)如何去判定实体的类别(诸如：人名、地名、机构名)？中文命名实体识别要比英文命名实体识别更为复杂，一是受中文自身语言特性限制，不同于英语文本中词间有空格界定。二是英文中的实体一般首字母大写容易区分，诸如：‘Jobs was adopted at birth in San Francisco，and raised in a hotbed of counterculture’中，人名乔布斯Jobs的首字母大写，地名旧金山San Francisco首字母也是大写。而中文不具备这样的特征，例如：“周总理忙了一日，早已神困眼倦。”人名“周总理”就很难在一串汉字中识别出来。</p>
+<h2 id="词义消歧"><a href="#词义消歧" class="headerlink" title="词义消歧"></a>词义消歧</h2><blockquote>
+<p>词义消歧</p>
+</blockquote>
+<p>词义消歧是一个自然语言处理和本体论的开放问题。歧义与消歧是自然语言理解中最核心的问题，在词义、句义、篇章含义层次都会出现语言根据上下文语义不同的现象，消歧即指根据上下文确定对象语义的过程。词义消歧即在词语层次上的语义消歧。语义消歧/词义消歧 是自然语言处理任务的一个核心与难点，影响了几乎所有任务的性能，比如搜索引擎、意见挖掘、文本理解与产生、推理等。</p>
+<blockquote>
+<p>词性标注与词义消歧</p>
+</blockquote>
+<p>词性标注与词义消歧是相互关联的2个问题，在人的系统他们同时能到满足。但是目前系统一般并不能让2者公用参数，同时输出。语义理解，包括分词、词性标注、词义消歧、句法解析、语义解析 并不是前馈的，是相互依赖的存在反馈的。<br>词性标注与语义消歧都要依赖上下文来标注，但是词性标注比语义消歧要简单以及成功。原因主要是词性标注的标注集合是确定的，而语义消歧并没有，并且量级要大的多；词性标注的上下文依赖比语义消歧要短。</p>
+<blockquote>
+<p>典型例子</p>
+</blockquote>
+<p>许多字词不单只有一个意思，因而我们必须选出使句意最为通顺的解释。<br>看下面歧义的句子：词意消歧就是分析出特定上下文的词被赋予的哪个意思。</p>
+<ol>
+<li>川大学生上网成瘾如患绝症。歧义在于“川大学生”（1）四川大学的学生（2）四川的大学生</li>
+<li>两代教授，人格不同。歧义：“两代”（1）两位代理教授（2）两个时代的教授</li>
+<li>被控私分国有资产，专家总经理成了被告人。歧义：“专家总经理”（1）专家和总经理（2）有专家身份的总经理</li>
+<li>新生市场苦熬淡季。歧义：“新生”（1）新学生的市场（2）新产生的市场</li>
+<li>朝鲜十年走近国际社会一步。歧义：“十年走近国际社会一步”（1）每十年就向国际社会走近一步（2）最近十年间向国际社会走近了一步</li>
+<li>新汽车牌照。歧义：“新”（1）新的汽车（2）新的牌照</li>
+<li>咬死了猎人的狗。歧义：（1）猎人的狗被咬死了（2）把猎人咬死了的那条狗</li>
+<li>菜不热了。歧义：“热”（1）指菜凉了（2）指菜不加热了</li>
+<li>还欠款四万元。歧义：“还”（1）读huai（2）读hai</li>
+<li>北京人多。歧义：（1）北京/人多（2）北京人/多</li>
+</ol>
+<h2 id="指代消解"><a href="#指代消解" class="headerlink" title="指代消解"></a>指代消解</h2><blockquote>
+<p>定义</p>
+</blockquote>
+<p>指代消解（Anaphora Resolution）是自然语言处理的重要内容，在信息抽取时，就用到了指代消解技术。</p>
+<blockquote>
+<p>中文的三种典型指代</p>
+</blockquote>
+<ol>
+<li>人称代词：李明怕高妈妈一人呆在家里寂寞，【他】便将家里的电视搬了过来。</li>
+<li>指示代词：很多人都想创造一个美好的世界留给孩子，【这】可以理解，但不完全正确。</li>
+<li>有定描述：贸易制裁似乎成了美国政府在对华关系中惯用的大棒。然而，这【大棒】果真如美国政府所希望的那样灵验吗?</li>
+</ol>
+<blockquote>
+<p>典型指代消解</p>
+</blockquote>
+<ul>
+<li>显性代词消解</li>
+</ul>
+<p>所谓显性代词消解，就是指在篇章中确定显性代词指向哪个名词短语的问题，代词称为指示语或照应语（Anaphor），其所指向的名词短语一般被称为先行语（Antecedent），根据二者之间的先后位置，可分为回指（Anaphora）与预指（Cataphora），其中：如果先行语出现在指示语之前，则称为回指，反之则称为预指。</p>
+<ul>
+<li>零代词消解</li>
+</ul>
+<p>所谓零代词消解，是代词消解中针对零指代（Zero Anaphora）现象的一类特殊的消解。在篇章中，用户能够根据上下文关系推断出的部分经常会省略，而省略的部分（用零代词（Zero Pronoun）表示）在句子中承担着相应的句法成分，并且回指前文中的某个语言学单位。零指代现象在中文中更加常见，（中华语言博大精深。。）近几年随着各大评测任务的兴起开始受到学者们的广泛关注。</p>
+<ul>
+<li>共指消解</li>
+</ul>
+<p>所谓共指消解，是将篇章中指向同一现实世界客观实体（Entity）的词语划分到同一个等价集的过程，其中被划分的词语称为表述或指称语（Mention），形成的等价集称为共指链（Coreference Chain）。在共指消解中，指称语包含：普通名词、专有名词和代词，因此可以将显性代词消解看作是共指消解针对代词的子问题。<br>共指消解与显性代词消解不同，它更关注在指称语集合上进行的等价划分，评测方法与显性代词消解也不近相同，通常使用MUC、B-CUBED、CEAF和BLANC评价方法。</p>
+<p>指代消解的研究方法大致可以分为基于启发式规则的、基于统计的和基于深度学习的方法，目前看来，基于有监督统计机器学习的消解算法仍然是主流算法。</p>
+<blockquote>
+<p>典型例子</p>
+</blockquote>
+<p>指代消解是解决“谁对谁做了 什么”，处理如上所述自然语言的问题，下面看看例子:</p>
+<ol>
+<li>美国政府表示仍然支持强势美元，但这到底只是嘴上说说还是要采取果断措施，经济学家对此的看法是否定的。</li>
+<li>今天老师又在班会上表扬了自己，但是我觉得还需要继续努力。</li>
+<li>三妹拉着葛姐的手说，她老家在偏远的山区，因为和家里赌气才跑到北京打工的，接着她又哭泣起自己的遭遇来。</li>
+<li>当他把证书发给小钱时，他对他笑了。</li>
+<li>小明和肖华去公园玩,他摔了一跤,他急忙把他扶起来.</li>
+<li>星期天,小雨和小英到田老师家补习功课,她一早就打电话给她约好在红旗饭店吃早餐.</li>
+</ol>
+<hr>
+<h1 id="自然语言处理相关研究内容"><a href="#自然语言处理相关研究内容" class="headerlink" title="自然语言处理相关研究内容"></a>自然语言处理相关研究内容</h1><h2 id="语料库知识"><a href="#语料库知识" class="headerlink" title="语料库知识"></a>语料库知识</h2><p>语料库作为一个或者多个应用目标而专门收集的，有一定结构的、有代表的、可被计算机程序检索的、具有一定规模的语料的集合。    </p>
+<p>语料库划分：</p>
+<ul>
+<li>时间划分</li>
+<li>加工深度划分：标注语料库和非标注语料库</li>
+<li>结构划分</li>
+<li>语种划分</li>
+<li>动态更新程度划分：参考语料库和监控语料库    </li>
+</ul>
+<p>语料库构建原则：</p>
+<ul>
+<li>代表性</li>
+<li>结构性</li>
+<li>平衡性</li>
+<li>规模性</li>
+<li>元数据：元数据对       </li>
+</ul>
+<p>语料标注的优缺点</p>
+<ul>
+<li>优点： 研究方便。可重用、功能多样性、分析清晰。</li>
+<li>缺点： 语料不客观（手工标注准确率高而一致性差，自动或者半自动标注一致性高而准确率差）、标注不一致、准确率低</li>
+</ul>
+<h2 id="隐马尔可夫模型"><a href="#隐马尔可夫模型" class="headerlink" title="隐马尔可夫模型"></a>隐马尔可夫模型</h2><blockquote>
+<p>应用</p>
+</blockquote>
+<p>词类标注、语音识别、局部句法剖析、语块分析、命名实体识别、信息抽取等。应用于自然科学、工程技术、生物科技、公用事业、信道编码等多个领域。   </p>
+<p>马尔可夫链：在随机过程中，每个语言符号的出现概率不相互独立，每个随机试验的当前状态依赖于此前状态，这种链就是马尔可夫链。   </p>
+<p>多元马尔科夫链：考虑前一个语言符号对后一个语言符号出现概率的影响，这样得出的语言成分的链叫做一重马尔可夫链，也是二元语法。二重马尔可夫链，也是三元语法，三重马尔可夫链，也是四元语法      </p>
+<blockquote>
+<p>隐马尔可夫模型思想的三个问题 </p>
+</blockquote>
+<p>问题1（似然度问题）：给一个HMM λ=（A,B） 和一个观察序列O，确定观察序列的似然度问题 P(O|λ) 。（向前算法解决）          </p>
+<p>问题2（解码问题）：给定一个观察序列O和一个HMM λ=（A,B），找出最好的隐藏状态序列Q。（维特比算法解决）          </p>
+<p>问题3（学习问题）：给定一个观察序列O和一个HMM中的状态集合，自动学习HMM的参数A和B。（向前向后算法解决）</p>
+<h2 id="Viterbi算法解码"><a href="#Viterbi算法解码" class="headerlink" title="Viterbi算法解码"></a>Viterbi算法解码</h2><blockquote>
+<p>算法思路</p>
+</blockquote>
+<ol>
+<li>计算时间步1的维特比概率</li>
+<li>计算时间步2的维特比概率，在第一步的基础计算</li>
+<li>计算时间步3的维特比概率，在第二步的基础计算</li>
+<li>维特比反向追踪路径         </li>
+</ol>
+<blockquote>
+<p>维特比算法与向前算法的区别     </p>
+</blockquote>
+<ol>
+<li>维特比算法要在前面路径的概率中选择最大值，而向前算法则计算其总和，除此之外，维特比算法和向前算法一样。  </li>
+<li>维特比算法有反向指针，寻找隐藏状态路径，而向前算法没有反向指针.HMM和维特比算法解决随机词类标注问题，利用Viterbi算法的中文句法标注  </li>
+</ol>
+<h2 id="模型评价方法"><a href="#模型评价方法" class="headerlink" title="模型评价方法"></a>模型评价方法</h2><p>模型：方法=模型+策略+算法   </p>
+<p>模型问题涉及：训练误差、测试误差、过拟合等问题。通常将学习方法对未知数据的预测能力称为泛化能力。</p>
+<p>模型评价参数：      </p>
+<ul>
+<li>准确率P=识别正确的数量/全部识别出的数量</li>
+<li>错误率 =识别错误的数量/全部识别出的数量   </li>
+<li>精度=识别正确正的数量/识别正确的数量      </li>
+<li>召回率R=识别正确的数量/全部正确的总量（识别出+识别不出的）   </li>
+<li>F度量=2PR/(P+R)      </li>
+</ul>
+<p>注意：如果数据正负均衡适合准确率，如果数据不均适合召回率，精度，F度量。   </p>
+<p>几种模型评估的方法：K-折交叉验证、随机二次抽样评估、ROC曲线评价两个模型好坏  </p>
+<h2 id="生产模型与判别模型区别"><a href="#生产模型与判别模型区别" class="headerlink" title="生产模型与判别模型区别"></a>生产模型与判别模型区别</h2><ul>
+<li>生产式模型：直接对联合分布进行建模，如：隐马尔科夫模型、马尔科夫随机场等       </li>
+<li>判别式模型：对条件分布进行建模，如：条件随机场、支持向量机、逻辑回归等。          </li>
+</ul>
+<p>生成模型优点：</p>
+<ul>
+<li>由联合分布</li>
+<li>收敛速度比较快。</li>
+<li>能够应付隐变量。 </li>
+</ul>
+<p>缺点：为了估算准确，样本量和计算量大，样本数目较多时候不建议使用。          </p>
+<p>判别模型优点：</p>
+<ul>
+<li>计算和样本数量少。</li>
+<li>准确率高。</li>
+</ul>
+<p>缺点：收敛慢，不能针对隐变量。  </p>
+<h2 id="知识图谱与本体"><a href="#知识图谱与本体" class="headerlink" title="知识图谱与本体"></a>知识图谱与本体</h2><blockquote>
+<p>领域本体构建方法   </p>
+</blockquote>
+<ul>
+<li>确定领域本体的专业领域和范畴</li>
+<li>考虑复用现有的本体</li>
+<li>列出本体涉及领域中的重要术语</li>
+<li>定义分类概念和概念分类层次</li>
+<li>定义概念之间的关系</li>
+</ul>
+<blockquote>
+<p>构建领域本体的知识工程方法：</p>
+</blockquote>
+<p>主要特点：本体更强调共享、重用，可以为不同系统提供一种统一的语言，因此本体构建的工程性更为明显。</p>
+<p>方法：目前为止，本体工程中比较有名的几种方法包括TOVE 法、Methontology方法、骨架法、IDEF-5法和七步法等。（大多是手工构建领域本体）</p>
+<p>现状： 由于本体工程到目前为止仍处于相对不成熟的阶段，领域本体的建设还处于探索期，因此构建过程中还存在着很多问题。</p>
+<p>方法成熟度： 以上常用方法的依次为:七步法、Methontology方法、IDEF-5法、TOVE法、骨架法。</p>
+<h2 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h2><blockquote>
+<p>特征工程是什么</p>
+</blockquote>
+<p>数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。特征工程本质是一项工程活动，目的是最大限度地从原始数据中提取特征以供算法和模型使用。通过总结和归纳，人们认为特征工程包括以下方面：</p>
+<p><img src="https://i.imgur.com/TIeEi2b.jpg" alt=""></p>
+<p>特征处理是特征工程的核心部分，特征处理方法包括数据预处理，特征选择，降维等。</p>
+<blockquote>
+<p>特征提取</p>
+</blockquote>
+<p>特征提取是指将机器学习算法不能识别的原始数据转化为算法可以识别的特征的过程。</p>
+<p>实例解析：文本是由一系列文字组成的，这些文字在经过分词后会形成一个词语集合，对于这些词语集合（原始数据），机器学习算法是不能直接使用的，我们需要将它们转化成机器学习算法可以识别的数值特征（固定长度的向量表示），然后再交给机器学习的算法进行操作。再比如说，图片是由一系列像素点构（原始数据）成的，这些像素点本身无法被机器学习算法直接使用，但是如果将这些像素点转化成矩阵的形式（数值特征），那么机器学习算法就可以使用了。特征提取实际上是把原始数据转化为机器学习算法可以识别的数值特征的过程，不存在降维的概念，特征提取不需要理会这些特征是否是有用的；而特征选择是在提取出来的特征中选择最优的一个特征子集。</p>
+<p>文本分类特征提取步骤：</p>
+<pre><code>假设一个语料库里包含了很多文章，在对每篇文章作了分词之后，可以把每篇文章看作词语的集合。然后将每篇文章作为数据来训练分类模型，但是这些原始数据是一些词语并且每篇文章词语个数不一样，无法直接被机器学习算法所使用，机器学习算法需要的是定长的数值化的特征。因此，我们要做的就是把这些原始数据数值化，这就对应了特征提取。如何做呢？
+</code></pre><ol>
+<li>对训练数据集的每篇文章，我们进行词语的统计，以形成一个词典向量。词典向量里包含了训练数据里的所有词语（假设停用词已去除），且每个词语代表词典向量中的一个元素。</li>
+<li>在经过第一步的处理后，每篇文章都可以用词典向量来表示。这样一来，每篇文章都可以被看作是元素相同且长度相同的向量，不同的文章具有不同的向量值。这也就是表示文本的词袋模型（bag of words）。</li>
+<li>针对于特定的文章，如何给表示它的向量的每一个元素赋值呢？最简单直接的办法就是0-1法了。简单来说，对于每一篇文章，我们扫描它的词语集合，如果某一个词语出现在了词典中，那么该词语在词典向量中对应的元素置为1，否则为0。</li>
+</ol>
+<p>在经过上面三步之后，特征提取就完成了。对于每一篇文章，其中必然包含了大量无关的特征，而如何去除这些无关的特征，就是特征选择要做的事情了。</p>
+<blockquote>
+<p>数据预处理</p>
+</blockquote>
+<p>未经处理的特征，这时的特征可能有以下问题：（标准化的前提是特征值服从正态分布，标准化后，其转换成标准正态分布）</p>
+<ul>
+<li>特征的规格不一样。无量纲化可以解决。</li>
+<li>信息冗余：对于某些定量特征，其包含的有效信息为区间划分，例如学习成绩，假若只关心“及格”或不“及格”，那么需要将定量的考分，转换成“1”和“0”表示及格和未及格。二值化可以解决这一问题。</li>
+<li>定性特征不能直接使用：某些机器学习算法和模型只能接受定量特征的输入，那么需要将定性特征转换为定量特征。假设有N种定性值，则将这一个特征扩展为N种特征，当原始特征值为第i种定性值时，第i个扩展特征赋值为1，其他扩展特征赋值为0。</li>
+<li>存在缺失值：缺失值需要补充。</li>
+<li>信息利用率低：不同的机器学习算法和模型对数据中信息的利用是不同的。</li>
+</ul>
+<p>使用sklearn中的preproccessing库来进行数据预处理，可以覆盖以上问题的解决方案。</p>
+<blockquote>
+<p>特征选择</p>
+</blockquote>
+<p>当数据预处理完成后，我们需要选择有意义的特征输入机器学习的算法和模型进行训练。特征选择是指去掉无关特征，保留相关特征的过程，也可以认为是从所有的特征中选择一个最好的特征子集。特征选择本质上可以认为是降维的过程。</p>
+<p>1、Filter（过滤法）：按照发散性或者相关性对各个特征进行评分，设定阈值或者待选择阈值的个数，选择特征。如：方差选择法、相关系数法、卡方检验法、互信息法</p>
+<ul>
+<li>方差选择法：使用方差选择法，先要计算各个特征的方差，然后根据阈值，选择方差大于阈值的特征。</li>
+<li>相关系数法：使用相关系数法，先要计算各个特征对目标值的相关系数以及相关系数的P值。</li>
+<li>卡方检验法：经典的卡方检验是检验定性自变量对定性因变量的相关性。假设自变量有N种取值，因变量有M种取值，考虑自变量等于i且因变量等于j的样本频数的观察值与期望的差距，构建统计量。</li>
+<li>互信息法：经典的互信息也是评价定性自变量对定性因变量的相关性的。</li>
+</ul>
+<p>2、Wrapper（包装法）：根据目标函数（通常是预测效果评分），每次选择若干特征，或者排除若干特征。如：递归特征消除法</p>
+<ul>
+<li>递归特征消除法：递归消除特征法使用一个基模型来进行多轮训练，每轮训练后，消除若干权值系数的特征，再基于新的特征集进行下一轮训练。</li>
+</ul>
+<p>3、Embedded（嵌入法）：先使用某些机器学习的算法和模型进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。类似于Filter方法，但是是通过训练来确定特征的优劣。</p>
+<ul>
+<li><p>基于惩罚项的特征选择法：使用带惩罚项的基模型，除了筛选出特征外，同时也进行了降维。使用feature_selection库的SelectFromModel类结合带L1惩罚项的逻辑回归模型。如：基于惩罚项的特征选择法、基于树模型的特征选择法</p>
+</li>
+<li><p>基于树模型的特征选择法：树模型中GBDT也可用来作为基模型进行特征选择，使用feature_selection库的SelectFromModel类结合GBDT模型。</p>
+</li>
+</ul>
+<p>4、深度学习方法：从深度学习模型中选择某一神经层的特征后就可以用来进行最终目标模型的训练了。</p>
+<blockquote>
+<p>降维</p>
+</blockquote>
+<p>当特征选择完成后，可以直接训练模型了，但是可能由于特征矩阵过大，导致计算量大，训练时间长的问题，因此降低特征矩阵维度也是必不可少的。常见的降维方法：L1惩罚项的模型、主成分分析法（PCA）、线性判别分析（LDA）。PCA和LDA有很多的相似点，其本质是要将原始的样本映射到维度更低的样本空间中。所以说PCA是一种无监督的降维方法，而LDA是一种有监督的降维方法。</p>
+<ul>
+<li>主成分分析法（PCA）：使用decomposition库的PCA类选择特征。</li>
+<li>线性判别分析法（LDA）：使用lda库的LDA类选择特征。</li>
+<li>奇异值分解（SVD）</li>
+</ul>
+<hr>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://www.cnblogs.com/baiboy/p/learnnlp.html" target="_blank" rel="noopener">自然语言处理概述</a></li>
+<li><a href="https://zh.wikipedia.org/zh/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86" target="_blank" rel="noopener">中文维基百科</a></li>
+<li><a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">GitHub</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/zmKK4xs.jpg" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/自然语言处理/" rel="tag"><i class="fa fa-tag"></i> 自然语言处理</a>
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/09/十分钟速览自然语言处理/" rel="next" title="十分钟速览自然语言处理">
+                <i class="fa fa-chevron-left"></i> 十分钟速览自然语言处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的任务和限制"><span class="nav-number">1.</span> <span class="nav-text">自然语言处理的任务和限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的主要技术范畴"><span class="nav-number">2.</span> <span class="nav-text">自然语言处理的主要技术范畴</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语音合成"><span class="nav-number">2.1.</span> <span class="nav-text">语音合成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语音识别"><span class="nav-number">2.2.</span> <span class="nav-text">语音识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文自动分词"><span class="nav-number">2.3.</span> <span class="nav-text">中文自动分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词性标注"><span class="nav-number">2.4.</span> <span class="nav-text">词性标注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#句法分析"><span class="nav-number">2.5.</span> <span class="nav-text">句法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本挖掘"><span class="nav-number">2.6.</span> <span class="nav-text">文本挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本分类"><span class="nav-number">2.7.</span> <span class="nav-text">文本分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本挖掘-1"><span class="nav-number">2.8.</span> <span class="nav-text">文本挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名实体识别"><span class="nav-number">2.9.</span> <span class="nav-text">命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息抽取"><span class="nav-number">2.10.</span> <span class="nav-text">信息抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问答系统"><span class="nav-number">2.11.</span> <span class="nav-text">问答系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器翻译"><span class="nav-number">2.12.</span> <span class="nav-text">机器翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情感分析"><span class="nav-number">2.13.</span> <span class="nav-text">情感分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动摘要"><span class="nav-number">2.14.</span> <span class="nav-text">自动摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文字蕴涵"><span class="nav-number">2.15.</span> <span class="nav-text">文字蕴涵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的难点"><span class="nav-number">3.</span> <span class="nav-text">自然语言处理的难点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言环境复杂"><span class="nav-number">3.1.</span> <span class="nav-text">语言环境复杂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本结构形式多样"><span class="nav-number">3.2.</span> <span class="nav-text">文本结构形式多样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界识别限制"><span class="nav-number">3.3.</span> <span class="nav-text">边界识别限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词义消歧"><span class="nav-number">3.4.</span> <span class="nav-text">词义消歧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指代消解"><span class="nav-number">3.5.</span> <span class="nav-text">指代消解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理相关研究内容"><span class="nav-number">4.</span> <span class="nav-text">自然语言处理相关研究内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语料库知识"><span class="nav-number">4.1.</span> <span class="nav-text">语料库知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">4.2.</span> <span class="nav-text">隐马尔可夫模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Viterbi算法解码"><span class="nav-number">4.3.</span> <span class="nav-text">Viterbi算法解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评价方法"><span class="nav-number">4.4.</span> <span class="nav-text">模型评价方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产模型与判别模型区别"><span class="nav-number">4.5.</span> <span class="nav-text">生产模型与判别模型区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识图谱与本体"><span class="nav-number">4.6.</span> <span class="nav-text">知识图谱与本体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征工程"><span class="nav-number">4.7.</span> <span class="nav-text">特征工程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/10/09/谈谈自然语言处理技术的应用领域/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
