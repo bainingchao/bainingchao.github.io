@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-10-10T04:01:50.572Z</updated>
+  <updated>2018-10-10T08:24:02.884Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编程数学之向量</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E5%90%91%E9%87%8F/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之向量/</id>
+    <published>2018-10-10T06:16:06.000Z</published>
+    <updated>2018-10-10T08:24:02.884Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列数学文章旨在带领大家快速回顾常用知识，重在理解。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+    
+      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="向量" scheme="https://bainingchao.github.io/tags/%E5%90%91%E9%87%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>简明的Python教程之NumPy</title>
@@ -264,9 +288,9 @@
       <category term="Apriori" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Apriori/"/>
     
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
     
@@ -294,17 +318,17 @@
       <category term="工具" scheme="https://bainingchao.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+      <category term="Sublime" scheme="https://bainingchao.github.io/tags/Sublime/"/>
     
       <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
-    
-      <category term="Sublime" scheme="https://bainingchao.github.io/tags/Sublime/"/>
     
       <category term="Anaconda" scheme="https://bainingchao.github.io/tags/Anaconda/"/>
     
       <category term="开发环境" scheme="https://bainingchao.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
     
       <category term="机器学习" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
@@ -330,9 +354,9 @@
     
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
-      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    
       <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
     
       <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
     
@@ -362,9 +386,9 @@
       <category term="决策树" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%86%B3%E7%AD%96%E6%A0%91/"/>
     
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
@@ -394,9 +418,9 @@
       <category term="KNN" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/KNN/"/>
     
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
@@ -428,6 +452,8 @@
       <category term="K-Means" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/K-Means/"/>
     
     
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
       <category term="K-均值算法" scheme="https://bainingchao.github.io/tags/K-%E5%9D%87%E5%80%BC%E7%AE%97%E6%B3%95/"/>
     
       <category term="k-means" scheme="https://bainingchao.github.io/tags/k-means/"/>
@@ -435,8 +461,6 @@
       <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
@@ -462,15 +486,15 @@
       <category term="逻辑回归" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
     
     
+      <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
       <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
       <category term="逻辑回归" scheme="https://bainingchao.github.io/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
-    
-      <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
     
   </entry>
   
@@ -494,9 +518,9 @@
       <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
     
     
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
       <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
     
@@ -526,9 +550,9 @@
       <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
     
     
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
       <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
     
@@ -558,39 +582,17 @@
       <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
     
     
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
       <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
     
       <category term="ML" scheme="https://bainingchao.github.io/tags/ML/"/>
     
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
       <category term="理论学习" scheme="https://bainingchao.github.io/tags/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo-GitHub搭建个人博客配置教程</title>
-    <link href="https://bainingchao.github.io/2018/09/19/Hexo-GitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/"/>
-    <id>https://bainingchao.github.io/2018/09/19/Hexo-GitHub搭建个人博客配置教程/</id>
-    <published>2018-09-19T02:01:13.346Z</published>
-    <updated>2018-10-09T07:42:52.353Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：创建一个自定义个人博客，即可以便于知识的记录，又可以分享知识。然而，诸多技术社区虽有便捷的优点，同时也存在限制性和专业化的问题。自己从头写网站成本较高，故而作者采用github建站，既可以支持markdown文档编写，又可以与github账号打通，便于资料上传保存。仅仅建站完成还是不够美观和功能扩展。这里github结合诸多插件可以实现，本文重点介绍Hexo的配置操作，具体以下实现可以根据需要选择。（本文原创，转载注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://bainingchao.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="hexo" scheme="https://bainingchao.github.io/tags/hexo/"/>
     
   </entry>
   

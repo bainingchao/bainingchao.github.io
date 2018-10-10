@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[编程数学之向量]]></title>
+    <url>%2F2018%2F10%2F10%2F%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E5%90%91%E9%87%8F%2F</url>
+    <content type="text"><![CDATA[摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列数学文章旨在带领大家快速回顾常用知识，重在理解。（本文原创，转载必须注明出处.） 向量定义向量向量也称为欧几里得向量、几何向量、矢量，指具有大小和方向的量。它可以形象化地表示为带箭头的线段。箭头所指：代表向量的方向；线段长度：代表向量的大小。与向量对应的只有大小，没有方向的量叫做标量。 零向量始点与终点重合，也就是重合点的向量。 \( \vec{0}=\vec{AA}=\vec{BB}=.. \)，具有方向性，但方向不定。因此，零向量与任一向量平行。 等向量两向量长度、方向相等，即为等向量 有向线段有向线段的概念建构于向量的方向与长度，差别在于多定义了始点与终点。在文字描述时，如果已知某有向线段的起点和终点分别是A和B，此线段的长度可以记为\(|\vec {AB} |\) ，即 |\overrightarrow {AB}|=|\overline {AB} |向量的记法向量由方向和长度两个因素所组成，可以记为 \( \vec{a} \)。 数量积数量积也叫点积，它是向量与向量的乘积，其结果为一个标量（非向量）。几何上，数量积可以定义如下：设\( \vec {A} \)、\( \vec {B} \) 为两个任意向量，它们的夹角为 \( \theta \)，则他们的数量积为： \vec{A} \cdot \vec {B}=\left|\vec{A}\right|\left|\vec{B}\right|\cos\theta即\( \vec {A} \)向量在\( \vec {B} \)向量方向上的投影长度（同方向为正反方向为负号），与\( \vec {B} \)向量长度的乘积。 数量积被广泛应用于物理中，如做功就是用力的向量乘位移的向量，即\( W= \vec {F} \cdot \vec {s} \) 向量积向量积也叫叉积，外积，它也是向量与向量的乘积，它的结果是个向量。它的几何意义是所得的向量与被乘向量所在平面垂直，方向由右手定则规定，大小是两个被乘向量张成的平行四边形的面积。所以向量积不满足交换律。举例来说: (1,0,0)\times (0,1,0)=(0,0,1)(0,1,0)\times (1,0,0)=(0,0,-1)设有向量 \vec{A} =( A_x\vec{i},A_y\vec{j},A_z\vec{k} )\vec{B}=(B_x\vec{i},B_y\vec{j},B_z\vec{k})则其向量积的矩阵表达式可用下列符号表示： \vec{A}\times\vec{B}= \begin{vmatrix} \vec{i}&\vec{j}&\vec{k} \\\ A_x&A_y&A_z \\\ B_x&B_y&B_z \\\ \end{vmatrix}线性相关性\({\vec {v}}_1,{\vec {v}}_2,…,{\vec {v}}_m\) 对于m个向量 \( \vec{v}_1,\vec{v}_2,…,\vec{v}_m \) 如果存在一组不全为零的m个数\( \vec{a}_1,\vec{a}_2,…,\vec{a}_m \) \( {\displaystyle {\sum_{i=1}^m a_i{\vec{v}}_i}}=\vec{0} \) 那么，称 m个向量 \({\displaystyle {\vec {v}}_1},{\displaystyle {\vec {v}}_2},…,{\displaystyle {\vec {v}}_m} \)线性相关。如果这样不全为零的m个数不存在，即上述向量等式仅当\( {\displaystyle a_1} = {\displaystyle a_2} = … = {\displaystyle a_m} = 0 \)时才能成立，就称向量 \({\displaystyle {\vec {v}}_1},{\displaystyle {\vec {v}}_2},…,{\displaystyle {\vec {v}}_m} \)线性无关。 例子解析某人家门口是一条南北向的道路。他散步时先向南行走100米，那么他位置的移动就可以用一个大小为100米，方向为南的向量来表示。之后他再向北走300米，这一次的移动可以用一个大小为300米，方向为北的向量来表示。散步的人总共相对于他家的位移则可以用大小为200米，方向为北的向量来表示。几何学上看来，这些向量都在同一条一维的直线上，只有两个互相平行的方向。 向量运算代数表示一般计算机上采用加粗小写英文字母如：（a、b、c等）来表示；手写用在a、b、c等字母上加一箭头（→）表示，如 \( \vec{a}\vec{b}\vec{c} \)。 几何表示向量可以用有向线段来表示。有向线段的长度表示向量的大小，向量的大小，也就是向量的长度。长度为0的向量叫做零向量，记作长度等于1个单位的向量，叫做单位向量。向量表示箭头所指的方向表示向量的方向，如图所示。 向量定理 共线定理 若b≠0，则a//b的充要条件是存在唯一实数λ，使 \( \vec{a}=\lambda\vec{b} \)。若设\(a=(x_1,y_1)，b=(x_2,y_2)\) ，则有 \( x_1*y_2=x_2*y_1 \)，与平行概念相同。 \( \vec{0} \)平行于任何向量。 垂直定理 a⊥b的充要条件是a·b=0，即\( x_1x_2+y_1y_2=0 \) 。 加法向量的加法满足平行四边形法则和三角形法则。两个向量 \( \vec{a} \) 和 \( \vec{b} \)相加，得到的是另一个向量。这个向量可以表示为 \( \vec{a} \) 和 \( \vec{b} \)的起点重合后，以它们为邻边构成的平行四边形的一条对角线（以共同的起点为起点的那一条，如图所示），或者表示为将 \( \vec{a} \)的终点和\( \vec{b} \)的起点重合后，从\( \vec{a} \)的起点指向 \( \vec{b} \)的终点的向量 例子： \( \vec{a}=(x_1,y_1),\vec{b}=(x_2,y_2) \) 则:\( \vec{a}+ \vec{b} = (x_1+x_2,y_1+y_2)\) 向量加法的运算律： \( \vec{a}+ \vec{0} = \vec{0}+ \vec{a}= \vec{a}\) 交换律：\( \vec{a}+ \vec{b} = \vec{b}+ \vec{a}\)结合律：\( \vec{a}+ \vec{b})+ \vec{c}= \vec{a}+(\vec{b}+ \vec{c})\) 减法两个向量 \( \vec{a} \)和 \( \vec{b} \)的相减，则可以看成是向量 \( \vec{a} \)加上一个与 \( \vec{b} \)大小相等，方向相反的向量。换言之，\( \vec{a} \)和 \( \vec{b} \)的的相减得到的向量可以表示为\( \vec{a} \)和 \( \vec{b} \)的起点重合后，从 \( \vec{b} \)的终点指向 \( \vec{a} \)的终点的向量，如图所示。 例子： \(\vec{a}=(x_1,y_1),\vec{b}=(x_2,y_2)\) 则:\(\vec{a}- \vec{b} = (x_1-x_2,y_1-y_2)\) 加减变换律： \(\vec{a}+ \vec{(-b)} = \vec{a}- \vec{b}\) 数乘一个标量k和一个向量 \( \vec{a} \)之间可以做乘法，得出的结果是另一个与 \( \vec{a} \)方向相同或相反，大小为 \( \vec{a} \)的大小的｜k｜倍的向量，可以记成 \( k\vec{a} \)。 当k&gt;0时， \( k\vec{a} \)的方向与 \( \vec{a} \)的方向相同。 当k&lt;0时， \( k\vec{a} \)的方向与 \( \vec{a} \)的方向相反。 当k=0时， \( k\vec{a}=\vec{0} \)，方向任意。当\( \vec{a}=0\)时，对于任意实数k，都有\( k\vec{a}=\vec{0} \)。 -1乘以任意向量会得到它的反向量，0乘以任何向量都会得到零向量 \( \vec{0}\)。 数与向量满足运算律 结合律： \( (k\vec{a})\vec{b}=k(\vec{a}\vec{b})=(\vec{a}k\vec{b}) \) 向量对于数的分配律（第一分配律）： \( (k+m)\vec{a}=k\vec{a}+m\vec{a} \) 数对于向量的分配律（第二分配律）： \( k(\vec{a}+\vec{b})=k\vec{a}+k\vec{b} \) 数乘向量的消去律： 如果实数k≠0且\( k\vec{a}=k\vec{b} \)，那么\(\vec{a}=\vec{b}\)。 如果\( \vec{a}\neq \vec{0}\)且\(k\vec{a}= m\vec{a}\)，那么k=m。 数量积定义：已知两个非零向量 \( \vec{a} \)， \( \vec{b} \)。作\( OA= \vec{a}\),\(OB= \vec{b}\)，则∠AOB称作向量 \( \vec{b} \)和向量 \( \vec{a} \)的夹角，记作θ并规定0≤θ≤π 定义：两个向量的数量积（内积、点积）是一个数量（没有方向），记作\( \vec{a}\vec{b}\)。 若 \( \vec{a} \)、 \( \vec{b} \)不共线，则 \( \vec{a}*\vec{b}=|a|*|b|*cosθ\)。 若 \( \vec{a} \)、 \( \vec{b} \)共线，则\(\vec{a}*\vec{b}=\pm|a|*|b|\) 。 向量的数量积的坐标表示：\(\vec{a} \vec{b} = (x_1x_2+y_1y_2)\) 数量积的运算律交换律： \(\vec{a}* \vec{b} = \vec{b}* \vec{a} \) 结合律： \((k\vec{a})* \vec{b} =k(\vec{b}* \vec{a}) \) 分配律：\((\vec{a}+\vec{b})* \vec{c} =\vec{a}* \vec{c}+\vec{b}*\vec{c})\) 向量积定义：两个向量 \( \vec{a} \)和 \( \vec{b} \)的向量积（外积、叉积）是一个向量。记作\(\vec{a} \wedge \vec{b}\) 若 \( \vec{a} \)、 \( \vec{b} \)不共线，则\(\vec{a} \wedge \vec{b}\)的模是：\(|\vec{a} \wedge \vec{b}|=|\vec{a}|*|\vec{b}|*sin\langle\vec{a},\vec{b}\rangle\)；\(\vec{a} \wedge \vec{b}\)的方向是：垂直于\( \vec{a} \)和\( \vec{b} \)，且\( \vec{a} \)、\( \vec{b} \)和\(\vec{a} \wedge \vec{b}\)按这个次序构成右手系。 若\( \vec{a} \)、 \( \vec{b} \)垂直，则\(|\vec{a} \wedge \vec{b}|=|\vec{a}|*|\vec{b}|\)（此处与数量积不同，请注意），若\(|\vec{a} \wedge \vec{b}|=\vec{0}\)，则\( \vec{a} \)、\( \vec{b} \)平行。 向量积即两个不共线非零向量所在平面的一组法向量。 运算法则：运用三阶行列式设\( \vec{a} \)、\( \vec{b} \)、\( \vec{c} \)分别为沿x,y,z轴的单位向量\(A=(x_1,y_1,z_1)\)，\(B=(x_2,y_2,z_2)\)，则 A\*B=\begin{bmatrix} \vec{a} &\vec{b} & \vec{c}\\ x_1&y_1 &z_1 \\ x_2&y_2 &z_2 \end{bmatrix}向量积性质向量积\(|\vec{a} \wedge \vec{b}|\)是以\( \vec{a} \)和\( \vec{b} \)为边的平行四边形面积。 \(|\vec{a} \wedge \vec{a}|=\vec{0}\) \(\vec{a}//\vec{b}=\vec{a} \wedge \vec{a}|=\vec{0}\) 向量积运算律 \(|\vec{a} \wedge \vec{b}|=\vec{-b} \wedge \vec{a}|\) \(|(k\vec{a})\wedge \vec{b}=k(\vec{a}\wedge \vec{b})=\vec{a}\wedge (k\vec{b})\) \(\vec{a} \wedge (\vec{b}+\vec{c})=\vec{a} \wedge \vec{b}+\vec{a} \wedge \vec{c}\) \((\vec{a} + \vec{b}) \wedge \vec{c}=\vec{a} \wedge \vec{c}+\vec{a} \wedge \vec{c}\) \(a×(b+c)=a×b+a×c\).\((a+b)×c=a×c+b×c\).上两个分配律分别称为左分配律和右分配律。在演算中应注意不能交换“×”号两侧向量的次序。注：向量没有除法，“向量AB/向量CD”是没有意义的。 向量的模长(范数)向量的大小也叫做范数或者模长，有限维空间中，已知向量的坐标，就可以知道它的模长。设向量\( vec {v}=(v_1,v_2,\cdots ,v_n)\)， 范数记作：\({\displaystyle \left|{\vec {v}}\right|} \) 模长记作：\({\displaystyle \left|{\vec {v}}\right|} \) 计算表达式由弗罗贝尼乌斯范数（一种同时适用于向量和矩阵的范数计算方法）给出：\( \left|{\vec {v}}\right|={\sqrt {v_1^{2}+v_2^{2}+\cdots +v_n^{2}}} \) 或：\( \left|{\vec {v}}\right|={\sqrt {v_1^{2}+v_2^{2}+\cdots +v_n^{2}}}\) 参考文献 Python官网 中文维基百科 GitHub 图书：《机器学习实战》 图书：《自然语言处理理论与实战》 完整代码下载 源码请进【机器学习和自然语言QQ群：436303759】文件下载： 作者声明 本文版权归作者【白宁超】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。]]></content>
+      <categories>
+        <category>数学</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+        <tag>向量</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[简明的Python教程之NumPy]]></title>
     <url>%2F2018%2F10%2F10%2F%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8BNumPy%2F</url>
     <content type="text"><![CDATA[摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在python处理数据中，Numpy也是常有的工具，本文简要介绍，旨在大家熟悉相关应用。（本文原创，转载必须注明出处.） 导入相关的numpy包123456import numpyfrom numpy import arrayfrom numpy import mat,matrix # 导入矩阵包from numpy import shape # 查看矩阵或数组的方法from numpy import multiply # 元素相乘import random 计算方法向量求和12345def nu_add(): mm = array((1,1,1)) pp = array((2,2,2)) rr = mm + pp**3 # 数组的和运算 print(rr) 运行结果： [9 9 9] 矩阵相乘12345678def nu_matrix(): ss = mat([1,2,3]) # 矩阵 mm = matrix([1,2,3]) print('an element: '.title()+str(mm[0,0])) # 访问矩阵中的单个元素 print('Number of dimensions of mm '.title()+str(shape(mm))) print('mat is equal matrix: '.title()+str(ss==mm)) print('Matrix multiplication: '.title()+str(ss*mm.T)) # 矩阵相乘需要进行转置 print('Multiplication of elements： '.title()+str(multiply(mm,ss))) # mm每个元素和ss每个元素相乘 运行结果： An Element: 1 Number Of Dimensions Of Mm (1, 3) Mat Is Equal Matrix: [[ True True True]] Matrix Multiplication: [[14]] Multiplication Of Elements： [[1 4 9]] 列表转化成矩阵123456def nu_list_mat(): pylist = [1,2,3] rr = mat(pylist) # 列表转化成矩阵 print('list values: '.title()+str(pylist)) print('rr type: '.title()+str(type(rr))) print('mat values: '.title()+str(rr)) 运行结果： List Values: [1, 2, 3] Rr Type: &lt;class &#39;numpy.matrixlib.defmatrix.matrix&#39;&gt; Mat Values: [[1 2 3]] 矩阵求均值1234def nu_mean(): dd = mat([4,5,1]) rr = dd.mean() # 矩阵的均值 print('mean of dd: '.title()+ str(rr)) 运行结果： Mean Of Dd: 3.3333333333333335 矩阵维度12345def nu_mul_array(): jj = mat([[1,2,3],[8,8,8]]) print('Number of dimensions of jj '.title()+str(shape(jj))) one_row = jj[1,0:2] print(one_row) 运行结果： Number Of Dimensions Of Jj (2, 3) [[8 8]] 矩阵转置1234def nu_tran_mat(): # 矩阵转置 radMat = numpy.random.random((3,3)) print('Before matrix transposition:\n '+str(radMat)) print('After matrix transposition:\n '+str(radMat.T)) 运行结果： Before matrix transposition: [[0.44400432 0.39811184 0.15014053] [0.33399525 0.35953194 0.92571106] [0.3307816 0.38282677 0.01282852]] After matrix transposition: [[0.44400432 0.33399525 0.3307816 ] [0.39811184 0.35953194 0.38282677] [0.15014053 0.92571106 0.01282852]] 矩阵的逆1234def nu_inverse_mat(): # 矩阵的逆 radMat = numpy.random.random((3,3)) print('Before matrix inverse:\n '+str(radMat)) print('After matrix inverse:\n '+str(mat(radMat).I)) 运行结果： Before matrix inverse: [[0.67119611 0.28502048 0.00101008] [0.66644679 0.61934535 0.39481694] [0.10938817 0.22939074 0.45364209]] After matrix inverse: [[ 3.52467918 -2.38933642 2.07165582] [-4.79734922 5.63471564 -4.89336308] [ 1.57593243 -2.27312782 4.17923641]] 矩阵与逆矩阵相乘12345def nu_mat_mul_imat(): # 矩阵与其逆矩阵相乘 bmat = mat(numpy.random.random((3,3))) imat = bmat.I rus = bmat * imat print(rus) # 结果是3*3的单位矩阵，其位置原则应该都是0，实际中是非常小的数，这个计算机处理的问题 运行结果： [[ 1.00000000e+00 -2.23066267e-17 -3.47038713e-17] [-7.97119302e-17 1.00000000e+00 1.74271619e-17] [-3.16553513e-16 -8.86129567e-17 1.00000000e+00]] 参考文献 Python官网 中文维基百科 GitHub 图书：《机器学习实战》 图书：《自然语言处理理论与实战》 完整代码下载 源码请进【机器学习和自然语言QQ群：436303759】文件下载： 作者声明 本文版权归作者【白宁超】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。]]></content>
@@ -123,8 +135,8 @@
         <category>Apriori</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
         <tag>Python</tag>
+        <tag>机器学习算法</tag>
         <tag>文本聚类</tag>
         <tag>Apriori</tag>
         <tag>关联规则</tag>
@@ -138,12 +150,12 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>自然语言处理</tag>
-        <tag>Logistic regression</tag>
         <tag>Sublime</tag>
+        <tag>Logistic regression</tag>
         <tag>Anaconda</tag>
         <tag>开发环境</tag>
+        <tag>Python</tag>
+        <tag>自然语言处理</tag>
         <tag>机器学习</tag>
       </tags>
   </entry>
@@ -156,8 +168,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>数据预处理</tag>
         <tag>自然语言处理</tag>
+        <tag>数据预处理</tag>
         <tag>NLP</tag>
         <tag>pdf2txt</tag>
         <tag>格式转化</tag>
@@ -172,8 +184,8 @@
         <category>决策树</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
         <tag>Python</tag>
+        <tag>机器学习算法</tag>
         <tag>sklean</tag>
         <tag>文本聚类</tag>
         <tag>决策树</tag>
@@ -188,8 +200,8 @@
         <category>KNN</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
         <tag>Python</tag>
+        <tag>机器学习算法</tag>
         <tag>sklean</tag>
         <tag>K近邻算法</tag>
         <tag>kNN</tag>
@@ -205,11 +217,11 @@
         <category>K-Means</category>
       </categories>
       <tags>
+        <tag>Python</tag>
         <tag>K-均值算法</tag>
         <tag>k-means</tag>
         <tag>机器学习算法</tag>
         <tag>文本分类</tag>
-        <tag>Python</tag>
         <tag>sklean</tag>
       </tags>
   </entry>
@@ -222,11 +234,11 @@
         <category>逻辑回归</category>
       </categories>
       <tags>
+        <tag>Logistic regression</tag>
+        <tag>Python</tag>
         <tag>机器学习算法</tag>
         <tag>文本分类</tag>
-        <tag>Python</tag>
         <tag>逻辑回归</tag>
-        <tag>Logistic regression</tag>
       </tags>
   </entry>
   <entry>
@@ -238,8 +250,8 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>sklearn</tag>
@@ -254,8 +266,8 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>实战案例</tag>
@@ -270,11 +282,11 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>自然语言处理</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
-        <tag>自然语言处理</tag>
         <tag>理论学习</tag>
       </tags>
   </entry>
