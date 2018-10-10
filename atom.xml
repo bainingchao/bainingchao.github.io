@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-10-10T11:12:57.458Z</updated>
+  <updated>2018-10-10T11:51:07.446Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,154 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编程数学之相关与回归</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%9B%B8%E5%85%B3%E4%B8%8E%E5%9B%9E%E5%BD%92/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之相关与回归/</id>
+    <published>2018-10-10T11:21:33.000Z</published>
+    <updated>2018-10-10T11:51:07.446Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：在数据科学中，统计地位尤为显著。其在数据分析的基础上，研究如何测定、收集、整理、归纳和分析反映数据规律，以便给出正确消息的科学。通过揭示数据背后的规律和隐藏信息，给相关角色提供参照价值，做出相应的决策。这在数据挖掘、自然语言处理、机器学习都广泛应用。本文主要介绍相关和回归，让读者最短时间掌握基本的统计知识。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+    
+      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+      <category term="相关" scheme="https://bainingchao.github.io/tags/%E7%9B%B8%E5%85%B3/"/>
+    
+      <category term="回归" scheme="https://bainingchao.github.io/tags/%E5%9B%9E%E5%BD%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编程数学之概率分布</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之概率分布/</id>
+    <published>2018-10-10T11:21:20.000Z</published>
+    <updated>2018-10-10T12:19:36.251Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：在数据科学中，统计地位尤为显著。其在数据分析的基础上，研究如何测定、收集、整理、归纳和分析反映数据规律，以便给出正确消息的科学。通过揭示数据背后的规律和隐藏信息，给相关角色提供参照价值，做出相应的决策。这在数据挖掘、自然语言处理、机器学习都广泛应用。本文主要介绍概率分布，让读者最短时间掌握基本的统计知识。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+    
+      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+      <category term="几何分布" scheme="https://bainingchao.github.io/tags/%E5%87%A0%E4%BD%95%E5%88%86%E5%B8%83/"/>
+    
+      <category term="正态分布" scheme="https://bainingchao.github.io/tags/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/"/>
+    
+      <category term="泊松分布" scheme="https://bainingchao.github.io/tags/%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编程数学之数据度量标准</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%A6%E9%87%8F%E6%A0%87%E5%87%86/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之数据度量标准/</id>
+    <published>2018-10-10T11:20:55.000Z</published>
+    <updated>2018-10-10T12:00:42.120Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：在数据科学中，统计地位尤为显著。其在数据分析的基础上，研究如何测定、收集、整理、归纳和分析反映数据规律，以便给出正确消息的科学。通过揭示数据背后的规律和隐藏信息，给相关角色提供参照价值，做出相应的决策。这在数据挖掘、自然语言处理、机器学习都广泛应用。本文主要介绍数据度量标准，让读者最短时间掌握基本的统计知识。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+    
+      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+      <category term="平均值" scheme="https://bainingchao.github.io/tags/%E5%B9%B3%E5%9D%87%E5%80%BC/"/>
+    
+      <category term="众数" scheme="https://bainingchao.github.io/tags/%E4%BC%97%E6%95%B0/"/>
+    
+      <category term="期望" scheme="https://bainingchao.github.io/tags/%E6%9C%9F%E6%9C%9B/"/>
+    
+      <category term="方差" scheme="https://bainingchao.github.io/tags/%E6%96%B9%E5%B7%AE/"/>
+    
+      <category term="标准差" scheme="https://bainingchao.github.io/tags/%E6%A0%87%E5%87%86%E5%B7%AE/"/>
+    
+      <category term="标准分" scheme="https://bainingchao.github.io/tags/%E6%A0%87%E5%87%86%E5%88%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编程数学之图形可视化分析</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E5%9B%BE%E5%BD%A2%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之图形可视化分析/</id>
+    <published>2018-10-10T11:20:27.000Z</published>
+    <updated>2018-10-10T11:44:47.725Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：在数据科学中，统计地位尤为显著。其在数据分析的基础上，研究如何测定、收集、整理、归纳和分析反映数据规律，以便给出正确消息的科学。通过揭示数据背后的规律和隐藏信息，给相关角色提供参照价值，做出相应的决策。这在数据挖掘、自然语言处理、机器学习都广泛应用。本文主要介绍常见的图形可视化的概念和使用，使读者最短时间掌握基本的统计知识。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+    
+      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="可视化" scheme="https://bainingchao.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+      <category term="条形图" scheme="https://bainingchao.github.io/tags/%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
+    
+      <category term="柱形图" scheme="https://bainingchao.github.io/tags/%E6%9F%B1%E5%BD%A2%E5%9B%BE/"/>
+    
+      <category term="折线图" scheme="https://bainingchao.github.io/tags/%E6%8A%98%E7%BA%BF%E5%9B%BE/"/>
+    
+      <category term="热力图" scheme="https://bainingchao.github.io/tags/%E7%83%AD%E5%8A%9B%E5%9B%BE/"/>
+    
+      <category term="饼图" scheme="https://bainingchao.github.io/tags/%E9%A5%BC%E5%9B%BE/"/>
+    
+      <category term="箱线图" scheme="https://bainingchao.github.io/tags/%E7%AE%B1%E7%BA%BF%E5%9B%BE/"/>
+    
+      <category term="地图" scheme="https://bainingchao.github.io/tags/%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="散点图" scheme="https://bainingchao.github.io/tags/%E6%95%A3%E7%82%B9%E5%9B%BE/"/>
+    
+      <category term="雷达图" scheme="https://bainingchao.github.io/tags/%E9%9B%B7%E8%BE%BE%E5%9B%BE/"/>
+    
+      <category term="仪盘表" scheme="https://bainingchao.github.io/tags/%E4%BB%AA%E7%9B%98%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>编程数学之信息论</title>
@@ -425,138 +573,6 @@
       <category term="Apriori" scheme="https://bainingchao.github.io/tags/Apriori/"/>
     
       <category term="关联规则" scheme="https://bainingchao.github.io/tags/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sublime+Anaconda开发环境部署教程</title>
-    <link href="https://bainingchao.github.io/2018/09/20/Sublime-Anaconda%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/"/>
-    <id>https://bainingchao.github.io/2018/09/20/Sublime-Anaconda开发环境部署教程/</id>
-    <published>2018-09-20T01:38:48.277Z</published>
-    <updated>2018-10-09T06:03:35.935Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：随着人工智能的快速发展，深度学习、机器学习、自然语言处理和数据挖掘等技术的应用愈加广泛。然而身为初学者，要想快速入门这些前沿技术总是存在着各种各样的困难。古语说“工欲善其事，必先利其器”，本课程的“器”就是开发环境部署，本文主要介绍Sublime的安装部署与使用。最后，我们将用一个简单的实战案例让读者亲身领略编程之美。（本文原创编著，转载注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://bainingchao.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Sublime" scheme="https://bainingchao.github.io/tags/Sublime/"/>
-    
-      <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
-    
-      <category term="Anaconda" scheme="https://bainingchao.github.io/tags/Anaconda/"/>
-    
-      <category term="开发环境" scheme="https://bainingchao.github.io/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据处理：量身打造自定义文件格式转换</title>
-    <link href="https://bainingchao.github.io/2018/09/19/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%EF%BC%9A%E9%87%8F%E8%BA%AB%E6%89%93%E9%80%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>https://bainingchao.github.io/2018/09/19/数据处理：量身打造自定义文件格式转换/</id>
-    <published>2018-09-19T05:40:46.000Z</published>
-    <updated>2018-09-25T06:55:42.263Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预处理工作。笔者采用一些工具转换效果都不理想，于是才出现本系统的研究与实现。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    
-      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
-    
-      <category term="pdf2txt" scheme="https://bainingchao.github.io/tags/pdf2txt/"/>
-    
-      <category term="格式转化" scheme="https://bainingchao.github.io/tags/%E6%A0%BC%E5%BC%8F%E8%BD%AC%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一步步教你轻松学决策树模型算法</title>
-    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E5%86%B3%E7%AD%96%E6%A0%91%E7%AE%97%E6%B3%95/"/>
-    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学决策树算法/</id>
-    <published>2018-09-19T05:19:08.743Z</published>
-    <updated>2018-09-25T07:05:42.297Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：决策树算法是一种基本的分类与回归方法，是最经常使用的算法之一。决策树模型呈树形结构，在分类问题中，表示基于特征对实例进行分类的过程。它可以认为是基于规则的集合。本文首先介绍决策树定义、工作原理、算法流程、优缺点等，然后结合案例进行分析。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="决策树" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%86%B3%E7%AD%96%E6%A0%91/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
-    
-      <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
-    
-      <category term="决策树" scheme="https://bainingchao.github.io/tags/%E5%86%B3%E7%AD%96%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一步步教你轻松学KNN模型算法</title>
-    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6KNN%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95/"/>
-    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学KNN模型算法/</id>
-    <published>2018-09-19T03:57:35.625Z</published>
-    <updated>2018-09-25T07:10:04.383Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：机器学习算法中KNN属于比较简单的典型算法，既可以做聚类又可以做分类使用。本文通过一个模拟的实际案例进行讲解。整个流程包括：采集数据、数据格式化处理、数据分析、数据归一化处理、构造算法模型、评估算法模型和算法模型的应用。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="KNN" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/KNN/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
-    
-      <category term="K近邻算法" scheme="https://bainingchao.github.io/tags/K%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="kNN" scheme="https://bainingchao.github.io/tags/kNN/"/>
-    
-      <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
     
   </entry>
   
