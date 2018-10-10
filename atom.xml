@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-10-10T09:04:34.460Z</updated>
+  <updated>2018-10-10T09:56:16.795Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>语言学中的语音词汇和语法问题</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E8%AF%AD%E8%A8%80%E5%AD%A6%E9%97%AE%E9%A2%98/"/>
+    <id>https://bainingchao.github.io/2018/10/10/自然语言处理中的语言学问题/</id>
+    <published>2018-10-10T09:50:25.000Z</published>
+    <updated>2018-10-10T09:56:16.795Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：语音、词汇、语法三个角度对现代汉语进行了一个简单概要的勾勒，在以往传统的语言学教材中一般还有“文字”、“修辞”两节内容。需要注意的是，语言学本身是一门十分庞杂的学科，知识体系与研究方法或因语言不同而有区别，或因派别主义不同而有区别。但无论是何种语言，亦或是何门何派，在进行自然语言处理时我们要面临的永远是一个个真实的语料和具体的语言现象。理论是用来指导实践，拓宽我们研究思路的，究竟最后采用何种理论，这只是一个“白猫黑猫”的问题。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="语言学" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/"/>
+    
+      <category term="语音" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E9%9F%B3/"/>
+    
+      <category term="语法" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>编程数学之距离计算</title>
@@ -543,38 +569,6 @@
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
       <category term="逻辑回归" scheme="https://bainingchao.github.io/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3</title>
-    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95Sklearn%E6%B7%B1%E5%BA%A6%E7%AF%873/"/>
-    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学朴素贝叶斯模型算法Sklearn深度篇3/</id>
-    <published>2018-09-19T02:55:09.605Z</published>
-    <updated>2018-09-25T07:01:45.504Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模型、朴素贝叶斯模型训练和优化等。然后结合复旦大学新闻语料进行朴素贝叶斯的应用。最后，大家熟悉其原理和实现之后，采用机器学习sklearn包进行实现和优化。由于篇幅较长，采用理论理解、案例实现、sklearn优化三个部分进行学习。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="朴素贝叶斯" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
-      <category term="Naive Bayes" scheme="https://bainingchao.github.io/tags/Naive-Bayes/"/>
-    
-      <category term="ML" scheme="https://bainingchao.github.io/tags/ML/"/>
-    
-      <category term="sklearn" scheme="https://bainingchao.github.io/tags/sklearn/"/>
     
   </entry>
   
