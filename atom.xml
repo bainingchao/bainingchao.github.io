@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-10-10T09:56:16.795Z</updated>
+  <updated>2018-10-10T11:12:57.458Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编程数学之信息论</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E4%BF%A1%E6%81%AF%E8%AE%BA/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之信息论/</id>
+    <published>2018-10-10T10:00:54.000Z</published>
+    <updated>2018-10-10T11:12:57.458Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：信息论（英语：information theory）是应用数学、电机工程学和计算机科学的一个分支，涉及信息的量化、存储和通信等。信息论是由香农发展，用来找出信号处理与通信操作的基本限制，如数据压缩、可靠的存储和数据传输等。自创立以来，它已拓展应用到许多其他领域，包括统计推断、自然语言处理、密码学、神经生物学、进化论和分子编码的功能、生态学的模式选择、热物理、量子计算、语言学、剽窃检测、模式识别、异常检测和其他形式的数据分析。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="信息论" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E4%BF%A1%E6%81%AF%E8%AE%BA/"/>
+    
+    
+      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="信息论" scheme="https://bainingchao.github.io/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/"/>
+    
+      <category term="熵" scheme="https://bainingchao.github.io/tags/%E7%86%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编程数学之事件与概率</title>
+    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%A6%82%E7%8E%87/"/>
+    <id>https://bainingchao.github.io/2018/10/10/编程数学之事件与概率/</id>
+    <published>2018-10-10T09:59:08.000Z</published>
+    <updated>2018-10-10T11:06:08.546Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="概率论" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
+    
+    
+      <category term="事件" scheme="https://bainingchao.github.io/tags/%E4%BA%8B%E4%BB%B6/"/>
+    
+      <category term="概率" scheme="https://bainingchao.github.io/tags/%E6%A6%82%E7%8E%87/"/>
+    
+  </entry>
   
   <entry>
     <title>语言学中的语音词汇和语法问题</title>
@@ -503,72 +557,6 @@
       <category term="kNN" scheme="https://bainingchao.github.io/tags/kNN/"/>
     
       <category term="文本聚类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E8%81%9A%E7%B1%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一步步教你轻松学K-means聚类算法</title>
-    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/"/>
-    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学K-means聚类算法/</id>
-    <published>2018-09-19T03:24:21.152Z</published>
-    <updated>2018-09-25T07:11:07.262Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="K-Means" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/K-Means/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="K-均值算法" scheme="https://bainingchao.github.io/tags/K-%E5%9D%87%E5%80%BC%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="k-means" scheme="https://bainingchao.github.io/tags/k-means/"/>
-    
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
-      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一步步教你轻松学逻辑回归模型算法</title>
-    <link href="https://bainingchao.github.io/2018/09/19/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E7%AE%97%E6%B3%95/"/>
-    <id>https://bainingchao.github.io/2018/09/19/一步步教你轻松学逻辑回归模型算法/</id>
-    <published>2018-09-19T03:17:08.930Z</published>
-    <updated>2018-09-25T07:41:43.946Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="逻辑回归" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
-    
-    
-      <category term="Logistic regression" scheme="https://bainingchao.github.io/tags/Logistic-regression/"/>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
-      <category term="逻辑回归" scheme="https://bainingchao.github.io/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"/>
     
   </entry>
   

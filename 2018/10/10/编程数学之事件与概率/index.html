@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="事件,概率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程数学之事件与概率">
+<meta property="og:url" content="https://bainingchao.github.io/2018/10/10/编程数学之事件与概率/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/7tKkS5F.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A)=\lim _{n\to \infty }f_{n}(A)}">
+<meta property="og:image" content="https://i.imgur.com/Ehr8Aeb.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cup B)=P(A)+P(B)} \if {\displaystyle A\cap B=\varnothing }">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A_{1}\cup \cdots \cup A_{n})=\sum _{j=1}^{n}P(A_{j})} ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P=P(A_{5})+P(A_{6})=} {\displaystyle ={\frac {2}{6}}={\frac {1}{3}}} ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cap B)=P(A)\cdot P(B\vert A)={\frac {4}{32}}\cdot {\frac {3}{31}}={\frac {3}{248}}} ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cap B)=P(A)\cdot P(B)}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cap B)={\frac {18}{37}}\cdot {\frac {18}{37}}=0.2367}">
+<meta property="og:image" content="https://i.imgur.com/tDXcs5w.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?{\displaystyle P(A)=\sum _{j=1}^{n}P(A|H_{j})\cdot P(H_{j})}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?  
+{\displaystyle P(A\vert B)={\frac {P(B\vert A)\cdot P(A)}{P(B)}}}">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/cvixeiT.png">
+<meta property="og:updated_time" content="2018-10-10T11:06:08.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编程数学之事件与概率">
+<meta name="twitter:description" content="摘要：由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://i.imgur.com/7tKkS5F.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/10/10/编程数学之事件与概率/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>编程数学之事件与概率 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/10/10/编程数学之事件与概率/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">编程数学之事件与概率
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-10 17:59:08 / 修改时间：19:06:08" itemprop="dateCreated datePublished" datetime="2018-10-10T17:59:08+08:00">2018-10-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/概率论/" itemprop="url" rel="index"><span itemprop="name">概率论</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h1 id="概率论介绍"><a href="#概率论介绍" class="headerlink" title="概率论介绍"></a>概率论介绍</h1><h2 id="概率论概述"><a href="#概率论概述" class="headerlink" title="概率论概述"></a>概率论概述</h2><p>概率论（英语：Probability theory）是集中研究概率及随机现象的数学分支，是研究随机性或不确定性等现象的数学。概率论主要研究对象为随机事件、随机变量以及随机过程。对于随机事件是不可能准确预测其结果的，然而对于一系列的独立随机事件——例如掷骰子、扔硬币、抽扑克牌以及轮盘等，会呈现出一定的、可以被用于研究及预测的规律，两个用来描述这些规律的最具代表性的数学结论分别是大数定律和中心极限定理。</p>
+<h2 id="概率的生活案例之六合彩"><a href="#概率的生活案例之六合彩" class="headerlink" title="概率的生活案例之六合彩"></a>概率的生活案例之六合彩</h2><p>买5, 17, 19, 24, 33, 49中奖概率高还是买1,2,3,4,5,6的中奖概率高?</p>
+<p>古典概率论说：一样。但实际上机械或彩球制造上都有些微小的差异，所以每组概率不一定完全相同，但必须累积多期开奖结果后才看得出来。</p>
+<h2 id="概率的生活案例之生日悖论"><a href="#概率的生活案例之生日悖论" class="headerlink" title="概率的生活案例之生日悖论"></a>概率的生活案例之生日悖论</h2><p>在一个足球场上有23个人（2×11个运动员和1个裁判员），不可思议的是，在这23人当中至少有两个人的生日是在同一天的概率要大于50％。 如果这23人都没有相同的生日也不违反概率，只是小于50％。</p>
+<h2 id="概率的生活案例之轮盘游戏"><a href="#概率的生活案例之轮盘游戏" class="headerlink" title="概率的生活案例之轮盘游戏"></a>概率的生活案例之轮盘游戏</h2><p>在游戏中玩家可能认为，在连续出现多次红色后，出现黑色的概率会越来越大。<br>这种判断也是错误的，即出现黑色的概率每次是相等的，因为球本身并没有“记忆”， 它不会意识到以前都发生了什么，其概率始终是 18/37。但轮盘的前后期开奖数字形成时间序列（可能存在自回归模型）。</p>
+<h2 id="概率的生活案例之赢取名车"><a href="#概率的生活案例之赢取名车" class="headerlink" title="概率的生活案例之赢取名车"></a>概率的生活案例之赢取名车</h2><p>赢取电视节目里的名车：在参赛者面前有三扇关闭的门，其中只有一扇后面有名车，而其余的后面是山羊。</p>
+<p>游戏规则是，参赛者先选取一扇门，但在他打开之前，主持人在其余两扇门中打开了一扇有山羊的门， 并询问参赛者是否改变主意选择另一扇门，以使赢得名车的概率变大。</p>
+<p>正确的分析结果是，假如不管开始哪一扇门被选，主持人都打开其余两扇门中有山羊的那一扇并询问参赛者是否改变主意， 则改变主意会使赢得汽车的概率增加一倍；（“标准”的三门问题情况。）</p>
+<p>假如主持人只在有名车那扇门被选中时劝诱参赛者打开其它门，则改变主意必输。(资讯不对称)</p>
+<hr>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><h2 id="随机试验"><a href="#随机试验" class="headerlink" title="随机试验"></a>随机试验</h2><blockquote>
+<p>随机试验的定义</p>
+</blockquote>
+<p>我们将对自然现象的一次观察或进行一次科学试验称为试验。</p>
+<blockquote>
+<p> 随机试验的例子</p>
+</blockquote>
+<p>举例1:硬币试验</p>
+<ul>
+<li>E1: 抛一枚硬币，观察正(H)反(T) 面的情况。</li>
+<li>E2: 将一枚硬币抛三次,观察正反面出现的情况。</li>
+<li>E3: 将一枚硬币抛三次，观察出现正面的情况。</li>
+<li>E4: 电话交换台一分钟内接到的呼唤次数。</li>
+<li>E5: 在一批灯泡中任取一只, 测试它的寿命。</li>
+</ul>
+<p>举例2:数学家去赌场</p>
+<p>新闻：数学家3年赌赢156亿人民币，数学家在赌场里有什么优势？</p>
+<p>令19名数学家惊喜的是，虽然他们所掌握的那些高深数学知识在现实生活中似乎派不上多大用场，但竟然出人意料地在赌场上显现出了巨大的威力！据悉，19名数学家参与的大多是赛马、赛狗以及21点之类的赌博项目。而每次下注之前，他们会利用自己所精通的专业数学方法对各种中奖的概率进行推理演算，从而研究出某种“逢赌必赢”的秘笈！因为它的形态看起来合乎理想。在现实生活中，遇到测量之类的大量连续数据时，你“正常情况下”会期望看到这种形态。</p>
+<h2 id="随机事件和样本空间"><a href="#随机事件和样本空间" class="headerlink" title="随机事件和样本空间"></a>随机事件和样本空间</h2><blockquote>
+<p>基本事件或单位事件</p>
+</blockquote>
+<p>定义：在一次随机试验中可能发生的不能再细分的结果被称为基本事件，或者称为单位事件，用\( E\) 表示。</p>
+<blockquote>
+<p>样本空间</p>
+</blockquote>
+<p>定义：在随机试验中可能发生的所有单位事件的集合称为事件空间，用\( S\) 来表示。</p>
+<p>例如：在一次掷骰子的随机试验中，如果用获得的点数来表示单位事件，那么一共可能出现 6 个单位事件，则事件空间可以表示为\( S={1,2,3,4,5,6} \)。</p>
+<p>上面的事件空间是由可数有限单位事件组成，事实上还存在着由可数无限以及不可数单位事件组成的事件空间，比如在一次获得正面朝上就停止的随机掷硬币试验中，其事件空间由可数无限单位事件组成，表示为： S={正，反正，反反正，反反反正，反反反反正，···}，注意到在这个例子中”反反反正”是单位事件。将两根筷子随意扔向桌面，其静止后所形成的交角假设为\(\alpha \)，这个随机试验的事件空间的组成可以表示为 \( S={\alpha |0^{\circ }\leq \alpha &lt;180^{\circ }}\)</p>
+<blockquote>
+<p>随机事件</p>
+</blockquote>
+<p>随机事件是事件空间\( S \)的子集，它由事件空间 \( S \)中的单位元素构成，用大写字母\( A,B,C\cdots \) 表示。例如在掷两个骰子的随机试验中，设随机事件 \( A \)= “获得的点数和大于10”，则 \( A \)可以由下面 3 个单位事件组成：\( A={(5,6),(6,5),(6,6)}}\)。</p>
+<blockquote>
+<p>必然事件和不可能事件</p>
+</blockquote>
+<p>如果在随机试验中事件空间中的所有可能的单位事件都发生，这个事件被称为 必然事件；相应的如果事件空间里不包含任何一个单位事件，则称为不可能事件。</p>
+<h2 id="事件的计算"><a href="#事件的计算" class="headerlink" title="事件的计算"></a>事件的计算</h2><p>因为事件在一定程度上是以集合的含义定义的，因此可以把集合计算方法直接应用于事件的计算，也就是说，在计算过程中，可以把事件当作集合来对待，如图所示。</p>
+<p><img src="https://i.imgur.com/7tKkS5F.png" alt=""></p>
+<p>在轮盘游戏中假设 \( A \)代表事件“球落在红色区域”，\( B \)代表事件”球落在黑色区域”，因为事件 \( A \)和\( B \)没有共同的单位事件，因此可表示为\( A\cap B=\varnothing \)。注意到事件\( A \) 和 \( B \) 并不是互补的关系，因为在整个事件空间 \( S \)中还有一个单位事件“零”，其即不是红色也不是黑色，而是绿色。</p>
+<h1 id="概率"><a href="#概率" class="headerlink" title="概率"></a>概率</h1><h2 id="古典概率"><a href="#古典概率" class="headerlink" title="古典概率"></a>古典概率</h2><p>古典概率又叫传统概率或拉普拉斯概率，古典概率的定义是由法国数学家拉普拉斯 ( Laplace ) 提出的。如果一个随机试验所包含的单位事件是有限的，且每个单位事件发生的可能性均相等，则这个随机试验叫做拉普拉斯试验。在拉普拉斯试验中，事件\( A \)在事件空间 \( S \)中的概率\( P(A)\) 为：</p>
+<script type="math/tex; mode=display">P(A)=构成事件A的元素数目/构成事件空间S的所有元素数目</script><p>例如，在一次同时掷一个硬币和一个骰子的随机试验中，假设事件 A 为获得国徽面且点数大于 4 ，那么事件 A 的概率应该有如下计算方法：  S= { ( 国徽，1 点 )，( 数字，1 点 )，( 国徽，2 点 )，( 数字，2 点 )，( 国徽，3 点 )，( 数字，3 点 )，( 国徽，4 点 )，( 数字，4 点 )，( 国徽，5 点 )，( 数字，5 点 )，( 国徽，6 点 )，( 数字，6 点 ) }， A＝{( 国徽，5 点 )，( 国徽，6 点 )}，按照拉普拉斯定义，  A 的概率为，</p>
+<script type="math/tex; mode=display">P(A)=\frac {2}{12}=\frac {1}{6}</script><p>注意到在拉普拉斯试验中存在着若干的疑问，在现实中是否存在着其单位事件的概率具有精确相同的概率值的试验? 因为我们不知道，硬币以及骰子是否完美，即骰子制造的是否均匀，其重心是否位于正中心，以及轮盘是否倾向于某一个数字。 尽管如此，传统概率在实践中被广泛应用于确定事件的概率值，其理论根据是： 如果没有足够的论据来证明一个事件的概率大于另一个事件的概率，那么可以认为这两个事件的概率值相等。</p>
+<p>如果仔细观察这个定义会发现拉普拉斯用概率解释了概率，定义中用了相同的可能性 ( 原文是 également possible )一词，其实指的就是”相同的概率”。这个定义也并没有说出，到底什么是概率，以及如何用数字来确定概率。在现实生活中也有一系列问题，无论如何不能用传统概率定义来解释，比如，人寿保险公司无法确定一个 50 岁的人在下一年将死去的概率。</p>
+<h2 id="古典概率的两个特点"><a href="#古典概率的两个特点" class="headerlink" title="古典概率的两个特点"></a>古典概率的两个特点</h2><ul>
+<li>样本空间的元素只有有限个。</li>
+<li>实验中每个基本事件发生的可能性相同。</li>
+</ul>
+<blockquote>
+<p>统计概率：大数定律</p>
+</blockquote>
+<p>继传统概率论之后，英国逻辑学家约翰·维恩和奥地利数学家理查德提出建立在频率理论基础上的统计概率。他们认为，获得一个事件的概率值的唯一方法是通过对该事件进行 100 次，1000 次或者甚至 10000 次的前后相互独立的  n 次随机试验，针对每次试验均记录下绝对频率值 \(h_n(A)\)和相对频率值\( f_n\)，随着试验次数 n 的增加，会出现如下事实，即相对频率值会趋于稳定，它在一个特定的值上下浮动，也即是说存在着一个极限值  P(A)，相对频率值趋向于这个极限值。这个极限值被称为统计概率，表示为：<img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A)=\lim _{n\to \infty }f_{n}(A)}"> </p>
+<p>例如，若想知道在一次掷骰子的随机试验中获得 6 点的概率值可以对其进行 3000 次前后独立的扔掷试验（如表4-1所示），在每一次试验后记录下出现 6 点的次数，然后通过计算相对频率值可以得到趋向于某一个数的统计概率值。</p>
+<p><img src="https://i.imgur.com/Ehr8Aeb.png" alt=""></p>
+<p>上面提到的这个有关相对频率的经验规律是大数定律在现实生活中的反映，大数定律是初等概率论的基础。统计概率在今天的实践中依然具有重要意义，特别是在初等概率论及数理统计等学科中。</p>
+<h2 id="概率公理"><a href="#概率公理" class="headerlink" title="概率公理"></a>概率公理</h2><ul>
+<li><p>公理 1：事件  A 的概率  P(A) 是一个0与1之间（包含0与1）的非负实数。\( 0\leq P(A)\leq 1\ (A\in S) \)</p>
+</li>
+<li><p>公理 2：  事件空间的概率值为 1 。\( P(S)=1\) </p>
+</li>
+<li><p>公理 3： ， 互斥事件的加法法则。这里需注意：公理3可以推广到可数个互斥事件的联集。<img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cup B)=P(A)+P(B)} \if {\displaystyle A\cap B=\varnothing }"></p>
+</li>
+<li><p>定理 1 (互补法则)：与 A 互补事件的概率始终是\( P({\bar {A}})=1-P(A),\in S \)</p>
+</li>
+<li><p>定理 2：不可能事件的概率为零：\( P(\varnothing )=0\)</p>
+</li>
+<li><p>定理 3：如果若干事件 \( A<em>{1},A</em>{2},\cdots A_{n}\in S\)每两两之间是空集关系，那么这些所有事件集合的概率等于单个事件的概率的和。</p>
+</li>
+</ul>
+<p><img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A_{1}\cup \cdots \cup A_{n})=\sum _{j=1}^{n}P(A_{j})} "></p>
+
+
+<p>注意针对这一定理有效性的决定因素是\( A_{1}\cdots A_{n}\) 事件不能同时发生。例如，在一次掷骰子中，得到 5 点或者 6 点的概率是：<img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P=P(A_{5})+P(A_{6})=} {\displaystyle ={\frac {2}{6}}={\frac {1}{3}}} "></p>
+<ul>
+<li>定理 4：如果事件 A，B 是差集关系，则有，\(  P(A\setminus B)=P(A)-P(A\cap B)\)</li>
+</ul>
+<ul>
+<li>定理 5 (任意事件加法法则)：对于事件空间S 中的任意两个事件 A 和 B，有如下定理：\( P(A\cup B)=P(A)+P(B)-P(A\cap B)\)</li>
+</ul>
+<p>例如，在由一共 32 张牌构成的斯卡特扑克牌中随机抽出一张，其或者是”方片”或者是” \(\mathcal {A}\) “的概率是多少？</p>
+<p>事件 A， B 是或者的关系，且可同时发生，就是说抽出的这张牌即可以是”方片”，又可以是” \(\mathcal {A}\)”， A ∩ B ( 既发生  A 又发生 B ) 的值是 1 / 32，因此有如下结果：\( P(A\cup B)={\frac {8}{32}}+{\frac {4}{32}}-{\frac {1}{32}}={\frac {11}{32}}\)</p>
+<ul>
+<li>定理 6 (乘法法则)：事件\(A\) ，\(B\)  同时发生的概率是：\(P(A\cap B)=P(A)\cdot P(B\vert A)=P(B)\cdot P(A\vert B)\)</li>
+</ul>
+<p>公式中的\( P(A|B) \)是指在 \(B\) 条件下 \(A\)  发生的概率，又称作条件概率。回到上面的斯卡特游戏中，在 32 张牌中随机抽出一张，即是方片又是 \(\mathcal {A}\)的概率是多少呢？现用  P(A) 代表抽出方片的概率，用P(B) 代表抽出 \(\mathcal {A}\)的概率，很明显， A， B 之间有一定联系，即 A 里包含有 B，  B 里又包含有 A，在 A 的条件下发生 B 的概率是 P(B | A)=1/8，则有：<br>\( P(A\cap B)=P(A)\cdot P(B\vert A)={\frac {8}{32}}\cdot {\frac {1}{8}}={\frac {1}{32}}\)</p>
+<p>或者，<br>\( P(A\cap B)=P(B)\cdot P(A\vert B)={\frac {4}{32}}\cdot {\frac {1}{4}}={\frac {1}{32}}\)</p>
+<p>从上面的图中也可以看出，符合条件的只有一张牌，即方片 \(\mathcal {A}\) 。另一个例子，在 32 张斯卡特牌里连续抽两张 ( 第一次抽出的牌不放回去 )，连续得到两个 \(\mathcal {A}\)的概率是多少呢？</p>
+<p>设 A，  B 分别为连续发生的这两次事件，我们看到，  A， B 之间有一定联系，即  B 的概率由于  A 发生了变化，属于条件概率，按照公式有： </p>
+<p><img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cap B)=P(A)\cdot P(B\vert A)={\frac {4}{32}}\cdot {\frac {3}{31}}={\frac {3}{248}}} "></p>
+
+
+<ul>
+<li>定理 7 (无关事件乘法法则)：两个不相关联的事件 A， B 同时发生的概率是：</li>
+</ul>
+<p><img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cap B)=P(A)\cdot P(B)}"></p>
+
+<p>注意到这个定理实际上是定理 6 (乘法法则) 的特殊情况，如果事件  A，  B 没有联系，则有 P(A|B)=P(A)，以及 P(B|A)=P(B)。现在观察一下轮盘游戏中两次连续的旋转过程， P(A) 代表第一次出现红色的概率，P(B) 代表第二次出现红色的概率，可以看出，  A 与  B 没有关联，利用上面提到的公式，连续两次出现红色的概率为：</p>
+<p><img src="http://latex.codecogs.com/gif.latex?  {\displaystyle P(A\cap B)={\frac {18}{37}}\cdot {\frac {18}{37}}=0.2367}"></p>
+
+
+<hr>
+<h1 id="条件概率和全概率"><a href="#条件概率和全概率" class="headerlink" title="条件概率和全概率"></a>条件概率和全概率</h1><h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><blockquote>
+<p>条件概率的描述</p>
+</blockquote>
+<p>设试验E的样本空间为S, 事件包括A,B, 要考虑在A已经发生的条件下B发生的概率, 这就是条件概率问题。</p>
+<blockquote>
+<p>条件概率的定义</p>
+</blockquote>
+<p>设A，B是两个事件，且P(A)&gt;0，称：\( P(A|B)=\frac{P(AB)}{P(A)}\)（AB不独立）  </p>
+<p>设A，B是两个事件，且P(A)&gt;0，称：\(   P(A|B)=P(A)\)（AB独立）          </p>
+<blockquote>
+<p>条件概率的性质</p>
+</blockquote>
+<p>性质1：对于每一个事件B，有：\(  0 \leqslant P(B|A)\leqslant 1\)                 </p>
+<p>性质2：\( P(S|A)=1\)</p>
+<p>性质3. 设\( B_1,B_2,…,B_n\)两两互不相容，则 \(  P(UB_i|A)=\sum P(B_i|A)\)</p>
+<blockquote>
+<p>条件概率的计算方法</p>
+</blockquote>
+<ul>
+<li>公式法：</li>
+</ul>
+<p>先计算\( P(A)\) ，\( P(AB)\) ，然后按公式计算\( P(B|A)=P(AB)/P(A)\)</p>
+<ul>
+<li>图解法：利用概率树求解</li>
+</ul>
+<p>例如： 图圈饼店正在调查客户购买圈饼和咖啡的概率，下面是一些线索，画出概率树并求解相应概率（如图所示）。以下是已知条件：</p>
+<ul>
+<li>P(圈饼) = 3/4  </li>
+<li>P(咖啡|圈饼’) = 1/3</li>
+<li>P(圈饼∩咖啡) = 9/20</li>
+</ul>
+<p><img src="https://i.imgur.com/tDXcs5w.png" alt=""></p>
+<p>计算过程：</p>
+<p>P(咖啡|圈饼) = P(圈饼∩咖啡) / P(圈饼) = 3/5</p>
+<p>P(咖啡|圈饼) = P(圈饼∩咖啡) / P(圈饼) = 1/3</p>
+<p>P(咖啡|圈饼) = P(圈饼∩咖啡) / P(圈饼) = 2/5</p>
+<p>P(咖啡|圈饼) = P(圈饼∩咖啡) / P(圈饼) = 2/3</p>
+<blockquote>
+<p>使用概率树求解问题的优缺点：</p>
+</blockquote>
+<ul>
+<li>优点： 能够以图形体现条件概率，同时帮助计算概率，利用分支结构，条理清楚，不易算错。</li>
+<li>不足： 画概率树很浪费时间。</li>
+</ul>
+<h2 id="完全概率"><a href="#完全概率" class="headerlink" title="完全概率"></a>完全概率</h2><blockquote>
+<p>概念介绍</p>
+</blockquote>
+<p>n 个事件\( H_1,H_2,…H_n\) 互相间独立，且共同组成整个事件空间 S，即\( H_i\cap H_j=\varnothing , (i\neq j)\)<br>以及\( H_1\cup H_2\cup …\cup H_n=S\),这时  A 的概率可以表示为，</p>
+<p><img src="http://latex.codecogs.com/gif.latex?{\displaystyle P(A)=\sum _{j=1}^{n}P(A|H_{j})\cdot P(H_{j})}"></p>
+
+<blockquote>
+<p>举例解析</p>
+</blockquote>
+<p>例如，一个随机试验工具由一个骰子和一个柜子中的三个抽屉组成，抽屉 1 里有 14 个白球和 6 个黑球，抽屉 2 里有 2 个白球和 8 个黑球，抽屉 3 里有 3 个白球和 7 个黑球，试验规则是首先掷骰子，如果获得小于 4 点，则抽屉 1 被选择，如果获得 4 点或者 5 点，则抽屉 2 被选择，其他情况选择抽屉 3 。然后在选择的抽屉里随机抽出一个球，最后抽出的这个球是白球的概率是：</p>
+<script type="math/tex; mode=display">
+P(白)=P(白|抽1)·P(抽1)+P(白|抽2)·P(抽2)＋P(白|抽3)·P(抽3) \\\
+=(14/20)·(3/6)+(2/10)·(2/6)+(3/10)·(1/6) \\\
+=28/60=0.4667 \\\</script><p>从例子中可看出，完全概率特别适合于分析具有多层结构的随机试验的情况。</p>
+<hr>
+<h1 id="贝叶斯定理"><a href="#贝叶斯定理" class="headerlink" title="贝叶斯定理"></a>贝叶斯定理</h1><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>贝叶斯定理由英国数学家托马斯·贝叶斯 ( Thomas Bayes 1702-1761 ) 发展，用来描述两个条件概率之间的关系，比如 P(A|B) 和 P(B|A)。按照定理 6 的乘法法则，P(A∩B)=P(A)·P(B|A)=P(B)·P(A|B)，可以立刻导出贝叶斯定理：</p>
+<p><img src="http://latex.codecogs.com/gif.latex?  
+{\displaystyle P(A\vert B)={\frac {P(B\vert A)\cdot P(A)}{P(B)}}}"></p>
+
+
+
+
+<h2 id="案例1：狗叫抓贼"><a href="#案例1：狗叫抓贼" class="headerlink" title="案例1：狗叫抓贼"></a>案例1：狗叫抓贼</h2><p>例如：一座别墅在过去的 20 年里一共发生过 2 次被盗，别墅的主人有一条狗，狗平均每周晚上叫 3 次，在盗贼入侵时狗叫的概率被估计为 0.9，问题是：在狗叫的时候发生入侵的概率是多少？</p>
+<p>我们假设 A 事件为狗在晚上叫， B 为盗贼入侵，则\( P(A)=3/7,P(B)=2/(20·365.25)=2/7305,P(A | B) = 0.9\)<br>按照公式很容易得出结果：\( P(B\vert A)=0.9\cdot {\frac {2}{7305}}\cdot {\frac {7}{3}}=0.0005749486653…\)</p>
+<h2 id="案例2：追踪红球"><a href="#案例2：追踪红球" class="headerlink" title="案例2：追踪红球"></a>案例2：追踪红球</h2><p>现分别有  A，  B 两个容器，在容器  A 里分别有 7 个红球和 3 个白球，在容器  B 里有 1 个红球和 9 个白球，现已知从这两个容器里任意抽出了一个球，且是红球，问这个红球是来自容器  A 的概率是多少?</p>
+<p>假设已经抽出红球为事件 B，从容器 A 里抽出球为事件  A，则有：\( P(B) = 8 / 20, P(A) = 1 / 2,  P(B|A) = 7 / 10\)<br>按照公式，则有：\( P(A\vert B)={\frac {7}{10}}\cdot {\frac {1}{2}}\cdot {\frac {20}{8}}={\frac {7}{8}}\)</p>
+<hr>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python官网</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Python" target="_blank" rel="noopener">中文维基百科</a></li>
+<li><a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">GitHub</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/cvixeiT.png" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/事件/" rel="tag"><i class="fa fa-tag"></i> 事件</a>
+          
+            <a href="/tags/概率/" rel="tag"><i class="fa fa-tag"></i> 概率</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/自然语言处理中的语言学问题/" rel="next" title="语言学中的语音词汇和语法问题">
+                <i class="fa fa-chevron-left"></i> 语言学中的语音词汇和语法问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/10/编程数学之信息论/" rel="prev" title="编程数学之信息论">
+                编程数学之信息论 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率论介绍"><span class="nav-number">1.</span> <span class="nav-text">概率论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概率论概述"><span class="nav-number">1.1.</span> <span class="nav-text">概率论概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率的生活案例之六合彩"><span class="nav-number">1.2.</span> <span class="nav-text">概率的生活案例之六合彩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率的生活案例之生日悖论"><span class="nav-number">1.3.</span> <span class="nav-text">概率的生活案例之生日悖论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率的生活案例之轮盘游戏"><span class="nav-number">1.4.</span> <span class="nav-text">概率的生活案例之轮盘游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率的生活案例之赢取名车"><span class="nav-number">1.5.</span> <span class="nav-text">概率的生活案例之赢取名车</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件"><span class="nav-number">2.</span> <span class="nav-text">事件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#随机试验"><span class="nav-number">2.1.</span> <span class="nav-text">随机试验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机事件和样本空间"><span class="nav-number">2.2.</span> <span class="nav-text">随机事件和样本空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件的计算"><span class="nav-number">2.3.</span> <span class="nav-text">事件的计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率"><span class="nav-number">3.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#古典概率"><span class="nav-number">3.1.</span> <span class="nav-text">古典概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#古典概率的两个特点"><span class="nav-number">3.2.</span> <span class="nav-text">古典概率的两个特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概率公理"><span class="nav-number">3.3.</span> <span class="nav-text">概率公理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件概率和全概率"><span class="nav-number">4.</span> <span class="nav-text">条件概率和全概率</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件概率"><span class="nav-number">4.1.</span> <span class="nav-text">条件概率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完全概率"><span class="nav-number">4.2.</span> <span class="nav-text">完全概率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贝叶斯定理"><span class="nav-number">5.</span> <span class="nav-text">贝叶斯定理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#贝叶斯公式"><span class="nav-number">5.1.</span> <span class="nav-text">贝叶斯公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例1：狗叫抓贼"><span class="nav-number">5.2.</span> <span class="nav-text">案例1：狗叫抓贼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例2：追踪红球"><span class="nav-number">5.3.</span> <span class="nav-text">案例2：追踪红球</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/10/10/编程数学之事件与概率/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
