@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列">
+<meta name="keywords" content="数学,距离">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程数学之距离计算">
+<meta property="og:url" content="https://bainingchao.github.io/2018/10/10/编程数学之距离计算/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?cos\theta =\frac{\vec{a}*\vec{b}}{|\vec{a}|*|\vec{b}|}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?cos\theta =\frac{x_1x_2+y_1y_2}{\sqrt{x_1^{2}+y_1^{2}}\sqrt{x_2^{2}+y_2^{2}}}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?d_1_2=\sqrt{(x_1-x_2)^{2}+(y_1-y_2)^{2}+...+(x_n-y_n)^{2}}=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^{2}}}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?d_1_2=(\sum_{i=1}^{n}|x_i-y_i|^p)^{1/p}}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?J(A,B)=\frac{A\bigcap B}{A\bigcup B}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?J_\delta (A,B)=1-J(A,B)=\frac{A\bigcup B-A\bigcap B}{A\bigcup B}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X^*=\frac{X-m}{s}">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/cvixeiT.png">
+<meta property="og:updated_time" content="2018-10-10T09:04:34.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编程数学之距离计算">
+<meta name="twitter:description" content="摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?cos\theta =\frac{\vec{a}*\vec{b}}{|\vec{a}|*|\vec{b}|}">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2018/10/10/编程数学之距离计算/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>编程数学之距离计算 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2018/10/10/编程数学之距离计算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">编程数学之距离计算
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-10 16:27:06 / 修改时间：17:04:34" itemprop="dateCreated datePublished" datetime="2018-10-10T16:27:06+08:00">2018-10-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数学/" itemprop="url" rel="index"><span itemprop="name">数学</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列数学文章旨在带领大家快速回顾常用知识，重在理解。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h1 id="余弦距离"><a href="#余弦距离" class="headerlink" title="余弦距离"></a>余弦距离</h1><h2 id="形式化描述"><a href="#形式化描述" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>余弦夹角也可以叫余弦相似度。 几何中夹角余弦可用来衡量两个向量方向的差异，机器学习中借用这一概念来衡量样本向量之间的差异。余弦取值范围为[-1,1]。求得两个向量的夹角，并得出夹角对应的余弦值，此余弦值就可以用来表征这两个向量的相似性。夹角越小，趋近于0度，余弦值越接近于1，它们的方向更加吻合，则越相似。当两个向量的方向完全相反夹角余弦取最小值-1。当余弦值为0时，两向量正交，夹角为90度。因此可以看出，余弦相似度与向量的幅值无关，只与向量的方向相关。</p>
+<h2 id="公式化描述"><a href="#公式化描述" class="headerlink" title="公式化描述"></a>公式化描述</h2><p><img src="http://latex.codecogs.com/gif.latex?cos\theta =\frac{\vec{a}*\vec{b}}{|\vec{a}|*|\vec{b}|}"></p>
+<ul>
+<li>在二维空间中向量A(x1,y1)与向量B(x2,y2)的夹角余弦公式</li>
+</ul>
+<p><img src="http://latex.codecogs.com/gif.latex?cos\theta =\frac{x_1x_2+y_1y_2}{\sqrt{x_1^{2}+y_1^{2}}\sqrt{x_2^{2}+y_2^{2}}}"></p>
+<h2 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">vec2 = [<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">dist1=np.dot(vec1,vec2)/(np.linalg.norm(vec1)*np.linalg.norm(vec2))</span><br><span class="line">print(<span class="string">"余弦距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=<span class="number">1</span>-pdist(Vec,<span class="string">'cosine'</span>)</span><br><span class="line">print(<span class="string">"余弦距离测试结果是：\t"</span>+str(dist2))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="欧氏距离"><a href="#欧氏距离" class="headerlink" title="欧氏距离"></a>欧氏距离</h1><h2 id="形式化描述-1"><a href="#形式化描述-1" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>在数学中，欧几里得距离或欧几里得度量是欧几里得空间中两点间“普通”（即直线）距离。使用这个距离，欧氏空间成为度量空间。相关联的范数称为欧几里得范数。较早的文献称之为毕达哥拉斯度量。</p>
+<h2 id="公式化描述-1"><a href="#公式化描述-1" class="headerlink" title="公式化描述"></a>公式化描述</h2><ul>
+<li>维平面上两点\( a(x_1,y_1) \)与\( b(x_2,y_2)\)间的欧氏距离：</li>
+</ul>
+<script type="math/tex; mode=display">d_{12}=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}</script><ul>
+<li>三维空间两点\( a(x_1,y_1,z_1)\)与\( b(x_2,y_2,z_1)\)间的欧氏距离：</li>
+</ul>
+<script type="math/tex; mode=display">d_{12}=\sqrt{(x_1-x_2)^{2}+(y_1-y_2)^{2}+(z_1-z_2)^{2}}</script><ul>
+<li>两个n维向量\(a(x_1,x_2,…,x_n)\)与\(b(y_1,y_2,…,y_n)\)间的欧氏距离：</li>
+</ul>
+<p><img src="http://latex.codecogs.com/gif.latex?d_1_2=\sqrt{(x_1-x_2)^{2}+(y_1-y_2)^{2}+...+(x_n-y_n)^{2}}=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^{2}}}"></p>
+<ul>
+<li>表示成向量运算的形式：\(d_{12}=\sqrt{(a-b)(a-b)^{T}}\)</li>
+</ul>
+<h2 id="Python实现-1"><a href="#Python实现-1" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 =np.mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">vec2 =np.mat([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">dist1=np.sqrt(np.sum(np.square(vec1-vec2)))</span><br><span class="line">print(<span class="string">"欧氏距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=pdist(Vec)</span><br><span class="line">print(<span class="string">"欧氏距离测试结果是：\t"</span>+str(dist2))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法三：根据公式求解</span></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line">dist3 = sqrt((vec1-vec2)*(vec1-vec2).T)</span><br><span class="line">print(<span class="string">"欧氏距离测试结果是：\t"</span>+str(dist3))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h1><h2 id="形式化描述-2"><a href="#形式化描述-2" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>计程车几何或曼哈顿距离或方格线距离是由十九世纪的赫尔曼·闵可夫斯基所创辞汇，为欧几里得几何度量空间的几何学之用语，用以标明两个点上在标准坐标系上的绝对轴距之总和。简言之，曼哈顿从一个十字路口开车到另外一个十字路口，驾驶距离不是两点间的直线距离。实际驾驶距离就是这个“曼哈顿距离”。而这也是曼哈顿距离名称的来源， 曼哈顿距离也称为城市街区距离(City Block distance)。</p>
+<h2 id="公式化描述-2"><a href="#公式化描述-2" class="headerlink" title="公式化描述"></a>公式化描述</h2><p>二维平面两点a</p>
+<ul>
+<li>(x1,y1)与b(x2,y2)间的曼哈顿距离:</li>
+</ul>
+<script type="math/tex; mode=display">d_{12}=|{(x_1-x_2)|+|(y_1-y_2)|}</script><ul>
+<li>两个n维向量\( a(x_1,x_2,…,x_n)\)与\( b(y_1,y_2,…,y_n)\)间的曼哈顿距离:</li>
+</ul>
+<script type="math/tex; mode=display">d_{12}=\sum_{i=1}^{n}|x_i-y_i|</script><h2 id="Python实现-2"><a href="#Python实现-2" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 = np.mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">vec2 = np.mat([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">dist1=np.sum(np.abs(vec1-vec2))</span><br><span class="line">print(<span class="string">"曼哈顿距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=pdist(Vec,<span class="string">'cityblock'</span>)</span><br><span class="line">print(<span class="string">"曼哈顿距离测试结果是：\t"</span>+str(dist2))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line">dist3 = sum(abs(vec1-vec2))</span><br><span class="line">print(<span class="string">"曼哈顿距离测试结果是：\t"</span>+str(dist3))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="明可夫斯基距离"><a href="#明可夫斯基距离" class="headerlink" title="明可夫斯基距离"></a>明可夫斯基距离</h1><h2 id="形式化描述-3"><a href="#形式化描述-3" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>明氏距离又叫做明可夫斯基距离，是欧氏空间中的一种测度，被看做是欧氏距离和曼哈顿距离的一种推广。</p>
+<h2 id="公式化描述-3"><a href="#公式化描述-3" class="headerlink" title="公式化描述"></a>公式化描述</h2><ul>
+<li>两个n维向量\(a(x_1,x_2,…,x_n)\)与\(b(y_1,y_2,…,y_n)\)间的明可夫斯基距离:</li>
+</ul>
+<script type="math/tex; mode=display">d_{12}=\sqrt[p]{\sum_{i=1}^{n}|x_i-y_i|^p}</script><p>也可以写成：<br><img src="http://latex.codecogs.com/gif.latex?d_1_2=(\sum_{i=1}^{n}|x_i-y_i|^p)^{1/p}}"></p>
+<p>其中p是一个变参数。</p>
+<ol>
+<li>当p=1时，就是曼哈顿距离</li>
+<li>当p=2时，就是欧氏距离</li>
+<li>当p→∞时，就是切比雪夫距离</li>
+</ol>
+<h2 id="Python实现-3"><a href="#Python实现-3" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 = np.mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">vec2 = np.mat([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=pdist(Vec,<span class="string">'minkowski'</span>,p=<span class="number">1</span>)</span><br><span class="line">print(<span class="string">"当p=1时就是曼哈顿距离,结果是：\t"</span>+str(dist2))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据公式求解,p=2</span></span><br><span class="line">dist1=np.sqrt(np.sum(np.square(vec1-vec2)))</span><br><span class="line">print(<span class="string">"当p=2时就是欧式距离,结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#方法三：根据公式求解,p=1</span></span><br><span class="line">dist3 = sum(abs(vec1-vec2))</span><br><span class="line">print(<span class="string">"当p=1时就是曼哈顿距离,结果是：\t"</span>+str(dist3))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法四：根据公式求解,p=2</span></span><br><span class="line">dist4 = sqrt((vec1-vec2)*(vec1-vec2).T)</span><br><span class="line">print(<span class="string">"当p=2时就是欧式距离,测试结果是：\t"</span>+str(dist4))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h1><h2 id="形式化描述-4"><a href="#形式化描述-4" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>数学上，切比雪夫距离（Chebyshev distance）是向量空间中的一种度量，二个点之间的距离定义为其各座标数值差的最大值。以(x1,y1)和(x2,y2)二点为例，其切比雪夫距离为max(|x2-x1|,|y2-y1|)。切比雪夫距离得名自俄罗斯数学家切比雪夫。</p>
+<h2 id="公式化描述-4"><a href="#公式化描述-4" class="headerlink" title="公式化描述"></a>公式化描述</h2><ul>
+<li>二维平面两点\(a(x_1,y_1)\)与\(b(x_2,y_2)\)间的切比雪夫距离:</li>
+</ul>
+<script type="math/tex; mode=display">d_{12}=max(|x_1-x_2|,|y_1-y2|)</script><ul>
+<li>两个n维向量\(a(x_1,x_2,…,x_n)\)与\(b(y_1,y_2,…,y_n)\)间的切比雪夫距离:<script type="math/tex; mode=display">d_{12}=\max_{i}(|x_i-y_i|)</script></li>
+</ul>
+<p>还可以表示为：<script type="math/tex">d_{12}=\lim_{k \to \infty }(\sum_{i=1}^{n}|x_i-y_i|^k)^{1/k}</script></p>
+<h2 id="Python实现-4"><a href="#Python实现-4" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 = np.mat([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">vec2 = np.mat([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">dist1=np.max(np.abs(vec1-vec2))</span><br><span class="line">print(<span class="string">"切比雪夫距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=pdist(Vec,<span class="string">'chebyshev'</span>)</span><br><span class="line">print(<span class="string">"切比雪夫距离测试结果是：\t"</span>+str(dist2))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="杰卡德距离"><a href="#杰卡德距离" class="headerlink" title="杰卡德距离"></a>杰卡德距离</h1><h2 id="形式化描述-5"><a href="#形式化描述-5" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>杰卡德相似系数：两个集合A和B的交集元素在A，B的并集中所占的比例，称为两个集合的杰卡德相似系数，用符号J(A,B)表示。</p>
+<p>杰卡德距离：与杰卡德相似系数相反的概念即杰卡德距离用两个集合中不同元素占所有元素的比例来衡量两个集合的区分度。这是杰卡德距离(Jaccard distance)。</p>
+<p>杰卡德相似系数与杰卡德距离的应用： 可将杰卡德相似系数用在衡量样本的相似度上。样本A与样本B是两个n维向量，而且所有维度的取值都是0或1。例如：A(0111)和B(1011)。我们将样本看成是一个集合，1表示集合包含该元素，0表示集合不包含该元素。</p>
+<h2 id="公式化描述-5"><a href="#公式化描述-5" class="headerlink" title="公式化描述"></a>公式化描述</h2><ul>
+<li>杰卡德相似系数公式化表示：</li>
+</ul>
+<p><img src="http://latex.codecogs.com/gif.latex?J(A,B)=\frac{A\bigcap B}{A\bigcup B}"></p>
+<ul>
+<li>杰卡德距离可用如下公式表示：</li>
+</ul>
+<p><img src="http://latex.codecogs.com/gif.latex?J_\delta (A,B)=1-J(A,B)=\frac{A\bigcup B-A\bigcap B}{A\bigcup B}"></p>
+<h2 id="Python实现-5"><a href="#Python实现-5" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">v1=np.random.random(<span class="number">10</span>)&gt;<span class="number">0.5</span></span><br><span class="line">v2=np.random.random(<span class="number">10</span>)&gt;<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">vec1=np.asarray(v1,np.int32)</span><br><span class="line">vec2=np.asarray(v2,np.int32)</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">up=np.double(np.bitwise_and((vec1 != vec2),np.bitwise_or(vec1 != <span class="number">0</span>, vec2 != <span class="number">0</span>)).sum())</span><br><span class="line">down=np.double(np.bitwise_or(vec1 != <span class="number">0</span>, vec2 != <span class="number">0</span>).sum())</span><br><span class="line">dist1=(up/down)</span><br><span class="line">print(<span class="string">"杰卡德距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=pdist(Vec,<span class="string">'jaccard'</span>)</span><br><span class="line">print(<span class="string">"杰卡德距离测试结果是：\t"</span>+str(dist2))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h1><h2 id="形式化描述-6"><a href="#形式化描述-6" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>在信息论中，两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数。换句话说，它就是将一个字符串变换成另外一个字符串所需要替换的字符个数。</p>
+<h2 id="范例公式化描述"><a href="#范例公式化描述" class="headerlink" title="范例公式化描述"></a>范例公式化描述</h2><ul>
+<li>1011101与1001001之间的汉明距离是2。</li>
+<li>2143896与2233796之间的汉明距离是3。</li>
+<li>“toned”与”roses”之间的汉明距离是3。</li>
+</ul>
+<h2 id="Python实现-6"><a href="#Python实现-6" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">v1=np.random.random(<span class="number">10</span>)&gt;<span class="number">0.5</span></span><br><span class="line">v2=np.random.random(<span class="number">10</span>)&gt;<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">vec1=np.asarray(v1,np.int32)</span><br><span class="line">vec2=np.asarray(v2,np.int32)</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">dist1=np.mean(vec1!=vec2)</span><br><span class="line">print(<span class="string">"汉明距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=pdist(Vec,<span class="string">'hamming'</span>)</span><br><span class="line">print(<span class="string">"汉明距离测试结果是：\t"</span>+str(dist2))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="标准化欧式距离"><a href="#标准化欧式距离" class="headerlink" title="标准化欧式距离"></a>标准化欧式距离</h1><h2 id="形式化描述-7"><a href="#形式化描述-7" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>标准化欧氏距离是针对简单欧氏距离的缺点而作的一种改进方案。标准欧氏距离的思路：既然数据各维分量的分布不一样，那我先将各个分量都“标准化”到均值、方差相等。均值和方差标准化到多少呢？这里先复习点统计学知识吧，假设样本集X的均值(mean)为m，标准差(standard deviation)为s，那么X的“标准化变量”表示为：<br><img src="http://latex.codecogs.com/gif.latex?X^*=\frac{X-m}{s}"></p>
+<p>标准化后的值 =  ( 标准化前的值  － 分量的均值 ) /分量的标准差</p>
+<h2 id="公式化描述-6"><a href="#公式化描述-6" class="headerlink" title="公式化描述"></a>公式化描述</h2><p>两个n维向量\(a(x_1,x_2,…,x_n)\)与\(b(y_1,y_2,…,y_n)\)间的标准化欧氏距离的公式：</p>
+<script type="math/tex; mode=display">d_{12}=\sqrt{\sum_{k=1}^n(\frac{x_i-y_i}{S_k})^2}</script><h2 id="Python实现-7"><a href="#Python实现-7" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">vec2 = np.array([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">sk=np.var(Vec,axis=<span class="number">0</span>,ddof=<span class="number">1</span>)</span><br><span class="line">dist1=np.sqrt(((vec1 - vec2) ** <span class="number">2</span> /sk).sum())</span><br><span class="line">print(<span class="string">"标准化欧氏距离测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据scipy库求解</span></span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line">dist2=pdist(Vec,<span class="string">'seuclidean'</span>)</span><br><span class="line">print(<span class="string">"标准化欧氏距离测试结果是：\t"</span>+str(dist2))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="皮尔逊相关系数"><a href="#皮尔逊相关系数" class="headerlink" title="皮尔逊相关系数"></a>皮尔逊相关系数</h1><h2 id="形式化描述-8"><a href="#形式化描述-8" class="headerlink" title="形式化描述"></a>形式化描述</h2><p>在统计学中，皮尔逊积矩相关系数（英语：Pearson product-moment correlation coefficient，常用r表示）用于度量两个变量X和Y之间的相关（线性相关），其值介于-1与1之间。在自然科学领域中，该系数广泛用于度量两个变量之间的相关程度。</p>
+<h2 id="公式化描述-7"><a href="#公式化描述-7" class="headerlink" title="公式化描述"></a>公式化描述</h2><p>夹角余弦公式写成：</p>
+<script type="math/tex; mode=display">
+Corr(x,y)=\frac{\sum_i(x_i-\vec{x})(y_i-\vec{y})}{\sqrt{\sum(x_i-\vec{x})^2}\sqrt{\sum(y_i-\vec{y})^2}}=\frac{<x-\vec{x},y-\vec{y}>}{||x-\vec{x}|| ||y-\vec{y}||}=CosSim(x-\vec{x},y-\vec{y})</script><p>向量x和向量y之间的夹角余弦，则皮尔逊相关系数则可表示为：</p>
+<h2 id="Python实现-8"><a href="#Python实现-8" class="headerlink" title="Python实现"></a>Python实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">vec1 = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">vec2 = np.array([<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#方法一：根据公式求解</span></span><br><span class="line">vec1_=vec1-np.mean(vec1)</span><br><span class="line">vec2_=vec2-np.mean(vec2)</span><br><span class="line">dist1=np.dot(vec1_,vec2_)/(np.linalg.norm(vec1_)*np.linalg.norm(vec2_))</span><br><span class="line">print(<span class="string">"皮尔逊相关系数测试结果是：\t"</span>+str(dist1))</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法二：根据numpy库求解</span></span><br><span class="line">Vec=np.vstack([vec1,vec2])</span><br><span class="line">dist2=np.corrcoef(Vec)[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">print(<span class="string">"皮尔逊相关系数测试结果是：\t"</span>+str(dist2))</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python官网</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Python" target="_blank" rel="noopener">中文维基百科</a></li>
+<li><a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">GitHub</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/cvixeiT.png" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者【<a href="https://bainingchao.github.io/">白宁超</a>】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"><i class="fa fa-tag"></i> 数学</a>
+          
+            <a href="/tags/距离/" rel="tag"><i class="fa fa-tag"></i> 距离</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/编程数学之矩阵/" rel="next" title="编程数学之矩阵">
+                <i class="fa fa-chevron-left"></i> 编程数学之矩阵
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#余弦距离"><span class="nav-number">1.</span> <span class="nav-text">余弦距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述"><span class="nav-number">1.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述"><span class="nav-number">1.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现"><span class="nav-number">1.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#欧氏距离"><span class="nav-number">2.</span> <span class="nav-text">欧氏距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-1"><span class="nav-number">2.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-1"><span class="nav-number">2.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#曼哈顿距离"><span class="nav-number">3.</span> <span class="nav-text">曼哈顿距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-2"><span class="nav-number">3.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-2"><span class="nav-number">3.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#明可夫斯基距离"><span class="nav-number">4.</span> <span class="nav-text">明可夫斯基距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-3"><span class="nav-number">4.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-3"><span class="nav-number">4.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#切比雪夫距离"><span class="nav-number">5.</span> <span class="nav-text">切比雪夫距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-4"><span class="nav-number">5.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-4"><span class="nav-number">5.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-4"><span class="nav-number">5.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#杰卡德距离"><span class="nav-number">6.</span> <span class="nav-text">杰卡德距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-5"><span class="nav-number">6.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-5"><span class="nav-number">6.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-5"><span class="nav-number">6.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汉明距离"><span class="nav-number">7.</span> <span class="nav-text">汉明距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-6"><span class="nav-number">7.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范例公式化描述"><span class="nav-number">7.2.</span> <span class="nav-text">范例公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-6"><span class="nav-number">7.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标准化欧式距离"><span class="nav-number">8.</span> <span class="nav-text">标准化欧式距离</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-7"><span class="nav-number">8.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-6"><span class="nav-number">8.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-7"><span class="nav-number">8.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#皮尔逊相关系数"><span class="nav-number">9.</span> <span class="nav-text">皮尔逊相关系数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述-8"><span class="nav-number">9.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公式化描述-7"><span class="nav-number">9.2.</span> <span class="nav-text">公式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python实现-8"><span class="nav-number">9.3.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">10.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">11.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">12.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2018/10/10/编程数学之距离计算/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
