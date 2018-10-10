@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[简明的Python教程之NumPy]]></title>
+    <url>%2F2018%2F10%2F10%2F%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8BNumPy%2F</url>
+    <content type="text"><![CDATA[摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在python处理数据中，Numpy也是常有的工具，本文简要介绍，旨在大家熟悉相关应用。（本文原创，转载必须注明出处.） 导入相关的numpy包123456import numpyfrom numpy import arrayfrom numpy import mat,matrix # 导入矩阵包from numpy import shape # 查看矩阵或数组的方法from numpy import multiply # 元素相乘import random 计算方法向量求和12345def nu_add(): mm = array((1,1,1)) pp = array((2,2,2)) rr = mm + pp**3 # 数组的和运算 print(rr) 运行结果： [9 9 9] 矩阵相乘12345678def nu_matrix(): ss = mat([1,2,3]) # 矩阵 mm = matrix([1,2,3]) print('an element: '.title()+str(mm[0,0])) # 访问矩阵中的单个元素 print('Number of dimensions of mm '.title()+str(shape(mm))) print('mat is equal matrix: '.title()+str(ss==mm)) print('Matrix multiplication: '.title()+str(ss*mm.T)) # 矩阵相乘需要进行转置 print('Multiplication of elements： '.title()+str(multiply(mm,ss))) # mm每个元素和ss每个元素相乘 运行结果： An Element: 1 Number Of Dimensions Of Mm (1, 3) Mat Is Equal Matrix: [[ True True True]] Matrix Multiplication: [[14]] Multiplication Of Elements： [[1 4 9]] 列表转化成矩阵123456def nu_list_mat(): pylist = [1,2,3] rr = mat(pylist) # 列表转化成矩阵 print('list values: '.title()+str(pylist)) print('rr type: '.title()+str(type(rr))) print('mat values: '.title()+str(rr)) 运行结果： List Values: [1, 2, 3] Rr Type: &lt;class &#39;numpy.matrixlib.defmatrix.matrix&#39;&gt; Mat Values: [[1 2 3]] 矩阵求均值1234def nu_mean(): dd = mat([4,5,1]) rr = dd.mean() # 矩阵的均值 print('mean of dd: '.title()+ str(rr)) 运行结果： Mean Of Dd: 3.3333333333333335 矩阵维度12345def nu_mul_array(): jj = mat([[1,2,3],[8,8,8]]) print('Number of dimensions of jj '.title()+str(shape(jj))) one_row = jj[1,0:2] print(one_row) 运行结果： Number Of Dimensions Of Jj (2, 3) [[8 8]] 矩阵转置1234def nu_tran_mat(): # 矩阵转置 radMat = numpy.random.random((3,3)) print('Before matrix transposition:\n '+str(radMat)) print('After matrix transposition:\n '+str(radMat.T)) 运行结果： Before matrix transposition: [[0.44400432 0.39811184 0.15014053] [0.33399525 0.35953194 0.92571106] [0.3307816 0.38282677 0.01282852]] After matrix transposition: [[0.44400432 0.33399525 0.3307816 ] [0.39811184 0.35953194 0.38282677] [0.15014053 0.92571106 0.01282852]] 矩阵的逆1234def nu_inverse_mat(): # 矩阵的逆 radMat = numpy.random.random((3,3)) print('Before matrix inverse:\n '+str(radMat)) print('After matrix inverse:\n '+str(mat(radMat).I)) 运行结果： Before matrix inverse: [[0.67119611 0.28502048 0.00101008] [0.66644679 0.61934535 0.39481694] [0.10938817 0.22939074 0.45364209]] After matrix inverse: [[ 3.52467918 -2.38933642 2.07165582] [-4.79734922 5.63471564 -4.89336308] [ 1.57593243 -2.27312782 4.17923641]] 矩阵与逆矩阵相乘12345def nu_mat_mul_imat(): # 矩阵与其逆矩阵相乘 bmat = mat(numpy.random.random((3,3))) imat = bmat.I rus = bmat * imat print(rus) # 结果是3*3的单位矩阵，其位置原则应该都是0，实际中是非常小的数，这个计算机处理的问题 运行结果： [[ 1.00000000e+00 -2.23066267e-17 -3.47038713e-17] [-7.97119302e-17 1.00000000e+00 1.74271619e-17] [-3.16553513e-16 -8.86129567e-17 1.00000000e+00]] 参考文献 Python官网 中文维基百科 GitHub 图书：《机器学习实战》 图书：《自然语言处理理论与实战》 完整代码下载 源码请进【机器学习和自然语言QQ群：436303759】文件下载： 作者声明 本文版权归作者【白宁超】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。]]></content>
+      <categories>
+        <category>Python</category>
+        <category>NumPy</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>NumPy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[简明的Python教程之matplotlib可视化]]></title>
+    <url>%2F2018%2F10%2F10%2F%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8Bmatplotlib%E5%8F%AF%E8%A7%86%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在python处理数据中，需要数据分析，我们直面冷冰冰的数值或者信息很难得到直观的感受，如果借助图形化分析，常常可以一目了然，所谓一图胜千言就是这个意思。本文对可视化库matplotlib介绍，方便大家掌握。（本文原创，转载必须注明出处.） matplotlib绘制折线图绘制y=2x+1的折线图1234567891011121314151617181920212223242526import matplotlibimport matplotlib.pyplot as plt#加入中文显示import matplotlib.font_manager as fm# 解决中文乱码，本案例使用宋体字myfont=fm.FontProperties(fname=r"C:\\Windows\\Fonts\\simsun.ttc")def line_chart(xvalues,yvalues): # 绘制折线图,c颜色设置，alpha透明度 plt.plot(xvalues,yvalues,linewidth=5,alpha=0.5,c='red') # num_squares数据值，linewidth设置线条粗细 # 设置折线图标题和横纵坐标标题 plt.title("Python绘制折线图",fontsize=30,fontname='宋体',fontproperties=myfont) plt.xlabel('横坐标',fontsize=20,fontname='宋体',fontproperties=myfont) plt.ylabel('纵坐标',fontsize=20,fontname='宋体',fontproperties=myfont) # 设置刻度标记大小,axis='both'参数影响横纵坐标，labelsize刻度大小 plt.tick_params(axis='both',labelsize=10) # 显示图形 plt.show()if __name__ == "__main__": # 1 打印y=2X+1 的折线图 line_chart([0,2,3,4,5],[1,7,10,13,16]) 运行结果 matplotlib绘制散点图绘制y=2x+1的散点图1234567891011121314151617181920212223242526272829303132import matplotlibimport matplotlib.pyplot as plt#加入中文显示import matplotlib.font_manager as fm# 解决中文乱码，本案例使用宋体字myfont=fm.FontProperties(fname=r"C:\\Windows\\Fonts\\simsun.ttc")def scatter_chart(xvalues,yvalues): # 绘制散点图，s设置点的大小,c数据点的颜色，edgecolors数据点的轮廓 plt.scatter(xvalues,yvalues,c='green',edgecolors='none',s=40) # 设置散点图标题和横纵坐标标题 plt.title("Python绘制折线图",fontsize=30,fontname='宋体',fontproperties=myfont) plt.xlabel('横坐标',fontsize=20,fontname='宋体',fontproperties=myfont) plt.ylabel('纵坐标',fontsize=20,fontname='宋体',fontproperties=myfont) # 设置刻度标记大小,axis='both'参数影响横纵坐标，labelsize刻度大小 plt.tick_params(axis='both',which='major',labelsize=10) # 设置每个坐标轴取值范围 # plt.axis([80,100,6400,10000]) # 显示图形 plt.show() # 自动保存图表,bbox_inches剪除图片空白区 # plt.savefig('squares_plot.png',bbox_inches='tight')if __name__ == "__main__": # 1 绘制y=2X+1 的折线图 scatter_chart([0,2,3,4,5],[1,7,10,13,16]) 运行结果 matplotlib读取csv文件显示折线图加利福尼亚死亡谷日气温最高最低图123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import csvfrom datetime import datetimefrom matplotlib import pyplot as pltimport matplotlib as mpl# 解决中文乱码问题mpl.rcParams['font.sans-serif']=['SimHei']mpl.rcParams['axes.unicode_minus']=False# Get dates, high, and low temperatures from file.filename = 'death_valley_2014.csv'with open(filename) as f: reader = csv.reader(f) header_row = next(reader) # print(header_row) # for index,column_header in enumerate(header_row): # print(index,column_header) dates, highs,lows = [],[], [] for row in reader: try: current_date = datetime.strptime(row[0], "%Y-%m-%d") high = int(row[1]) low = int(row[3]) except ValueError: # 处理 print(current_date, 'missing data') else: dates.append(current_date) highs.append(high) lows.append(low)# 汇制数据图形fig = plt.figure(dpi=120,figsize=(10,6))plt.plot(dates,highs,c='red',alpha=0.5)# alpha指定透明度plt.plot(dates,lows,c='blue',alpha=0.5)plt.fill_between(dates,highs,lows,facecolor='orange',alpha=0.1)#接收一个x值系列和y值系列，给图表区域着色#设置图形格式plt.title('2014年加利福尼亚死亡谷日气温最高最低图',fontsize=24)plt.xlabel('日（D）',fontsize=16)fig.autofmt_xdate() # 绘制斜体日期标签plt.ylabel('温度（F）',fontsize=16)plt.tick_params(axis='both',which='major',labelsize=16)# plt.axis([0,31,54,72]) # 自定义数轴起始刻度plt.savefig('highs_lows.png',bbox_inches='tight')plt.show() 运行结果 matplotlib生成随机漫步图随机数据生成123456789101112131415161718192021222324252627282930313233from random import choiceclass RandomWalk(): '''一个生成随机漫步数据的类''' def __init__(self,num_points=5000): '''初始化随机漫步属性''' self.num_points = num_points self.x_values = [0] self.y_values = [0] def fill_walk(self): '''计算随机漫步包含的所有点''' while len(self.x_values)&lt;self.num_points: # 决定前进方向及沿着该方向前进的距离 x_direction = choice([1,-1]) x_distance = choice([0,1,2,3,4]) x_step = x_direction*x_distance y_direction = choice([1,-1]) y_distance = choice([0,1,2,3,4]) y_step = y_direction*y_distance # 拒绝原地踏步 if x_step == 0 and y_step == 0: continue # 计算下一个点的x和y next_x = self.x_values[-1] + x_step next_y = self.y_values[-1] + y_step self.x_values.append(next_x) self.y_values.append(next_y) 生成随机漫步图123456789101112131415161718192021222324252627282930313233343536#-*- coding: utf-8 -*-#coding=utf-8import matplotlib as mplimport matplotlib.pyplot as pltimport pylabfrom random_walk import RandomWalk# 解决中文乱码问题mpl.rcParams['font.sans-serif']=['SimHei']mpl.rcParams['axes.unicode_minus']=False# 创建RandomWalk实例rw = RandomWalk()rw.fill_walk()plt.figure(figsize=(10,6))point_numbers = list(range(rw.num_points))# 随着点数的增加渐变深红色plt.scatter(rw.x_values,rw.y_values,c=point_numbers,cmap=plt.cm.Reds,edgecolors='none',s=1)# 设置起始点和终点颜色plt.scatter(0,0,c='green',edgecolors='none',s=100)plt.scatter(rw.x_values[-1],rw.y_values[-1],c='blue',edgecolors='none',s=100)# 设置标题和纵横坐标plt.title('随机漫步图',fontsize=24)plt.xlabel('左右步数',fontsize=14)plt.ylabel('上下步数',fontsize=14)# 隐藏坐标轴plt.axes().get_xaxis().set_visible(False)plt.axes().get_yaxis().set_visible(False)plt.show() 运行结果 matplotlib绘制世界各国人口统计图绘制世界各国人口统计图123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#conding = utf-8import jsonfrom matplotlib import pyplot as pltimport matplotlib as mplfrom country_codes import get_country_codeimport pygalfrom pygal.style import RotateStylefrom pygal.style import LightColorizedStyle# 解决中文乱码问题mpl.rcParams['font.sans-serif']=['SimHei']mpl.rcParams['axes.unicode_minus']=False# 加载json数据filename='population_data.json'with open(filename) as f: pop_data = json.load(f) # print(pop_data[1])# 创建一个包含人口的字典cc_populations=&#123;&#125;# cc1_populations=&#123;&#125;# 打印每个国家2010年的人口数量for pop_dict in pop_data: if pop_dict['Year'] == '2010': country_name = pop_dict['Country Name'] population = int(float(pop_dict['Value'])) # 字符串数值转化为整数 # print(country_name + ":" + str(population)) code = get_country_code(country_name) if code: cc_populations[code] = population # elif pop_dict['Year'] == '2009': # country_name = pop_dict['Country Name'] # population = int(float(pop_dict['Value'])) # 字符串数值转化为整数 # # print(country_name + ":" + str(population)) # code = get_country_code(country_name) # if code: # cc1_populations[code] = populationcc_pops_1,cc_pops_2,cc_pops_3=&#123;&#125;,&#123;&#125;,&#123;&#125;for cc,pop in cc_populations.items(): if pop &lt;10000000: cc_pops_1[cc]=pop elif pop&lt;1000000000: cc_pops_2[cc]=pop else: cc_pops_3[cc]=pop# print(len(cc_pops_1),len(cc_pops_2),len(cc_pops_3))wm_style = RotateStyle('#336699',base_style=LightColorizedStyle)wm =pygal.maps.world.World(style=wm_style)wm.title = '2010年世界各国人口统计图'wm.add('0-10m', cc_pops_1)wm.add('10m-1bm',cc_pops_2)wm.add('&gt;1bm',cc_pops_3)# wm.add('2009', cc1_populations)wm.render_to_file('world_populations.svg') 运行结果 matplotlib绘制直方图绘制带有详细信息的直方图1234567891011121314151617import pygalfrom pygal.style import LightColorizedStyle as LCS, LightenStyle as LSmy_style = LS('#333366', base_style=LCS)chart = pygal.Bar(style=my_style, x_label_rotation=45, show_legend=False)chart.title = 'Python Projects'chart.x_labels = ['httpie', 'django', 'flask']plot_dicts = [ &#123;'value': 16101, 'label': 'Description of httpie.'&#125;, &#123;'value': 15028, 'label': 'Description of django.'&#125;, &#123;'value': 14798, 'label': 'Description of flask.'&#125;, ]chart.add('', plot_dicts)chart.render_to_file('bar_descriptions.svg') 运行结果 绘制两次随机骰子的直方图12345678910111213141516171819202122232425262728293031323334353637#coding=utf-8from die import Dieimport pygalimport matplotlib as mpl# 解决中文乱码问题mpl.rcParams['font.sans-serif']=['SimHei']mpl.rcParams['axes.unicode_minus']=Falsedie1 = Die()die2 = Die()results = []for roll_num in range(1000): result =die1.roll()+die2.roll() results.append(result)# print(results)# 分析结果frequencies = []max_result = die1.num_sides+die2.num_sidesfor value in range(2,max_result+1): frequency = results.count(value) frequencies.append(frequency)print(frequencies)# 直方图hist = pygal.Bar(figsize=(8,6))hist.title = '骰子投掷1000次各面结果统计图'hist.x_labels =[x for x in range(2,max_result+1)]hist.x_title ='结果'hist.y_title = '结果分布'hist.add('D6+D6',frequencies)hist.render_to_file('die_visual.svg')# hist.show() 运行结果 matplotlib：Github最受欢迎的星标项目可视化Github最受欢迎的星标项目可视化1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# coding=utf-8import requestsimport pygalfrom pygal.style import LightColorizedStyle as LCS, LightenStyle as LS# Make an API call, and store the response.url = 'https://api.github.com/search/repositories?q=language:python&amp;sort=stars'r = requests.get(url)print("Status code:", r.status_code) # 查看请求是否成功，200表示成功response_dict = r.json()# print(response_dict.keys())print("Total repositories:", response_dict['total_count'])# Explore information about the repositories.repo_dicts = response_dict['items']print("Repositories returned:",len(repo_dicts))# 查看项目信息# repo_dict =repo_dicts[0]# print('\n\neach repository:')# for repo_dict in repo_dicts:# print("\nName:",repo_dict['name'])# print("Owner:",repo_dict['owner']['login'])# print("Stars:",repo_dict['stargazers_count'])# print("Repository:",repo_dict['html_url'])# print("Description:",repo_dict['description'])# 查看每个项目的键# print('\nKeys:',len(repo_dict))# for key in sorted(repo_dict.keys()):# print(key)names, plot_dicts = [], []for repo_dict in repo_dicts: names.append(repo_dict['name']) plot_dicts.append(repo_dict['stargazers_count'])# 可视化my_style = LS('#333366', base_style=LCS)my_config = pygal.Config() # Pygal类Config实例化my_config.x_label_rotation = 45 # x轴标签旋转45度my_config.show_legend = False # show_legend隐藏图例my_config.title_font_size = 24 # 设置图标标题主标签副标签的字体大小my_config.label_font_size = 14my_config.major_label_font_size = 18my_config.truncate_label = 15 # 较长的项目名称缩短15字符my_config.show_y_guides = False # 隐藏图表中的水平线my_config.width = 1000 # 自定义图表的宽度chart = pygal.Bar(my_config, style=my_style)chart.title = 'Most-Starred Python Projects on GitHub'chart.x_labels = nameschart.add('', plot_dicts)chart.render_to_file('python_repos.svg') 运行结果 参考文献 Python官网 中文维基百科 GitHub 图书：《机器学习实战》 图书：《自然语言处理理论与实战》 完整代码下载 源码请进【机器学习和自然语言QQ群：436303759】文件下载： 作者声明 本文版权归作者【白宁超】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。]]></content>
+      <categories>
+        <category>Python</category>
+        <category>matplotlib</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[简明的Python教程之70个常备知识点]]></title>
+    <url>%2F2018%2F10%2F10%2F%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8B70%E4%B8%AA%E5%B8%B8%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在阅读python相关书籍中，对其进行简单的笔记记录。旨在注意一些细节问题，在今后项目中灵活运用，并对部分小知识点进行代码标注。（本文原创，转载必须注明出处.） 1 python始终记录变量最新值。2 变量应简短且具有描述性，如student_name等。3 变量名推荐小写。4 单双引号括起来的，字符串可以包含引号和撇号。用法：”this’s a cup”5 title()将每个单词的首字母都改为大写。用法：str.title()6 upper()将字符串转化为大写。用法：str.upper()7 lower()将字符串转化为小写。用法：str.lower()8 空白泛指任何非打印字符。如空格、制表符和换行符。9 rstrip()剔除字符串末尾空白。用法：str.rstrip()10 lstrip()剔除字符串开头空白。用法：str.lstrip()11 strip()剔除字符串两端空白。用法：str.strip()12 Python使用两个称号表示乘方。用法：3 ** 213 编程理念。Python之禅：import this14 list中使用逗号来分割其中的元素。15 list索引-1返回最后一个元素列表，-2以此类推。用法：list[-3:]16 list[0] = ‘update’ 修改列表元素17 list.append(‘add’) 列表中添加元素18 list.insert(0.’insert’) 列表中指定位置插入元素19 del list[0] del元素删除list元素20 newlist = list.pop()方法pop()删除元素21 从列表中删除元素且不再使用用del方法，删除元素后还有可能用选择pop()22 list.remove(‘element’) 根据值移除第一个指定的元素，可接着使用。23 sort()列表按照字母永久性排序。如：list.sort()24 sort()列表按照字母相反的排序。如：list.sort(reverse=True)25 reverse() 反转列表元素排序。用法：list.reverse()26 for循环遍历时候选择有意义的名称。用法： for cat in cats:27 range() 生成一系列数字。用法： numbers= list(range(1,11,2))28 list的内建统计函数。用法：min(list)/max(list)/sum(list)29 python的切片功能。用法： list[0:3]/list[:]/list[-3:]/list[:9]30 list复制。用法：new_foods = old_food[:]31 元组包括一些列不可修改的元素且用圆括号标识。用法：tulple = (2,3)32 检查是否相等时不考虑大小写。用法：str.lower() == ‘somestr’33 使用and检查多个条件。用法：condition1&gt;=1 and condition2&gt;=2 and …34 使用or检查多个条件。用法：condition1&gt;=1 or condition2&gt;=2 or …35 使用多个列表。用法： 1234567list1 = ['1','2','3','4']list2 = ['1','4']for l2 in list2: if l2 in list1: go() else: pass 36 比较运算符两边各添加空格，便于可读性。用法：if age &gt; 40：37 dict修改值，用法：dict[‘key’] = value38 dict删除键值对，用法： del dict[‘key’]39 字典的遍历，用法：12345for key,value in dict.items():for key in dict:for key in dict.keys():for value in dict.values():for value in set(dict.values()): # 遍历字典的无重复值 40 字典列表，用法： 12345678dict1 = ['key1':'values1','key2':'values2']dict2 = ['key1':'values3','key2':'values4']dict3 = ['key1':'values5','key2':'values6'] dicts = [dict1,dict2,dict3] for dict in dicts: pass 41 字典中存储列表，用法：12345678910111213141516171819dict1 = &#123;'key1':'values1','key2':['values1','values2']&#125;for dict in dict1['key2']:``` 42 字典中存储字典，用法：```pythondicts = &#123;'keys1':&#123;'key1':'values1'，'key1':'values2''key1':'values3'&#125;,'keys2':&#123;'key2':'values2'，'key2':'values2''key2':'values3'&#125;&#125;``` 43 input接收用户输入，用法：message = input('user input some values!')44 %取模运算判断奇偶，用法：```pythonif (4 % 3) == 0: print('偶数')：else: print('奇数') 45 while循环的常规用法： 1234567891011current_number = 1while current_number &lt;= 10: print('current_number') current_number += 1``` 46 while循环使用标志的用法：```pythonflag = Truewhile flag: message = input(prompt) 47 列表之间移动元素，用法： 12while list[]: newlist.append(list[].pop()) 48 删除特定的元素，用法： 12while element in list: list.remove(element) 49 形参与实参的理解，用法： 123456789def method(username): # username形参method('zhangsan') # zhangsan实参``` 50 位置参数，用法：```pythondef describe(name,age):describe('zhangsan',22) # 参数位置对应传递 51 关键字实参是传递函数的名称-值对，用法： 123def describe(name,age):describe(name='zhangsan',age=22) # 关键字实参describe(age=22,name='zhangsan') # 关键字实参,位置不重要 52 形参设置默认值，用法：def describe(name=’lisi’,age):53 返回值，用法： 123456789101112131415161718192021222324252627def describe(name='lisi',age): des = name + str(age)return des # 可以返回字典、列表等形式``` 54 列表参数，用法：```pythonlists = ['huangsan','lisi','wangjun','denghui']def cats_name(lists): for list in lists: print("'my love is :\t'+list".title())``` 55 传递任意参数，用法：def cats_name(*cats): # 可以传递多个形参56 位置实参和任意数量实参：```pythondef cats_name(parament1,parament2,*cats): # 可以传递多个形参cats_name(para1,para2,para3,para4,...)``` 57 任意实参和关键字实参，用法：(cats.py)```pythondef cats_name(parament1,parament2,**cats): # 可以传递多个形参cats_name(para1,para2,para3,newname=para4,...) 58 导入整个模块，用法： 12345678910111213141516171819202122232425262728293031323334353637import catscats.cats_name(para1,para2,para3,newname=para4,...)``` 59 导入特定的函数,用法：from nltk import map_tag as mt60 导入模块所有函数,用法：from nltk import *61 形参默认时，两边不能为空，用法：def function_name(parament_0,parament_1='default')62 类的命名是驼峰型即首字母大写。63 __init__(self,papa1,para2):避免python默认方法跟普通方法名称冲突,self必不可少，必须位于其他形参的前面，指向实例本身。64 类的继承，用法：```python# 父类class Animal(): def __init__(self,name,age): self.name = name self.age = age def animal_call(self): print('this is '+self.name.title()+' call.') # 子类class Cat(Animal): def __init__(self,name,age,color): super().__init__(name,age) self.color =color def cat_color(self): my_color = 'the cat is '+self.color print(my_color) return my_color if __name__ == '__main__': cat = Cat('tom',22,'blue') cat.animal_call() strs=cat.cat_color() 65 几种类的导入方式，用法： 1234from cat import Cat # 导入单个类from cat import Animal,Cat # 导入多个类from cat # 导入整个模块from cat import * # 导入所有类 66 读取文本文件，并删除字符串始末空白，用法：my_str = line.strip()67 opem()自动创建文件路径，若路径不存在时候。68 异常代码块：try-except69 split()创建单词列表123str = 'this is a string'str.split()['this','is','a','string'] 70 存储数据json.dump()和json.load()123456789101112131415161718192021222324252627282930313233343536import json # 父类class Animal(): def __init__(self,name,age): self.name = name self.age = age def animal_call(self): print('this is '+self.name.title()+' call.') # 子类class Cat(Animal): def __init__(self,name,age,color): super().__init__(name,age) self.color =color def cat_color(self): my_color = 'the cat is '+self.color print(my_color) return my_color if __name__ == '__main__': cat = Cat('tom',22,'blue') cat.animal_call() strs=cat.cat_color() filename = r'../AllProject/V4.0EngInfoExtract/Document/EnPapers_single/test.json' with open(filename,'w') as f_obj: json.dump(strs,f_obj) with open(filename,'r') as f_obj: strs = json.load(f_obj) print(strs) 参考文献 Python官网 中文维基百科 GitHub 图书：《机器学习实战》 图书：《自然语言处理理论与实战》 完整代码下载 源码请进【机器学习和自然语言QQ群：436303759】文件下载： 作者声明 本文版权归作者【白宁超】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Django</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[简明的Python教程之网站篇]]></title>
     <url>%2F2018%2F10%2F10%2F%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8B%E7%BD%91%E7%AB%99%E7%AF%87%2F</url>
     <content type="text"><![CDATA[摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库，使读者对python有个全面的理解和认识。最后一节，采用实际案例帮助读者综合运用python知识。 （本文原创，转载必须注明出处.） Django搞定用户管理系统Django是什么Django是一个开放源代码的Web应用框架，由Python写成。采用了MVC的软件设计模式，即模型M，视图V和控制器C。它最初是被开发来用于管理劳伦斯出版集团旗下的一些以新闻内容为主的网站的。并于2005年7月在BSD许可证下发布。这套框架是以比利时的吉普赛爵士吉他手Django Reinhardt来命名的。 Django的主要目标是使得开发复杂的、数据库驱动的网站变得简单。Django注重组件的重用性和“可插拔性”，敏捷开发和DRY法则（Don’t Repeat Yourself）。在Django中Python被普遍使用，甚至包括配置文件和数据模型。 Django开发模型Django是一个基于MVC构造的框架。但是在Django中，控制器接受用户输入的部分由框架自行处理，所以 Django 里更关注的是模型（Model）、模板(Template)和视图（Views），称为 MTV模式。它们各自的职责如图所示： 模型（Model），即数据存取层 处理与数据相关的所有事务： 如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。 视图（View），即表现层 处理与表现相关的决定： 如何在页面或其他类型文档中进行显示。 模板(Template)，即业务逻辑层 存取模型及调取恰当模板的相关逻辑。模型与模板的桥梁。 Django的架构让我们一览 Django 全貌： urls.py 网址入口，关联到对应的views.py中的一个函数（或者generic类），访问网址就对应一个函数。 views.py 处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 models.py 与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。 forms.py 表单，用户在浏览器上输入数据提交，对数据的验证工作以及输入框的生成等工作，当然你也可以不使用。 templates 文件夹 views.py 中的函数渲染templates中的Html模板，得到动态内容的网页，当然可以用缓存来提高速度。 admin.py 后台，可以用很少量的代码就拥有一个强大的后台。 settings.py Django 的设置，配置文件，比如 DEBUG 的开关，静态文件的位置等。 上面的py文件不理解也没有关系，后面会详细介绍。一图胜千言，架构全貌工作机制如图所示： Django商业网站Sohu 邮箱 、果壳网 、 豆瓣 、 爱调研 、 易度在线云办公 、 优容网 、 快玩游戏、九九房、贷帮网 、 趣奇网 、知乎、时尚时空 、游嘻板: YxPad webpy、DNSPod 国际版 、下厨房 、 贝太厨房 、 Wopus问答 、 咕咚网 、扇贝网 、站长工具、易度文档管理系统、个人租房、 在线文档查看-易度云查看 、 FIFA310 足球数据分析专家、 搜狐随身看等等。 Django安装配置前置条件 假设读者具备Python、web开发、html、css、js、SQL基础。 Anaconda(包含pip和python插件)、sublime环境已经安装。其中pip用来在线安装工具包。 系统环境：WIN10 64bit 开发环境：sublime+Anaconda 数据库：Mysql 5.6.17 语言：python3.5 框架：django1.11 通过“Win+R”键打开运行对话框，输入“pip”查看是否安装成功。如果pip输入报错，则需要自行下载安装即可。如果成功安装如图所示： 在线安装Django通过“Win+R”键打开运行对话框，输入“pip install django”代码，自动运行结束后。打开Sublime编辑器，点击“F6”切换的编辑环境，输入如下代码查看django是否安装成功。 123&gt;&gt;&gt; import django&gt;&gt;&gt; django.VERSION(1, 11, 0, 'final', 1) 创建用户管理项目创建项目和App 第一步 通过“Win+R”键打开运行对话框，并在电脑的E盘根目录下创建名为UserProject的项目,输入如下创建命名： 1django-admin startproject xmjc_analysis 命令执行完成，通过Sublime Text3打开菜单“File-&gt;Open Folder”选择刚刚创建的UserProject文件夹，如图所示： settings.py 项目的设置文件 urls.py 总的urls配置文件 wsgi.py 部署服务器文件 init.py python包的目录结构必须的，与调用有关 第二步 进入UserProject文件夹下创建App名为myuser，执行如下命令，命令成功后如图所示：1django-admin startapp myuser 一个项目可以包含多个App，执行完app创建命令后，打开项目查看如图所示： admin.py 后台，可以用很少量的代码就拥有一个强大的后台。 apps.py 本app项目名称等配置。 models.py 与数据库操作相关，存入或读取数据时用到这个，当然用不到数据库的时候 你可以不使用。 tests.py 单元测试文件 views.py 处理用户发出的请求，从urls.py中对应过来, 通过渲染templates中的网页可以将显示内容，比如登陆后的用户名，用户请求的数据，输出到网页。 第三步 将新定义名为“myuser”的app添加到UserProject项目中。修改UserProject/UserProject/settings.py代码如下：12345678910111213# Application definitionINSTALLED_APPS = [ 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', # 添加新建app 'myuser',] 到此，完成项目的创建和app的添加。是不是很简单，下面我们创建一个新的欢迎界面。 第一个欢迎页面1 在myuser文件夹下，打开UserProject/myuser/views.py文件,修改里面的代码如下： 1234567891011'''第一个页面author：白宁超site：http://www.cnblogs.com/baiboy/'''#coding:utf-8from django.shortcuts import renderfrom django.http import HttpResponsedef index(request): return HttpResponse(u"欢迎进入第一个Django页面!") 第一行是声明编码为utf-8, 因为我们在代码中用到了中文,如果不声明就报错.第二行引入HttpResponse，它是用来向网页返回内容的，就像Python中的 print 一样，只不过 HttpResponse 是把内容显示到网页上。我们定义了一个index()函数，第一个参数必须是 request，与网页发来的请求有关，request 变量里面包含get或post的内容。 2 我们打开UserProject/UserProject/urls.py 这个文件, 修改其中的代码 12345678910111213from django.conf.urls import urlfrom django.contrib import admin# 导入myuser下的视图文件from myuser import views as myuser_viewsurlpatterns = [ # 第一个欢迎界面的配置 url(r'^index/$', myuser_views.index,name='index'), url(r'^admin/', admin.site.urls),] 3 在UserProject目录下输入“python manage.py runserver”命令本地运行服务器，如图所示： 4 将上图的本地网址复制到浏览器访问，本地网址后面输入刚刚配置的方法名“index”即可访问我们刚刚设计的网页。如图所示： 带参数的欢迎页面 打开UserProject/myuser/views.py文件,修改里面的代码如下： 12345678910111213'''#coding:utf-8from django.shortcuts import renderfrom django.http import HttpResponse# 访问第一个页面def index(request): return HttpResponse(u"欢迎进入第一个Django页面!")# 访问第一个带参数的页面def indexPara(request): name = request.GET['name'] return HttpResponse(u"欢迎进入\t"+name+",第一个Django页面!") 我们打开UserProject/UserProject/urls.py 这个文件, 修改其中的代码 1234567891011121314from django.conf.urls import urlfrom django.contrib import admin# 导入myuser下的视图文件from myuser import views as myuser_viewsurlpatterns = [ # 带参数的欢迎界面的配置 url(r'^para/$', myuser_views.indexPara,name='para'), # 第一个欢迎界面的配置 url(r'^index/$', myuser_views.index,name='index'), url(r'^admin/', admin.site.urls),] 如果服务器关闭，需要如上方法重新打开。反之，直接输入网址查看，如图所示： 单数据库配置 在UserProject/UserProject/settings.py文件下,默认sqlites数据库，现在假设项目需求是mysql数据库。具体修改如下： 1234567891011121314151617181920# Database# https://docs.djangoproject.com/en/1.11/ref/settings/#databasesDATABASES = &#123; # 配置默认为mysql数据库 'default': &#123; 'ENGINE': 'django.db.backends.mysql', # 设置数据库引擎 'NAME': 'test', # 数据库名 'USER': 'test', # 数据库登陆名 'PASSWORD': 'test123', # 数据库登陆密码 'HOST':'localhost', # 数据库服务器IP，默认设置本地 'PORT':'3306', # 端口号 &#125;, # 默认配置为sqlite3数据库 # 'default': &#123; # 'ENGINE': 'django.db.backends.sqlite3', # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), # &#125;&#125; UserProject/UserProject/ init.py文件添加如下代码：12import pymysqlpymysql.install_as_MySQLdb() 在UserProject/myuser/models.py下设计数据库表，采用ORM方式，完整代码如下： 1234567891011from django.db import models # Create your models here.class User(models.Model): username = models.CharField('用户名', max_length=30) userpass = models.CharField('密码',max_length=30) useremail = models.EmailField('邮箱',max_length=30) usertype = models.CharField('用户类型',max_length=30) def __str__(self): return self.username 在analysis/admin.py中定义显示数据 1234567from django.contrib import adminfrom .models import User class UserAdmin(admin.ModelAdmin): list_display = ('username','userpass','useremail') # 自定义显示字段 admin.site.register(User,UserAdmin) 打开对话框，在“UserProject”下将生成的py文件应用到mysql数据库。输入如下命令：12python manage.py makemigrationspython manage.py migrate 创建超级管理员：用户名，admin1；密码密码：admin123，如图所示1python manage.py createsuperuser 创建后台超级管理员 创建后台超级管理员 登录后台查看信息 可以看到后台信息，并对数据表进行增删改查操作，但是后台全部英文如图示，可以改为中文显示？ 后台管理设置为中文显示,UserProject/UserProject/settings.py下修改代码： LANGUAGE_CODE = 'zh-Hans' # 中文显示再去查看： Django数据库操作QuerySet API，shell玩转MySql在UserProject项目下输入【 python manage.py shell】，然后查询数据表如图所示： 创建一条用户信息，输入如下shell命令：1User.objects.create(username="李白", userpass="libai123",useremail="libai@163.com",usertype="超级管理员") 登录项目后台查看，如图所示。1![](https://i.imgur.com/tDHK2vF.png) 其他shell操作语句12345678910111213141516171819202122232425262728# 方法 1User.objects.create(username="李白", userpass="libai123",useremail="libai@163.com",usertype="超级管理员")# 方法 2twz =User(username="李白", userpass="libai123",useremail="libai@163.com",usertype="超级管理员")twz.save()# 获取对象：Person.objects.all()# 满足条件查询User.objects.filter(username="李白")# 迭代查询：es = Entry.objects.all()for e in es: print(e.headline)# 查询排序：User.objects.all().order_by('username')# 链式查询：User.objects.filter(name__contains="WeizhongTu").filter(email="tuweizhong@163.com")# 去重查询：qs = qs.distinct()# 删除操作：User.objects.all().delete()# 更新操作：Person.objects.filter(name__contains="abc").update(name='xxx')# 数据的导出：python manage.py dumpdata [appname] &gt; appname_data.jsonpython manage.py dumpdata blog &gt; blog_dump.json# 导出用户数据python manage.py dumpdata auth &gt; auth.json # 导出用户数据 批量向数据表导入数据 将name.txt导入数据库，数据内容如下： 张一|admin|zhang1@qq.com|超级管理员 张二|admin|zhang2@qq.com|超级管理员 张三|admin|zhang3@qq.com|超级管理员 张四|admin|zhang4@qq.com|超级管理员 张五|admin|zhang5@qq.com|超级管理员 张六|admin|zhang6@qq.com|超级管理员 张七|admin|zhang7@qq.com|超级管理员 张八|admin|zhang8@qq.com|超级管理员 张九|admin|zhang9@qq.com|超级管理员 文本数据批量导入mysql数据库中，核心源码如下：1234567def main(): from analysis.models import User f = open('./readme/files/name.txt',encoding='utf-8') for line in f: name,pwd,email,type = line.split('|') User.objects.create(username=name,userpass=pwd,useremail=email,usertype=type) f.close() 重新登录“用户信息管理后台”，查看结果如图所示： 参考文献 Python官网 中文维基百科 GitHub 图书：《机器学习实战》 图书：《自然语言处理理论与实战》 完整代码下载 源码请进【机器学习和自然语言QQ群：436303759】文件下载： 作者声明 本文版权归作者【白宁超】所有，转载请联系作者：1938036263@qq.com，但未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。]]></content>
@@ -84,8 +122,8 @@
         <category>Apriori</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>机器学习算法</tag>
+        <tag>Python</tag>
         <tag>文本聚类</tag>
         <tag>Apriori</tag>
         <tag>关联规则</tag>
@@ -99,12 +137,12 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Sublime</tag>
-        <tag>Logistic regression</tag>
-        <tag>Anaconda</tag>
-        <tag>开发环境</tag>
         <tag>Python</tag>
         <tag>自然语言处理</tag>
+        <tag>Logistic regression</tag>
+        <tag>Sublime</tag>
+        <tag>Anaconda</tag>
+        <tag>开发环境</tag>
         <tag>机器学习</tag>
       </tags>
   </entry>
@@ -117,8 +155,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>自然语言处理</tag>
         <tag>数据预处理</tag>
+        <tag>自然语言处理</tag>
         <tag>NLP</tag>
         <tag>pdf2txt</tag>
         <tag>格式转化</tag>
@@ -133,8 +171,8 @@
         <category>决策树</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>机器学习算法</tag>
+        <tag>Python</tag>
         <tag>sklean</tag>
         <tag>文本聚类</tag>
         <tag>决策树</tag>
@@ -149,8 +187,8 @@
         <category>KNN</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>机器学习算法</tag>
+        <tag>Python</tag>
         <tag>sklean</tag>
         <tag>K近邻算法</tag>
         <tag>kNN</tag>
@@ -166,11 +204,11 @@
         <category>K-Means</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>K-均值算法</tag>
         <tag>k-means</tag>
         <tag>机器学习算法</tag>
         <tag>文本分类</tag>
+        <tag>Python</tag>
         <tag>sklean</tag>
       </tags>
   </entry>
@@ -183,11 +221,11 @@
         <category>逻辑回归</category>
       </categories>
       <tags>
-        <tag>Logistic regression</tag>
-        <tag>Python</tag>
         <tag>机器学习算法</tag>
         <tag>文本分类</tag>
+        <tag>Python</tag>
         <tag>逻辑回归</tag>
+        <tag>Logistic regression</tag>
       </tags>
   </entry>
   <entry>
@@ -199,8 +237,8 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>文本分类</tag>
+        <tag>Python</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>sklearn</tag>
@@ -215,8 +253,8 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>文本分类</tag>
+        <tag>Python</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>实战案例</tag>
@@ -231,11 +269,11 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>自然语言处理</tag>
         <tag>文本分类</tag>
+        <tag>Python</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
+        <tag>自然语言处理</tag>
         <tag>理论学习</tag>
       </tags>
   </entry>
