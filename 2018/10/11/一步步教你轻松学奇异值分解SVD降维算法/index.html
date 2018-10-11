@@ -168,13 +168,22 @@
 <meta property="og:site_name" content="白宁超的官网">
 <meta property="og:description" content="摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/EPoEEET.png">
+<meta property="og:image" content="https://i.imgur.com/yb6uATG.jpg">
+<meta property="og:image" content="https://i.imgur.com/fbVpRi1.jpg">
+<meta property="og:image" content="https://bainingchao.github.io/2018/10/11/images/14.SVD/SVD公式的测试案例.jpg">
+<meta property="og:image" content="https://i.imgur.com/i4FLivm.png">
+<meta property="og:image" content="https://i.imgur.com/wJ9VndG.png">
+<meta property="og:image" content="https://i.imgur.com/2ah3bx3.jpg">
+<meta property="og:image" content="https://i.imgur.com/LsG6hmy.jpg">
+<meta property="og:image" content="https://i.imgur.com/sBd8RsA.png">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/kIFJ33g.jpg">
-<meta property="og:updated_time" content="2018-10-11T09:43:14.714Z">
+<meta property="og:updated_time" content="2018-10-11T11:28:34.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学奇异值分解SVD降维算法">
 <meta name="twitter:description" content="摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。">
-<meta name="twitter:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta name="twitter:image" content="https://i.imgur.com/EPoEEET.png">
 
 
 
@@ -465,7 +474,7 @@
                 
               
 
-              <time title="创建时间：2018-10-11 17:35:41 / 修改时间：17:43:14" itemprop="dateCreated datePublished" datetime="2018-10-11T17:35:41+08:00">2018-10-11</time>
+              <time title="创建时间：2018-10-11 17:35:41 / 修改时间：19:28:34" itemprop="dateCreated datePublished" datetime="2018-10-11T17:35:41+08:00">2018-10-11</time>
             
 
             
@@ -541,6 +550,183 @@
 <p>摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。（本文原创，转载必须注明出处.）</p>
 </blockquote>
 <a id="more"></a>
+<h1 id="奇异值分解原理"><a href="#奇异值分解原理" class="headerlink" title="奇异值分解原理"></a>奇异值分解原理</h1><h2 id="什么是奇异值分解-SVD）"><a href="#什么是奇异值分解-SVD）" class="headerlink" title="什么是奇异值分解(SVD）"></a>什么是奇异值分解(SVD）</h2><p>奇异值分解（SVD, Singular Value Decomposition）: 提取信息的一种方法，可以把 SVD 看成是从噪声数据中抽取相关特征。从生物信息学到金融学，SVD 是提取信息的强大工具。</p>
+<h2 id="SVD-场景"><a href="#SVD-场景" class="headerlink" title="SVD 场景"></a>SVD 场景</h2><blockquote>
+<p>信息检索-隐性语义检索（Lstent Semantic Indexing, LSI）或 隐形语义分析（Latent Semantic Analysis, LSA）</p>
+</blockquote>
+<p>隐性语义索引：矩阵 = 文档 + 词语</p>
+<p>是最早的 SVD 应用之一，我们称利用 SVD 的方法为隐性语义索引（LSI）或隐性语义分析（LSA）。</p>
+<p><img src="https://i.imgur.com/EPoEEET.png" alt=""></p>
+<blockquote>
+<p>推荐系统</p>
+</blockquote>
+<ol>
+<li>利用 SVD 从数据中构建一个主题空间。</li>
+<li>再在该空间下计算其相似度。(从高维-低维空间的转化，在低维空间来计算相似度，SVD 提升了推荐系统的效率。)</li>
+</ol>
+<blockquote>
+<p>图像压缩</p>
+</blockquote>
+<p>例如：<code>32*32=1024 =&gt; 32*2+2*1+32*2=130</code>(2*1表示去掉了除对角线的0), 几乎获得了10倍的压缩比。</p>
+<p><img src="https://i.imgur.com/yb6uATG.jpg" alt=""></p>
+<h2 id="SVD-工作原理"><a href="#SVD-工作原理" class="headerlink" title="SVD 工作原理"></a>SVD 工作原理</h2><blockquote>
+<p>矩阵分解</p>
+</blockquote>
+<ul>
+<li>矩阵分解是将数据矩阵分解为多个独立部分的过程。</li>
+<li>矩阵分解可以将原始矩阵表示成新的易于处理的形式，这种新形式是两个或多个矩阵的乘积。（类似代数中的因数分解）</li>
+<li>举例：如何将12分解成两个数的乘积？（1，12）、（2，6）、（3，4）都是合理的答案。</li>
+</ul>
+<blockquote>
+<p>SVD 是矩阵分解的一种类型，也是矩阵分解最常见的技术</p>
+</blockquote>
+<ul>
+<li>SVD 将原始的数据集矩阵 Data 分解成三个矩阵 U、∑、V</li>
+<li>举例：如果原始矩阵 \(Data_{m*n} \) 是m行n列，<ul>
+<li>\(U_{m * k}\) 表示m行k列</li>
+<li>\(∑_{k * k}\) 表示k行k列</li>
+<li>\(V_{k * n}\) 表示k行n列。</li>
+</ul>
+</li>
+</ul>
+<p>\(Data<em>{m*n} = U</em>{m*k} * ∑<em>{k*k} * V</em>{k*n}\)</p>
+<p><img src="https://i.imgur.com/fbVpRi1.jpg" alt=""></p>
+<p>具体的案例：</p>
+<p><img src="../images/14.SVD/SVD公式的测试案例.jpg" alt="SVD公式"></p>
+<ul>
+<li>上述分解中会构建出一个矩阵∑，该矩阵只有对角元素，其他元素均为0(近似于0)。另一个惯例就是，∑的对角元素是从大到小排列的。这些对角元素称为奇异值。</li>
+<li>奇异值与特征值(PCA 数据中重要特征)是有关系的。这里的奇异值就是矩阵 \(Data * Data^T\) 特征值的平方根。</li>
+<li>普遍的事实：在某个奇异值的数目(r 个=&gt;奇异值的平方和累加到总值的90%以上)之后，其他的奇异值都置为0(近似于0)。这意味着数据集中仅有 r 个重要特征，而其余特征则都是噪声或冗余特征。</li>
+</ul>
+<h2 id="SVD-算法特点"><a href="#SVD-算法特点" class="headerlink" title="SVD 算法特点"></a>SVD 算法特点</h2><p>优点：简化数据，去除噪声，优化算法的结果<br>缺点：数据的转换可能难以理解<br>使用的数据类型：数值型数据</p>
+<h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h1><h2 id="推荐系统概述"><a href="#推荐系统概述" class="headerlink" title="推荐系统概述"></a>推荐系统概述</h2><p>推荐系统是利用电子商务网站向客户提供商品信息和建议，帮助用户决定应该购买什么产品，模拟销售人员帮助客户完成购买过程。</p>
+<h2 id="推荐系统场景"><a href="#推荐系统场景" class="headerlink" title="推荐系统场景"></a>推荐系统场景</h2><ol>
+<li>Amazon 会根据顾客的购买历史向他们推荐物品</li>
+<li>Netflix 会向其用户推荐电影</li>
+<li>新闻网站会对用户推荐新闻频道</li>
+</ol>
+<h2 id="推荐系统要点"><a href="#推荐系统要点" class="headerlink" title="推荐系统要点"></a>推荐系统要点</h2><blockquote>
+<p>基于协同过滤(collaborative filtering) 的推荐引擎</p>
+</blockquote>
+<ul>
+<li>利用Python 实现 SVD(Numpy 有一个称为 linalg 的线性代数工具箱)</li>
+<li>协同过滤：是通过将用户和其他用户的数据进行对比来实现推荐的。</li>
+<li>当知道了两个用户或两个物品之间的相似度，我们就可以利用已有的数据来预测未知用户的喜好。</li>
+</ul>
+<blockquote>
+<p>基于物品的相似度和基于用户的相似度：物品比较少则选择物品相似度，用户比较少则选择用户相似度。【矩阵还是小一点好计算】</p>
+</blockquote>
+<ul>
+<li>基于物品的相似度：计算物品之间的距离。【耗时会随物品数量的增加而增加】</li>
+<li>由于物品A和物品C 相似度(相关度)很高，所以给买A的人推荐C。</li>
+</ul>
+<p><img src="https://i.imgur.com/i4FLivm.png" alt=""></p>
+<ul>
+<li>基于用户的相似度：计算用户之间的距离。【耗时会随用户数量的增加而增加】</li>
+<li>由于用户A和用户C 相似度(相关度)很高，所以A和C是兴趣相投的人，对于C买的物品就会推荐给A。</li>
+</ul>
+<p><img src="https://i.imgur.com/wJ9VndG.png" alt=""></p>
+<blockquote>
+<p>相似度计算</p>
+</blockquote>
+<ul>
+<li>inA, inB 对应的是 列向量</li>
+</ul>
+<ol>
+<li>欧氏距离：指在m维空间中两个点之间的真实距离，或者向量的自然长度（即该点到原点的距离）。二维或三维中的欧氏距离就是两点之间的实际距离。<ul>
+<li>相似度= 1/(1+欧式距离)</li>
+<li><code>相似度= 1.0/(1.0 + la.norm(inA - inB))</code></li>
+<li>物品对越相似，它们的相似度值就越大。</li>
+</ul>
+</li>
+<li>皮尔逊相关系数：度量的是两个向量之间的相似度。<ul>
+<li>相似度= 0.5 + 0.5<em>corrcoef() 【皮尔逊相关系数的取值范围从 -1 到 +1，通过函数0.5 + 0.5\</em>corrcoef()这个函数计算，把值归一化到0到1之间】</li>
+<li><code>相似度= 0.5 + 0.5 * corrcoef(inA, inB, rowvar = 0)[0][1]</code></li>
+<li>相对欧氏距离的优势：它对用户评级的量级并不敏感。</li>
+</ul>
+</li>
+<li>余弦相似度：计算的是两个向量夹角的余弦值。<ul>
+<li>余弦值 = (A·B)/(||A||·||B||) 【余弦值的取值范围也在-1到+1之间】</li>
+<li>相似度= 0.5 + 0.5*余弦值</li>
+<li><code>相似度= 0.5 + 0.5*( float(inA.T*inB) / la.norm(inA)*la.norm(inB))</code></li>
+<li>如果夹角为90度，则相似度为0；如果两个向量的方向相同，则相似度为1.0。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>推荐系统的评价</p>
+</blockquote>
+<ul>
+<li>采用交叉测试的方法。【拆分数据为训练集和测试集】</li>
+<li>推荐引擎评价的指标： 最小均方根误差(Root mean squared error, RMSE)，也称标准误差(Standard error)，就是计算均方误差的平均值然后取其平方根。<ul>
+<li>如果RMSE=1, 表示相差1个星级；如果RMSE=2.5, 表示相差2.5个星级。</li>
+</ul>
+</li>
+</ul>
+<h2 id="推荐系统原理"><a href="#推荐系统原理" class="headerlink" title="推荐系统原理"></a>推荐系统原理</h2><ul>
+<li>推荐系统的工作过程：给定一个用户，系统会为此用户返回N个最好的推荐菜。</li>
+<li>实现流程大致如下：<ol>
+<li>寻找用户没有评级的菜肴，即在用户-物品矩阵中的0值。</li>
+<li>在用户没有评级的所有物品中，对每个物品预计一个可能的评级分数。这就是说：我们认为用户可能会对物品的打分（这就是相似度计算的初衷）。</li>
+<li>对这些物品的评分从高到低进行排序，返回前N个物品。</li>
+</ol>
+</li>
+</ul>
+<h1 id="项目案例-餐馆菜肴推荐系统"><a href="#项目案例-餐馆菜肴推荐系统" class="headerlink" title="项目案例: 餐馆菜肴推荐系统"></a>项目案例: 餐馆菜肴推荐系统</h1><h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><p>假如一个人在家决定外出吃饭，但是他并不知道该到哪儿去吃饭，该点什么菜。推荐系统可以帮他做到这两点。</p>
+<h4 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h4><blockquote>
+<p>收集并准备数据</p>
+</blockquote>
+<p><img src="https://i.imgur.com/2ah3bx3.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 利用SVD提高推荐效果，菜肴矩阵</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">行：代表人</span></span><br><span class="line"><span class="string">列：代表菜肴名词</span></span><br><span class="line"><span class="string">值：代表人对菜肴的评分，0表示未评分</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadExData3</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span>[[<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>],</span><br><span class="line">           [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">4</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>],</span><br><span class="line">           [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>],</span><br><span class="line">           [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">0</span>],</span><br><span class="line">           [<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分析数据: 这里不做过多的讨论(当然此处可以对比不同距离之间的差别)</p>
+<p>训练算法: 通过调用 recommend() 函数进行推荐</p>
+</blockquote>
+<p>recommend() 会调用 基于物品相似度 或者是 基于SVD，得到推荐的物品评分。</p>
+<ul>
+<li>1.基于物品相似度<br><img src="https://i.imgur.com/LsG6hmy.jpg" alt=""></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'''基于物品相似度的推荐引擎</span></span><br><span class="line"><span class="string">descripte：计算某用户未评分物品中，以对该物品和其他物品评分的用户的物品相似度，然后进行综合评分</span></span><br><span class="line"><span class="string">dataMat         训练数据集</span></span><br><span class="line"><span class="string">user            用户编号</span></span><br><span class="line"><span class="string">simMeas         相似度计算方法</span></span><br><span class="line"><span class="string">item            未评分的物品编号</span></span><br><span class="line"><span class="string">Returns: ratSimTotal/simTotal  评分（0～5之间的值）</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">standEst</span><span class="params">(dataMat, user, simMeas, item)</span>:</span></span><br><span class="line">    <span class="comment"># 得到数据集中的物品数目</span></span><br><span class="line">    n = shape(dataMat)[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 初始化两个评分值</span></span><br><span class="line">    simTotal = <span class="number">0.0</span> ; ratSimTotal = <span class="number">0.0</span></span><br><span class="line">    <span class="comment"># 遍历行中的每个物品（对用户评过分的物品遍历，并与其他物品进行比较）</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        userRating = dataMat[user, j]</span><br><span class="line">        <span class="comment"># 如果某个物品的评分值为0，则跳过这个物品</span></span><br><span class="line">        <span class="keyword">if</span> userRating == <span class="number">0</span>: <span class="comment"># 终止循环</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># 寻找两个都评级的物品,变量overLap 给出两个物品中已被评分的元素索引ID</span></span><br><span class="line">        <span class="comment"># logical_and 计算x1和x2元素的真值。</span></span><br><span class="line">        <span class="comment"># print(dataMat[:, item].T.A, ':',dataMat[:, j].T.A )</span></span><br><span class="line">        overLap = nonzero(logical_and(dataMat[:, item].A &gt; <span class="number">0</span>, dataMat[:, j].A &gt; <span class="number">0</span>))[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 如果相似度为0，则两着没有任何重合元素，终止本次循环</span></span><br><span class="line">        <span class="keyword">if</span> len(overLap) == <span class="number">0</span>:</span><br><span class="line">            similarity = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 如果存在重合的物品，则基于这些重合物重新计算相似度。</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            similarity = simMeas(dataMat[overLap, item], dataMat[overLap, j])</span><br><span class="line">        <span class="comment"># 相似度会不断累加，每次计算时还考虑相似度和当前用户评分的乘积</span></span><br><span class="line">        <span class="comment"># similarity  用户相似度，   userRating 用户评分</span></span><br><span class="line">        simTotal += similarity</span><br><span class="line">        ratSimTotal += similarity * userRating</span><br><span class="line">    <span class="keyword">if</span> simTotal == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="comment"># 通过除以所有的评分总和，对上述相似度评分的乘积进行归一化，使得最后评分在0~5之间，这些评分用来对预测值进行排序</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> ratSimTotal/simTotal</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.基于SVD</li>
+</ul>
+<p><img src="https://i.imgur.com/sBd8RsA.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''分析 Sigma 的长度取值</span></span><br><span class="line"><span class="string">根据自己的业务情况，就行处理，设置对应的 Singma 次数</span></span><br><span class="line"><span class="string">通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并取出噪声。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">analyse_data</span><span class="params">(Sigma, loopNum=<span class="number">20</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 总方差的集合（总能量值）</span></span><br><span class="line">    Sig2 = Sigma**<span class="number">2</span></span><br><span class="line">    SigmaSum = sum(Sig2)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(loopNum):</span><br><span class="line">        SigmaI = sum(Sig2[:i+<span class="number">1</span>])</span><br><span class="line">        print(<span class="string">'主成分：%s, 方差占比：%s%%'</span> % (format(i+<span class="number">1</span>, <span class="string">'2.0f'</span>), format(SigmaI/SigmaSum*<span class="number">100</span>, <span class="string">'.2f'</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''基于SVD的评分估计</span></span><br><span class="line"><span class="string">Args:</span></span><br><span class="line"><span class="string">    dataMat         训练数据集</span></span><br><span class="line"><span class="string">    user            用户编号</span></span><br><span class="line"><span class="string">    simMeas         相似度计算方法</span></span><br><span class="line"><span class="string">    item            未评分的物品编号</span></span><br><span class="line"><span class="string">Returns:</span></span><br><span class="line"><span class="string">    ratSimTotal/simTotal     评分（0～5之间的值）</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">svdEst</span><span class="params">(dataMat, user, simMeas, item)</span>:</span></span><br><span class="line">    <span class="comment"># 物品数目</span></span><br><span class="line">    n = shape(dataMat)[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 对数据集进行SVD分解</span></span><br><span class="line">    simTotal = <span class="number">0.0</span> ;  ratSimTotal = <span class="number">0.0</span></span><br><span class="line">    <span class="comment"># 奇异值分解,只利用90%能量值的奇异值，奇异值以NumPy数组形式保存</span></span><br><span class="line">    U, Sigma, VT = la.svd(dataMat)</span><br><span class="line">    <span class="comment"># 分析 Sigma 的长度取值</span></span><br><span class="line">    <span class="comment"># analyse_data(Sigma, 20)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果要进行矩阵运算，就必须要用这些奇异值构建出一个对角矩阵</span></span><br><span class="line">    Sig4 = mat(eye(<span class="number">4</span>) * Sigma[: <span class="number">4</span>]) <span class="comment"># eye对角矩阵</span></span><br><span class="line">    <span class="comment"># 利用U矩阵将物品转换到低维空间中，构建转换后的物品(物品+4个主要的特征)</span></span><br><span class="line">    xformedItems = dataMat.T * U[:, :<span class="number">4</span>] * Sig4.I <span class="comment"># I 逆矩阵</span></span><br><span class="line">    <span class="comment"># print('dataMat', shape(dataMat))</span></span><br><span class="line">    <span class="comment"># print('U[:, :4]', shape(U[:, :4]))</span></span><br><span class="line">    <span class="comment"># print('Sig4.I', shape(Sig4.I))</span></span><br><span class="line">    <span class="comment"># print('VT[:4, :]', shape(VT[:4, :]))</span></span><br><span class="line">    <span class="comment"># print('xformedItems', shape(xformedItems))</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对于给定的用户，for循环在用户对应行的元素上进行遍历</span></span><br><span class="line">    <span class="comment"># 和standEst()函数的for循环一样，这里相似度计算在低维空间下进行的。</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        userRating = dataMat[user, j]</span><br><span class="line">        <span class="keyword">if</span> userRating == <span class="number">0</span> <span class="keyword">or</span> j == item:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># 相似度的计算方法也会作为一个参数传递给该函数</span></span><br><span class="line">        similarity = simMeas(xformedItems[item, :].T, xformedItems[j, :].T)</span><br><span class="line">        <span class="comment"># for 循环中加入了一条print语句，以便了解相似度计算的进展情况。如果觉得累赘，可以去掉</span></span><br><span class="line">        <span class="comment"># print('the %d and %d similarity is: %f' % (item, j, similarity))</span></span><br><span class="line">        <span class="comment"># 对相似度不断累加求和</span></span><br><span class="line">        simTotal += similarity</span><br><span class="line">        <span class="comment"># 对相似度及对应评分值的乘积求和</span></span><br><span class="line">        ratSimTotal += similarity * userRating</span><br><span class="line">    <span class="keyword">if</span> simTotal == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 计算估计评分</span></span><br><span class="line">        <span class="keyword">return</span> ratSimTotal/simTotal</span><br></pre></td></tr></table></figure>
+<p>排序获取最后的推荐结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''recommend函数推荐引擎，默认调用standEst函数，产生最高的N个推荐结果</span></span><br><span class="line"><span class="string">Args:</span></span><br><span class="line"><span class="string">    dataMat         训练数据集</span></span><br><span class="line"><span class="string">    user            用户编号</span></span><br><span class="line"><span class="string">    simMeas         相似度计算方法</span></span><br><span class="line"><span class="string">    estMethod       使用的推荐算法</span></span><br><span class="line"><span class="string">Returns:  返回最终 N 个推荐结果</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recommend</span><span class="params">(dataMat, user, N=<span class="number">3</span>, simMeas=cosSim, estMethod=standEst)</span>:</span></span><br><span class="line">    <span class="comment"># 寻找未评级的物品,对给定的用户建立一个未评分的物品列表</span></span><br><span class="line">    unratedItems = nonzero(dataMat[user, :].A == <span class="number">0</span>)[<span class="number">1</span>] <span class="comment"># .A: 矩阵转数组</span></span><br><span class="line">    <span class="comment"># 如果不存在未评分物品，那么就退出函数</span></span><br><span class="line">    <span class="keyword">if</span> len(unratedItems) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'you rated everything'</span></span><br><span class="line">    <span class="comment"># 物品的编号和评分值</span></span><br><span class="line">    itemScores = []</span><br><span class="line">    <span class="comment"># 在未评分物品上进行循环</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> unratedItems:</span><br><span class="line">        <span class="comment"># 获取 item 该物品的评分</span></span><br><span class="line">        estimatedScore = estMethod(dataMat, user, simMeas, item)</span><br><span class="line">        itemScores.append((item, estimatedScore))</span><br><span class="line">    <span class="comment"># 按照评分得分 进行逆排序，获取前N个未评级物品进行推荐</span></span><br><span class="line">    <span class="keyword">return</span> sorted(itemScores, key=<span class="keyword">lambda</span> jj: jj[<span class="number">1</span>], reverse=<span class="keyword">True</span>)[: N]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>测试 和 项目调用，可直接参考我们的代码</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算相似度的方法</span></span><br><span class="line">myMat = mat(loadExData3())</span><br><span class="line"><span class="comment"># 计算相似度的第一种方式</span></span><br><span class="line"><span class="comment"># print(recommend(myMat, 1, estMethod=svdEst))</span></span><br><span class="line"><span class="comment"># 计算相似度的第二种方式</span></span><br><span class="line"><span class="comment"># print(recommend(myMat, 1, estMethod=svdEst, simMeas=pearsSim))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认推荐（菜馆菜肴推荐示例）</span></span><br><span class="line">print(recommend(myMat, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="要点补充"><a href="#要点补充" class="headerlink" title="要点补充"></a>要点补充</h2><blockquote>
+<p>基于内容(content-based)的推荐</p>
+</blockquote>
+<ol>
+<li>通过各种标签来标记菜肴</li>
+<li>将这些属性作为相似度计算所需要的数据</li>
+<li>这就是：基于内容的推荐。</li>
+</ol>
+<blockquote>
+<p>构建推荐引擎面临的挑战</p>
+</blockquote>
+<p>问题</p>
+<ul>
+<li>1）在大规模的数据集上，SVD分解会降低程序的速度</li>
+<li>2）存在其他很多规模扩展性的挑战性问题，比如矩阵的表示方法和计算相似度得分消耗资源。</li>
+<li>3）如何在缺乏数据时给出好的推荐-称为冷启动【简单说：用户不会喜欢一个无效的物品，而用户不喜欢的物品又无效】</li>
+</ul>
+<p>建议</p>
+<ul>
+<li>1）在大型系统中，SVD分解(可以在程序调入时运行一次)每天运行一次或者其频率更低，并且还要离线运行。</li>
+<li>2）在实际中，另一个普遍的做法就是离线计算并保存相似度得分。(物品相似度可能被用户重复的调用)</li>
+<li>3）冷启动问题，解决方案就是将推荐看成是搜索问题，通过各种标签／属性特征进行<code>基于内容的推荐</code>。</li>
+</ul>
+<h1 id="项目案例-基于SVD的图像压缩"><a href="#项目案例-基于SVD的图像压缩" class="headerlink" title="项目案例: 基于SVD的图像压缩"></a>项目案例: 基于SVD的图像压缩</h1><h2 id="收集并准备数据"><a href="#收集并准备数据" class="headerlink" title="收集并准备数据"></a>收集并准备数据</h2><p>将文本数据转化为矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''图像压缩函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imgLoadData</span><span class="params">(filename)</span>:</span></span><br><span class="line">    myl = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> open(filename).readlines():</span><br><span class="line">        newRow = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            newRow.append(int(line[i]))</span><br><span class="line">        myl.append(newRow)</span><br><span class="line">    <span class="comment"># 矩阵调入后，就可以在屏幕上输出该矩阵</span></span><br><span class="line">    myMat = mat(myl)</span><br><span class="line">    <span class="keyword">return</span> myMat</span><br></pre></td></tr></table></figure>
+<h2 id="分析数据-分析Sigma的长度个数"><a href="#分析数据-分析Sigma的长度个数" class="headerlink" title="分析数据: 分析Sigma的长度个数"></a>分析数据: 分析Sigma的长度个数</h2><p>通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并去除噪声。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''分析 Sigma 的长度取值</span></span><br><span class="line"><span class="string">根据自己的业务情况，就行处理，设置对应的 Singma 次数</span></span><br><span class="line"><span class="string">通常保留矩阵 80% ～ 90% 的能量，就可以得到重要的特征并取出噪声。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">analyse_data</span><span class="params">(Sigma, loopNum=<span class="number">20</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 总方差的集合（总能量值）</span></span><br><span class="line">    Sig2 = Sigma**<span class="number">2</span></span><br><span class="line">    SigmaSum = sum(Sig2)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(loopNum):</span><br><span class="line">        SigmaI = sum(Sig2[:i+<span class="number">1</span>])</span><br><span class="line">        print(<span class="string">'主成分：%s, 方差占比：%s%%'</span> % (format(i+<span class="number">1</span>, <span class="string">'2.0f'</span>), format(SigmaI/SigmaSum*<span class="number">100</span>, <span class="string">'.2f'</span>)))</span><br></pre></td></tr></table></figure>
+<h2 id="使用算法-对比使用-SVD-前后的数据差异对比，对于存储大家可以试着写写"><a href="#使用算法-对比使用-SVD-前后的数据差异对比，对于存储大家可以试着写写" class="headerlink" title="使用算法: 对比使用 SVD 前后的数据差异对比，对于存储大家可以试着写写"></a>使用算法: 对比使用 SVD 前后的数据差异对比，对于存储大家可以试着写写</h2><p>例如：<code>32*32=1024 =&gt; 32*2+2*1+32*2=130</code>(2*1表示去掉了除对角线的0), 几乎获得了10倍的压缩比。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''打印矩阵</span></span><br><span class="line"><span class="string">由于矩阵保护了浮点数，因此定义浅色和深色，遍历所有矩阵元素，当元素大于阀值时打印1，否则打印0</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printMat</span><span class="params">(inMat, thresh=<span class="number">0.8</span>)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            <span class="keyword">if</span> float(inMat[i, k]) &gt; thresh:</span><br><span class="line">                print(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="number">0</span>)</span><br><span class="line">        print(<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''实现图像压缩，允许基于任意给定的奇异值数目来重构图像</span></span><br><span class="line"><span class="string">Args:</span></span><br><span class="line"><span class="string">    numSV       Sigma长度</span></span><br><span class="line"><span class="string">    thresh      判断的阈值</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imgCompress</span><span class="params">(numSV=<span class="number">3</span>, thresh=<span class="number">0.8</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 构建一个列表</span></span><br><span class="line">    myMat = imgLoadData(<span class="string">'./0_5.txt'</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"****original matrix****"</span>)</span><br><span class="line">    <span class="comment"># 对原始图像进行SVD分解并重构图像e</span></span><br><span class="line">    printMat(myMat, thresh)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通过Sigma 重新构成SigRecom来实现</span></span><br><span class="line">    <span class="comment"># Sigma是一个对角矩阵，因此需要建立一个全0矩阵，然后将前面的那些奇异值填充到对角线上。</span></span><br><span class="line">    U, Sigma, VT = la.svd(myMat)</span><br><span class="line">    <span class="comment"># SigRecon = mat(zeros((numSV, numSV)))</span></span><br><span class="line">    <span class="comment"># for k in range(numSV):</span></span><br><span class="line">    <span class="comment">#     SigRecon[k, k] = Sigma[k]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 分析插入的 Sigma 长度</span></span><br><span class="line">    <span class="comment"># analyse_data(Sigma, 20)</span></span><br><span class="line"></span><br><span class="line">    SigRecon = mat(eye(numSV) * Sigma[: numSV])</span><br><span class="line">    reconMat = U[:, :numSV] * SigRecon * VT[:numSV, :]</span><br><span class="line">    print(<span class="string">"****reconstructed matrix using %d singular values *****"</span> % numSV)</span><br><span class="line">    printMat(reconMat, thresh)</span><br></pre></td></tr></table></figure>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
 <li><a href="https://zh.wikipedia.org/zh-hans/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3" target="_blank" rel="noopener">奇异值分解</a></li>
 <li><a href="https://zh.wikipedia.org/wiki/" target="_blank" rel="noopener">中文维基百科</a></li>
@@ -1068,7 +1254,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">2.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">3.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#奇异值分解原理"><span class="nav-number">1.</span> <span class="nav-text">奇异值分解原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是奇异值分解-SVD）"><span class="nav-number">1.1.</span> <span class="nav-text">什么是奇异值分解(SVD）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVD-场景"><span class="nav-number">1.2.</span> <span class="nav-text">SVD 场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVD-工作原理"><span class="nav-number">1.3.</span> <span class="nav-text">SVD 工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVD-算法特点"><span class="nav-number">1.4.</span> <span class="nav-text">SVD 算法特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐系统"><span class="nav-number">2.</span> <span class="nav-text">推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐系统概述"><span class="nav-number">2.1.</span> <span class="nav-text">推荐系统概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐系统场景"><span class="nav-number">2.2.</span> <span class="nav-text">推荐系统场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐系统要点"><span class="nav-number">2.3.</span> <span class="nav-text">推荐系统要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐系统原理"><span class="nav-number">2.4.</span> <span class="nav-text">推荐系统原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目案例-餐馆菜肴推荐系统"><span class="nav-number">3.</span> <span class="nav-text">项目案例: 餐馆菜肴推荐系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目概述"><span class="nav-number">3.1.</span> <span class="nav-text">项目概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开发流程"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">开发流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点补充"><span class="nav-number">3.2.</span> <span class="nav-text">要点补充</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目案例-基于SVD的图像压缩"><span class="nav-number">4.</span> <span class="nav-text">项目案例: 基于SVD的图像压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#收集并准备数据"><span class="nav-number">4.1.</span> <span class="nav-text">收集并准备数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据-分析Sigma的长度个数"><span class="nav-number">4.2.</span> <span class="nav-text">分析数据: 分析Sigma的长度个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用算法-对比使用-SVD-前后的数据差异对比，对于存储大家可以试着写写"><span class="nav-number">4.3.</span> <span class="nav-text">使用算法: 对比使用 SVD 前后的数据差异对比，对于存储大家可以试着写写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">4.5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">4.6.</span> <span class="nav-text">作者声明</span></a></li></ol></li></ol></div>
             
 
           </div>
