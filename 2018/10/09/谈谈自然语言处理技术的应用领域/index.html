@@ -184,7 +184,7 @@
 <meta property="og:image" content="https://i.imgur.com/TIeEi2b.jpg">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/zmKK4xs.jpg">
-<meta property="og:updated_time" content="2018-10-09T06:52:15.580Z">
+<meta property="og:updated_time" content="2018-10-15T02:05:29.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="谈谈自然语言处理技术的应用领域">
 <meta name="twitter:description" content="摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）">
@@ -479,12 +479,24 @@
                 
               
 
-              <time title="创建时间：2018-10-09 14:10:05 / 修改时间：14:52:15" itemprop="dateCreated datePublished" datetime="2018-10-09T14:10:05+08:00">2018-10-09</time>
+              <time title="创建时间：2018-10-09 14:10:05" itemprop="dateCreated datePublished" datetime="2018-10-09T14:10:05+08:00">2018-10-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-15 10:05:29" itemprop="dateModified" datetime="2018-10-15T10:05:29+08:00">2018-10-15</time>
               
             
           </span>
@@ -776,6 +788,41 @@
 <li>星期天,小雨和小英到田老师家补习功课,她一早就打电话给她约好在红旗饭店吃早餐.</li>
 </ol>
 <hr>
+<h1 id="场景案例"><a href="#场景案例" class="headerlink" title="场景案例"></a>场景案例</h1><h2 id="案例1（解决交叉歧义）"><a href="#案例1（解决交叉歧义）" class="headerlink" title="案例1（解决交叉歧义）"></a>案例1（解决交叉歧义）</h2><p><strong>分词（Word Segmentation）</strong> ：将连续的自然语言文本，切分成具有语义合理性和完整性的词汇序列</p>
+<p>例句：致毕业和尚未毕业的同学。</p>
+<p>分词： </p>
+<ol>
+<li><code>致</code> <code>毕业</code> <code>和</code> <code>尚未</code> <code>毕业</code> <code>的</code> <code>同学</code></li>
+<li><code>致</code> <code>毕业</code> <code>和尚</code> <code>未</code> <code>毕业</code> <code>的</code> <code>同学</code></li>
+</ol>
+<p>推荐：</p>
+<ol>
+<li>校友 和 老师 给 尚未 毕业 同学 的 一 封 信</li>
+<li>本科 未 毕业 可以 当 和尚 吗</li>
+</ol>
+<h2 id="案例2（从粒度整合未登录体词）"><a href="#案例2（从粒度整合未登录体词）" class="headerlink" title="案例2（从粒度整合未登录体词）"></a>案例2（从粒度整合未登录体词）</h2><p><strong>命名实体识别（Named Entity Recognition）</strong>：识别自然语言文本中具有特定意义的实体（人、地、机构、时间、作品等）</p>
+<p>例句：天使爱美丽在线观看</p>
+<p>分词：<code>天使</code> <code>爱</code> <code>美丽</code> <code>在线</code> <code>观看</code></p>
+<p>实体： 天使爱美丽 -&gt; 电影</p>
+<p>推荐：</p>
+<ol>
+<li>网页：天使爱美丽 土豆 高清视频</li>
+<li>网页：在线直播爱美丽的天使</li>
+</ol>
+<h2 id="案例3（结构歧义问题）"><a href="#案例3（结构歧义问题）" class="headerlink" title="案例3（结构歧义问题）"></a>案例3（结构歧义问题）</h2><p><strong>词性标注（Part-Speech Tagging）</strong>： 为自然语言文本中的每个词汇赋予一个词性（名词、动词、形容词等）<br><strong>依存句法分析（Dependency Parsing）</strong>：自动分析句子中的句法成分（主语、谓语、宾语、定语、状语和补语等成分）</p>
+<p>评论：房间里还可以欣赏日出</p>
+<p>歧义： </p>
+<ol>
+<li>房间还可以</li>
+<li>可以欣赏日出</li>
+</ol>
+<p>词性：（？？？）<br>房间里：主语<br>还可以：谓语<br>欣赏日出： 动宾短语</p>
+<h2 id="案例4（词汇语言相似度）"><a href="#案例4（词汇语言相似度）" class="headerlink" title="案例4（词汇语言相似度）"></a>案例4（词汇语言相似度）</h2><p><strong>词向量与语义相似度（Word Embedding &amp; Semantic Similarity）</strong>：对词汇进行向量化表示，并据此实现词汇的语义相似度计算。</p>
+<p>例如：西瓜 与 （呆瓜/草莓），哪个更接近？</p>
+<p>向量化表示：               西瓜(0.1222, 0.22333, .. )<br>相似度计算：    呆瓜（0.115）                草莓（0.325）<br>向量化表示：(-0.333, 0.1223 .. )      (0.333， 0.3333, .. )</p>
+<h2 id="案例5（文本语义相似度）"><a href="#案例5（文本语义相似度）" class="headerlink" title="案例5（文本语义相似度）"></a>案例5（文本语义相似度）</h2><p><strong>文本语义相似度（Text Semantic Similarity）</strong>：依托全网海量数据和深度神经网络技术，实现文本间的语义相似度计算的能力</p>
+<p>例如：车头如何防止车牌 与 （前牌照怎么装/如何办理北京牌照），哪个更接近？</p>
+<p>向量化表示：               车头如何防止车牌(0.1222, 0.22333, .. )<br>相似度计算：    前牌照怎么装（0.762）                如何办理北京牌照（0.486）<br>向量化表示：    (-0.333, 0.1223 .. )              (0.333， 0.3333, .. )</p>
 <h1 id="自然语言处理相关研究内容"><a href="#自然语言处理相关研究内容" class="headerlink" title="自然语言处理相关研究内容"></a>自然语言处理相关研究内容</h1><h2 id="语料库知识"><a href="#语料库知识" class="headerlink" title="语料库知识"></a>语料库知识</h2><p>语料库作为一个或者多个应用目标而专门收集的，有一定结构的、有代表的、可被计算机程序检索的、具有一定规模的语料的集合。    </p>
 <p>语料库划分：</p>
 <ul>
@@ -1178,7 +1225,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1235,7 +1282,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1388,7 +1437,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">70</span>
+                      
+                    
+                    <span class="site-state-item-count">71</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1465,7 +1516,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的任务和限制"><span class="nav-number">1.</span> <span class="nav-text">自然语言处理的任务和限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的主要技术范畴"><span class="nav-number">2.</span> <span class="nav-text">自然语言处理的主要技术范畴</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语音合成"><span class="nav-number">2.1.</span> <span class="nav-text">语音合成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语音识别"><span class="nav-number">2.2.</span> <span class="nav-text">语音识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文自动分词"><span class="nav-number">2.3.</span> <span class="nav-text">中文自动分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词性标注"><span class="nav-number">2.4.</span> <span class="nav-text">词性标注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#句法分析"><span class="nav-number">2.5.</span> <span class="nav-text">句法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本挖掘"><span class="nav-number">2.6.</span> <span class="nav-text">文本挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本分类"><span class="nav-number">2.7.</span> <span class="nav-text">文本分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本挖掘-1"><span class="nav-number">2.8.</span> <span class="nav-text">文本挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名实体识别"><span class="nav-number">2.9.</span> <span class="nav-text">命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息抽取"><span class="nav-number">2.10.</span> <span class="nav-text">信息抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问答系统"><span class="nav-number">2.11.</span> <span class="nav-text">问答系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器翻译"><span class="nav-number">2.12.</span> <span class="nav-text">机器翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情感分析"><span class="nav-number">2.13.</span> <span class="nav-text">情感分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动摘要"><span class="nav-number">2.14.</span> <span class="nav-text">自动摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文字蕴涵"><span class="nav-number">2.15.</span> <span class="nav-text">文字蕴涵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的难点"><span class="nav-number">3.</span> <span class="nav-text">自然语言处理的难点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言环境复杂"><span class="nav-number">3.1.</span> <span class="nav-text">语言环境复杂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本结构形式多样"><span class="nav-number">3.2.</span> <span class="nav-text">文本结构形式多样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界识别限制"><span class="nav-number">3.3.</span> <span class="nav-text">边界识别限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词义消歧"><span class="nav-number">3.4.</span> <span class="nav-text">词义消歧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指代消解"><span class="nav-number">3.5.</span> <span class="nav-text">指代消解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理相关研究内容"><span class="nav-number">4.</span> <span class="nav-text">自然语言处理相关研究内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语料库知识"><span class="nav-number">4.1.</span> <span class="nav-text">语料库知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">4.2.</span> <span class="nav-text">隐马尔可夫模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Viterbi算法解码"><span class="nav-number">4.3.</span> <span class="nav-text">Viterbi算法解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评价方法"><span class="nav-number">4.4.</span> <span class="nav-text">模型评价方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产模型与判别模型区别"><span class="nav-number">4.5.</span> <span class="nav-text">生产模型与判别模型区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识图谱与本体"><span class="nav-number">4.6.</span> <span class="nav-text">知识图谱与本体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征工程"><span class="nav-number">4.7.</span> <span class="nav-text">特征工程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的任务和限制"><span class="nav-number">1.</span> <span class="nav-text">自然语言处理的任务和限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的主要技术范畴"><span class="nav-number">2.</span> <span class="nav-text">自然语言处理的主要技术范畴</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语音合成"><span class="nav-number">2.1.</span> <span class="nav-text">语音合成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语音识别"><span class="nav-number">2.2.</span> <span class="nav-text">语音识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文自动分词"><span class="nav-number">2.3.</span> <span class="nav-text">中文自动分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词性标注"><span class="nav-number">2.4.</span> <span class="nav-text">词性标注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#句法分析"><span class="nav-number">2.5.</span> <span class="nav-text">句法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本挖掘"><span class="nav-number">2.6.</span> <span class="nav-text">文本挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本分类"><span class="nav-number">2.7.</span> <span class="nav-text">文本分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本挖掘-1"><span class="nav-number">2.8.</span> <span class="nav-text">文本挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名实体识别"><span class="nav-number">2.9.</span> <span class="nav-text">命名实体识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息抽取"><span class="nav-number">2.10.</span> <span class="nav-text">信息抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问答系统"><span class="nav-number">2.11.</span> <span class="nav-text">问答系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器翻译"><span class="nav-number">2.12.</span> <span class="nav-text">机器翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情感分析"><span class="nav-number">2.13.</span> <span class="nav-text">情感分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动摘要"><span class="nav-number">2.14.</span> <span class="nav-text">自动摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文字蕴涵"><span class="nav-number">2.15.</span> <span class="nav-text">文字蕴涵</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理的难点"><span class="nav-number">3.</span> <span class="nav-text">自然语言处理的难点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言环境复杂"><span class="nav-number">3.1.</span> <span class="nav-text">语言环境复杂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本结构形式多样"><span class="nav-number">3.2.</span> <span class="nav-text">文本结构形式多样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界识别限制"><span class="nav-number">3.3.</span> <span class="nav-text">边界识别限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词义消歧"><span class="nav-number">3.4.</span> <span class="nav-text">词义消歧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指代消解"><span class="nav-number">3.5.</span> <span class="nav-text">指代消解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#场景案例"><span class="nav-number">4.</span> <span class="nav-text">场景案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例1（解决交叉歧义）"><span class="nav-number">4.1.</span> <span class="nav-text">案例1（解决交叉歧义）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例2（从粒度整合未登录体词）"><span class="nav-number">4.2.</span> <span class="nav-text">案例2（从粒度整合未登录体词）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例3（结构歧义问题）"><span class="nav-number">4.3.</span> <span class="nav-text">案例3（结构歧义问题）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例4（词汇语言相似度）"><span class="nav-number">4.4.</span> <span class="nav-text">案例4（词汇语言相似度）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例5（文本语义相似度）"><span class="nav-number">4.5.</span> <span class="nav-text">案例5（文本语义相似度）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自然语言处理相关研究内容"><span class="nav-number">5.</span> <span class="nav-text">自然语言处理相关研究内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语料库知识"><span class="nav-number">5.1.</span> <span class="nav-text">语料库知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">5.2.</span> <span class="nav-text">隐马尔可夫模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Viterbi算法解码"><span class="nav-number">5.3.</span> <span class="nav-text">Viterbi算法解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型评价方法"><span class="nav-number">5.4.</span> <span class="nav-text">模型评价方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产模型与判别模型区别"><span class="nav-number">5.5.</span> <span class="nav-text">生产模型与判别模型区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识图谱与本体"><span class="nav-number">5.6.</span> <span class="nav-text">知识图谱与本体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征工程"><span class="nav-number">5.7.</span> <span class="nav-text">特征工程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>
