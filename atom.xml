@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-10-15T02:53:51.381Z</updated>
+  <updated>2018-10-16T09:40:01.749Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一步步教你轻松学支持向量机SVM算法之案例篇2</title>
+    <link href="https://bainingchao.github.io/2018/10/16/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E7%AE%97%E6%B3%95%E4%B9%8B%E6%A1%88%E4%BE%8B%E7%AF%872/"/>
+    <id>https://bainingchao.github.io/2018/10/16/一步步教你轻松学支持向量机SVM算法之案例篇2/</id>
+    <published>2018-10-16T08:36:39.000Z</published>
+    <updated>2018-10-16T09:40:01.749Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：支持向量机即SVM(Support Vector Machine) ，是一种监督学习算法，属于分类的范畴。首先，支持向量机不是一种机器，而是一种机器学习算法。在数据挖掘的应用中，与无监督学习的聚类相对应和区别。广泛应用于机器学习，计算机视觉和数据挖掘当中。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="SVM" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/SVM/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="支持向量机" scheme="https://bainingchao.github.io/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
+    
+      <category term="SVM" scheme="https://bainingchao.github.io/tags/SVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一步步教你轻松学支持向量机SVM算法之理论篇1</title>
+    <link href="https://bainingchao.github.io/2018/10/16/%E4%B8%80%E6%AD%A5%E6%AD%A5%E6%95%99%E4%BD%A0%E8%BD%BB%E6%9D%BE%E5%AD%A6%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BASVM%E7%AE%97%E6%B3%95/"/>
+    <id>https://bainingchao.github.io/2018/10/16/一步步教你轻松学支持向量机SVM算法/</id>
+    <published>2018-10-16T07:48:08.000Z</published>
+    <updated>2018-10-16T08:36:16.997Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：支持向量机即SVM(Support Vector Machine) ，是一种监督学习算法，属于分类的范畴。首先，支持向量机不是一种机器，而是一种机器学习算法。在数据挖掘的应用中，与无监督学习的聚类相对应和区别。广泛应用于机器学习，计算机视觉和数据挖掘当中。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="SVM" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/SVM/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="支持向量机" scheme="https://bainingchao.github.io/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
+    
+      <category term="SVM" scheme="https://bainingchao.github.io/tags/SVM/"/>
+    
+  </entry>
   
   <entry>
     <title>这就是篇章分析</title>
@@ -196,9 +264,9 @@
     
       <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
-      <category term="可视化" scheme="https://bainingchao.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+      <category term="可视化" scheme="https://bainingchao.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="条形图" scheme="https://bainingchao.github.io/tags/%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     
@@ -525,58 +593,6 @@
     
     
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈自然语言处理技术的应用领域</title>
-    <link href="https://bainingchao.github.io/2018/10/09/%E8%B0%88%E8%B0%88%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E7%9A%84%E5%BA%94%E7%94%A8%E9%A2%86%E5%9F%9F/"/>
-    <id>https://bainingchao.github.io/2018/10/09/谈谈自然语言处理技术的应用领域/</id>
-    <published>2018-10-09T06:10:05.000Z</published>
-    <updated>2018-10-15T02:05:29.899Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：通过《十分钟速览自然语言处理》一文，读者对自然语言基本概况进行了解。那么自然语言处理过程中总不是那么一帆风顺的，针对自然语言处理的任务和限制将在本文第一部分进行介绍。很多初学者发出疑问即自然语言处理能干什么？接下来我们回答这类问题，概要介绍自然语言处理所涉及的主要技术范畴，其中包括文本分类、问答系统、情感分析、中文分词等等。最后，我们介绍相关研究内容。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>十分钟速览自然语言处理</title>
-    <link href="https://bainingchao.github.io/2018/10/09/%E5%8D%81%E5%88%86%E9%92%9F%E9%80%9F%E8%A7%88%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    <id>https://bainingchao.github.io/2018/10/09/十分钟速览自然语言处理/</id>
-    <published>2018-10-09T05:29:10.000Z</published>
-    <updated>2018-10-15T02:03:40.876Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：随着人工智能的快速发展，自然语言处理和机器学习技术应用愈加广泛。但是，初学者入门还是有一定难度，对该领域整体概况不能明晰。本章主要从发展历程、研究现状、应用前景等角度整体介绍自然语言处理及相关的机器学习技术，使读者对该技术领域有个系统而全面的认识。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
     
   </entry>
   
