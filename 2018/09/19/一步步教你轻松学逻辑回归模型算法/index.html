@@ -181,7 +181,7 @@
 <meta property="og:image" content="https://i.imgur.com/vkDN1aJ.png">
 <meta property="og:image" content="https://i.imgur.com/I7lHYOk.png">
 <meta property="og:image" content="https://i.imgur.com/8fddzwM.png">
-<meta property="og:updated_time" content="2018-10-19T07:42:46.865Z">
+<meta property="og:updated_time" content="2018-10-26T01:13:48.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学逻辑回归模型算法">
 <meta name="twitter:description" content="摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）">
@@ -493,7 +493,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:42:46" itemprop="dateModified" datetime="2018-10-19T15:42:46+08:00">2018-10-19</time>
+                <time title="修改时间：2018-10-26 09:13:48" itemprop="dateModified" datetime="2018-10-26T09:13:48+08:00">2018-10-26</time>
               
             
           </span>
@@ -574,7 +574,7 @@
 </blockquote>
 <p>Sigmoid函数是一个常见的S型数学函数，在信息科学中，由于其单增以及反函数单增等性质，Sigmoid函数常被用作神经网络的阈值函数，将变量映射到0,1之间。在逻辑回归、人工神经网络中有着广泛的应用。Sigmoid函数的数学形式是： </p>
 <p><a href="http://www.codecogs.com/eqnedit.php?latex=f(z)=\frac{1}{1&plus;e^{-z}}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?f(z)=\frac{1}{1&plus;e^{-z}}" title="f(z)=\frac{1}{1+e^{-z}}"></a></p>
-<p>对x求导可以推出如下结论：</p>
+<script type="math/tex; mode=display">z=W^TX+b (其中W为权重，b为偏移量)</script><p>对x求导可以推出如下结论：</p>
 <p><a href="http://www.codecogs.com/eqnedit.php?latex=f^{'}(z)=\frac{e^{-z}}{(1&plus;e^{-z})^2}=f(z)(1-f(z)))" target="_blank"><img src="http://latex.codecogs.com/gif.latex?f^{'}(z)=\frac{e^{-z}}{(1&plus;e^{-z})^2}=f(z)(1-f(z)))" title="f^{'}(z)=\frac{e^{-z}}{(1+e^{-z})^2}=f(z)(1-f(z)))"></a></p>
 <p>下图给出了 Sigmoid 函数在不同坐标尺度下的两条曲线图。当 x 为 0 时，Sigmoid 函数值为 0.5 。随着 x 的增大，对应的 Sigmoid 值将逼近于 1 ; 而随着 x 的减小， Sigmoid 值将逼近于 0 。如果横坐标刻度足够大， Sigmoid 函数看起来很像一个阶跃函数。</p>
 <p><img src="https://i.imgur.com/hPTHXOo.png" alt=""></p>
