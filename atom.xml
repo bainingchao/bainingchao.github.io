@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-11-29T12:34:45.835Z</updated>
+  <updated>2018-12-24T09:09:21.740Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python数据预处理：机器学习、人工智能通用技术（1）</title>
+    <link href="https://bainingchao.github.io/2018/12/24/Python%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF%EF%BC%881%EF%BC%89/"/>
+    <id>https://bainingchao.github.io/2018/12/24/Python数据预处理：机器学习、人工智能通用技术（1）/</id>
+    <published>2018-12-24T08:40:05.133Z</published>
+    <updated>2018-12-24T09:09:21.740Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：大数据技术与我们日常生活越来越紧密，要做大数据，首要解决数据问题。原始数据存在大量不完整、不一致、有异常的数据，严重影响到数据建模的执行效率，甚至可能导致模型结果的偏差，因此要数据预处。数据预处理主要是将原始数据经过文本抽取、数据清理、数据集成、数据处理、数据变换、数据降维等处理后，不仅提高了数据质量，而且更好的提升算法模型性能。数据预处理在数据挖掘、自然语言处理、机器学习、深度学习算法中起着重要的作用。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="课程导学" scheme="https://bainingchao.github.io/tags/%E8%AF%BE%E7%A8%8B%E5%AF%BC%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据预处理之抽取文本信息（2）</title>
+    <link href="https://bainingchao.github.io/2018/12/21/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86%E4%B9%8B%E6%8A%BD%E5%8F%96%E6%96%87%E6%9C%AC%E4%BF%A1%E6%81%AF%EF%BC%882%EF%BC%89/"/>
+    <id>https://bainingchao.github.io/2018/12/21/数据预处理之抽取文本信息（2）/</id>
+    <published>2018-12-21T06:06:12.000Z</published>
+    <updated>2018-12-24T09:09:51.329Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：随着AI技术的快速发展，人工智能相关产业也在改变着我们的生活。与此同时，人工智能也衍生了机器学习、深度学习（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+      <category term="pywin32" scheme="https://bainingchao.github.io/tags/pywin32/"/>
+    
+  </entry>
   
   <entry>
     <title>天府大讲堂：5G时代的物联网发展趋势与产业变革</title>
@@ -545,50 +593,6 @@
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
       <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明的Python教程之实例篇</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8B%E5%AE%9E%E4%BE%8B%E7%AF%87/"/>
-    <id>https://bainingchao.github.io/2018/10/10/简明的Python教程之实例篇/</id>
-    <published>2018-10-10T01:45:14.000Z</published>
-    <updated>2018-10-19T07:43:49.584Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库，使读者对python有个全面的理解和认识。最后一节，采用实际案例帮助读者综合运用python知识。 （本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明的Python教程之概述篇</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8B%E6%A6%82%E8%BF%B0%E7%AF%87/"/>
-    <id>https://bainingchao.github.io/2018/10/10/简明的Python教程之概述篇/</id>
-    <published>2018-10-10T01:30:39.000Z</published>
-    <updated>2018-10-19T07:43:40.313Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库，使读者对python有个全面的理解和认识。最后一节，采用实际案例帮助读者综合运用python知识。 （本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
   </entry>
   
