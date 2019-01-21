@@ -56,12 +56,12 @@
         <category>SVM</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>机器学习算法</tag>
         <tag>sklean</tag>
         <tag>支持向量机</tag>
         <tag>SVM</tag>
+        <tag>文本分类</tag>
       </tags>
   </entry>
   <entry>
@@ -73,12 +73,12 @@
         <category>SVM</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>机器学习算法</tag>
         <tag>sklean</tag>
         <tag>支持向量机</tag>
         <tag>SVM</tag>
+        <tag>文本分类</tag>
       </tags>
   </entry>
   <entry>
@@ -373,8 +373,8 @@
         <category>Apriori</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
         <tag>Python</tag>
+        <tag>机器学习算法</tag>
         <tag>文本聚类</tag>
         <tag>Apriori</tag>
         <tag>关联规则</tag>
@@ -388,11 +388,11 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Sublime</tag>
         <tag>Logistic regression</tag>
         <tag>Anaconda</tag>
         <tag>开发环境</tag>
+        <tag>Python</tag>
         <tag>自然语言处理</tag>
         <tag>机器学习</tag>
       </tags>
@@ -406,8 +406,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>数据预处理</tag>
         <tag>自然语言处理</tag>
+        <tag>数据预处理</tag>
         <tag>NLP</tag>
         <tag>数据准备</tag>
         <tag>pdf2txt</tag>
@@ -423,10 +423,10 @@
         <category>决策树</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
         <tag>Python</tag>
-        <tag>sklean</tag>
+        <tag>机器学习算法</tag>
         <tag>文本聚类</tag>
+        <tag>sklean</tag>
         <tag>决策树</tag>
       </tags>
   </entry>
@@ -439,12 +439,12 @@
         <category>KNN</category>
       </categories>
       <tags>
-        <tag>机器学习算法</tag>
         <tag>Python</tag>
-        <tag>sklean</tag>
         <tag>K近邻算法</tag>
         <tag>kNN</tag>
+        <tag>机器学习算法</tag>
         <tag>文本聚类</tag>
+        <tag>sklean</tag>
       </tags>
   </entry>
   <entry>
@@ -456,12 +456,12 @@
         <category>K-Means</category>
       </categories>
       <tags>
+        <tag>Python</tag>
+        <tag>机器学习算法</tag>
+        <tag>sklean</tag>
+        <tag>文本分类</tag>
         <tag>K-均值算法</tag>
         <tag>k-means</tag>
-        <tag>机器学习算法</tag>
-        <tag>文本分类</tag>
-        <tag>Python</tag>
-        <tag>sklean</tag>
       </tags>
   </entry>
   <entry>
@@ -473,10 +473,10 @@
         <category>逻辑回归</category>
       </categories>
       <tags>
+        <tag>Logistic regression</tag>
+        <tag>Python</tag>
         <tag>机器学习算法</tag>
         <tag>文本分类</tag>
-        <tag>Python</tag>
-        <tag>Logistic regression</tag>
         <tag>逻辑回归</tag>
       </tags>
   </entry>
@@ -489,8 +489,8 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>sklearn</tag>
@@ -505,8 +505,8 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>文本分类</tag>
         <tag>Python</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>实战案例</tag>
@@ -521,9 +521,9 @@
         <category>朴素贝叶斯</category>
       </categories>
       <tags>
-        <tag>文本分类</tag>
         <tag>Python</tag>
         <tag>自然语言处理</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
         <tag>理论学习</tag>

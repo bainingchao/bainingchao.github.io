@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-01-21T12:01:12.019Z</updated>
+  <updated>2019-01-21T12:05:06.651Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://bainingchao.github.io/2019/01/21/%E7%AE%80%E6%B4%81%E5%85%A8%E9%9D%A2%E7%9A%84Scrapy%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/"/>
     <id>https://bainingchao.github.io/2019/01/21/简洁全面的Scrapy爬虫技术入门/</id>
     <published>2019-01-21T11:38:26.000Z</published>
-    <updated>2019-01-21T12:01:12.019Z</updated>
+    <updated>2019-01-21T12:05:06.651Z</updated>
     
     <summary type="html">
     
@@ -130,17 +130,17 @@
       <category term="SVM" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/SVM/"/>
     
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
       <category term="支持向量机" scheme="https://bainingchao.github.io/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
     
       <category term="SVM" scheme="https://bainingchao.github.io/tags/SVM/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
   </entry>
   
@@ -164,17 +164,17 @@
       <category term="SVM" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/SVM/"/>
     
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
-    
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
       <category term="支持向量机" scheme="https://bainingchao.github.io/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
     
       <category term="SVM" scheme="https://bainingchao.github.io/tags/SVM/"/>
+    
+      <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
     
   </entry>
   
