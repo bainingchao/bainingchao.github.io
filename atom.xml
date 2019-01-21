@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2018-12-24T09:15:50.364Z</updated>
+  <updated>2019-01-21T12:01:12.019Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简洁全面的Scrapy爬虫技术入门</title>
+    <link href="https://bainingchao.github.io/2019/01/21/%E7%AE%80%E6%B4%81%E5%85%A8%E9%9D%A2%E7%9A%84Scrapy%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF%E5%85%A5%E9%97%A8/"/>
+    <id>https://bainingchao.github.io/2019/01/21/简洁全面的Scrapy爬虫技术入门/</id>
+    <published>2019-01-21T11:38:26.000Z</published>
+    <updated>2019-01-21T12:01:12.019Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="网络爬虫" scheme="https://bainingchao.github.io/categories/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="scrapy" scheme="https://bainingchao.github.io/tags/scrapy/"/>
+    
+  </entry>
   
   <entry>
     <title>Python数据预处理：机器学习、人工智能通用技术（1）</title>
@@ -108,11 +130,11 @@
       <category term="SVM" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/SVM/"/>
     
     
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
       <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
@@ -142,11 +164,11 @@
       <category term="SVM" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/SVM/"/>
     
     
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
       <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
     
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
       <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
@@ -559,30 +581,6 @@
     
       &lt;blockquote&gt;
 &lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在阅读python相关书籍中，对其进行简单的笔记记录。旨在注意一些细节问题，在今后项目中灵活运用，并对部分小知识点进行代码标注。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明的Python教程之网站篇</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8B%E7%BD%91%E7%AB%99%E7%AF%87/"/>
-    <id>https://bainingchao.github.io/2018/10/10/简明的Python教程之网站篇/</id>
-    <published>2018-10-10T02:00:22.000Z</published>
-    <updated>2018-10-19T07:43:56.370Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库，使读者对python有个全面的理解和认识。最后一节，采用实际案例帮助读者综合运用python知识。 （本文原创，转载必须注明出处.）&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>

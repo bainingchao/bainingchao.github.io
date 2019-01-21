@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="scrapy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简洁全面的Scrapy爬虫技术入门">
+<meta property="og:url" content="https://bainingchao.github.io/2019/01/21/简洁全面的Scrapy爬虫技术入门/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/V0vBdtm.png">
+<meta property="og:image" content="https://i.imgur.com/iYlbzmx.png">
+<meta property="og:image" content="https://i.imgur.com/a4cYjJK.png">
+<meta property="og:image" content="https://i.imgur.com/SoOQfdN.png">
+<meta property="og:image" content="https://i.imgur.com/q9exv7m.png">
+<meta property="og:image" content="https://i.imgur.com/ZQdW9t4.png">
+<meta property="og:image" content="https://i.imgur.com/HnLm569.png">
+<meta property="og:image" content="https://i.imgur.com/ONdv5PW.png">
+<meta property="og:image" content="https://i.imgur.com/uuoJN01.png">
+<meta property="og:image" content="https://i.imgur.com/UYv1DBd.png">
+<meta property="og:image" content="https://i.imgur.com/OiSTFDk.png">
+<meta property="og:image" content="https://i.imgur.com/lRluBiU.png">
+<meta property="og:image" content="https://i.imgur.com/BnoB97Y.png">
+<meta property="og:image" content="https://i.imgur.com/JGLwkJ8.png">
+<meta property="og:image" content="https://i.imgur.com/NCn5wkp.png">
+<meta property="og:image" content="https://i.imgur.com/NCn5wkp.png">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/kgyHXwx.png">
+<meta property="og:updated_time" content="2019-01-21T12:01:12.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简洁全面的Scrapy爬虫技术入门">
+<meta name="twitter:description" content="摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://i.imgur.com/V0vBdtm.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/01/21/简洁全面的Scrapy爬虫技术入门/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>简洁全面的Scrapy爬虫技术入门 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/01/21/简洁全面的Scrapy爬虫技术入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">简洁全面的Scrapy爬虫技术入门
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-21 19:38:26 / 修改时间：20:01:12" itemprop="dateCreated datePublished" datetime="2019-01-21T19:38:26+08:00">2019-01-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/网络爬虫/" itemprop="url" rel="index"><span itemprop="name">网络爬虫</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h2><p>IDE：sublime<br>开发环境：win10+mysql5.0+navicat10.0.11<br>编程语言：python3.7+Anaconda4.4<br>技术选型：scrapy+requests<br>爬取目标：<a href="http://blog.jobbole.com/all-posts/" target="_blank" rel="noopener">http://blog.jobbole.com/all-posts/</a><br>相关插件：python最近插件均可</p>
+<p>建议豆瓣源镜像下载，可以提升下载速度。如：django<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -<span class="selector-tag">i</span> https:<span class="comment">//pypi.doubanio.com/simple/ Django</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="scrapy-与-requests-beautifulsoup-区别"><a href="#scrapy-与-requests-beautifulsoup-区别" class="headerlink" title="scrapy 与 requests+beautifulsoup 区别"></a>scrapy 与 requests+beautifulsoup 区别</h3><ul>
+<li>requests和beautifulsoup都是库，scrapy是框架</li>
+<li>scrapy框架可以加入requests和beautifulsoup</li>
+<li>scrapy基于twisted，性能的最大的优势</li>
+<li>scrapy方便扩展，提供丰富功能</li>
+<li>scrapy内置css和xpath selector非常方便，beautifulsoup速度慢</li>
+</ul>
+<h3 id="爬虫的作用"><a href="#爬虫的作用" class="headerlink" title="爬虫的作用"></a>爬虫的作用</h3><ul>
+<li>搜索引擎  百度。google、垂直领域搜索引擎（有目的性的）</li>
+<li>推荐引擎  今日头条（用户习惯）</li>
+<li>机器学习的数据样本</li>
+<li>数据分析、舆情分析等</li>
+</ul>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><ul>
+<li>特殊字符的提取 ^ $ . * ? + {2} {2,} {2,5}</li>
+<li>^ 表示开头</li>
+<li>. 任意字符</li>
+<li>* 任意次数</li>
+<li>$ 结尾</li>
+<li>? 非贪婪模式，提取第一个字符</li>
+<li>+ 至少出现一次</li>
+<li>{1} 出现一次</li>
+<li>{3,} 出现3次以上</li>
+<li>{2,5} 最少2次最多5次</li>
+<li>| 或的关系</li>
+<li>[] 满足任意一个都可以,[2435]任意 [0-9]区间  <sup><a href="#fn_1" id="reffn_1">1</a></sup>非1</li>
+<li>\s 为空格 \S非空格</li>
+<li>\w 匹配[A-Za-z0-9_] </li>
+<li>\W 反匹配[A-Za-z0-9_]</li>
+<li>[\u4E00-\u9FA5] 汉字的匹配</li>
+<li>\d 匹配数字</li>
+</ul>
+<h3 id="爬虫去重策略"><a href="#爬虫去重策略" class="headerlink" title="爬虫去重策略"></a>爬虫去重策略</h3><ul>
+<li>将访问的url保存到数据库中，效率比较低</li>
+<li>将访问过的url保存到set中，只需要o(1)的代价可以查询url1亿<em>2byte</em>50字符/1024/1024/1024=9G。一亿url就有9G内容，占用内存大</li>
+<li>url经过md5等方式哈希编码后保存到set中，此时一亿url大约3G左右内容</li>
+<li>用bitmap方法，将访问过的url通过hash函数映射到某一位，存在冲突问题</li>
+<li>bloomfilter方法对bitmap进行改进，多重hash函数降低冲突</li>
+</ul>
+<h2 id="scrapy爬取技术网站"><a href="#scrapy爬取技术网站" class="headerlink" title="scrapy爬取技术网站"></a>scrapy爬取技术网站</h2><h3 id="Scrapy技术原理-绿线是数据流向"><a href="#Scrapy技术原理-绿线是数据流向" class="headerlink" title="Scrapy技术原理(绿线是数据流向)"></a>Scrapy技术原理(绿线是数据流向)</h3><blockquote>
+<p>架构图</p>
+</blockquote>
+<p><img src="https://i.imgur.com/V0vBdtm.png" alt=""></p>
+<ul>
+<li>Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。</li>
+<li>Scheduler(调度器): 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。</li>
+<li>Downloader（下载器）：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，</li>
+<li>Spider（爬虫）：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器).</li>
+<li>Item Pipeline(管道)：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方。</li>
+<li>Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。</li>
+<li>Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）</li>
+</ul>
+<h3 id="制作-Scrapy-爬虫步骤："><a href="#制作-Scrapy-爬虫步骤：" class="headerlink" title="制作 Scrapy 爬虫步骤："></a>制作 Scrapy 爬虫步骤：</h3><p>1 新建项目 (scrapy startproject xxx)：新建一个新的爬虫项目<br>2 明确目标 （编写items.py）：明确你想要抓取的目标<br>3 制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页<br>4 存储内容 （pipelines.py）：设计管道存储爬取内容</p>
+<h3 id="scrapy安装和项目创建"><a href="#scrapy安装和项目创建" class="headerlink" title="scrapy安装和项目创建"></a>scrapy安装和项目创建</h3><p>1 安装scrapy，pip install scrapy<br>2 进入一个根目录文件夹下，创建Scrapy项目：scrapy startproject mySpider<br>3 其中， mySpider 为项目名称，可以看到将会创建一个 mySpider 文件夹，目录结构大致如下：下面来简单介绍一下各个主要文件的作用：</p>
+<pre><code>mySpider/
+    scrapy.cfg
+    mySpider/
+        __init__.py
+        items.py
+        pipelines.py
+        settings.py
+        spiders/
+            __init__.py
+            ...
+</code></pre><p>这些文件分别是:</p>
+<ul>
+<li>scrapy.cfg: 项目的配置文件。</li>
+<li>mySpider/: 项目的Python模块，将会从这里引用代码。</li>
+<li>mySpider/items.py: 项目的目标文件。</li>
+<li>mySpider/pipelines.py: 项目的管道文件。</li>
+<li>mySpider/settings.py: 项目的设置文件。</li>
+<li>mySpider/spiders/: 存储爬虫代码目录。</li>
+</ul>
+<h2 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h2><h3 id="WIN-R调出cmd，并新建项目名为【BoLeSpider】如下："><a href="#WIN-R调出cmd，并新建项目名为【BoLeSpider】如下：" class="headerlink" title="WIN+R调出cmd，并新建项目名为【BoLeSpider】如下："></a>WIN+R调出cmd，并新建项目名为【BoLeSpider】如下：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span> scrapy startproject BoLeSpider</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/iYlbzmx.png" alt=""></p>
+<h3 id="在-BoLeSpider-项目下创建爬虫目录"><a href="#在-BoLeSpider-项目下创建爬虫目录" class="headerlink" title="在 BoLeSpider 项目下创建爬虫目录"></a>在 BoLeSpider 项目下创建爬虫目录</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span> cd BoLeSpider</span><br><span class="line"><span class="meta">&gt;&gt;</span> Scrapy genspider jobbole <span class="symbol">http:</span>/<span class="regexp">/www.jobbole.com/</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/a4cYjJK.png" alt=""></p>
+<h3 id="在-BoLeSpider-目录下创建main-py"><a href="#在-BoLeSpider-目录下创建main-py" class="headerlink" title="在 BoLeSpider 目录下创建main.py"></a>在 BoLeSpider 目录下创建main.py</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf<span class="number">-8</span> -*-</span><br><span class="line">__author__ = <span class="string">'BaiNingchao'</span></span><br><span class="line"></span><br><span class="line">import sys,<span class="built_in">os</span></span><br><span class="line">from scrapy.cmdline import <span class="built_in">execute</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sys.<span class="built_in">path</span>.append(<span class="built_in">os</span>.<span class="built_in">path</span>.dirname(<span class="built_in">os</span>.<span class="built_in">path</span>.abspath(__file__)))</span><br><span class="line"><span class="built_in">execute</span>([<span class="string">"scrapy"</span>, <span class="string">"crawl"</span>, <span class="string">"jobbole"</span>])  # scrapy crawl jobbole</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/SoOQfdN.png" alt=""></p>
+<p>main.py中的方法与cmd下执行效果是一致的，这个遍历执行程序创建该主函数。</p>
+<h2 id="爬取技术网站内容"><a href="#爬取技术网站内容" class="headerlink" title="爬取技术网站内容"></a>爬取技术网站内容</h2><h3 id="打开setting-py修改："><a href="#打开setting-py修改：" class="headerlink" title="打开setting.py修改："></a>打开setting.py修改：</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROBOTSTXT_OBEY = False。意思为不符合协议的也继续爬取，如果True很快就会停止爬虫</span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   'BoLeSpider.pipelines.BolespiderPipeline': 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分析目标网站设置提取特征"><a href="#分析目标网站设置提取特征" class="headerlink" title="分析目标网站设置提取特征"></a>分析目标网站设置提取特征</h3><p><img src="https://i.imgur.com/q9exv7m.png" alt=""><br><img src="https://i.imgur.com/ZQdW9t4.png" alt=""></p>
+<p>对以上文章内容，我们试图提取【新闻题目、创建时间、URL、点赞数、收藏数、评论数】这些内容</p>
+<h3 id="cmd下shell对各个字段调试（xpath或者css方法）："><a href="#cmd下shell对各个字段调试（xpath或者css方法）：" class="headerlink" title="cmd下shell对各个字段调试（xpath或者css方法）："></a>cmd下shell对各个字段调试（xpath或者css方法）：</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell http:<span class="regexp">//</span>blog.jobbole.com<span class="regexp">/114638/</span></span><br></pre></td></tr></table></figure>
+<p>打开页面F12,复制对应的xpath路径</p>
+<p><img src="https://i.imgur.com/HnLm569.png" alt=""></p>
+<p>对网页特征提取我们一般是shell里面调试（如上图所示），特征抽取有两种方式，一种的基于xpath方法，一种基于css方法，根据大家喜好去使用。</p>
+<blockquote>
+<p>基于xpath方法</p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">title = response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[1]/h1/text()').extract()   <span class="comment"># 新闻题目</span></span><br><span class="line">crate_date = response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[2]/p/text()').extract()[0].strip().replace('·','')  <span class="comment"># 创建时间</span></span><br><span class="line">url = response.url     <span class="comment"># url</span></span><br><span class="line">dianzan = self.re_match(response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[3]/div[5]/span[1]/text()').extract()[1]) <span class="comment"># 点赞数</span></span><br><span class="line">soucang = self.re_match(response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[3]/div[5]/span[2]/text()').extract()[0]) <span class="comment"># 收藏数</span></span><br><span class="line">comment = self.re_match(response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[3]/div[5]/a/span/text()').extract()[0]) <span class="comment"># 评论数</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>基于css方法</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># css获取内容</span></span><br><span class="line">title = response.css(<span class="string">'.entry-header h1::text'</span>).extract()   <span class="comment"># 新闻题目</span></span><br><span class="line">crate_date = response.css(<span class="string">'p.entry-meta-hide-on-mobile::text'</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">'·'</span>,<span class="string">''</span>)  <span class="comment"># 创建时间</span></span><br><span class="line">url = response.url     <span class="comment"># url</span></span><br><span class="line">dianzan = <span class="keyword">self</span>.re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 点赞数</span></span><br><span class="line">soucang = <span class="keyword">self</span>.re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 收藏数</span></span><br><span class="line">comment = <span class="keyword">self</span>.re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 评论数</span></span><br><span class="line"><span class="keyword">print</span>(title,<span class="string">'\n'</span>,crate_date,<span class="string">'\n'</span>,url,<span class="string">'\n'</span>,dianzan,<span class="string">'\n'</span>,soucang,<span class="string">'\n'</span>,comment)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>编写jobbole.py完整代码：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy,re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobboleSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'jobbole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'http://www.jobbole.com/'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://blog.jobbole.com/114638'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="string">'''获得单页的信息'''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="comment"># css获取内容</span></span><br><span class="line">        title = response.css(<span class="string">'.entry-header h1::text'</span>).extract()   <span class="comment"># 新闻题目</span></span><br><span class="line">        crate_date = response.css(<span class="string">'p.entry-meta-hide-on-mobile::text'</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">'·'</span>,<span class="string">''</span>)  <span class="comment"># 创建时间</span></span><br><span class="line">        url = response.url     <span class="comment"># url</span></span><br><span class="line">        dianzan = self.re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 点赞数</span></span><br><span class="line">        soucang = self.re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 收藏数</span></span><br><span class="line">        comment = self.re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 评论数</span></span><br><span class="line"></span><br><span class="line">        print(<span class="string">'标题:'</span>,title,<span class="string">'\n'</span>,<span class="string">'发布时间:'</span>,crate_date,<span class="string">'\n'</span>,<span class="string">'文章地址:'</span>,url,<span class="string">'\n'</span>,<span class="string">'点赞数：'</span>,dianzan,<span class="string">'\n'</span>,<span class="string">'收藏数'</span>,soucang,<span class="string">'\n'</span>,<span class="string">'评论数'</span>,comment)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对点赞数、收藏数、评论数等进行正则数字提取</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">re_match</span><span class="params">(self,value)</span>:</span></span><br><span class="line">        match_value = re.match(<span class="string">'.*?(\d+).*'</span>,value)</span><br><span class="line">        <span class="keyword">if</span> match_value:</span><br><span class="line">            value = int(match_value.group(<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            value = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
+<h3 id="运行main-py函数，便提前到所有信息："><a href="#运行main-py函数，便提前到所有信息：" class="headerlink" title="运行main.py函数，便提前到所有信息："></a>运行main.py函数，便提前到所有信息：</h3><p><img src="https://i.imgur.com/ONdv5PW.png" alt=""></p>
+<h3 id="获取列表页所有文章"><a href="#获取列表页所有文章" class="headerlink" title="获取列表页所有文章"></a>获取列表页所有文章</h3><blockquote>
+<p>获取列表下所有页的信息，找到列表页F12分析，使其下一页自动爬取.在cmd的项目根目录下</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy <span class="keyword">shell</span><span class="bash"> http://blog.jobbole.com/all-posts/</span></span><br><span class="line"><span class="bash">response.css(<span class="string">"#archive .floated-thumb .post-thumb a::attr(href)"</span>).extract()</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/uuoJN01.png" alt=""></p>
+<blockquote>
+<p>设置items.py</p>
+</blockquote>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define here the models for your scraped items</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See documentation in:</span></span><br><span class="line"><span class="comment"># https://doc.scrapy.org/en/latest/topics/items.html</span></span><br><span class="line"></span><br><span class="line">import <span class="keyword">scrapy</span></span><br><span class="line"><span class="keyword">from </span><span class="keyword">scrapy.loader.processors </span>import MapCompose</span><br><span class="line"></span><br><span class="line">class <span class="keyword">BolespiderItem(scrapy.Item):</span></span><br><span class="line"><span class="keyword"> </span>   <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置提取字段的实体类</span></span><br><span class="line">class <span class="keyword">JobBoleItem(scrapy.Item):</span></span><br><span class="line"><span class="keyword"> </span>   title = <span class="keyword">scrapy.Field() </span><span class="comment"># 文章题目</span></span><br><span class="line">    create_date = <span class="keyword">scrapy.Field() </span><span class="comment">#发布时间</span></span><br><span class="line">    url =  <span class="keyword">scrapy.Field() </span><span class="comment">#当前文章url路径</span></span><br><span class="line">    <span class="keyword">dianzan </span>= <span class="keyword">scrapy.Field() </span><span class="comment">#点赞数</span></span><br><span class="line">    soucang = <span class="keyword">scrapy.Field() </span><span class="comment"># 收藏数</span></span><br><span class="line">    comment = <span class="keyword">scrapy.Field() </span><span class="comment"># 评论数</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>jobbole.py 的代码改为：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy,re,datetime</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line"><span class="keyword">from</span> BoLeSpider.items <span class="keyword">import</span> JobBoleItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobboleSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'jobbole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'http://www.jobbole.com/'</span>]</span><br><span class="line">    <span class="comment"># start_urls = ['http://blog.jobbole.com/114638']</span></span><br><span class="line">    start_urls = [<span class="string">'http://blog.jobbole.com/all-posts/'</span>] <span class="comment"># 所有页信息</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取列表下所有页信息</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="comment"># 1 获取文章列表中的具体文章url并交给解析函数具体字段解析</span></span><br><span class="line">        post_urls = response.css(<span class="string">"#archive .floated-thumb .post-thumb a::attr(href)"</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> post_url <span class="keyword">in</span> post_urls:</span><br><span class="line">            <span class="keyword">yield</span> Request(url=parse.urljoin(response.url,post_url),callback=self.parses_detail, dont_filter=<span class="keyword">True</span>) <span class="comment"># scrapy下载</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#  2 提取下一页并交给scrapy提供下载</span></span><br><span class="line">        next_url = response.css(<span class="string">".next.page-numbers::attr(href)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">if</span> next_url:</span><br><span class="line">            <span class="keyword">yield</span> Request(url=parse.urljoin(response.url, post_url), callback=self.parse, dont_filter=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># scrapy shell http://blog.jobbole.com/114638/</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parses_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        article_item =JobBoleItem()</span><br><span class="line">        article_item[<span class="string">'title'</span>] = response.css(<span class="string">'.entry-header h1::text'</span>).extract()</span><br><span class="line">        article_item[<span class="string">'create_date'</span>] = date_convert(response.css(<span class="string">"p.entry-meta-hide-on-mobile::text"</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">"·"</span>,<span class="string">""</span>).strip())</span><br><span class="line">        article_item[<span class="string">'url'</span>] = response.url</span><br><span class="line">        article_item[<span class="string">'dianzan'</span>] = re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        article_item[<span class="string">'soucang'</span>] = re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        article_item[<span class="string">'comment'</span>] = re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">yield</span> article_item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># **************************正则对字段格式化处理******************************</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对点赞数、收藏数、评论数等进行正则数字提取</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">re_match</span><span class="params">(value)</span>:</span></span><br><span class="line">    match_value = re.match(<span class="string">'.*?(\d+).*'</span>,value)</span><br><span class="line">    <span class="keyword">if</span> match_value:</span><br><span class="line">        nums = int(match_value.group(<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        nums = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对时间格式化处理</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_convert</span><span class="params">(value)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        create_date = datetime.datetime.strptime(value, <span class="string">"%Y/%m/%d"</span>).date()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        create_date = datetime.datetime.now().date()</span><br><span class="line">    <span class="keyword">return</span> create_date</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>网页提取后的结果</p>
+</blockquote>
+<p><img src="https://i.imgur.com/UYv1DBd.png" alt=""></p>
+<h2 id="本地化存储爬取的网页内容"><a href="#本地化存储爬取的网页内容" class="headerlink" title="本地化存储爬取的网页内容"></a>本地化存储爬取的网页内容</h2><h3 id="将结果保存在json文件中"><a href="#将结果保存在json文件中" class="headerlink" title="将结果保存在json文件中"></a>将结果保存在json文件中</h3><blockquote>
+<p> 在pipline.py下修改代码如下</p>
+</blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define your item pipelines here</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Don't forget to add your pipeline to the ITEM_PIPELINES setting</span></span><br><span class="line"><span class="comment"># See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line"></span><br><span class="line">from scrapy.exporters import JsonItemExporter</span><br><span class="line">import codecs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BolespiderPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用scrapy提供的json export导出json文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonExporterPipleline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.file = open(<span class="string">'articleexport.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        <span class="keyword">self</span>.exporter = JsonItemExporter(<span class="keyword">self</span>.file, encoding=<span class="string">"utf-8"</span>, ensure_ascii=False)</span><br><span class="line">        <span class="keyword">self</span>.exporter.start_exporting()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.finish_exporting()</span><br><span class="line">        <span class="keyword">self</span>.file.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在setting.py 中修改代码如下：</p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   'BoLeSpider.pipelines.JsonExporterPipleline': 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在main.py运行程序，查看articleexport.json结果如下：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/OiSTFDk.png" alt=""></p>
+<h3 id="将结果保存在MySql数据库中"><a href="#将结果保存在MySql数据库中" class="headerlink" title="将结果保存在MySql数据库中"></a>将结果保存在MySql数据库中</h3><blockquote>
+<p>数据库中表的设计</p>
+</blockquote>
+<p>本地数据库，用户名：root，密码：admin，数据库：test<br><img src="https://i.imgur.com/lRluBiU.png" alt=""></p>
+<blockquote>
+<p>pipline.py修改如下：</p>
+</blockquote>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">from scrapy.exporters import JsonItemExporter</span><br><span class="line">import codecs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BolespiderPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用scrapy提供的json export导出json文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonExporterPipleline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.file = open(<span class="string">'articleexport.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        <span class="keyword">self</span>.exporter = JsonItemExporter(<span class="keyword">self</span>.file, encoding=<span class="string">"utf-8"</span>, ensure_ascii=False)</span><br><span class="line">        <span class="keyword">self</span>.exporter.start_exporting()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.finish_exporting()</span><br><span class="line">        <span class="keyword">self</span>.file.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将爬取的数据字段存储在mysql数据</span></span><br><span class="line"></span><br><span class="line">import MySQLdb</span><br><span class="line">import MySQLdb.cursors</span><br><span class="line"></span><br><span class="line"><span class="comment"># MYSQL数据库存储方法1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="comment">#采用同步的机制写入mysql</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.conn = MySQLdb.connect(<span class="string">'127.0.0.1'</span>, <span class="string">'root'</span>, <span class="string">'admin'</span>, <span class="string">'test'</span>, charset=<span class="string">"utf8"</span>, use_unicode=True)</span><br><span class="line">        <span class="keyword">self</span>.cursor = <span class="keyword">self</span>.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        insert_sql = <span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">            insert into myarticles(title, createdate,url,dianzan,soucang,comment) VALUES(%s,%s,%s,%s,%s,%s)</span></span><br><span class="line"><span class="string">        "</span><span class="string">""</span></span><br><span class="line">        <span class="keyword">self</span>.cursor.execute(insert_sql, (item[<span class="string">"title"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"url"</span>], item[<span class="string">"dianzan"</span>],item[<span class="string">"soucang"</span>],item[<span class="string">"comment"</span>]))</span><br><span class="line">        <span class="keyword">self</span>.conn.commit()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在setting.py 中修改代码如下：</p>
+</blockquote>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   'BoLeSpider.pipelines.MysqlPipeline': 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在main.py运行程序，查看数据库表结果如下：</p>
+</blockquote>
+<p><img src="https://i.imgur.com/BnoB97Y.png" alt=""></p>
+<h2 id="对网站图片爬取并本地化存储"><a href="#对网站图片爬取并本地化存储" class="headerlink" title="对网站图片爬取并本地化存储"></a>对网站图片爬取并本地化存储</h2><h3 id="本地化存储爬取的网页内容-重新进行数据库表的设计"><a href="#本地化存储爬取的网页内容-重新进行数据库表的设计" class="headerlink" title="本地化存储爬取的网页内容 重新进行数据库表的设计"></a>本地化存储爬取的网页内容 重新进行数据库表的设计</h3><p><img src="https://i.imgur.com/JGLwkJ8.png" alt=""></p>
+<h3 id="jobbole-py-修改如下："><a href="#jobbole-py-修改如下：" class="headerlink" title="jobbole.py 修改如下："></a>jobbole.py 修改如下：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取列表下所有页信息</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(<span class="keyword">self</span>, response)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="comment"># 1 获取文章列表中的具体文章url并交给解析函数具体字段解析</span></span><br><span class="line">    post_nodes = response.css(<span class="string">"#archive .floated-thumb .post-thumb a"</span>)</span><br><span class="line">    <span class="keyword">for</span> post_node <span class="keyword">in</span> <span class="symbol">post_nodes:</span></span><br><span class="line">        image_url = post_node.css(<span class="string">"img::attr(src)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        post_url = post_node.css(<span class="string">"::attr(href)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">yield</span> Request(url=parse.urljoin(response.url,post_url), meta=&#123;<span class="string">"front_image_url"</span><span class="symbol">:image_url</span>&#125;,callback=<span class="keyword">self</span>.parses_detail, dont_filter=True) <span class="comment"># scrapy下载</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#  2 提取下一页并交给scrapy提供下载</span></span><br><span class="line">    next_url = response.css(<span class="string">".next.page-numbers::attr(href)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="symbol">next_url:</span></span><br><span class="line">        <span class="keyword">yield</span> Request(url=parse.urljoin(response.url, post_url), callback=<span class="keyword">self</span>.parse, dont_filter=True)</span><br><span class="line"></span><br><span class="line"><span class="comment"># scrapy shell http://blog.jobbole.com/114638/</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parses_detail</span><span class="params">(<span class="keyword">self</span>, response)</span></span><span class="symbol">:</span></span><br><span class="line">    article_item =JobBoleItem()</span><br><span class="line">    article_item[<span class="string">'front_image_url'</span>] = [response.meta.get(<span class="string">"front_image_url"</span>, <span class="string">""</span>)]  <span class="comment"># 文章封面图</span></span><br><span class="line">    article_item[<span class="string">'title'</span>] = response.css(<span class="string">'.entry-header h1::text'</span>).extract()</span><br><span class="line">    article_item[<span class="string">'create_date'</span>] = date_convert(response.css(<span class="string">"p.entry-meta-hide-on-mobile::text"</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">"·"</span>,<span class="string">""</span>).strip())</span><br><span class="line">    article_item[<span class="string">'url'</span>] = response.url</span><br><span class="line">    article_item[<span class="string">'dianzan'</span>] = re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">    article_item[<span class="string">'soucang'</span>] = re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">    article_item[<span class="string">'comment'</span>] = re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">yield</span> article_item</span><br></pre></td></tr></table></figure>
+<h3 id="items-py-修改如下"><a href="#items-py-修改如下" class="headerlink" title="items.py 修改如下"></a>items.py 修改如下</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">设置提取字段的实体类</span><br><span class="line">class <span class="keyword">JobBoleItem(scrapy.Item):</span></span><br><span class="line"><span class="keyword"> </span>   title = <span class="keyword">scrapy.Field() </span><span class="comment"># 文章题目</span></span><br><span class="line">    create_date = <span class="keyword">scrapy.Field() </span><span class="comment">#发布时间</span></span><br><span class="line">    url =  <span class="keyword">scrapy.Field() </span><span class="comment">#当前文章url路径</span></span><br><span class="line">    <span class="keyword">dianzan </span>= <span class="keyword">scrapy.Field() </span><span class="comment">#点赞数</span></span><br><span class="line">    soucang = <span class="keyword">scrapy.Field() </span><span class="comment"># 收藏数</span></span><br><span class="line">    comment = <span class="keyword">scrapy.Field() </span><span class="comment"># 评论数</span></span><br><span class="line">    front_image_url = <span class="keyword">scrapy.Field() </span><span class="comment"># 原图片文件路径</span></span><br><span class="line">    front_image_path = <span class="keyword">scrapy.Field() </span><span class="comment"># 下载到本地图片路径</span></span><br></pre></td></tr></table></figure>
+<h3 id="pipline-py设置如下："><a href="#pipline-py设置如下：" class="headerlink" title="pipline.py设置如下："></a>pipline.py设置如下：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.pipelines.images <span class="keyword">import</span> ImagesPipeline</span><br><span class="line">获取下载后图片文件的路径</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleImagePipeline</span><span class="params">(ImagesPipeline)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">item_completed</span><span class="params">(self, results, item, info)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">"front_image_url"</span> <span class="keyword">in</span> item:</span><br><span class="line">            <span class="keyword">for</span> ok, value <span class="keyword">in</span> results:</span><br><span class="line">                image_file_path = value[<span class="string">"path"</span>]</span><br><span class="line">            item[<span class="string">"front_image_path"</span>] = image_file_path</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">将爬取的数据字段存储在mysql数据</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line"><span class="keyword">import</span> MySQLdb.cursors</span><br><span class="line"></span><br><span class="line"><span class="string">'''MYSQL数据库存储方法1'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment">#采用同步的机制写入mysql</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.conn = MySQLdb.connect(<span class="string">'127.0.0.1'</span>, <span class="string">'root'</span>, <span class="string">'admin'</span>, <span class="string">'test'</span>, charset=<span class="string">"utf8"</span>, use_unicode=<span class="keyword">True</span>)</span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        insert_sql = <span class="string">"""</span></span><br><span class="line"><span class="string">            insert into myarticles(title, createdate,url,dianzan,soucang,comment,img_url,img_path) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.cursor.execute(insert_sql, (item[<span class="string">"title"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"url"</span>], item[<span class="string">"dianzan"</span>],item[<span class="string">"soucang"</span>],item[<span class="string">"comment"</span>],item[<span class="string">"front_image_url"</span>],item[<span class="string">"front_image_path"</span>]))</span><br><span class="line">        self.conn.commit()</span><br></pre></td></tr></table></figure>
+<h3 id="setting-py修改："><a href="#setting-py修改：" class="headerlink" title="setting.py修改："></a>setting.py修改：</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   \# <span class="string">'BoLeSpider.pipelines.BolespiderPipeline'</span>: <span class="number">1</span>,</span><br><span class="line">   \# <span class="string">'BoLeSpider.pipelines.JsonExporterPipleline'</span>: <span class="number">1</span>,</span><br><span class="line">   <span class="string">'BoLeSpider.pipelines.ArticleImagePipeline'</span>:<span class="number">1</span>,</span><br><span class="line">   <span class="string">'BoLeSpider.pipelines.MysqlPipeline'</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import <span class="built_in">os</span></span><br><span class="line">IMAGES_URLS_FIELD = <span class="string">"front_image_url"</span> # 原图片路径</span><br><span class="line">project_dir = <span class="built_in">os</span>.<span class="built_in">path</span>.abspath(<span class="built_in">os</span>.<span class="built_in">path</span>.dirname(__file__))</span><br><span class="line">IMAGES_STORE = <span class="built_in">os</span>.<span class="built_in">path</span>.join(project_dir, <span class="string">'images'</span>) # 下载后图片保存位置</span><br></pre></td></tr></table></figure>
+<h3 id="mian-py运行结果"><a href="#mian-py运行结果" class="headerlink" title="mian.py运行结果"></a>mian.py运行结果</h3><p><img src="https://i.imgur.com/NCn5wkp.png" alt=""></p>
+<h3 id="数据库异步存储"><a href="#数据库异步存储" class="headerlink" title="数据库异步存储"></a>数据库异步存储</h3><p>当我们爬虫海量网络数据的时候，爬取速度与存储速度便造成了冲突。采用前面交代的数据库存储技术可能会出现数据阻塞的情况。基于此，我们改进数据存储方式，使用异步存储。</p>
+<blockquote>
+<p>pipline.py添加如下</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twisted.enterprise <span class="keyword">import</span> adbapi</span><br><span class="line"><span class="string">'''MYSQL数据库存储方法2：异步操作处理,针对大数据量'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlTwistedPipline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dbpool)</span>:</span></span><br><span class="line">        self.dbpool = dbpool</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_settings</span><span class="params">(cls, settings)</span>:</span> <span class="comment"># cls即MysqlTwistedPipline</span></span><br><span class="line">        dbparms = dict(</span><br><span class="line">            host = settings[<span class="string">"MYSQL_HOST"</span>],</span><br><span class="line">            db = settings[<span class="string">"MYSQL_DBNAME"</span>],</span><br><span class="line">            user = settings[<span class="string">"MYSQL_USER"</span>],</span><br><span class="line">            passwd = settings[<span class="string">"MYSQL_PASSWORD"</span>],</span><br><span class="line">            charset=<span class="string">'utf8'</span>,</span><br><span class="line">            cursorclass=MySQLdb.cursors.DictCursor,</span><br><span class="line">            use_unicode=<span class="keyword">True</span></span><br><span class="line">        )</span><br><span class="line">        dbpool = adbapi.ConnectionPool(<span class="string">"MySQLdb"</span>, **dbparms)</span><br><span class="line">        <span class="keyword">return</span> cls(dbpool)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#使用twisted将mysql插入变成异步执行</span></span><br><span class="line">        query = self.dbpool.runInteraction(self.do_insert, item)</span><br><span class="line">        query.addErrback(self.handle_error, item, spider) <span class="comment">#处理异常</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_error</span><span class="params">(self, failure, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#处理异步插入的异常</span></span><br><span class="line">        <span class="keyword">print</span> (failure)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_insert</span><span class="params">(self, cursor,item)</span>:</span></span><br><span class="line">        insert_sql = <span class="string">"""</span></span><br><span class="line"><span class="string">            insert into myarticles(title, createdate,url,dianzan,soucang,comment,img_url,img_path) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cursor.execute(insert_sql, (item[<span class="string">"title"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"url"</span>], item[<span class="string">"dianzan"</span>],item[<span class="string">"soucang"</span>],item[<span class="string">"comment"</span>],item[<span class="string">"front_image_url"</span>],item[<span class="string">"front_image_path"</span>]))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>setting.py添加如下</p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据库设置</span></span><br><span class="line"><span class="attr">MYSQL_HOST</span> = <span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="attr">MYSQL_DBNAME</span> = <span class="string">"test"</span></span><br><span class="line"><span class="attr">MYSQL_USER</span> = <span class="string">"root"</span></span><br><span class="line"><span class="attr">MYSQL_PASSWORD</span> = <span class="string">"admin"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>mian.py运行结果</p>
+</blockquote>
+<p><img src="https://i.imgur.com/NCn5wkp.png" alt=""></p>
+<h2 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h2><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a><br><img src="https://i.imgur.com/kgyHXwx.png" alt=""></p>
+</blockquote>
+<h2 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h2><blockquote>
+<p>本文版权归作者所有，旨在技术交流使用。未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则相关责任自行承担。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/scrapy/" rel="tag"><i class="fa fa-tag"></i> scrapy</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/24/Python数据预处理：机器学习、人工智能通用技术（1）/" rel="next" title="Python数据预处理：机器学习、人工智能通用技术（1）">
+                <i class="fa fa-chevron-left"></i> Python数据预处理：机器学习、人工智能通用技术（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础准备"><span class="nav-number">1.</span> <span class="nav-text">基础准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy-与-requests-beautifulsoup-区别"><span class="nav-number">2.1.</span> <span class="nav-text">scrapy 与 requests+beautifulsoup 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫的作用"><span class="nav-number">2.2.</span> <span class="nav-text">爬虫的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.3.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫去重策略"><span class="nav-number">2.4.</span> <span class="nav-text">爬虫去重策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy爬取技术网站"><span class="nav-number">3.</span> <span class="nav-text">scrapy爬取技术网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy技术原理-绿线是数据流向"><span class="nav-number">3.1.</span> <span class="nav-text">Scrapy技术原理(绿线是数据流向)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作-Scrapy-爬虫步骤："><span class="nav-number">3.2.</span> <span class="nav-text">制作 Scrapy 爬虫步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy安装和项目创建"><span class="nav-number">3.3.</span> <span class="nav-text">scrapy安装和项目创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目准备"><span class="nav-number">4.</span> <span class="nav-text">项目准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WIN-R调出cmd，并新建项目名为【BoLeSpider】如下："><span class="nav-number">4.1.</span> <span class="nav-text">WIN+R调出cmd，并新建项目名为【BoLeSpider】如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-BoLeSpider-项目下创建爬虫目录"><span class="nav-number">4.2.</span> <span class="nav-text">在 BoLeSpider 项目下创建爬虫目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-BoLeSpider-目录下创建main-py"><span class="nav-number">4.3.</span> <span class="nav-text">在 BoLeSpider 目录下创建main.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取技术网站内容"><span class="nav-number">5.</span> <span class="nav-text">爬取技术网站内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开setting-py修改："><span class="nav-number">5.1.</span> <span class="nav-text">打开setting.py修改：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析目标网站设置提取特征"><span class="nav-number">5.2.</span> <span class="nav-text">分析目标网站设置提取特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmd下shell对各个字段调试（xpath或者css方法）："><span class="nav-number">5.3.</span> <span class="nav-text">cmd下shell对各个字段调试（xpath或者css方法）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行main-py函数，便提前到所有信息："><span class="nav-number">5.4.</span> <span class="nav-text">运行main.py函数，便提前到所有信息：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取列表页所有文章"><span class="nav-number">5.5.</span> <span class="nav-text">获取列表页所有文章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地化存储爬取的网页内容"><span class="nav-number">6.</span> <span class="nav-text">本地化存储爬取的网页内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将结果保存在json文件中"><span class="nav-number">6.1.</span> <span class="nav-text">将结果保存在json文件中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将结果保存在MySql数据库中"><span class="nav-number">6.2.</span> <span class="nav-text">将结果保存在MySql数据库中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对网站图片爬取并本地化存储"><span class="nav-number">7.</span> <span class="nav-text">对网站图片爬取并本地化存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地化存储爬取的网页内容-重新进行数据库表的设计"><span class="nav-number">7.1.</span> <span class="nav-text">本地化存储爬取的网页内容 重新进行数据库表的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jobbole-py-修改如下："><span class="nav-number">7.2.</span> <span class="nav-text">jobbole.py 修改如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#items-py-修改如下"><span class="nav-number">7.3.</span> <span class="nav-text">items.py 修改如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipline-py设置如下："><span class="nav-number">7.4.</span> <span class="nav-text">pipline.py设置如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setting-py修改："><span class="nav-number">7.5.</span> <span class="nav-text">setting.py修改：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mian-py运行结果"><span class="nav-number">7.6.</span> <span class="nav-text">mian.py运行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库异步存储"><span class="nav-number">7.7.</span> <span class="nav-text">数据库异步存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">8.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">9.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/01/21/简洁全面的Scrapy爬虫技术入门/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
