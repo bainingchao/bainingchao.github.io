@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-01-21T12:05:06.651Z</updated>
+  <updated>2019-02-13T09:41:05.322Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>机器学习之模型评估</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
+    <id>https://bainingchao.github.io/2019/02/13/机器学习之模型评估/</id>
+    <published>2019-02-13T09:31:53.945Z</published>
+    <updated>2019-02-13T09:41:05.322Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：本文写作的初衷源于基于HMM模型序列标注的一个实验，在实验完成之后，如果迫切想知道采用的序列标注模型好坏，有哪些指标可以度量。于是，就产生了对这一专题进度的学习总结，这样也便于其他人参考，节约大家的时间。本文依旧旨在简明扼要地梳理出模型评估核心指标，关键以期达到实用的目的。本章首先介绍基于统计角度的模型评估，然后介绍模型评估的方法，最后对模型选择进行介绍。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="模型评估" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
+    
+    
+      <category term="准确率" scheme="https://bainingchao.github.io/tags/%E5%87%86%E7%A1%AE%E7%8E%87/"/>
+    
+      <category term="召回率" scheme="https://bainingchao.github.io/tags/%E5%8F%AC%E5%9B%9E%E7%8E%87/"/>
+    
+      <category term="F度量值" scheme="https://bainingchao.github.io/tags/F%E5%BA%A6%E9%87%8F%E5%80%BC/"/>
+    
+      <category term="模型选择" scheme="https://bainingchao.github.io/tags/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9/"/>
+    
+      <category term="模型评估" scheme="https://bainingchao.github.io/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>命名实体识别技术</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF/"/>
+    <id>https://bainingchao.github.io/2019/02/13/命名实体识别技术/</id>
+    <published>2019-02-13T09:26:27.146Z</published>
+    <updated>2019-02-13T09:29:55.003Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：命名实体识别在自然语言处理占据着非常重要的地位，也是不可逾越的学术问题。关于命名实体识别的学术理论和研究方法众多，本章侧重整体介绍。首先阐述了命名实体识别的背景知识和研究概况；其次主要介绍中文命名实体识别的特点与难点，加以案例加深理解；然后对命名实体识别当前研究方法和核心技术进行详细介绍；最后，展望其在未来人工智能方面的发展前景。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="命名实体识别" scheme="https://bainingchao.github.io/tags/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>简洁全面的Scrapy爬虫技术入门</title>
@@ -132,15 +186,15 @@
     
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
-    
       <category term="支持向量机" scheme="https://bainingchao.github.io/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
     
       <category term="SVM" scheme="https://bainingchao.github.io/tags/SVM/"/>
     
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
   </entry>
   
@@ -166,15 +220,15 @@
     
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
-      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
-    
       <category term="支持向量机" scheme="https://bainingchao.github.io/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"/>
     
       <category term="SVM" scheme="https://bainingchao.github.io/tags/SVM/"/>
     
+      <category term="机器学习算法" scheme="https://bainingchao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+    
       <category term="文本分类" scheme="https://bainingchao.github.io/tags/%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="sklean" scheme="https://bainingchao.github.io/tags/sklean/"/>
     
   </entry>
   
@@ -330,9 +384,9 @@
     
       <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
-      <category term="可视化" scheme="https://bainingchao.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    
       <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    
+      <category term="可视化" scheme="https://bainingchao.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
     
       <category term="条形图" scheme="https://bainingchao.github.io/tags/%E6%9D%A1%E5%BD%A2%E5%9B%BE/"/>
     
@@ -541,56 +595,6 @@
       <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
       <category term="矩阵" scheme="https://bainingchao.github.io/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明的Python教程之matplotlib可视化</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8Bmatplotlib%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
-    <id>https://bainingchao.github.io/2018/10/10/简明的Python教程之matplotlib可视化/</id>
-    <published>2018-10-10T02:36:06.000Z</published>
-    <updated>2018-10-19T07:44:13.569Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在python处理数据中，需要数据分析，我们直面冷冰冰的数值或者信息很难得到直观的感受，如果借助图形化分析，常常可以一目了然，所谓一图胜千言就是这个意思。本文对可视化库matplotlib介绍，方便大家掌握。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
-    
-      <category term="matplotlib" scheme="https://bainingchao.github.io/categories/Python/matplotlib/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="matplotlib" scheme="https://bainingchao.github.io/tags/matplotlib/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明的Python教程之70个常备知识点</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8B70%E4%B8%AA%E5%B8%B8%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
-    <id>https://bainingchao.github.io/2018/10/10/简明的Python教程之70个常备知识点/</id>
-    <published>2018-10-10T02:28:09.000Z</published>
-    <updated>2018-10-19T07:44:06.435Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在阅读python相关书籍中，对其进行简单的笔记记录。旨在注意一些细节问题，在今后项目中灵活运用，并对部分小知识点进行代码标注。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
     
   </entry>
   
