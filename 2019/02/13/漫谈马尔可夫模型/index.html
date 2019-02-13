@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：最早接触马尔可夫模型的定义源于吴军先生《数学之美》一书，起初觉得深奥难懂且没什么用场。直到学习自然语言处理时，我才真正使用到隐马尔可夫模型，并体会到此模型的奇妙之处。马尔可夫模型在处理序列分类时具有强大的功能，诸如解决：词类标注、语音识别、句子切分、字素音位转换、局部句法剖析、语块分析、命名实体识别、信息抽取等。此外它还广泛应用于自然科学、工程技术、生物科技、公用事业、信道编码等多个领域。">
+<meta name="keywords" content="马尔可夫模型,隐马尔可夫模型,HMM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漫谈马尔可夫模型">
+<meta property="og:url" content="https://bainingchao.github.io/2019/02/13/漫谈马尔可夫模型/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：最早接触马尔可夫模型的定义源于吴军先生《数学之美》一书，起初觉得深奥难懂且没什么用场。直到学习自然语言处理时，我才真正使用到隐马尔可夫模型，并体会到此模型的奇妙之处。马尔可夫模型在处理序列分类时具有强大的功能，诸如解决：词类标注、语音识别、句子切分、字素音位转换、局部句法剖析、语块分析、命名实体识别、信息抽取等。此外它还广泛应用于自然科学、工程技术、生物科技、公用事业、信道编码等多个领域。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/d0ajzjX.png">
+<meta property="og:image" content="https://i.imgur.com/IxAsCvQ.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X=\left \{ x_{1},x_{2},x_{3},...,x_{n} \right \}  ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?Y=\left \{ y_{1},y_{2},y_{3},...,y_{n} \right \}  ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?P( Y|X )">
+<meta property="og:image" content="https://i.imgur.com/54Nti4s.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?x_{1} ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?x_{n} ">
+<meta property="og:image" content="https://i.imgur.com/ToCGrpl.png">
+<meta property="og:image" content="https://i.imgur.com/FU9DafR.png">
+<meta property="og:image" content="https://i.imgur.com/3zFkjvR.png">
+<meta property="og:image" content="https://i.imgur.com/sMluW7M.png">
+<meta property="og:image" content="https://i.imgur.com/DoZsvIc.png">
+<meta property="og:image" content="https://i.imgur.com/FIakoRr.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?Q_{i} ">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?q_{i} ">
+<meta property="og:image" content="https://i.imgur.com/uHN82pT.png">
+<meta property="og:image" content="https://i.imgur.com/jkaPwoS.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?p( x_t}|y_t )">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?p( y_t}|y_{t-1} )">
+<meta property="og:image" content="https://i.imgur.com/JBe4jTF.png">
+<meta property="og:image" content="https://i.imgur.com/6sDmLPD.png">
+<meta property="og:image" content="https://i.imgur.com/0JYkUVi.png">
+<meta property="og:image" content="https://i.imgur.com/gWqcAyg.png">
+<meta property="og:image" content="https://i.imgur.com/cPkc6bO.png">
+<meta property="og:image" content="https://i.imgur.com/PACmqH2.png">
+<meta property="og:image" content="https://i.imgur.com/ia0UHwK.png">
+<meta property="og:image" content="https://i.imgur.com/IPRKMuO.png">
+<meta property="og:image" content="https://i.imgur.com/ia0UHwK.png">
+<meta property="og:image" content="https://i.imgur.com/tRlBtC0.png">
+<meta property="og:image" content="https://i.imgur.com/y8dmOlA.png">
+<meta property="og:image" content="https://i.imgur.com/ce9gnp7.png">
+<meta property="og:image" content="https://i.imgur.com/yt9yRzL.png">
+<meta property="og:image" content="https://i.imgur.com/J2DXiUJ.png">
+<meta property="og:image" content="https://i.imgur.com/yZyLDG8.png">
+<meta property="og:image" content="https://i.imgur.com/sqnlCFJ.png">
+<meta property="og:image" content="https://i.imgur.com/wcecRxR.png">
+<meta property="og:image" content="https://i.imgur.com/82izYlQ.png">
+<meta property="og:image" content="https://i.imgur.com/Oi0AEdZ.png">
+<meta property="og:image" content="https://i.imgur.com/Oi0AEdZ.png">
+<meta property="og:image" content="https://i.imgur.com/0xabEi8.png">
+<meta property="og:image" content="https://i.imgur.com/Xcv2Kcx.png">
+<meta property="og:image" content="https://i.imgur.com/O8cTStd.png">
+<meta property="og:image" content="https://i.imgur.com/Fzt5rCW.png">
+<meta property="og:image" content="https://i.imgur.com/iIAGR4y.png">
+<meta property="og:image" content="https://i.imgur.com/itmxCdd.png">
+<meta property="og:image" content="https://i.imgur.com/KqlYoNM.png">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/XUFa4mY.png">
+<meta property="og:updated_time" content="2019-02-13T09:54:32.100Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="漫谈马尔可夫模型">
+<meta name="twitter:description" content="摘要：最早接触马尔可夫模型的定义源于吴军先生《数学之美》一书，起初觉得深奥难懂且没什么用场。直到学习自然语言处理时，我才真正使用到隐马尔可夫模型，并体会到此模型的奇妙之处。马尔可夫模型在处理序列分类时具有强大的功能，诸如解决：词类标注、语音识别、句子切分、字素音位转换、局部句法剖析、语块分析、命名实体识别、信息抽取等。此外它还广泛应用于自然科学、工程技术、生物科技、公用事业、信道编码等多个领域。">
+<meta name="twitter:image" content="https://i.imgur.com/d0ajzjX.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/02/13/漫谈马尔可夫模型/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>漫谈马尔可夫模型 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/02/13/漫谈马尔可夫模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">漫谈马尔可夫模型
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-13 17:51:59 / 修改时间：17:54:32" itemprop="dateCreated datePublished" datetime="2019-02-13T17:51:59+08:00">2019-02-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/自然语言处理/" itemprop="url" rel="index"><span itemprop="name">自然语言处理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：最早接触马尔可夫模型的定义源于吴军先生《数学之美》一书，起初觉得深奥难懂且没什么用场。直到学习自然语言处理时，我才真正使用到隐马尔可夫模型，并体会到此模型的奇妙之处。马尔可夫模型在处理序列分类时具有强大的功能，诸如解决：词类标注、语音识别、句子切分、字素音位转换、局部句法剖析、语块分析、命名实体识别、信息抽取等。此外它还广泛应用于自然科学、工程技术、生物科技、公用事业、信道编码等多个领域。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="马尔可夫链"><a href="#马尔可夫链" class="headerlink" title="马尔可夫链"></a>马尔可夫链</h1><h2 id="马尔可夫简介"><a href="#马尔可夫简介" class="headerlink" title="马尔可夫简介"></a>马尔可夫简介</h2><p>安德烈·马尔可夫，俄罗斯人，物理-数学博士、圣彼得堡科学院院士、彼得堡数学学派的代表人物，以数论和概率论方面的工作著称，他的主要著作有《概率演算》等。1878年荣获金质奖章，1905年被授予功勋教授称号。在数论方面，他研究了连分数和二次不定式理论 ，还解决了其他多难题 。在概率论中，他发展了矩阵法，扩大了大数律和中心极限定理的应用范围。马尔可夫最重要的工作是在1906到1912年间，提出并研究了一种能用数学分析方法研究自然过程的一般图式——马尔可夫链，同时开创了对一种无后效性的随机过程——马尔可夫过程的研究。马尔可夫经多次观察试验发现，一个系统的状态转换过程中第n次转换获得的状态常取决于前一次（第（n-1）次）试验的结果。马尔可夫进行深入研究后指出：对于一个系统，在由一个状态转至另一个状态的过程中存在着转移概率；并且这种转移概率可以依据其紧接的前一种状态推算出来，与该系统的原始状态和此次转移前的马尔可夫过程无关。马尔可夫链的理论与方法在现代已经被广泛应用于自然科学、工程技术和公用事业中。</p>
+<h2 id="马尔可夫链的基本概念"><a href="#马尔可夫链的基本概念" class="headerlink" title="马尔可夫链的基本概念"></a>马尔可夫链的基本概念</h2><blockquote>
+<p>序列分类器</p>
+</blockquote>
+<p>序列分类器或序列标号器是给序列中的某个单元指派类或者标号的模型。马尔可夫模型（又叫显马尔可夫模型VMM）和隐马尔可夫模型（HMM）都是序列分类器。诸如词类标注、语音识别、句子切分、字素音位转换、局部句法剖析、语块分析、命名实体识别、信息抽取等都属于序列分类。</p>
+<blockquote>
+<p>随机过程的两层含义</p>
+</blockquote>
+<ul>
+<li>随机过程是一个时间函数，其随着时间变化而变化；</li>
+<li>随机过程在每个时刻上的函数值是不确定的、随机的，即每个时刻上函数值按照一定的概率进行分布。</li>
+</ul>
+<blockquote>
+<p>独立链</p>
+</blockquote>
+<p>随机过程中各个语言符号或者词是独立的、不相互影响，则称这种链是独立链。反之，各语言词或者符号彼此有关则是非独立链。</p>
+<blockquote>
+<p>等概率独立链与非等概率独立链</p>
+</blockquote>
+<p>在独立链中，各个语言符号或者词是等概率出现的是等概率独立链，各个语言词或者语言符号是非等概率出现的则为非等概率链。</p>
+<blockquote>
+<p>马尔可夫链</p>
+</blockquote>
+<ul>
+<li><p>马尔可夫过程：在独立链中，前面语言符号对后面的语言符号无影响，是无记忆没有后效的随机过程。在已知当前状态下，过程的未来状态与它的过去状态无关，这种形式就是马尔可夫过程。</p>
+</li>
+<li><p>马尔可夫链：在随机过程中，每个语言符号的出现概率不相互独立，每个随机试验的当前状态依赖于此前状态，这种链就是马尔可夫链。</p>
+<p>  链的解析：链可以当做一种观察序列，诸如：“2016年是建党95周年”，就可以看成是一个字符串链。其中如果上述字符串中每个字符出现是随机、独立的就是独立链，如果每个字符出现与前面字符相关，即不独立并具有依赖性，我们称之为马尔可夫链。</p>
+</li>
+<li><p>N元马尔可夫链：</p>
+<p>  考虑前一个语言符号对后一个语言符号出现概率的影响，这样得出的语言成分的链叫做一重马尔可夫链，也是二元语法。</p>
+<p>  考虑前两个语言符号对后一个语言符号出现概率的影响，这样得出的语言成分的链叫做二重马尔可夫链，也是三元语法。</p>
+<p>  考虑前三个语言符号对后一个语言符号出现概率的影响，这样得出的语言成分的链叫做三重马尔可夫链，也是四元语法。</p>
+<p>  类似的，考虑前（4,5，….,N-1）个语言符号对后一个语言符号出现概率的影响，这样得出的语言成分的链叫做（4,5，….,N-1）重马尔可夫链，也是（5，6，….,N）元语法。</p>
+</li>
+</ul>
+<blockquote>
+<p>有限自动机</p>
+</blockquote>
+<p>马尔可夫链在数学上描述了自然语言句子的生成过程，是一个自然语言形式的早期模型。后来N元语法的研究，都是建立在马尔可夫模型的基础之上的。马尔可夫链和隐马尔可夫模型都是有限自动机（状态集合状态之间的转移集）的扩充。</p>
+<blockquote>
+<p>加权有限状态机</p>
+</blockquote>
+<p>加权有限状态机中每个弧与一个概率有关，这个概率说明通过这个弧的可能性，且某一个点出发的弧具有归一化的性质，即某点出发的弧概率之和为1。</p>
+<p>注意：马尔可夫链不能表示固有歧义的问题，当概率指派没有歧义时，马尔可夫链才有用。</p>
+<blockquote>
+<p>马尔可夫链描述</p>
+</blockquote>
+<p>(1) 具有初始状态和终结状态的马尔可夫链描述如下表11-1所示：</p>
+<center>
+
+表11-1 具有初始状态和终结状态的马尔可夫链
+
+![](https://i.imgur.com/tnWnZoZ.png)
+
+</center>
+
+
+<p>(2) 没有初始状态和终结状态的马尔可夫链描述如下表11-2所示：</p>
+<center>
+
+表11-2 没有初始状态和终结状态的马尔可夫链
+
+![](https://i.imgur.com/rR0H9sZ.png)
+
+</center>
+
+
+<p>在一个一阶马尔可夫链中，我们假设一个特定的概率只与它前面一个状态有关，马尔可夫假设可以表示如下：</p>
+<p><img src="https://i.imgur.com/d0ajzjX.png" alt=""></p>
+<p>从一个状态i出发的所有弧的概率之和为1，即：</p>
+<p><img src="https://i.imgur.com/IxAsCvQ.png" alt=""></p>
+<h1 id="隐马尔可夫模型"><a href="#隐马尔可夫模型" class="headerlink" title="隐马尔可夫模型"></a>隐马尔可夫模型</h1><h2 id="形式化描述"><a href="#形式化描述" class="headerlink" title="形式化描述"></a>形式化描述</h2><blockquote>
+<p>爱依斯讷（Jason Eisner）对隐马尔可夫模型的描述</p>
+</blockquote>
+<p>隐马尔可夫模型即一个隐藏马尔可夫链随机生成不可观察的随机序列，再由各个状态生成一个观测随机序列的过程。其中隐藏马尔可夫链随机生成的状态序列，称为状态序列；每个状态生成一个观测的随机序列，称为观测序列。序列的每个位置可以看成一个时刻，它可以被形式化的描述为一个五元组HMM=<q，a，o，b，π>。Jason Eisner对隐马尔可夫模型的描述如下表11-3所示：</q，a，o，b，π></p>
+<center>
+
+表11-3 HMM形式化描述
+
+![](https://i.imgur.com/UJ2RQbw.png)
+
+</center>
+
+
+<blockquote>
+<p>拉宾纳（Rabiner）关于隐马尔可夫模型思想的三个问题</p>
+</blockquote>
+<p>问题1（似然度问题）：给一个HMM λ=（A,B） 和一个观察序列O，确定观察序列的似然度问题 P(O|λ) 。</p>
+<p>问题2（解码问题）：给定一个观察序列O和一个HMM λ=（A,B），找出最好的隐藏状态序列Q。</p>
+<p>问题3（学习问题）：给定一个观察序列O和一个HMM中的状态集合，自动学习HMM的参数A和B。</p>
+<p>根据隐马尔可夫模型的描述，可以将一个长度为T的观测序列的生成过程描述为下表11-4所示的算法：</p>
+<center>
+
+表11-4 隐马尔可夫模型算法描述
+
+![](https://i.imgur.com/HIn78B2.png)
+
+</center>
+
+
+<p>综上所述，一个已知的HMM模型由参数(N，T)、观测序列和三个概率(A，B，π )构成，下文皆用  =(A，B， π )表示完整HMM模型参数。</p>
+<h2 id="数学形式描述"><a href="#数学形式描述" class="headerlink" title="数学形式描述"></a>数学形式描述</h2><p>在命名实体识别过程中，序列标注是一个重要的子任务。利用HMM模型去解决类似序列标注这样的问题，给定一个观测序列<img src="http://latex.codecogs.com/gif.latex?X=\left \{ x_{1},x_{2},x_{3},...,x_{n} \right \}  "> ，为求得最佳标记序列为<img src="http://latex.codecogs.com/gif.latex?Y=\left \{ y_{1},y_{2},y_{3},...,y_{n} \right \}  "> ，要求条件概率<img src="http://latex.codecogs.com/gif.latex?P( Y|X )"> 最大。由朴素贝叶斯公式可知：</p>
+<p><img src="https://i.imgur.com/54Nti4s.png" alt=""> </p>
+<p>在命名实体识别中， X 是给定的一个文本序列，文本粒度可以是一个句子或者一段话，待观测的值<img src="http://latex.codecogs.com/gif.latex?x_{1} "> 到<img src="http://latex.codecogs.com/gif.latex?x_{n} "> 为词，而P(X)对于所有类别都是一样的，可以看成是一个常量从而忽略不考虑。则上式可以简化为：</p>
+<p><img src="https://i.imgur.com/ToCGrpl.png" alt=""></p>
+<p>隐马尔可夫模型本质上就是求解联合概率。则由上式可得：</p>
+<p><img src="https://i.imgur.com/FU9DafR.png" alt=""></p>
+<p>其中 <img src="https://i.imgur.com/3zFkjvR.png" alt="">给出了非独立假设情况下的求解命名实体识别的概率模型。命名实体识别任务就转化为求解<img src="https://i.imgur.com/sMluW7M.png" alt=""> ，期望P(Y|X)值最大。</p>
+<p><img src="https://i.imgur.com/DoZsvIc.png" alt=""></p>
+<p>公式假设理想状态下的命名实体识别的概率模型，实际这种参数估计是不科学的。故而，我们给出上文提到两个独立假设：</p>
+<p>(1)    马尔可夫假设</p>
+<p>假设求解状态只是跟它前面的状态N-1有关即：</p>
+<p><img src="https://i.imgur.com/FIakoRr.png" alt=""></p>
+<p>(2)    输出独立假设</p>
+<p>一个输出观察<img src="http://latex.codecogs.com/gif.latex?Q_{i} "> 的概率只与产生该观察的状态 <img src="http://latex.codecogs.com/gif.latex?q_{i} ">有关，而与其他状态无关即：</p>
+<p><img src="https://i.imgur.com/uHN82pT.png" alt=""></p>
+<p>可知一阶HMM公式可以化简为：</p>
+<p><img src="https://i.imgur.com/jkaPwoS.png" alt=""></p>
+<p>其中，<img src="http://latex.codecogs.com/gif.latex?p( x_t}|y_t )"> 为发射概率，<img src="http://latex.codecogs.com/gif.latex?p( y_t}|y_{t-1} )">  为转移概率。</p>
+<h1 id="向前算法解决HMM似然度"><a href="#向前算法解决HMM似然度" class="headerlink" title="向前算法解决HMM似然度"></a>向前算法解决HMM似然度</h1><h2 id="向前算法定义"><a href="#向前算法定义" class="headerlink" title="向前算法定义"></a>向前算法定义</h2><p>向前算法的递归定义如表11-5所示：</p>
+<center>
+
+表11-5 向前算法形式化描述
+
+![](https://i.imgur.com/whHZoBx.png)
+
+</center>
+
+
+
+<h2 id="向前算法原理"><a href="#向前算法原理" class="headerlink" title="向前算法原理"></a>向前算法原理</h2><p>向前算法解决：问题1（似然度问题）：给一个HMM λ=（A,B） 和一个观察序列O，确定观察序列的似然度问题 P=(O|λ) 。对于马尔可夫链，表面观察和实际隐藏是相同的，只需要标记吃冰淇淋数目“3 1 3”的状态，并把加权（弧上）的对应概率相乘即可。而隐马尔可夫模型就不那么简单了，因为状态是隐藏的，所以我们并不知道隐藏的状态序列是什么。</p>
+<p>简化下问题：假如我们知道天气冷热状况，并且知道小明吃冰淇淋的数量，然后我们去观察序列似然度。如：对于给定的隐藏状态序列“hot hot cold”我们来计算观察序列“3 1 3”的输出似然度。</p>
+<p>如何进行计算？首先，隐马尔可夫模型中，每个隐藏状态只产生一个单独的观察即一一映射。隐藏状态序列与观察序列长度相同，即：给定这种一对一的映射以及马尔可夫假设，对于一个特定隐藏状态序列 <img src="https://i.imgur.com/JBe4jTF.png" alt=""> 以及一个观察序列 <img src="https://i.imgur.com/6sDmLPD.png" alt=""> 观察序列的似然度为：</p>
+<p><img src="https://i.imgur.com/0JYkUVi.png" alt=""></p>
+<p>故从隐藏状态“hot hot cold”到所吃冰淇淋观察序列“3 1 3”的向前概率为：</p>
+<p>P(3 1 3|hot hot cold)=P(3|hot)<em>P(1|hot)</em>P(3|cold)=0.4<em>0.2</em>0.1=0.008</p>
+<p>实际上，隐藏状态序列“hot hot cold”是我们的假设，因为我们并不知道隐藏状态序列，我们要考虑的是所有可能的天气序列。如此一来，我们将计算所有可能的联合概率，但这样的计算特别复杂。我们来计算天气序列Q生产一个特定的冰淇淋事件序列O的联合概率：</p>
+<p><img src="https://i.imgur.com/gWqcAyg.png" alt=""></p>
+<p>如果隐藏序列只有一个是“hot hot cold”，那么我们的冰淇淋观察“3 1 3”和一个可能的隐藏状态“hot hot cold”的联合概率为：</p>
+<p>P(313|hot hot cold)=P(hot|start)<em>P(hot|hot)</em>P(hot|cold)<em>P(3|hot)</em>P(1|hot)<em>P(3|cold)=0.8</em>0.7<em>0.30.4</em>0.2*0.1=0.001344</p>
+<p>P(3 1 3)= P(313| cold cold cold)+ P(313| cold cold hot) + P(313| hot hot cold ) + P(313| cold hot cold) + P(313|hot cold cold) + P(313| hot hot hot) + P(313| hot cold hot) + P(313| cold hot hot)</p>
+<p>如果我们有N个隐藏状态和T个观察序列，那么之后我们将得到 <img src="https://i.imgur.com/cPkc6bO.png" alt=""> 个可能隐藏序列。在实际中T往往很大，比如文本处理中可能有数万几十万个词汇，计算量将是指数上升的。在隐含马尔可夫模型中有种向前算法可以有效代替这种指数增长的复杂算法，大大降低复杂度。实验证明向前算法的复杂度是<img src="https://i.imgur.com/PACmqH2.png" alt="">  。</p>
+<h2 id="现实应用：预测成都天气冷热"><a href="#现实应用：预测成都天气冷热" class="headerlink" title="现实应用：预测成都天气冷热"></a>现实应用：预测成都天气冷热</h2><p>向前算法是一种动态规划算法，当得到观察序列的概率时，它使用的是一个表来存储中间值。向前算法也使用对于生成观察序列，所有可能的隐藏状态路径上的概率求和方法来计算观察概率。在向前算法中横向表示观察序列，纵向表示状态序列。对于给定的隐藏状态序列“hot hot cold”计算观察序列“3 13 ”的似然度的向前网格的例子。</p>
+<p>每个单元<img src="https://i.imgur.com/ia0UHwK.png" alt=""> 表示对于给定的自动机λ，在前面t个观察之后，在状态j的概率： <img src="https://i.imgur.com/IPRKMuO.png" alt=""> ，其中 <img src="https://i.imgur.com/ia0UHwK.png" alt="">表示第t个状态是状态j的概率。如：表示状态1即数3时，q1的概率。</p>
+<p><img src="https://i.imgur.com/tRlBtC0.png" alt=""></p>
+<p>上面公式的3个因素如表11-6所示：</p>
+<center>
+
+表11-6 公式参数解释
+
+![](https://i.imgur.com/fysvysp.png)
+
+</center>
+
+
+
+<p>向前网格如下图11-1 所示：</p>
+<center>
+
+![](https://i.imgur.com/rI3TSWn.png)
+
+图11-1 计算成都天气冷热事件“3 1 3”的向前网络
+
+</center>
+
+
+
+<p>(1) 在时间1和状态1的向前概率：</p>
+<p><img src="https://i.imgur.com/y8dmOlA.png" alt=""></p>
+<p>从状态cold开始吃3根冰淇淋的似然度0.02</p>
+<p>(2) 在时间1和状态2的向前概率：</p>
+<p><img src="https://i.imgur.com/ce9gnp7.png" alt=""></p>
+<p>从状态hot始吃3根冰淇淋的似然度0.32</p>
+<p>(3) 在时间2和状态1的向前概率：</p>
+<p><img src="https://i.imgur.com/yt9yRzL.png" alt=""></p>
+<p>从开始到cold再到cold以及从开始到hot再到cold的天气状态，吃冰淇淋3 1 的观察似然度0.54</p>
+<p>(4) 在时间2和状态2的向前概率：</p>
+<p><img src="https://i.imgur.com/J2DXiUJ.png" alt=""></p>
+<p>从开始到cold再到hot以及从开始到hot再到hot的天气状态，吃冰淇淋3 1 的观察似然度0.0464</p>
+<p>用同样方法，我们可以计算时间步3和状态步1的向前概率以及时间步3和状态步2的概率等等，以此类推，直到结束。显而易见，使用向前算法来计算观察似然度可以表示局部观察似然度。这种局部观察似然度比使用联合概率表示的全局观察似然度更有用。</p>
+<h1 id="文本序列标注案例：Viterbi算法"><a href="#文本序列标注案例：Viterbi算法" class="headerlink" title="文本序列标注案例：Viterbi算法"></a>文本序列标注案例：Viterbi算法</h1><h2 id="Viterbi算法"><a href="#Viterbi算法" class="headerlink" title="Viterbi算法"></a>Viterbi算法</h2><p>给定HMM <img src="https://i.imgur.com/yZyLDG8.png" alt="">  和观察序列<img src="https://i.imgur.com/sqnlCFJ.png" alt=""> ，求解最大概率的状态序列  <img src="https://i.imgur.com/wcecRxR.png" alt="">就是Viterbi算法解码问题。采用维特比算法求解隐藏序列后面的最大序列，针对可能的每一个隐藏状态序列，运用向前算法求解最大似然度的隐藏状态序列，从而完成解码工作，算法复杂度<img src="https://i.imgur.com/82izYlQ.png" alt=""> ，状态序列很大时呈现指数级别增长，造成过大的计算量，由此采用一种动态规划Viterbi算法降低算法复杂度。</p>
+<p>按照观察序列由左向右顺序，每个 <img src="https://i.imgur.com/Oi0AEdZ.png" alt="">表示自动机λ，HMM观察了前t个状态之后，每个 <img src="https://i.imgur.com/Oi0AEdZ.png" alt="">的值递归计算，并找出最大路径。Viterbi算法如表11-7所示：</p>
+<center>
+
+表11-7 Viterbi算法
+
+![](https://i.imgur.com/u48oIC0.png)
+
+</center>
+
+
+
+<h2 id="维特比算法实例解读"><a href="#维特比算法实例解读" class="headerlink" title="维特比算法实例解读"></a>维特比算法实例解读</h2><p>例子：通过吃冰淇淋的数量（观察序列状态）计算隐藏状态空间的最佳路径（维特比网格）如下图11-2所示:</p>
+<center>
+
+![](https://i.imgur.com/AF5oPAi.png)
+
+图11-2 计算隐藏状态空间的最佳路径网络图
+
+</center>
+
+
+<p>其中：</p>
+<ul>
+<li>圆圈：隐藏状态            </li>
+<li>方框：观察状态</li>
+<li>虚线圆圈：非法转移      </li>
+<li>虚线：计算路径 </li>
+<li>q：隐藏空间状态              </li>
+<li><p>o：观察时间序列状态</p>
+</li>
+<li><p><img src="https://i.imgur.com/0xabEi8.png" alt="">：在时间步t的观察状态下，隐藏状态j的概率。</p>
+</li>
+</ul>
+<p>给定一个HMMλ=（A,B），HMM把最大似然度指派给观察序列，算法返回状态路径，从而找到最优的隐藏状态序列。上图是小明夏天吃冰淇淋‘3 1 3’，据此使用Viterbi算法推断最可能出现的天气状态（天气的热|冷）。</p>
+<p>1）计算时间步1的维特比概率</p>
+<p>计算时间步t=1和状态1的概率：</p>
+<p> <img src="https://i.imgur.com/Xcv2Kcx.png" alt=""></p>
+<p>路径：start—C</p>
+<p>计算时间步t=1和状态2的概率：</p>
+<p><img src="https://i.imgur.com/O8cTStd.png" alt=""></p>
+<p>路径：start—H  较大</p>
+<p>2）计算时间步2的维特比概率，在（1） 基础计算</p>
+<p>计算时间步t=2和状态1的概率：</p>
+<p><img src="https://i.imgur.com/Fzt5rCW.png" alt=""></p>
+<p>路径:start—H—C   较大</p>
+<p>计算时间步t=2和状态2的概率：</p>
+<p><img src="https://i.imgur.com/iIAGR4y.png" alt=""></p>
+<p>路径：start—H—H</p>
+<p>3）计算时间步3的维特比概率，在（2） 基础计算</p>
+<p>计算时间步t=3和状态1的概率：</p>
+<p><img src="https://i.imgur.com/itmxCdd.png" alt=""> </p>
+<p>路径:start—H—C —C</p>
+<p>计算时间步t=3和状态2的概率：</p>
+<p><img src="https://i.imgur.com/KqlYoNM.png" alt=""> </p>
+<p>路径：start—H—C—H  较大</p>
+<p>4）维特比反向追踪路径</p>
+<p>路径为：start—H—C—-H</p>
+<center>
+
+![](https://i.imgur.com/6EvA8Dt.png)
+
+图11-3 维特比反向追踪路径图
+
+</center>
+
+<p>综上所述可知：利用Viterbi算法我们可以通过小明夏季某天吃冰淇淋的观察值（3 1 3）推断出天气为（热 冷 热）。其实这个结果是符合客观事实的，人们天热吃3根冰淇淋，天冷吃一根。</p>
+<hr>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>数据挖掘十大算法：<a href="https://wizardforcel.gitbooks.io/dm-algo-top10/content/apriori.html" target="_blank" rel="noopener">https://wizardforcel.gitbooks.io/dm-algo-top10/content/apriori.html</a></li>
+<li>中文维基百科：<a href="https://zh.wikipedia.org/wiki/%E5%85%88%E9%AA%8C%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%85%88%E9%AA%8C%E7%AE%97%E6%B3%95</a></li>
+<li>GitHub：<a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">https://github.com/BaiNingchao/MachineLearning-1</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/XUFa4mY.png" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者所有，旨在技术交流使用。未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则相关责任自行承担。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/马尔可夫模型/" rel="tag"><i class="fa fa-tag"></i> 马尔可夫模型</a>
+          
+            <a href="/tags/隐马尔可夫模型/" rel="tag"><i class="fa fa-tag"></i> 隐马尔可夫模型</a>
+          
+            <a href="/tags/HMM/" rel="tag"><i class="fa fa-tag"></i> HMM</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/漫谈条件随机场/" rel="next" title="漫谈条件随机场">
+                <i class="fa fa-chevron-left"></i> 漫谈条件随机场
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/13/自然语言处理入门/" rel="prev" title="自然语言处理入门">
+                自然语言处理入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">97</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#马尔可夫链"><span class="nav-number">1.</span> <span class="nav-text">马尔可夫链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔可夫简介"><span class="nav-number">1.1.</span> <span class="nav-text">马尔可夫简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#马尔可夫链的基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">马尔可夫链的基本概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">2.</span> <span class="nav-text">隐马尔可夫模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式化描述"><span class="nav-number">2.1.</span> <span class="nav-text">形式化描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学形式描述"><span class="nav-number">2.2.</span> <span class="nav-text">数学形式描述</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向前算法解决HMM似然度"><span class="nav-number">3.</span> <span class="nav-text">向前算法解决HMM似然度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#向前算法定义"><span class="nav-number">3.1.</span> <span class="nav-text">向前算法定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向前算法原理"><span class="nav-number">3.2.</span> <span class="nav-text">向前算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现实应用：预测成都天气冷热"><span class="nav-number">3.3.</span> <span class="nav-text">现实应用：预测成都天气冷热</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文本序列标注案例：Viterbi算法"><span class="nav-number">4.</span> <span class="nav-text">文本序列标注案例：Viterbi算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Viterbi算法"><span class="nav-number">4.1.</span> <span class="nav-text">Viterbi算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#维特比算法实例解读"><span class="nav-number">4.2.</span> <span class="nav-text">维特比算法实例解读</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/02/13/漫谈马尔可夫模型/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：条件随机场常用于序列标注、数据分割等自然语言处理任务中，此外其在中文分词、中文人名识别和歧义消解等任务中也有应用。本文基于笔者在做语句识别序列标注过程中，对条件随机场产生的了解。全篇内容主要源于自然语言处理、机器学习、统计学习方法和部分网上资料对CRF的相关介绍，最后由笔者进行大量研究整理后汇总成体系知识。本章首先介绍条件随机场的相关概念，然后结合实例以期让读者深入理解条件随机场的应用。（">
+<meta name="keywords" content="条件随机场,CRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漫谈条件随机场">
+<meta property="og:url" content="https://bainingchao.github.io/2019/02/13/漫谈条件随机场/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：条件随机场常用于序列标注、数据分割等自然语言处理任务中，此外其在中文分词、中文人名识别和歧义消解等任务中也有应用。本文基于笔者在做语句识别序列标注过程中，对条件随机场产生的了解。全篇内容主要源于自然语言处理、机器学习、统计学习方法和部分网上资料对CRF的相关介绍，最后由笔者进行大量研究整理后汇总成体系知识。本章首先介绍条件随机场的相关概念，然后结合实例以期让读者深入理解条件随机场的应用。（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/rJlYvzZ.png">
+<meta property="og:image" content="https://i.imgur.com/21CMyfK.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150106497-654371238.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150237090-568715899.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150225762-2099435069.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150253106-1020695522.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150405637-139647840.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150516793-449406113.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150531247-240225063.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150538168-1276842802.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150547153-570494906.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150554715-978688421.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150655950-2041605566.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150833215-1343718751.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150844059-1034191609.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150901872-1314579981.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150936668-233488740.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151000012-1531060113.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151017231-704954202.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151029028-1775120160.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151041872-1822484733.png">
+<meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
+<meta property="og:image" content="https://i.imgur.com/XUFa4mY.png">
+<meta property="og:updated_time" content="2019-02-13T09:51:38.666Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="漫谈条件随机场">
+<meta name="twitter:description" content="摘要：条件随机场常用于序列标注、数据分割等自然语言处理任务中，此外其在中文分词、中文人名识别和歧义消解等任务中也有应用。本文基于笔者在做语句识别序列标注过程中，对条件随机场产生的了解。全篇内容主要源于自然语言处理、机器学习、统计学习方法和部分网上资料对CRF的相关介绍，最后由笔者进行大量研究整理后汇总成体系知识。本章首先介绍条件随机场的相关概念，然后结合实例以期让读者深入理解条件随机场的应用。（">
+<meta name="twitter:image" content="https://i.imgur.com/rJlYvzZ.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/02/13/漫谈条件随机场/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>漫谈条件随机场 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/02/13/漫谈条件随机场/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">漫谈条件随机场
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-13 17:49:01 / 修改时间：17:51:38" itemprop="dateCreated datePublished" datetime="2019-02-13T17:49:01+08:00">2019-02-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/自然语言处理/" itemprop="url" rel="index"><span itemprop="name">自然语言处理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：条件随机场常用于序列标注、数据分割等自然语言处理任务中，此外其在中文分词、中文人名识别和歧义消解等任务中也有应用。本文基于笔者在做语句识别序列标注过程中，对条件随机场产生的了解。全篇内容主要源于自然语言处理、机器学习、统计学习方法和部分网上资料对CRF的相关介绍，最后由笔者进行大量研究整理后汇总成体系知识。本章首先介绍条件随机场的相关概念，然后结合实例以期让读者深入理解条件随机场的应用。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="条件随机场介绍"><a href="#条件随机场介绍" class="headerlink" title="条件随机场介绍"></a>条件随机场介绍</h1><h2 id="条件随机场（Condition-Random-Fields），简称CRF"><a href="#条件随机场（Condition-Random-Fields），简称CRF" class="headerlink" title="条件随机场（Condition Random Fields），简称CRF"></a>条件随机场（Condition Random Fields），简称CRF</h2><p>条件随机场概念：条件随机场就是对给定的输出标识序列Y和观察序列X，通过定义条件概率P(X|Y)，而不是联合概率分布P(X,Y)来描述模型。</p>
+<p>概念解析：</p>
+<p>标注一篇文章中的句子，即语句标注。使用标注方法BIO标注，B代表句子的开始，I代表句子中间，O代表句子结束。观察序列X就是一个语料库（此处假设一篇文章，x代表文章中的每一句，X是x的集合），标识序列Y是BIO，即对应X序列的识别。从而我们可以根据条件概率P(标注|句子)，推测出正确的句子标注。显然，这里我们针对的是序列状态，即CRF是用来标注或划分序列结构数据的概率化结构模型的。CRF在自然语言处理和图像处理领域都得到了广泛的应用，我们可以把它看作是无向图模型或者马尔可夫随机场。</p>
+<h2 id="生产式模型与判别式模型"><a href="#生产式模型与判别式模型" class="headerlink" title="生产式模型与判别式模型"></a>生产式模型与判别式模型</h2><p>有监督机器学习方法可以分为生成方法和判别方法：</p>
+<ul>
+<li><p>生产式模型：直接对联合分布进行建模，如：混合高斯模型、隐马尔科夫模型、马尔科夫随机场等</p>
+</li>
+<li><p>判别式模型：对条件分布进行建模，如：条件随机场、支持向量机、逻辑回归等</p>
+</li>
+</ul>
+<h2 id="生成模型优缺点介绍"><a href="#生成模型优缺点介绍" class="headerlink" title="生成模型优缺点介绍"></a>生成模型优缺点介绍</h2><p>优点：</p>
+<ul>
+<li>生成给出的是联合分布，不仅能够由联合分布计算条件分布（反之则不行），还可以给出其他信息。如果一个输入样本的边缘分布很小的话，那么可以认为学习出的这个模型可能不太适合对这个样本进行分类，分类效果可能会不好。</li>
+<li>生成模型收敛速度比较快，即当样本数量较多时，生成模型能更快地收敛于真实模型。</li>
+<li>生成模型能够应付存在隐变量的情况，比如混合高斯模型就是含有隐变量的生成方法。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>天下没有免费的午餐，联合分布是能提供更多的信息，但也需要更多的样本与计算；尤其是为了更准确估计类别条件分布，需要增加样本的数目。而且类别条件概率的许多信息是我们做分类所用不到的，因而如果我们只需要做分类任务，就浪费了计算资源。</li>
+<li>另外，实践中多数情况下判别模型效果更好。</li>
+</ul>
+<h2 id="判别模型优缺点介绍"><a href="#判别模型优缺点介绍" class="headerlink" title="判别模型优缺点介绍"></a>判别模型优缺点介绍</h2><p>优点：</p>
+<ul>
+<li>与生成模型缺点对应，首先是节省计算资源。另外，需要的样本数量也少于生成模型。</li>
+<li>准确率往往较生成模型高。</li>
+<li>由于直接学习，而不需要求解类别条件概率，所以允许我们对输入进行抽象（比如降维、构造等），从而能够简化学习问题。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>没有生成模型的上述优点。</li>
+</ul>
+<h1 id="简单易懂的条件随机场"><a href="#简单易懂的条件随机场" class="headerlink" title="简单易懂的条件随机场"></a>简单易懂的条件随机场</h1><h2 id="CRF的形式化表示"><a href="#CRF的形式化表示" class="headerlink" title="CRF的形式化表示"></a>CRF的形式化表示</h2><p>设G=(V,E)为一个无向图，V为结点的集合，E为无向边的集合。<img src="https://i.imgur.com/rJlYvzZ.png" alt="">，即V中的每个结点对应一个随机变量Yv，其取值范围为可能的标记集合{Y}。如果观察序列X为条件，每一个随机变量都满足以下马尔可夫特性:</p>
+<p><img src="https://i.imgur.com/21CMyfK.png" alt=""></p>
+<p>其中，w–v表示两个结点在图G中是邻近结点，（X,Y）为条件随机变量。</p>
+<p>以语句识别的案例理解条件随机场的形式化表示，如图12-1所示。</p>
+<center>
+
+![](https://i.imgur.com/BYhLVKV.png)
+
+图12-1 语句识别无向图
+</center>
+
+<p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;">&nbsp;<span style="">G=（V,E表示识别语句：【我爱中国】的标注是一个无向图，X为观察序列，Y为标注序列，V是每个标注状态的结点。E的无向边，边上的权值为概率值。<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150106497-654371238.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150106497-654371238.png">表示每个X的Y的标注，如:X1:我，y1：O，y2：I，y3：B；取值范围<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150237090-568715899.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150237090-568715899.png">，而<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150225762-2099435069.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150225762-2099435069.png">中w—v表示我与爱是相邻的结点。这样的（X,Y）为一个条件随机场，真正的标注再采用Viterbi算法，如：</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style=""><img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150253106-1020695522.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150253106-1020695522.png"></span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">寻求最大概率即<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150405637-139647840.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150405637-139647840.png">，记录下我的标注路径，同理可知：</span></p>
+
+<center>
+
+![](https://i.imgur.com/SJDdq0q.png)
+
+图12-2 标注流程图
+
+</center>
+
+
+<p>&lt;/p&gt;</p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">如上便是对条件随机场与Viterbi算法的综合运用，其中Viterbi标注问题本质是隐马尔可夫模型三大问题之解码问题的算法模型，具体参考（揭秘马尔科夫模型系列文章）</span></p><p></p>
+<h2 id="CRF的公式化表示"><a href="#CRF的公式化表示" class="headerlink" title="CRF的公式化表示"></a>CRF的公式化表示</h2><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">在给定的观察序列X时，某个待定标记序列Y的概率可以定义为</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style=""><img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150516793-449406113.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150516793-449406113.png"></span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">其中<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150531247-240225063.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150531247-240225063.png">是转移概率；<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150538168-1276842802.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150538168-1276842802.png">是状态函数，表示观察序列X其中i的位置的标记概率；<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150547153-570494906.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150547153-570494906.png">和<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150554715-978688421.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150554715-978688421.png">分别是t和s的权重，需要从训练样本中估计出来。</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><strong>实例解析</strong>：</p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">我爱中国，其中x2是爱字。<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150655950-2041605566.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150655950-2041605566.png">表示在观察状态2中，我到爱的转移概率；其中j∈{B,I,O}，可知<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150833215-1343718751.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150833215-1343718751.png">的生成概率或者发射概率的特征函数。</span><span style="">用观察序列{0,1}二值特征b（x,i）来表示训练样本中某些分布特征，其中采用{0,1}二值特征即符合条件标为1，反之为0；如图12-3所示。</span></p>
+
+<center>
+
+![](https://i.imgur.com/hO5EN2y.png)
+
+图12-3 发射函数实例解析图
+</center>
+转移函数定义如图12-4所示：
+
+
+<center>
+
+![](https://i.imgur.com/gQz9WFG.png)
+
+图12-4 转移函数实例解析图
+</center>
+
+
+
+
+
+<p>&lt;/p&gt;</p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">为了便于描述，可以将状态函数书写以下形式：</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;">&nbsp;<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150844059-1034191609.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150844059-1034191609.png"><br clear="all"><span style="">特征函数：</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">&nbsp;<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150901872-1314579981.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150901872-1314579981.png"></span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style="">其中每个局部<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150936668-233488740.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802150936668-233488740.png">特征表示状态特征，<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151000012-1531060113.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151000012-1531060113.png">或者专业函数<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151017231-704954202.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151017231-704954202.png">，由此条件随机场的定义条件概率如下：</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;"><span style=""><img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151029028-1775120160.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151029028-1775120160.png">，</span></p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;">其中分母为归一化因子：</p><p style="line-height: 24px; margin: 10px auto; font-size: 15px; white-space: normal;">&nbsp;<img src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151041872-1822484733.png" alt="" style="border: 0px;" _src="http://images2015.cnblogs.com/blog/380252/201608/380252-20160802151041872-1822484733.png"></p><p></p>
+<h2 id="深度理解条件随机场"><a href="#深度理解条件随机场" class="headerlink" title="深度理解条件随机场"></a>深度理解条件随机场</h2><p>理论上标记序列描述一定条件的独立性，G图结构是任意的，对序列进行建模可形成最简单、最普通的链式结构图。结点对应标记序列X中元素，CRF链式图如21-5所示：</p>
+<center>
+
+![](https://i.imgur.com/qObpYgD.png)
+
+图12-5 CRF链式结构图
+</center>
+
+<p>如果上图两种表示是一致的，其中图链式句子标注是图链式2的实例化，那么有的读者可能会问为什么上面图是这种而不是广义的图。其实这是因为观察序列X的元素之间并不存在图结构，没有做独立性假设，这点非常容易理解。诸如图中“我爱中国”，其中b表示反射概率而t是转移概率，线上的数值表示权值即概率值。如图3，我的发射概率0.7，我到爱的转移概率0.5。通俗讲，我和爱两个字是有关联的，而非独立的。</p>
+<hr>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>数据挖掘十大算法：<a href="https://wizardforcel.gitbooks.io/dm-algo-top10/content/apriori.html" target="_blank" rel="noopener">https://wizardforcel.gitbooks.io/dm-algo-top10/content/apriori.html</a></li>
+<li>中文维基百科：<a href="https://zh.wikipedia.org/wiki/%E5%85%88%E9%AA%8C%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%85%88%E9%AA%8C%E7%AE%97%E6%B3%95</a></li>
+<li>GitHub：<a href="https://github.com/BaiNingchao/MachineLearning-1" target="_blank" rel="noopener">https://github.com/BaiNingchao/MachineLearning-1</a></li>
+<li>图书：《机器学习实战》</li>
+<li><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E6%88%98" target="_blank" rel="noopener">图书：《自然语言处理理论与实战》</a></li>
+</ol>
+<h1 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h1><blockquote>
+<p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
+</blockquote>
+<p><img src="https://i.imgur.com/XUFa4mY.png" alt=""></p>
+<h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
+<p>本文版权归作者所有，旨在技术交流使用。未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则相关责任自行承担。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/条件随机场/" rel="tag"><i class="fa fa-tag"></i> 条件随机场</a>
+          
+            <a href="/tags/CRF/" rel="tag"><i class="fa fa-tag"></i> CRF</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/机器学习之模型评估/" rel="next" title="机器学习之模型评估">
+                <i class="fa fa-chevron-left"></i> 机器学习之模型评估
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/13/漫谈马尔可夫模型/" rel="prev" title="漫谈马尔可夫模型">
+                漫谈马尔可夫模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">97</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#条件随机场介绍"><span class="nav-number">1.</span> <span class="nav-text">条件随机场介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#条件随机场（Condition-Random-Fields），简称CRF"><span class="nav-number">1.1.</span> <span class="nav-text">条件随机场（Condition Random Fields），简称CRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产式模型与判别式模型"><span class="nav-number">1.2.</span> <span class="nav-text">生产式模型与判别式模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成模型优缺点介绍"><span class="nav-number">1.3.</span> <span class="nav-text">生成模型优缺点介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判别模型优缺点介绍"><span class="nav-number">1.4.</span> <span class="nav-text">判别模型优缺点介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单易懂的条件随机场"><span class="nav-number">2.</span> <span class="nav-text">简单易懂的条件随机场</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CRF的形式化表示"><span class="nav-number">2.1.</span> <span class="nav-text">CRF的形式化表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRF的公式化表示"><span class="nav-number">2.2.</span> <span class="nav-text">CRF的公式化表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度理解条件随机场"><span class="nav-number">2.3.</span> <span class="nav-text">深度理解条件随机场</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">4.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">5.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/02/13/漫谈条件随机场/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

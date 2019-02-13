@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-02-13T09:41:05.322Z</updated>
+  <updated>2019-02-13T10:10:14.690Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,180 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python简明入门教程与网站制作</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BPython/"/>
+    <id>https://bainingchao.github.io/2019/02/13/快速上手Python/</id>
+    <published>2019-02-13T10:01:40.222Z</published>
+    <updated>2019-02-13T10:10:14.690Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢，在工业界和学术界也非常受欢迎。本书的全部代码都是通过python实现的，之所以选择python语言，是因为其可以跨平台跨应用开发，因此本章旨在帮助读者快速领略python的概貌。如果读者已经具备python基础，可略过此章。本章首先介绍Python语言及其可以用来做什么事情。哪些人群适合学习python和python的语法特点。其次我们将介绍Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展到python第三方库，使读者对python有个全面的理解和认识。最后一节，采用实际案例帮助读者综合运用python知识。&lt;br&gt;（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
+    
+    
+      <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
+    
+      <category term="python" scheme="https://bainingchao.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自然语言处理之数据预处理</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B9%8B%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    <id>https://bainingchao.github.io/2019/02/13/自然语言处理之数据预处理/</id>
+    <published>2019-02-13T10:01:25.075Z</published>
+    <updated>2019-02-13T10:04:33.357Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要： 数据预处理的整个步骤流程在自然语言处理的工程中要比其在机器学习的工程中精简一些，最大的区别就在数据清洗和特征构造这两个至关重要的过程。在自然语言处理中特征构造是否良好，很大程度上取决于所构造的特征数据集的数据特性与文本内容语义吻合程度的高低。比如，文本情感分类和文本内容分类都属于分类范畴，但对于同一种算法（参数都调整到最优），在两个不同分类的业务下，得到的结果可能会相差很大。通过仔细分析，我们将不难发现造成这种差异的最根本原因就是构造出来的特征数据集的数据模式没有很好地契合文本的真实语义，这也是自然语言处理的最大难点所在。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="数据清洗" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97/"/>
+    
+      <category term="分词处理" scheme="https://bainingchao.github.io/tags/%E5%88%86%E8%AF%8D%E5%A4%84%E7%90%86/"/>
+    
+      <category term="特征构造" scheme="https://bainingchao.github.io/tags/%E7%89%B9%E5%BE%81%E6%9E%84%E9%80%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自然语言处理之中文自动分词</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B9%8B%E4%B8%AD%E6%96%87%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/"/>
+    <id>https://bainingchao.github.io/2019/02/13/自然语言处理之中文自动分词/</id>
+    <published>2019-02-13T10:01:13.981Z</published>
+    <updated>2019-02-13T10:06:41.992Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：中文分词技术属于自然语言处理技术范畴，中文分词是其他中文信息处理的基础，搜索引擎只是中文分词的一个应用。诸如机器翻译（MT）、语音合成、自动分类、自动摘要、自动校对等等。本章首先介绍中文分词及其特点和难点，其次对常用的中文分词方法进行阐述；紧接着我们将介绍几个典型的中文分词工具，有兴趣的读者还可对文中所列出的其他工具自行深入研究。最后，本章将对结巴中文分词进行详细介绍，从原理到使用逐渐深入，力求让读者快速掌握其思想及原理。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="中文分词" scheme="https://bainingchao.github.io/tags/%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D/"/>
+    
+      <category term="jieba" scheme="https://bainingchao.github.io/tags/jieba/"/>
+    
+      <category term="hanlp" scheme="https://bainingchao.github.io/tags/hanlp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自然语言处理之语料库技术</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B9%8B%E8%AF%AD%E6%96%99%E5%BA%93%E6%8A%80%E6%9C%AF/"/>
+    <id>https://bainingchao.github.io/2019/02/13/自然语言处理之语料库技术/</id>
+    <published>2019-02-13T09:58:01.231Z</published>
+    <updated>2019-02-13T10:00:36.632Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：大数据发展的基石就是数据量的快速增加，无论是自然语言处理、数据挖掘、文本处理还是机器学习领域，都是在此基础上通过规则或统计方法进行模型构建的。但是不是数据足够大就叫大数据了呢？是不是数据足够多就构成语料库了呢？带着这些疑问，本章将带你走进语料库的世界，对语料知识进行一次全面而深入的了解。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="语料库" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E6%96%99%E5%BA%93/"/>
+    
+      <category term="NLTK" scheme="https://bainingchao.github.io/tags/NLTK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自然语言处理入门</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%85%A5%E9%97%A8/"/>
+    <id>https://bainingchao.github.io/2019/02/13/自然语言处理入门/</id>
+    <published>2019-02-13T09:55:05.975Z</published>
+    <updated>2019-02-13T09:57:39.957Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：随着人工智能的快速发展，自然语言处理和机器学习技术的应用愈加广泛。然而身为初学者，要想快速入门这些前沿技术总是存在着各种各样的困难。为使读者对该领域整体概况有一个更为系统明晰的认识，本章1.1节将主要从发展历程、研究现状、应用前景等角度出发，概要地介绍自然语言处理及相关的机器学习技术。接下来1.2节我们将介绍自然语言处理和机器学习之间的关系。古语说“工欲善其事，必先利其器”，本课程的“器”就是开发环境部署，本书主要介绍Sublime的安装部署与使用。最后，在章末1.5节我们将用一个简单的实战案例让读者亲身领略编程之美。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+      <category term="NLP" scheme="https://bainingchao.github.io/tags/NLP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>漫谈马尔可夫模型</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E6%BC%AB%E8%B0%88%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://bainingchao.github.io/2019/02/13/漫谈马尔可夫模型/</id>
+    <published>2019-02-13T09:51:59.759Z</published>
+    <updated>2019-02-13T09:54:32.100Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：最早接触马尔可夫模型的定义源于吴军先生《数学之美》一书，起初觉得深奥难懂且没什么用场。直到学习自然语言处理时，我才真正使用到隐马尔可夫模型，并体会到此模型的奇妙之处。马尔可夫模型在处理序列分类时具有强大的功能，诸如解决：词类标注、语音识别、句子切分、字素音位转换、局部句法剖析、语块分析、命名实体识别、信息抽取等。此外它还广泛应用于自然科学、工程技术、生物科技、公用事业、信道编码等多个领域。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="马尔可夫模型" scheme="https://bainingchao.github.io/tags/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="隐马尔可夫模型" scheme="https://bainingchao.github.io/tags/%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="HMM" scheme="https://bainingchao.github.io/tags/HMM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>漫谈条件随机场</title>
+    <link href="https://bainingchao.github.io/2019/02/13/%E6%BC%AB%E8%B0%88%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/"/>
+    <id>https://bainingchao.github.io/2019/02/13/漫谈条件随机场/</id>
+    <published>2019-02-13T09:49:01.649Z</published>
+    <updated>2019-02-13T09:51:38.666Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：条件随机场常用于序列标注、数据分割等自然语言处理任务中，此外其在中文分词、中文人名识别和歧义消解等任务中也有应用。本文基于笔者在做语句识别序列标注过程中，对条件随机场产生的了解。全篇内容主要源于自然语言处理、机器学习、统计学习方法和部分网上资料对CRF的相关介绍，最后由笔者进行大量研究整理后汇总成体系知识。本章首先介绍条件随机场的相关概念，然后结合实例以期让读者深入理解条件随机场的应用。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
+    
+    
+      <category term="条件随机场" scheme="https://bainingchao.github.io/tags/%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/"/>
+    
+      <category term="CRF" scheme="https://bainingchao.github.io/tags/CRF/"/>
+    
+  </entry>
   
   <entry>
     <title>机器学习之模型评估</title>
@@ -407,194 +581,6 @@
       <category term="雷达图" scheme="https://bainingchao.github.io/tags/%E9%9B%B7%E8%BE%BE%E5%9B%BE/"/>
     
       <category term="仪盘表" scheme="https://bainingchao.github.io/tags/%E4%BB%AA%E7%9B%98%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程数学之信息论</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E4%BF%A1%E6%81%AF%E8%AE%BA/"/>
-    <id>https://bainingchao.github.io/2018/10/10/编程数学之信息论/</id>
-    <published>2018-10-10T10:00:54.000Z</published>
-    <updated>2018-10-19T07:39:33.876Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：信息论（英语：information theory）是应用数学、电机工程学和计算机科学的一个分支，涉及信息的量化、存储和通信等。信息论是由香农发展，用来找出信号处理与通信操作的基本限制，如数据压缩、可靠的存储和数据传输等。自创立以来，它已拓展应用到许多其他领域，包括统计推断、自然语言处理、密码学、神经生物学、进化论和分子编码的功能、生态学的模式选择、热物理、量子计算、语言学、剽窃检测、模式识别、异常检测和其他形式的数据分析。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="信息论" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E4%BF%A1%E6%81%AF%E8%AE%BA/"/>
-    
-    
-      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="信息论" scheme="https://bainingchao.github.io/tags/%E4%BF%A1%E6%81%AF%E8%AE%BA/"/>
-    
-      <category term="熵" scheme="https://bainingchao.github.io/tags/%E7%86%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程数学之事件与概率</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%A6%82%E7%8E%87/"/>
-    <id>https://bainingchao.github.io/2018/10/10/编程数学之事件与概率/</id>
-    <published>2018-10-10T09:59:08.000Z</published>
-    <updated>2018-10-19T07:44:27.195Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：由于基于规则方法向基于统计方法的转型，概率就显得尤为重要，诸如一些随机事件、独立假设、条件概率、完全概率等等。然后对贝叶斯模型进行案例式介绍，旨在读者深度理解。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="概率论" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
-    
-    
-      <category term="事件" scheme="https://bainingchao.github.io/tags/%E4%BA%8B%E4%BB%B6/"/>
-    
-      <category term="概率" scheme="https://bainingchao.github.io/tags/%E6%A6%82%E7%8E%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>语言学中的语音词汇和语法问题</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E8%AF%AD%E8%A8%80%E5%AD%A6%E9%97%AE%E9%A2%98/"/>
-    <id>https://bainingchao.github.io/2018/10/10/自然语言处理中的语言学问题/</id>
-    <published>2018-10-10T09:50:25.000Z</published>
-    <updated>2018-10-19T07:44:20.663Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：语音、词汇、语法三个角度对现代汉语进行了一个简单概要的勾勒，在以往传统的语言学教材中一般还有“文字”、“修辞”两节内容。需要注意的是，语言学本身是一门十分庞杂的学科，知识体系与研究方法或因语言不同而有区别，或因派别主义不同而有区别。但无论是何种语言，亦或是何门何派，在进行自然语言处理时我们要面临的永远是一个个真实的语料和具体的语言现象。理论是用来指导实践，拓宽我们研究思路的，究竟最后采用何种理论，这只是一个“白猫黑猫”的问题。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="语言学" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E8%A8%80%E5%AD%A6/"/>
-    
-      <category term="语音" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E9%9F%B3/"/>
-    
-      <category term="语法" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程数学之距离计算</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E8%B7%9D%E7%A6%BB%E8%AE%A1%E7%AE%97/"/>
-    <id>https://bainingchao.github.io/2018/10/10/编程数学之距离计算/</id>
-    <published>2018-10-10T08:27:06.000Z</published>
-    <updated>2018-10-19T07:41:56.249Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列数学文章旨在带领大家快速回顾常用知识，重在理解。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="距离计算" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E8%B7%9D%E7%A6%BB%E8%AE%A1%E7%AE%97/"/>
-    
-    
-      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="距离" scheme="https://bainingchao.github.io/tags/%E8%B7%9D%E7%A6%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程数学之矩阵</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%9F%A9%E9%98%B5/"/>
-    <id>https://bainingchao.github.io/2018/10/10/编程数学之矩阵/</id>
-    <published>2018-10-10T08:25:52.000Z</published>
-    <updated>2018-10-19T07:41:49.001Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列数学文章旨在带领大家快速回顾常用知识，重在理解。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="矩阵" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5/"/>
-    
-    
-      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="矩阵" scheme="https://bainingchao.github.io/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程数学之向量</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E5%90%91%E9%87%8F/"/>
-    <id>https://bainingchao.github.io/2018/10/10/编程数学之向量/</id>
-    <published>2018-10-10T06:16:06.000Z</published>
-    <updated>2018-10-19T07:41:37.748Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：数学在计算机科学、机器学习、深度学习、自然语言处理等多个领域占据比较重要的位置。比如：特征值和特征向量在PCA降维中会使用；均值在回归算法中估计公式参数中使用；期望和均值在回归方程应用；余弦定理求相似度中运用；拉格朗日定理在支持向量机中使用；求导在解决梯度下降中使用；矩阵和向量在数据格式转换和预处理中运用等等。还有在算法建模、参数设置、验证策略、识别欠拟合和过拟合等方面依然应用广泛。本系列数学文章旨在带领大家快速回顾常用知识，重在理解。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="向量" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E5%90%91%E9%87%8F/"/>
-    
-    
-      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="向量" scheme="https://bainingchao.github.io/tags/%E5%90%91%E9%87%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>简明的Python教程之NumPy</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%AE%80%E6%98%8E%E7%9A%84Python%E6%95%99%E7%A8%8B%E4%B9%8BNumPy/"/>
-    <id>https://bainingchao.github.io/2018/10/10/简明的Python教程之NumPy/</id>
-    <published>2018-10-10T03:46:08.000Z</published>
-    <updated>2018-10-19T07:41:30.256Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在python处理数据中，Numpy也是常有的工具，本文简要介绍，旨在大家熟悉相关应用。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
-    
-      <category term="NumPy" scheme="https://bainingchao.github.io/categories/Python/NumPy/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="NumPy" scheme="https://bainingchao.github.io/tags/NumPy/"/>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="矩阵" scheme="https://bainingchao.github.io/tags/%E7%9F%A9%E9%98%B5/"/>
     
   </entry>
   
