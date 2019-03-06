@@ -170,7 +170,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/XUFa4mY.png">
-<meta property="og:updated_time" content="2019-02-13T10:06:41.992Z">
+<meta property="og:updated_time" content="2019-03-06T08:26:35.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言处理之中文自动分词">
 <meta name="twitter:description" content="摘要：中文分词技术属于自然语言处理技术范畴，中文分词是其他中文信息处理的基础，搜索引擎只是中文分词的一个应用。诸如机器翻译（MT）、语音合成、自动分类、自动摘要、自动校对等等。本章首先介绍中文分词及其特点和难点，其次对常用的中文分词方法进行阐述；紧接着我们将介绍几个典型的中文分词工具，有兴趣的读者还可对文中所列出的其他工具自行深入研究。最后，本章将对结巴中文分词进行详细介绍，从原理到使用逐渐深入">
@@ -465,12 +465,24 @@
                 
               
 
-              <time title="创建时间：2019-02-13 18:01:13 / 修改时间：18:06:41" itemprop="dateCreated datePublished" datetime="2019-02-13T18:01:13+08:00">2019-02-13</time>
+              <time title="创建时间：2019-02-13 18:01:13" itemprop="dateCreated datePublished" datetime="2019-02-13T18:01:13+08:00">2019-02-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-06 16:26:35" itemprop="dateModified" datetime="2019-03-06T16:26:35+08:00">2019-03-06</time>
               
             
           </span>
@@ -540,84 +552,56 @@
 英文句子: I am a student.
 中文意思: 我是一名学生。
 </pre>
-由于英文的语言使用习惯，通过空格我们很容易拆分出单词；而中文字词接线模糊往往不容易区别哪些是“字”，哪些是“词”。这也是为什么我们想把中文的词语进行切分的原因。
 
-## 中文分词的发展
-
-与英文为代表的印欧语系语言相比，中文由于继承自古代汉语的传统，词语之间常没有分隔。古代汉语中除了连绵词和人名地名等，词通常就是单个汉字，所以当时没有分词书写的必要。而现代汉语中双字或多字词逐渐增多，一个字已经不再等同于一个词了。
-
-在中文里，“词”和“词组”边界模糊。现代汉语的基本表达单元虽然为“词”，且以双字或者多字词居多，但由于人们认识水平的不同，对词和短语的边界还很难去区分。
-
-- 例如：“对随地吐痰者给予处罚”，“随地吐痰者”本身是一个词还是一个短语，不同的人会有不同的标准，同样的“海上”“酒厂”等等，即使是同一个人也可能做出不同判断，如果汉语真的要分词书写，必然会出现混乱，难度很大。
-
-中文分词的方法其实不局限于中文应用，也被应用到英文处理。例如手写识别，英文单词之间的空格就不很清楚，中文分词方法可以反过来帮助判别英文单词的边界。
-
-## 中文分词的用途
-
-中文分词是文本处理的基础，对于输入的一段中文，成功的进行中文分词，可以达到电脑自动识别语句含义的效果。中文分词技术属于自然语言处理技术范畴，目前在自然语言处理技术中，中文处理技术比西文处理技术要落后很大一截，而许多西文的处理方法中文却不能直接采用，就是因为中文必需有分词这道工序。中文分词是其他中文信息处理的基础，搜索引擎只是中文分词的一个应用。其他的比如机器翻译（MT）、语音合成、自动分类、自动摘要、自动校对等等，都需要用到分词。因为中文需要分词，可能会影响一些研究，但同时也为一些企业带来机会，因为国外的计算机处理技术要想进入中国市场，首先也是要解决中文分词问题。在中文研究方面，相比外国人来说，中国人有十分明显的优势。
-
-中文分词对于搜索引擎来说，最重要的并不是找到所有结果，因为在上百亿的网页中找到所有结果没有太多的意义，没有人能看得完；相反，最重要的是把最相关的结果排在最前面，这也称为相关度排序。中文分词的准确与否，常常直接影响到对搜索结果的相关度排序。从定性分析来说，搜索引擎的分词算法不同，词库的不同都会影响页面的返回结果。
-
-# 中文分词的特点和难点
-中文分词简而言之就是让计算机在词之间加上边界标记。当前研究所面临的问题和困难主要体现在三个方面：分词的规范、歧义词的切分和未登录词识别。
-
-## 分词的规范
-
-中文因其自身语言特性的局限，字(词)的界限往往很模糊，关于字(词)的抽象定义和词边界的划定尚没有一个公认的、权威的标准。曾经有专家对母语是汉语者调查结果显示，对汉语文本中“词”的认同率仅有百分之七十左右。正是由于这种不同的主观分词差异，给汉语分词造成了极大的困难。尽管在1992年国家颁布了《信息处理用现代词汉语分词规范》，但是这种规范很容易受主观因素影响，在处理现实问题时也不免相形见绌。
-
-## 歧义词切分
-
-中文中的歧义词是很普遍的，歧义词即同一个词有多种切分方式，该如何去处理这种问题。普遍认为中文歧义词有三种类型：
-
-- 交集型切分歧义，汉语词如AJB类型，满足AJ和JB分别成词。如“大学生”一种切分方式“大学/生”，另一种切分方式“大/学生”。你很难去判定那种切分正确，即使是人工切分也只能依据上下文，类似的有“结合成”、“美国会”等等。
-
-- 组合型切分歧义，汉语词如AB，满足A，B，AB分别成词。如“郭靖有武功高超的才能”中的“才能”，一种切分“郭靖/有/武功/高超/的/才能”，另一种切分“中国/什么/时候/才/能/达到/发达/国家/水平”显示是不同的切分方式。
-
-- 混合型切分歧义，汉语词包含如上两种共存情况。如“郭靖说这把剑太重了”，其中“太重了”是交集型字段，“太重”是组合型字段。
-
-## 未登录词（新词）识别
-
-未登录词又称新词。这类词通常指两个方面，其一是词库中没有收录的词，其二是训练语料没有出现过的词。未登录词主要体现在以下几种：
-
-- 新出现的网络用词：如“屌丝”、“蓝牙”、“蓝瘦香菇”、“房姐”、“奥特”、“累觉不爱”等。
-
-- 研究领域名称：特定领域和新出现领域的专有名词。如“苏丹红”、“禽流感”、“埃博拉”、“三聚氰胺”等。
-
-- 其他专有名词：诸如城市名、公司企业、职称名、电影、书籍、专业术语、缩写词等。如“成都”、“阿里巴巴”、“毛主席”、“三少爷的剑”、“NLP”、“川大”等。
-
-综述所述，处理汉语词边界、歧义词切分和未登录词切分问题比较复杂，其中未登录词的影响大大超过了歧义词的影响，所以如何处理未登录词是关键问题。
-
-# 常见中文分词方法
-早在80年代就有中文分词的研究工作，曾有人提出“正向最大匹配法”、“逆向最大匹配法”、“双向扫描匹配法”、“逐词遍历法”等方法，共计多达16种之多。由于这些分词方法多是基于规则和词表的方法，随着统计方法的发展，不少学者提出很多关于统计模型的中文分词方法。关于规则的中文自动方法主要有以下几种：
-
-## 基于字符串匹配的分词方法
-
-基本思想是基于词典匹配，将待分词的中文文本根据一定规则切分和调整，然后跟词典中的词语进行匹配，匹配成功则按照词典的词分词，匹配失败通过调整或者重新选择，如此反复循环即可。代表方法有基于正向最大匹配和基于逆向最大匹配及双向匹配法。
-
-## 基于理解的分词方法
-
-基本思想是通过专家系统或者机器学习神经网络方法模拟人的理解能力。前者是通过专家对分词规则的逻辑推理并总结形成特征规则，不断迭代完善规则，其受到资源消耗大和算法复杂度高的制约。后者通过机器模拟人类理解的方式，虽可以取得不错的效果，但是依旧受训练时间长和过拟合等因素困扰。
-
-## 基于统计的分词方法
-
-关于统计的中文分词方法的基本思想本文整理如下：
-
-- 基于隐马尔可夫模型的中文分词方法。基本思想是通过文本作为观测序列去确定隐藏序列的过程。该方法采用Viterbi算法对新词识别效果不错，但具有生成式模型的缺点，需要计算联合概率，因此随着文本增大存在计算量大问题。
-- 基于最大熵模型的中文分词方法。基本思想是学习概率模型时，在可能的概率分布模型中，认为熵最大的进行切分。该法可以避免生成模型的不足，但是存在偏移量问题。
-- 基于条件随机场模型的中文分词方法。基本思想主要来源最大熵马尔可夫模型，主要关注的字跟上下文标记位置有关，进而通过解码找到词边界。因此需要大量训练语料，而训练和解码又非常耗时。
-
-综上所述，关于词典和规则的方法其分词速度较快，但是在不同领域取得效果差异很大，还存在构造费时费力、算法复杂度高、移植性差等缺点。基于统计的中文分词，虽然其相较于规则的方法取得不错的效果，但也依然存在模型训练时间长、分词速度慢等问题。针对这些问题，本文提出基于隐马尔可夫统计模型和自定义词典结合的方法，其在分词速度、歧义分析、新词发现和准确率方面都取得不错效果。
-
-# 典型中文分词工具
-## Stanford NLP分词
-> Stanford NLP介绍
-
-Stanford NLP是由斯坦福大学的 NLP 小组开源的 Java 实现的 NLP 工具包，同样对 NLP 领域的各个问题提供了解决办法。斯坦福大学的 NLP 小组是世界知名的研究小组，能将 NLTK 和 Stanford NLP 这两个工具包结合起来使用，那对于自然语言开发者是再好不过了。2004 年 Steve Bird 在 NLTK 中加上了对 Stanford NLP 工具包的支持，通过调用外部的 jar 文件来使用 Stanford NLP 工具包的功能这样一来就变得更为方便好用。
-> Python 调用Stanford NLP进行中文分词
-
-(1) 安装配置说明
-
-本文以Python 3.5.2和java version "1.8.0_111"版本进行配置，具体安装需要注意以下几点：
+<p>由于英文的语言使用习惯，通过空格我们很容易拆分出单词；而中文字词接线模糊往往不容易区别哪些是“字”，哪些是“词”。这也是为什么我们想把中文的词语进行切分的原因。</p>
+<h2 id="中文分词的发展"><a href="#中文分词的发展" class="headerlink" title="中文分词的发展"></a>中文分词的发展</h2><p>与英文为代表的印欧语系语言相比，中文由于继承自古代汉语的传统，词语之间常没有分隔。古代汉语中除了连绵词和人名地名等，词通常就是单个汉字，所以当时没有分词书写的必要。而现代汉语中双字或多字词逐渐增多，一个字已经不再等同于一个词了。</p>
+<p>在中文里，“词”和“词组”边界模糊。现代汉语的基本表达单元虽然为“词”，且以双字或者多字词居多，但由于人们认识水平的不同，对词和短语的边界还很难去区分。</p>
+<ul>
+<li>例如：“对随地吐痰者给予处罚”，“随地吐痰者”本身是一个词还是一个短语，不同的人会有不同的标准，同样的“海上”“酒厂”等等，即使是同一个人也可能做出不同判断，如果汉语真的要分词书写，必然会出现混乱，难度很大。</li>
+</ul>
+<p>中文分词的方法其实不局限于中文应用，也被应用到英文处理。例如手写识别，英文单词之间的空格就不很清楚，中文分词方法可以反过来帮助判别英文单词的边界。</p>
+<h2 id="中文分词的用途"><a href="#中文分词的用途" class="headerlink" title="中文分词的用途"></a>中文分词的用途</h2><p>中文分词是文本处理的基础，对于输入的一段中文，成功的进行中文分词，可以达到电脑自动识别语句含义的效果。中文分词技术属于自然语言处理技术范畴，目前在自然语言处理技术中，中文处理技术比西文处理技术要落后很大一截，而许多西文的处理方法中文却不能直接采用，就是因为中文必需有分词这道工序。中文分词是其他中文信息处理的基础，搜索引擎只是中文分词的一个应用。其他的比如机器翻译（MT）、语音合成、自动分类、自动摘要、自动校对等等，都需要用到分词。因为中文需要分词，可能会影响一些研究，但同时也为一些企业带来机会，因为国外的计算机处理技术要想进入中国市场，首先也是要解决中文分词问题。在中文研究方面，相比外国人来说，中国人有十分明显的优势。</p>
+<p>中文分词对于搜索引擎来说，最重要的并不是找到所有结果，因为在上百亿的网页中找到所有结果没有太多的意义，没有人能看得完；相反，最重要的是把最相关的结果排在最前面，这也称为相关度排序。中文分词的准确与否，常常直接影响到对搜索结果的相关度排序。从定性分析来说，搜索引擎的分词算法不同，词库的不同都会影响页面的返回结果。</p>
+<h1 id="中文分词的特点和难点"><a href="#中文分词的特点和难点" class="headerlink" title="中文分词的特点和难点"></a>中文分词的特点和难点</h1><p>中文分词简而言之就是让计算机在词之间加上边界标记。当前研究所面临的问题和困难主要体现在三个方面：分词的规范、歧义词的切分和未登录词识别。</p>
+<h2 id="分词的规范"><a href="#分词的规范" class="headerlink" title="分词的规范"></a>分词的规范</h2><p>中文因其自身语言特性的局限，字(词)的界限往往很模糊，关于字(词)的抽象定义和词边界的划定尚没有一个公认的、权威的标准。曾经有专家对母语是汉语者调查结果显示，对汉语文本中“词”的认同率仅有百分之七十左右。正是由于这种不同的主观分词差异，给汉语分词造成了极大的困难。尽管在1992年国家颁布了《信息处理用现代词汉语分词规范》，但是这种规范很容易受主观因素影响，在处理现实问题时也不免相形见绌。</p>
+<h2 id="歧义词切分"><a href="#歧义词切分" class="headerlink" title="歧义词切分"></a>歧义词切分</h2><p>中文中的歧义词是很普遍的，歧义词即同一个词有多种切分方式，该如何去处理这种问题。普遍认为中文歧义词有三种类型：</p>
+<ul>
+<li><p>交集型切分歧义，汉语词如AJB类型，满足AJ和JB分别成词。如“大学生”一种切分方式“大学/生”，另一种切分方式“大/学生”。你很难去判定那种切分正确，即使是人工切分也只能依据上下文，类似的有“结合成”、“美国会”等等。</p>
+</li>
+<li><p>组合型切分歧义，汉语词如AB，满足A，B，AB分别成词。如“郭靖有武功高超的才能”中的“才能”，一种切分“郭靖/有/武功/高超/的/才能”，另一种切分“中国/什么/时候/才/能/达到/发达/国家/水平”显示是不同的切分方式。</p>
+</li>
+<li><p>混合型切分歧义，汉语词包含如上两种共存情况。如“郭靖说这把剑太重了”，其中“太重了”是交集型字段，“太重”是组合型字段。</p>
+</li>
+</ul>
+<h2 id="未登录词（新词）识别"><a href="#未登录词（新词）识别" class="headerlink" title="未登录词（新词）识别"></a>未登录词（新词）识别</h2><p>未登录词又称新词。这类词通常指两个方面，其一是词库中没有收录的词，其二是训练语料没有出现过的词。未登录词主要体现在以下几种：</p>
+<ul>
+<li><p>新出现的网络用词：如“屌丝”、“蓝牙”、“蓝瘦香菇”、“房姐”、“奥特”、“累觉不爱”等。</p>
+</li>
+<li><p>研究领域名称：特定领域和新出现领域的专有名词。如“苏丹红”、“禽流感”、“埃博拉”、“三聚氰胺”等。</p>
+</li>
+<li><p>其他专有名词：诸如城市名、公司企业、职称名、电影、书籍、专业术语、缩写词等。如“成都”、“阿里巴巴”、“毛主席”、“三少爷的剑”、“NLP”、“川大”等。</p>
+</li>
+</ul>
+<p>综述所述，处理汉语词边界、歧义词切分和未登录词切分问题比较复杂，其中未登录词的影响大大超过了歧义词的影响，所以如何处理未登录词是关键问题。</p>
+<h1 id="常见中文分词方法"><a href="#常见中文分词方法" class="headerlink" title="常见中文分词方法"></a>常见中文分词方法</h1><p>早在80年代就有中文分词的研究工作，曾有人提出“正向最大匹配法”、“逆向最大匹配法”、“双向扫描匹配法”、“逐词遍历法”等方法，共计多达16种之多。由于这些分词方法多是基于规则和词表的方法，随着统计方法的发展，不少学者提出很多关于统计模型的中文分词方法。关于规则的中文自动方法主要有以下几种：</p>
+<h2 id="基于字符串匹配的分词方法"><a href="#基于字符串匹配的分词方法" class="headerlink" title="基于字符串匹配的分词方法"></a>基于字符串匹配的分词方法</h2><p>基本思想是基于词典匹配，将待分词的中文文本根据一定规则切分和调整，然后跟词典中的词语进行匹配，匹配成功则按照词典的词分词，匹配失败通过调整或者重新选择，如此反复循环即可。代表方法有基于正向最大匹配和基于逆向最大匹配及双向匹配法。</p>
+<h2 id="基于理解的分词方法"><a href="#基于理解的分词方法" class="headerlink" title="基于理解的分词方法"></a>基于理解的分词方法</h2><p>基本思想是通过专家系统或者机器学习神经网络方法模拟人的理解能力。前者是通过专家对分词规则的逻辑推理并总结形成特征规则，不断迭代完善规则，其受到资源消耗大和算法复杂度高的制约。后者通过机器模拟人类理解的方式，虽可以取得不错的效果，但是依旧受训练时间长和过拟合等因素困扰。</p>
+<h2 id="基于统计的分词方法"><a href="#基于统计的分词方法" class="headerlink" title="基于统计的分词方法"></a>基于统计的分词方法</h2><p>关于统计的中文分词方法的基本思想本文整理如下：</p>
+<ul>
+<li>基于隐马尔可夫模型的中文分词方法。基本思想是通过文本作为观测序列去确定隐藏序列的过程。该方法采用Viterbi算法对新词识别效果不错，但具有生成式模型的缺点，需要计算联合概率，因此随着文本增大存在计算量大问题。</li>
+<li>基于最大熵模型的中文分词方法。基本思想是学习概率模型时，在可能的概率分布模型中，认为熵最大的进行切分。该法可以避免生成模型的不足，但是存在偏移量问题。</li>
+<li>基于条件随机场模型的中文分词方法。基本思想主要来源最大熵马尔可夫模型，主要关注的字跟上下文标记位置有关，进而通过解码找到词边界。因此需要大量训练语料，而训练和解码又非常耗时。</li>
+</ul>
+<p>综上所述，关于词典和规则的方法其分词速度较快，但是在不同领域取得效果差异很大，还存在构造费时费力、算法复杂度高、移植性差等缺点。基于统计的中文分词，虽然其相较于规则的方法取得不错的效果，但也依然存在模型训练时间长、分词速度慢等问题。针对这些问题，本文提出基于隐马尔可夫统计模型和自定义词典结合的方法，其在分词速度、歧义分析、新词发现和准确率方面都取得不错效果。</p>
+<h1 id="典型中文分词工具"><a href="#典型中文分词工具" class="headerlink" title="典型中文分词工具"></a>典型中文分词工具</h1><h2 id="Stanford-NLP分词"><a href="#Stanford-NLP分词" class="headerlink" title="Stanford NLP分词"></a>Stanford NLP分词</h2><blockquote>
+<p>Stanford NLP介绍</p>
+</blockquote>
+<p>Stanford NLP是由斯坦福大学的 NLP 小组开源的 Java 实现的 NLP 工具包，同样对 NLP 领域的各个问题提供了解决办法。斯坦福大学的 NLP 小组是世界知名的研究小组，能将 NLTK 和 Stanford NLP 这两个工具包结合起来使用，那对于自然语言开发者是再好不过了。2004 年 Steve Bird 在 NLTK 中加上了对 Stanford NLP 工具包的支持，通过调用外部的 jar 文件来使用 Stanford NLP 工具包的功能这样一来就变得更为方便好用。</p>
+<blockquote>
+<p>Python 调用Stanford NLP进行中文分词</p>
+</blockquote>
+<p>(1) 安装配置说明</p>
+<p>本文以Python 3.5.2和java version “1.8.0_111”版本进行配置，具体安装需要注意以下几点：</p>
 <pre>
 1 Stanford NLP 工具包需要 Java 8 及之后的版本，如果出错请检查 Java 版本
 2 本文的配置都是以 Stanford NLP 3.6.0 为例，如果使用的是其他版本，请注意替换相应的文件名
@@ -1919,7 +1903,7 @@ Prefix dict has been built succesfully.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#中文分词简介"><span class="nav-number">1.</span> <span class="nav-text">中文分词简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中文分词"><span class="nav-number">1.1.</span> <span class="nav-text">中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HanLP中文分词"><span class="nav-number">1.2.</span> <span class="nav-text">HanLP中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴分词工具详解"><span class="nav-number">1.3.</span> <span class="nav-text">结巴分词工具详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴分词核心内容"><span class="nav-number">1.4.</span> <span class="nav-text">结巴分词核心内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴分词基本用法"><span class="nav-number">1.5.</span> <span class="nav-text">结巴分词基本用法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分出-v-來-zg-凱特琳-x-了-ul-。-x"><span class="nav-number">3.</span> <span class="nav-text">分出 / v ,  來 / zg ,  凱特琳 / x ,  了 / ul ,  。 / x , </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#中文分词简介"><span class="nav-number">1.</span> <span class="nav-text">中文分词简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中文分词"><span class="nav-number">1.1.</span> <span class="nav-text">中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文分词的发展"><span class="nav-number">1.2.</span> <span class="nav-text">中文分词的发展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文分词的用途"><span class="nav-number">1.3.</span> <span class="nav-text">中文分词的用途</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中文分词的特点和难点"><span class="nav-number">2.</span> <span class="nav-text">中文分词的特点和难点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分词的规范"><span class="nav-number">2.1.</span> <span class="nav-text">分词的规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#歧义词切分"><span class="nav-number">2.2.</span> <span class="nav-text">歧义词切分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未登录词（新词）识别"><span class="nav-number">2.3.</span> <span class="nav-text">未登录词（新词）识别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见中文分词方法"><span class="nav-number">3.</span> <span class="nav-text">常见中文分词方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于字符串匹配的分词方法"><span class="nav-number">3.1.</span> <span class="nav-text">基于字符串匹配的分词方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于理解的分词方法"><span class="nav-number">3.2.</span> <span class="nav-text">基于理解的分词方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于统计的分词方法"><span class="nav-number">3.3.</span> <span class="nav-text">基于统计的分词方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#典型中文分词工具"><span class="nav-number">4.</span> <span class="nav-text">典型中文分词工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stanford-NLP分词"><span class="nav-number">4.1.</span> <span class="nav-text">Stanford NLP分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HanLP中文分词"><span class="nav-number">4.2.</span> <span class="nav-text">HanLP中文分词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴分词工具详解"><span class="nav-number">4.3.</span> <span class="nav-text">结巴分词工具详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴分词核心内容"><span class="nav-number">4.4.</span> <span class="nav-text">结巴分词核心内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结巴分词基本用法"><span class="nav-number">4.5.</span> <span class="nav-text">结巴分词基本用法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分出-v-來-zg-凱特琳-x-了-ul-。-x"><span class="nav-number">6.</span> <span class="nav-text">分出 / v ,  來 / zg ,  凱特琳 / x ,  了 / ul ,  。 / x , </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">8.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">9.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>
