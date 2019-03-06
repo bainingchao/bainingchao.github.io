@@ -171,7 +171,6 @@
 <meta property="og:image" content="https://i.imgur.com/smjaw0A.png">
 <meta property="og:image" content="https://i.imgur.com/XUfmzHe.png">
 <meta property="og:image" content="https://i.imgur.com/rboSP9T.png">
-<meta property="og:image" content="https://i.imgur.com/h0AgYXf.png">
 <meta property="og:image" content="https://i.imgur.com/Bc6jJGN.png">
 <meta property="og:image" content="https://i.imgur.com/2yOopSh.png">
 <meta property="og:image" content="https://i.imgur.com/fwjrzhr.png">
@@ -181,11 +180,9 @@
 <meta property="og:image" content="https://i.imgur.com/7YJgJ9v.png">
 <meta property="og:image" content="https://i.imgur.com/P8o9jPw.png">
 <meta property="og:image" content="https://i.imgur.com/SWDbf6o.png">
-<meta property="og:image" content="https://i.imgur.com/yCz4Atj.png">
-<meta property="og:image" content="https://i.imgur.com/MwMAay7.png">
 <meta property="og:image" content="https://i.imgur.com/g99epdw.png">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
-<meta property="og:updated_time" content="2018-10-19T07:43:56.370Z">
+<meta property="og:updated_time" content="2019-03-06T08:58:43.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简明的Python教程之网站篇">
 <meta name="twitter:description" content="摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库">
@@ -497,7 +494,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:43:56" itemprop="dateModified" datetime="2018-10-19T15:43:56+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:58:43" itemprop="dateModified" datetime="2019-03-06T16:58:43+08:00">2019-03-06</time>
               
             
           </span>
@@ -595,25 +592,36 @@
 <p>通过“Win+R”键打开运行对话框，输入“pip”查看是否安装成功。如果pip输入报错，则需要自行下载安装即可。如果成功安装如图所示：</p>
 <p><img src="https://i.imgur.com/rboSP9T.png" alt=""></p>
 <h2 id="在线安装Django"><a href="#在线安装Django" class="headerlink" title="在线安装Django"></a>在线安装Django</h2><p>通过“Win+R”键打开运行对话框，输入“pip install django”代码，自动运行结束后。打开Sublime编辑器，点击“F6”切换的编辑环境，输入如下代码查看django是否安装成功。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> django</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>django.VERSION</span><br><span class="line">(<span class="number">1</span>, <span class="number">11</span>, <span class="number">0</span>, <span class="string">'final'</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre>
+>>> import django
+>>> django.VERSION
+(1, 11, 0, 'final', 1)
+</pre>
+
 <hr>
 <h1 id="创建用户管理项目"><a href="#创建用户管理项目" class="headerlink" title="创建用户管理项目"></a>创建用户管理项目</h1><h2 id="创建项目和App"><a href="#创建项目和App" class="headerlink" title="创建项目和App"></a>创建项目和App</h2><blockquote>
 <p>第一步</p>
 </blockquote>
 <p>通过“Win+R”键打开运行对话框，并在电脑的E盘根目录下创建名为UserProject的项目,输入如下创建命名：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject xmjc_analysis</span><br></pre></td></tr></table></figure>
-<p>命令执行完成，通过Sublime Text3打开菜单“File-&gt;Open Folder”选择刚刚创建的UserProject文件夹，如图所示：</p>
-<p><img src="https://i.imgur.com/h0AgYXf.png" alt=""></p>
-<ul>
-<li>settings.py 项目的设置文件</li>
-<li>urls.py 总的urls配置文件</li>
-<li>wsgi.py 部署服务器文件</li>
-<li><strong> init</strong>.py python包的目录结构必须的，与调用有关</li>
-</ul>
-<blockquote>
-<p>第二步</p>
-</blockquote>
-<p>进入UserProject文件夹下创建App名为myuser，执行如下命令，命令成功后如图所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startapp myuser</span><br></pre></td></tr></table></figure></p>
+<pre>
+django-admin startproject xmjc_analysis
+</pre>
+命令执行完成，通过Sublime Text3打开菜单“File->Open Folder”选择刚刚创建的UserProject文件夹，如图所示：
+
+![](https://i.imgur.com/h0AgYXf.png)
+
+- settings.py 项目的设置文件
+- urls.py 总的urls配置文件
+- wsgi.py 部署服务器文件
+- __ init__.py python包的目录结构必须的，与调用有关
+
+> 第二步
+
+进入UserProject文件夹下创建App名为myuser，执行如下命令，命令成功后如图所示：
+<pre>
+django-admin startapp myuser
+</pre>
+
 <p><img src="https://i.imgur.com/Bc6jJGN.png" alt=""></p>
 <p>一个项目可以包含多个App，执行完app创建命令后，打开项目查看如图所示：</p>
 <p><img src="https://i.imgur.com/2yOopSh.png" alt=""></p>
@@ -627,51 +635,148 @@
 <blockquote>
 <p>第三步</p>
 </blockquote>
-<p>将新定义名为“myuser”的app添加到UserProject项目中。修改UserProject/UserProject/settings.py代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Application definition</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 添加新建app</span></span><br><span class="line">    <span class="string">'myuser'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>将新定义名为“myuser”的app添加到UserProject项目中。修改UserProject/UserProject/settings.py代码如下：</p>
+<pre>
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # 添加新建app
+    'myuser',
+]
+</pre>
+
 <p>到此，完成项目的创建和app的添加。是不是很简单，下面我们创建一个新的欢迎界面。</p>
 <h2 id="第一个欢迎页面"><a href="#第一个欢迎页面" class="headerlink" title="第一个欢迎页面"></a>第一个欢迎页面</h2><p>1 在myuser文件夹下，打开UserProject/myuser/views.py文件,修改里面的代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">第一个页面</span></span><br><span class="line"><span class="string">author：白宁超</span></span><br><span class="line"><span class="string">site：http://www.cnblogs.com/baiboy/</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">u"欢迎进入第一个Django页面!"</span>)</span><br></pre></td></tr></table></figure>
+<pre>
+'''
+第一个页面
+author：白宁超
+site：http://www.cnblogs.com/baiboy/
+'''
+#coding:utf-8
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse(u"欢迎进入第一个Django页面!")
+</pre>
+
 <p>第一行是声明编码为utf-8, 因为我们在代码中用到了中文,如果不声明就报错.<br>第二行引入HttpResponse，它是用来向网页返回内容的，就像Python中的 print 一样，只不过 HttpResponse 是把内容显示到网页上。<br>我们定义了一个index()函数，第一个参数必须是 request，与网页发来的请求有关，request 变量里面包含get或post的内容。</p>
 <p>2 我们打开UserProject/UserProject/urls.py 这个文件, 修改其中的代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入myuser下的视图文件</span></span><br><span class="line"><span class="keyword">from</span> myuser <span class="keyword">import</span> views <span class="keyword">as</span> myuser_views</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># 第一个欢迎界面的配置</span></span><br><span class="line">    url(<span class="string">r'^index/$'</span>, myuser_views.index,name=<span class="string">'index'</span>),</span><br><span class="line"></span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<pre>
+from django.conf.urls import url
+from django.contrib import admin
+
+# 导入myuser下的视图文件
+from myuser import views as myuser_views
+
+
+urlpatterns = [
+    # 第一个欢迎界面的配置
+    url(r'^index/$', myuser_views.index,name='index'),
+
+    url(r'^admin/', admin.site.urls),
+]
+</pre>
+
 <p>3 在UserProject目录下输入“python manage.py runserver”命令本地运行服务器，如图所示：</p>
 <p><img src="https://i.imgur.com/fwjrzhr.png" alt=""></p>
 <p>4 将上图的本地网址复制到浏览器访问，本地网址后面输入刚刚配置的方法名“index”即可访问我们刚刚设计的网页。如图所示：</p>
 <p><img src="https://i.imgur.com/JbWX3aW.png" alt=""></p>
 <h2 id="带参数的欢迎页面"><a href="#带参数的欢迎页面" class="headerlink" title="带参数的欢迎页面"></a>带参数的欢迎页面</h2><ol>
-<li><p>打开UserProject/myuser/views.py文件,修改里面的代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">#coding:utf-8</span></span><br><span class="line"><span class="string">from django.shortcuts import render</span></span><br><span class="line"><span class="string">from django.http import HttpResponse</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 访问第一个页面</span></span><br><span class="line"><span class="string">def index(request):</span></span><br><span class="line"><span class="string">    return HttpResponse(u"欢迎进入第一个Django页面!")</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 访问第一个带参数的页面</span></span><br><span class="line"><span class="string">def indexPara(request):</span></span><br><span class="line"><span class="string">    name = request.GET['name']</span></span><br><span class="line"><span class="string">    return HttpResponse(u"欢迎进入\t"+name+",第一个Django页面!")</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们打开UserProject/UserProject/urls.py 这个文件, 修改其中的代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入myuser下的视图文件</span></span><br><span class="line"><span class="keyword">from</span> myuser <span class="keyword">import</span> views <span class="keyword">as</span> myuser_views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># 带参数的欢迎界面的配置</span></span><br><span class="line">    url(<span class="string">r'^para/$'</span>, myuser_views.indexPara,name=<span class="string">'para'</span>),</span><br><span class="line">    <span class="comment"># 第一个欢迎界面的配置</span></span><br><span class="line">    url(<span class="string">r'^index/$'</span>, myuser_views.index,name=<span class="string">'index'</span>),</span><br><span class="line"></span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果服务器关闭，需要如上方法重新打开。反之，直接输入网址查看，如图所示：</p>
-</li>
+<li>打开UserProject/myuser/views.py文件,修改里面的代码如下：<br><pre><br>‘’’<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="coding:utf-8"></a>coding:utf-8</h1>from django.shortcuts import render<br>from django.http import HttpResponse</pre></li>
+</ol>
+<h1 id="访问第一个页面"><a href="#访问第一个页面" class="headerlink" title="访问第一个页面"></a>访问第一个页面</h1><p>def index(request):<br>    return HttpResponse(u”欢迎进入第一个Django页面!”)</p>
+<h1 id="访问第一个带参数的页面"><a href="#访问第一个带参数的页面" class="headerlink" title="访问第一个带参数的页面"></a>访问第一个带参数的页面</h1><p>def indexPara(request):<br>    name = request.GET[‘name’]<br>    return HttpResponse(u”欢迎进入\t”+name+”,第一个Django页面!”)<br>&lt;/pre&gt;</p>
+<ol>
+<li>我们打开UserProject/UserProject/urls.py 这个文件, 修改其中的代码<br><pre><br>from django.conf.urls import url<br>from django.contrib import admin</pre></li>
+</ol>
+<h1 id="导入myuser下的视图文件"><a href="#导入myuser下的视图文件" class="headerlink" title="导入myuser下的视图文件"></a>导入myuser下的视图文件</h1><p>from myuser import views as myuser_views</p>
+<p>urlpatterns = [</p>
+<pre><code># 带参数的欢迎界面的配置
+url(r&#39;^para/$&#39;, myuser_views.indexPara,name=&#39;para&#39;),
+# 第一个欢迎界面的配置
+url(r&#39;^index/$&#39;, myuser_views.index,name=&#39;index&#39;),
+
+url(r&#39;^admin/&#39;, admin.site.urls),
+</code></pre><p>]<br>&lt;/pre&gt;</p>
+<ol>
+<li>如果服务器关闭，需要如上方法重新打开。反之，直接输入网址查看，如图所示：</li>
 </ol>
 <p><img src="https://i.imgur.com/CGTI72H.png" alt=""></p>
 <h2 id="单数据库配置"><a href="#单数据库配置" class="headerlink" title="单数据库配置"></a>单数据库配置</h2><ol>
 <li>在UserProject/UserProject/settings.py文件下,默认sqlites数据库，现在假设项目需求是mysql数据库。具体修改如下：</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Database</span></span><br><span class="line"><span class="comment"># https://docs.djangoproject.com/en/1.11/ref/settings/#databases</span></span><br><span class="line"></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="comment"># 配置默认为mysql数据库</span></span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>, <span class="comment"># 设置数据库引擎</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'test'</span>,                       <span class="comment"># 数据库名</span></span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'test'</span>,                       <span class="comment"># 数据库登陆名</span></span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'test123'</span>,                <span class="comment"># 数据库登陆密码</span></span><br><span class="line">        <span class="string">'HOST'</span>:<span class="string">'localhost'</span>,                   <span class="comment"># 数据库服务器IP，默认设置本地</span></span><br><span class="line">        <span class="string">'PORT'</span>:<span class="string">'3306'</span>,                        <span class="comment"># 端口号</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 默认配置为sqlite3数据库</span></span><br><span class="line">    <span class="comment"># 'default': &#123;</span></span><br><span class="line">    <span class="comment">#     'ENGINE': 'django.db.backends.sqlite3',</span></span><br><span class="line">    <span class="comment">#     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),</span></span><br><span class="line">    <span class="comment"># &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>UserProject/UserProject/<strong> init</strong>.py文件添加如下代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line">pymysql.install_as_MySQLdb()</span><br></pre></td></tr></table></figure></p>
+<pre>
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+DATABASES = {
+    # 配置默认为mysql数据库
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # 设置数据库引擎
+        'NAME': 'test',                       # 数据库名
+        'USER': 'test',                       # 数据库登陆名
+        'PASSWORD': 'test123',                # 数据库登陆密码
+        'HOST':'localhost',                   # 数据库服务器IP，默认设置本地
+        'PORT':'3306',                        # 端口号
+    },
+
+    # 默认配置为sqlite3数据库
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+}
+</pre>
+
+<p>UserProject/UserProject/<strong> init</strong>.py文件添加如下代码：</p>
+<pre>
+import pymysql
+pymysql.install_as_MySQLdb()
+</pre>
+
 <ol>
-<li><p>在UserProject/myuser/models.py下设计数据库表，采用ORM方式，完整代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    username = models.CharField(<span class="string">'用户名'</span>, max_length=<span class="number">30</span>)</span><br><span class="line">    userpass = models.CharField(<span class="string">'密码'</span>,max_length=<span class="number">30</span>)</span><br><span class="line">    useremail = models.EmailField(<span class="string">'邮箱'</span>,max_length=<span class="number">30</span>)</span><br><span class="line">    usertype = models.CharField(<span class="string">'用户类型'</span>,max_length=<span class="number">30</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.username</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在analysis/admin.py中定义显示数据</p>
-</li>
+<li>在UserProject/myuser/models.py下设计数据库表，采用ORM方式，完整代码如下：<br><pre><br>from django.db import models</pre></li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> User</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    list_display = (<span class="string">'username'</span>,<span class="string">'userpass'</span>,<span class="string">'useremail'</span>) <span class="comment"># 自定义显示字段</span></span><br><span class="line"> </span><br><span class="line">admin.site.register(User,UserAdmin)</span><br></pre></td></tr></table></figure>
+<h1 id="Create-your-models-here"><a href="#Create-your-models-here" class="headerlink" title="Create your models here."></a>Create your models here.</h1><p>class User(models.Model):<br>    username = models.CharField(‘用户名’, max_length=30)<br>    userpass = models.CharField(‘密码’,max_length=30)<br>    useremail = models.EmailField(‘邮箱’,max_length=30)<br>    usertype = models.CharField(‘用户类型’,max_length=30)</p>
+<pre><code>def __str__(self):
+    return self.username
+</code></pre><p>&lt;/pre&gt;</p>
 <ol>
-<li>打开对话框，在“UserProject”下将生成的py文件应用到mysql数据库。输入如下命令：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+<li>在analysis/admin.py中定义显示数据</li>
+</ol>
+<pre>
+from django.contrib import admin
+from .models import User
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username','userpass','useremail') # 自定义显示字段
+
+admin.site.register(User,UserAdmin)
+</pre>
+
+<ol>
+<li>打开对话框，在“UserProject”下将生成的py文件应用到mysql数据库。输入如下命令：<pre>
+python manage.py makemigrations
+python manage.py migrate
+</pre>
+
 </li>
 </ol>
 <p><img src="https://i.imgur.com/CblSJwf.png" alt=""></p>
 <ol>
-<li>创建超级管理员：用户名，admin1；密码密码：admin123，如图所示<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
-</li>
+<li>创建超级管理员：用户名，admin1；密码密码：admin123，如图所示<br><pre>
+python manage.py createsuperuser
+</pre><br>创建后台超级管理员</li>
 </ol>
-<p>创建后台超级管理员</p>
 <p><img src="https://i.imgur.com/7YJgJ9v.png" alt=""></p>
 <p>创建后台超级管理员</p>
 <p><img src="https://i.imgur.com/P8o9jPw.png" alt=""></p>
@@ -681,21 +786,78 @@
 <p>可以看到后台信息，并对数据表进行增删改查操作，但是后台全部英文如图示，可以改为中文显示？</p>
 <p><img src="https://i.imgur.com/SWDbf6o.png" alt=""></p>
 <p>后台管理设置为中文显示,UserProject/UserProject/settings.py下修改代码：</p>
-<p><pre>LANGUAGE_CODE = 'zh-Hans' # 中文显示</pre><br>再去查看：</p>
-<p><img src="https://i.imgur.com/yCz4Atj.png" alt=""></p>
-<hr>
-<h1 id="Django数据库操作"><a href="#Django数据库操作" class="headerlink" title="Django数据库操作"></a>Django数据库操作</h1><h2 id="QuerySet-API，shell玩转MySql"><a href="#QuerySet-API，shell玩转MySql" class="headerlink" title="QuerySet API，shell玩转MySql"></a>QuerySet API，shell玩转MySql</h2><p>在UserProject项目下输入【 python manage.py shell】，然后查询数据表如图所示：</p>
-<p><img src="https://i.imgur.com/MwMAay7.png" alt=""></p>
-<p>创建一条用户信息，输入如下shell命令：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.objects.create(username=<span class="string">"李白"</span>, userpass=<span class="string">"libai123"</span>,useremail=<span class="string">"libai@163.com"</span>,usertype=<span class="string">"超级管理员"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>登录项目后台查看，如图所示。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](https://i.imgur.com/tDHK2vF.png)</span><br></pre></td></tr></table></figure></p>
-<h2 id="其他shell操作语句"><a href="#其他shell操作语句" class="headerlink" title="其他shell操作语句"></a>其他shell操作语句</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法 1</span></span><br><span class="line">User.objects.create(username=<span class="string">"李白"</span>, userpass=<span class="string">"libai123"</span>,useremail=<span class="string">"libai@163.com"</span>,usertype=<span class="string">"超级管理员"</span>)</span><br><span class="line"><span class="comment"># 方法 2</span></span><br><span class="line">twz =User(username=<span class="string">"李白"</span>, userpass=<span class="string">"libai123"</span>,useremail=<span class="string">"libai@163.com"</span>,usertype=<span class="string">"超级管理员"</span>)</span><br><span class="line">twz.save()</span><br><span class="line"><span class="comment"># 获取对象：</span></span><br><span class="line">Person.objects.all()</span><br><span class="line"><span class="comment"># 满足条件查询</span></span><br><span class="line">User.objects.filter(username=<span class="string">"李白"</span>)</span><br><span class="line"><span class="comment"># 迭代查询：</span></span><br><span class="line">es = Entry.objects.all()</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> es:</span><br><span class="line">    print(e.headline)</span><br><span class="line"><span class="comment"># 查询排序：</span></span><br><span class="line">User.objects.all().order_by(<span class="string">'username'</span>)</span><br><span class="line"><span class="comment"># 链式查询：</span></span><br><span class="line">User.objects.filter(name__contains=<span class="string">"WeizhongTu"</span>).filter(email=<span class="string">"tuweizhong@163.com"</span>)</span><br><span class="line"><span class="comment"># 去重查询：</span></span><br><span class="line">qs = qs.distinct()</span><br><span class="line"><span class="comment"># 删除操作：</span></span><br><span class="line">User.objects.all().delete()</span><br><span class="line"><span class="comment"># 更新操作：</span></span><br><span class="line">Person.objects.filter(name__contains=<span class="string">"abc"</span>).update(name=<span class="string">'xxx'</span>)</span><br><span class="line"><span class="comment"># 数据的导出：</span></span><br><span class="line">python manage.py dumpdata [appname] &gt; appname_data.json</span><br><span class="line">python manage.py dumpdata blog &gt; blog_dump.json</span><br><span class="line"><span class="comment"># 导出用户数据</span></span><br><span class="line">python manage.py dumpdata auth &gt; auth.json <span class="comment"># 导出用户数据</span></span><br></pre></td></tr></table></figure>
+<pre>LANGUAGE_CODE = 'zh-Hans' # 中文显示</pre>
+再去查看：
+
+![](https://i.imgur.com/yCz4Atj.png)
+
+***
+
+# Django数据库操作
+
+## QuerySet API，shell玩转MySql
+
+在UserProject项目下输入【 python manage.py shell】，然后查询数据表如图所示：
+
+![](https://i.imgur.com/MwMAay7.png)
+
+创建一条用户信息，输入如下shell命令：
+<pre>
+User.objects.create(username="李白", userpass="libai123",useremail="libai@163.com",usertype="超级管理员")
+</pre>
+登录项目后台查看，如图所示。
+<pre>
+![](https://i.imgur.com/tDHK2vF.png)
+
+</pre>
+
+<h2 id="其他shell操作语句"><a href="#其他shell操作语句" class="headerlink" title="其他shell操作语句"></a>其他shell操作语句</h2><pre>
+# 方法 1
+User.objects.create(username="李白", userpass="libai123",useremail="libai@163.com",usertype="超级管理员")
+# 方法 2
+twz =User(username="李白", userpass="libai123",useremail="libai@163.com",usertype="超级管理员")
+twz.save()
+# 获取对象：
+Person.objects.all()
+# 满足条件查询
+User.objects.filter(username="李白")
+# 迭代查询：
+es = Entry.objects.all()
+for e in es:
+    print(e.headline)
+# 查询排序：
+User.objects.all().order_by('username')
+# 链式查询：
+User.objects.filter(name__contains="WeizhongTu").filter(email="tuweizhong@163.com")
+# 去重查询：
+qs = qs.distinct()
+# 删除操作：
+User.objects.all().delete()
+# 更新操作：
+Person.objects.filter(name__contains="abc").update(name='xxx')
+# 数据的导出：
+python manage.py dumpdata [appname] > appname_data.json
+python manage.py dumpdata blog > blog_dump.json
+# 导出用户数据
+python manage.py dumpdata auth > auth.json # 导出用户数据
+</pre>
+
 <h2 id="批量向数据表导入数据"><a href="#批量向数据表导入数据" class="headerlink" title="批量向数据表导入数据"></a>批量向数据表导入数据</h2><ol>
 <li><p>将name.txt导入数据库，数据内容如下：</p>
 <p> 张一|admin|zhang1@qq.com|超级管理员<br> 张二|admin|zhang2@qq.com|超级管理员<br> 张三|admin|zhang3@qq.com|超级管理员<br> 张四|admin|zhang4@qq.com|超级管理员<br> 张五|admin|zhang5@qq.com|超级管理员<br> 张六|admin|zhang6@qq.com|超级管理员<br> 张七|admin|zhang7@qq.com|超级管理员<br> 张八|admin|zhang8@qq.com|超级管理员<br> 张九|admin|zhang9@qq.com|超级管理员</p>
 </li>
 </ol>
 <ol>
-<li>文本数据批量导入mysql数据库中，核心源码如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">from</span> analysis.models <span class="keyword">import</span> User</span><br><span class="line">    f = open(<span class="string">'./readme/files/name.txt'</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        name,pwd,email,type = line.split(<span class="string">'|'</span>)</span><br><span class="line">        User.objects.create(username=name,userpass=pwd,useremail=email,usertype=type)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<li>文本数据批量导入mysql数据库中，核心源码如下：<pre>
+def main():
+ from analysis.models import User
+ f = open('./readme/files/name.txt',encoding='utf-8')
+ for line in f:
+     name,pwd,email,type = line.split('|')
+     User.objects.create(username=name,userpass=pwd,useremail=email,usertype=type)
+ f.close()
+</pre>
+
 </li>
 </ol>
 <p>重新登录“用户信息管理后台”，查看结果如图所示：</p>
@@ -1291,7 +1453,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django搞定用户管理系统"><span class="nav-number">1.</span> <span class="nav-text">Django搞定用户管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Django是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django开发模型"><span class="nav-number">1.2.</span> <span class="nav-text">Django开发模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django的架构"><span class="nav-number">1.3.</span> <span class="nav-text">Django的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django商业网站"><span class="nav-number">1.4.</span> <span class="nav-text">Django商业网站</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Django安装配置"><span class="nav-number">2.</span> <span class="nav-text">Django安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置条件"><span class="nav-number">2.1.</span> <span class="nav-text">前置条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在线安装Django"><span class="nav-number">2.2.</span> <span class="nav-text">在线安装Django</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建用户管理项目"><span class="nav-number">3.</span> <span class="nav-text">创建用户管理项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建项目和App"><span class="nav-number">3.1.</span> <span class="nav-text">创建项目和App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个欢迎页面"><span class="nav-number">3.2.</span> <span class="nav-text">第一个欢迎页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带参数的欢迎页面"><span class="nav-number">3.3.</span> <span class="nav-text">带参数的欢迎页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单数据库配置"><span class="nav-number">3.4.</span> <span class="nav-text">单数据库配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Django数据库操作"><span class="nav-number">4.</span> <span class="nav-text">Django数据库操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#QuerySet-API，shell玩转MySql"><span class="nav-number">4.1.</span> <span class="nav-text">QuerySet API，shell玩转MySql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他shell操作语句"><span class="nav-number">4.2.</span> <span class="nav-text">其他shell操作语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量向数据表导入数据"><span class="nav-number">4.3.</span> <span class="nav-text">批量向数据表导入数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django搞定用户管理系统"><span class="nav-number">1.</span> <span class="nav-text">Django搞定用户管理系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Django是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django开发模型"><span class="nav-number">1.2.</span> <span class="nav-text">Django开发模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django的架构"><span class="nav-number">1.3.</span> <span class="nav-text">Django的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django商业网站"><span class="nav-number">1.4.</span> <span class="nav-text">Django商业网站</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Django安装配置"><span class="nav-number">2.</span> <span class="nav-text">Django安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置条件"><span class="nav-number">2.1.</span> <span class="nav-text">前置条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在线安装Django"><span class="nav-number">2.2.</span> <span class="nav-text">在线安装Django</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建用户管理项目"><span class="nav-number">3.</span> <span class="nav-text">创建用户管理项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建项目和App"><span class="nav-number">3.1.</span> <span class="nav-text">创建项目和App</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个欢迎页面"><span class="nav-number">3.2.</span> <span class="nav-text">第一个欢迎页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带参数的欢迎页面"><span class="nav-number">3.3.</span> <span class="nav-text">带参数的欢迎页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding-utf-8"><span class="nav-number">4.</span> <span class="nav-text">coding:utf-8</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问第一个页面"><span class="nav-number">5.</span> <span class="nav-text">访问第一个页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问第一个带参数的页面"><span class="nav-number">6.</span> <span class="nav-text">访问第一个带参数的页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入myuser下的视图文件"><span class="nav-number">7.</span> <span class="nav-text">导入myuser下的视图文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单数据库配置"><span class="nav-number">7.1.</span> <span class="nav-text">单数据库配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Create-your-models-here"><span class="nav-number">8.</span> <span class="nav-text">Create your models here.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他shell操作语句"><span class="nav-number">8.1.</span> <span class="nav-text">其他shell操作语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量向数据表导入数据"><span class="nav-number">8.2.</span> <span class="nav-text">批量向数据表导入数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">9.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">10.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">11.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

@@ -173,7 +173,7 @@
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\\&space;P(F_1|C)*P(F_2|C)....P(F_n|C)P(C)&space;\\&space;\Rightarrow&space;\\&space;log(P(F_1|C))+log(P(F_2|C))+....+log(P(F_n|C))+log(P(C))">
 <meta property="og:image" content="https://i.imgur.com/ur4LMd3.png">
 <meta property="og:image" content="https://i.imgur.com/Fl1W5mB.png">
-<meta property="og:updated_time" content="2018-10-19T07:38:47.423Z">
+<meta property="og:updated_time" content="2019-03-06T08:38:37.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学朴素贝叶斯模型算法实现篇2">
 <meta name="twitter:description" content="摘要：朴素贝叶斯模型是机器学习常用的模型算法之一，其在文本分类方面简单易行，且取得不错的分类效果。所以很受欢迎，对于朴素贝叶斯的学习，本文首先介绍理论知识即朴素贝叶斯相关概念和公式推导，为了加深理解，采用一个维基百科上面性别分类例子进行形式化描述。然后通过编程实现朴素贝叶斯分类算法，并在屏蔽社区言论、垃圾邮件、个人广告中获取区域倾向等几个方面进行应用，包括创建数据集、数据预处理、词集模型和词袋模">
@@ -485,7 +485,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:38:47" itemprop="dateModified" datetime="2018-10-19T15:38:47+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:38:37" itemprop="dateModified" datetime="2019-03-06T16:38:37+08:00">2019-03-06</time>
               
             
           </span>
@@ -566,13 +566,42 @@
 <li>测试算法: 根据现实情况修改分类器</li>
 <li>使用算法: 对社区留言板言论进行分类</li>
 </ol>
-<h3 id="收集数据"><a href="#收集数据" class="headerlink" title="收集数据"></a>收集数据</h3><p>本案例我们采用自定义的数据集，我们选择6条社区评论，然后进行数据处理后以list形式存储在文档列表postingList中。其中每个词代表一个特征。将每条评论进行分类（即1代表侮辱性文字,0代表非侮辱文字）存在在类别列表classVec中。最后返回数据集和类标签。代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''创建数据集：单词列表postingList, 所属类别classVec'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">()</span>:</span></span><br><span class="line">    postingList = [[<span class="string">'my'</span>, <span class="string">'dog'</span>, <span class="string">'has'</span>, <span class="string">'flea'</span>, <span class="string">'problems'</span>, <span class="string">'help'</span>, <span class="string">'please'</span>],</span><br><span class="line">                   [<span class="string">'maybe'</span>, <span class="string">'not'</span>, <span class="string">'take'</span>, <span class="string">'him'</span>, <span class="string">'to'</span>, <span class="string">'dog'</span>, <span class="string">'park'</span>, <span class="string">'stupid'</span>],</span><br><span class="line">                   [<span class="string">'my'</span>, <span class="string">'dalmation'</span>, <span class="string">'is'</span>, <span class="string">'so'</span>, <span class="string">'cute'</span>, <span class="string">'I'</span>, <span class="string">'love'</span>, <span class="string">'him'</span>],</span><br><span class="line">                   [<span class="string">'stop'</span>, <span class="string">'posting'</span>, <span class="string">'stupid'</span>, <span class="string">'worthless'</span>, <span class="string">'garbage'</span>],</span><br><span class="line">                   [<span class="string">'mr'</span>, <span class="string">'licks'</span>, <span class="string">'ate'</span>, <span class="string">'my'</span>, <span class="string">'steak'</span>, <span class="string">'how'</span>, <span class="string">'to'</span>, <span class="string">'stop'</span>, <span class="string">'him'</span>],</span><br><span class="line">                   [<span class="string">'quit'</span>, <span class="string">'buying'</span>, <span class="string">'worthless'</span>, <span class="string">'dog'</span>, <span class="string">'food'</span>, <span class="string">'stupid'</span>]]</span><br><span class="line">    classVec = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]  <span class="comment"># 1代表侮辱性文字,0代表非侮辱文字</span></span><br><span class="line">    <span class="keyword">return</span> postingList, classVec</span><br></pre></td></tr></table></figure></p>
-<p>代码分析：postingList列表存储6条评论信息，classVec列表存储每条信息类别（1代表侮辱性文字,0代表非侮辱文字）。最后返回文档列表和类别列表。</p>
-<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>数据预处理包括对样本进行分词、词性筛选、停用词处理等，最后形成规范化干净的数据样本。由于本案例收集数据时默认进行了数据预处理，所以本节不在介绍（复旦新闻语料文本分类案例会详细介绍）。目前，我们采集的数据还是文本类型，计算机还不能直接处理，需要将文本数据转化成词向量进行处理。这里面需要获取特征的词汇集合（如果暂时不理解，先看看代码实现，下面会进行形式化描述）。其实现过程如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''获取所有单词的集合:返回不含重复元素的单词列表'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createVocabList</span><span class="params">(dataSet)</span>:</span></span><br><span class="line">    vocabSet = set([])</span><br><span class="line">    <span class="keyword">for</span> document <span class="keyword">in</span> dataSet:</span><br><span class="line">        vocabSet = vocabSet | set(document)  <span class="comment"># 操作符 | 用于求两个集合的并集</span></span><br><span class="line">    <span class="comment"># print(vocabSet)</span></span><br><span class="line">    <span class="keyword">return</span> list(vocabSet)</span><br></pre></td></tr></table></figure></p>
-<p>代码分析：方法参数dataSet即加载数据集返回的文档列表。vocabSet是定义的不重复的数据集合。然后for循环对文档列表每条数据进行遍历处理，将不重复的词汇添加到vocabSet中，最终形成整个文档的词汇集，然后以list形式返回。</p>
-<p>上面的方法已经获取了整个文档词汇集合，接着构建数据矩阵，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''词集模型构建数据矩阵'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setOfWords2Vec</span><span class="params">(vocabList, inputSet)</span>:</span></span><br><span class="line">    <span class="comment"># 创建一个和词汇表等长的向量，并将其元素都设置为0</span></span><br><span class="line">    returnVec = [<span class="number">0</span>] * len(vocabList)</span><br><span class="line">    <span class="comment"># 遍历文档中的所有单词，如果出现了词汇表中的单词，则将输出的文档向量中的对应值设为1</span></span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> inputSet:</span><br><span class="line">        <span class="keyword">if</span> word <span class="keyword">in</span> vocabList:</span><br><span class="line">            returnVec[vocabList.index(word)] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">"单词: %s 不在词汇表之中!"</span> % word)</span><br><span class="line">    <span class="comment"># print(returnVec)</span></span><br><span class="line">    <span class="keyword">return</span> returnVec</span><br></pre></td></tr></table></figure></p>
-<p>代码分析：本方法提供两个参数分别是整个训练文档词汇集（即全部训练文档6条评论不重复的单词集合），输入的数据列表。以整个词汇集等长的0向量。我们遍历输入数据列表，如果词特征在词汇集则标记1，不在词汇集保持为0.最后返回词向量矩阵。</p>
-<p>与词集模型对应的，有个词袋模型。两者都是构建词向量，只是方式不一样，词袋模型也是推荐使用的词向量化方法，其实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''文档词袋模型构建数据矩阵'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bagOfWords2VecMN</span><span class="params">(vocabList, inputSet)</span>:</span></span><br><span class="line">    returnVec = [<span class="number">0</span>] * len(vocabList)</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> inputSet:</span><br><span class="line">        <span class="keyword">if</span> word <span class="keyword">in</span> vocabList:</span><br><span class="line">            returnVec[vocabList.index(word)] += <span class="number">1</span></span><br><span class="line">    <span class="comment"># print(returnVec)</span></span><br><span class="line">    <span class="keyword">return</span> returnVec</span><br></pre></td></tr></table></figure></p>
+<h3 id="收集数据"><a href="#收集数据" class="headerlink" title="收集数据"></a>收集数据</h3><p>本案例我们采用自定义的数据集，我们选择6条社区评论，然后进行数据处理后以list形式存储在文档列表postingList中。其中每个词代表一个特征。将每条评论进行分类（即1代表侮辱性文字,0代表非侮辱文字）存在在类别列表classVec中。最后返回数据集和类标签。代码实现如下：</p>
+<p><pre>
+'''创建数据集：单词列表postingList, 所属类别classVec'''
+def loadDataSet():
+    postingList = [['my', 'dog', 'has', 'flea', 'problems', 'help', 'please'],
+                   ['maybe', 'not', 'take', 'him', 'to', 'dog', 'park', 'stupid'],
+                   ['my', 'dalmation', 'is', 'so', 'cute', 'I', 'love', 'him'],
+                   ['stop', 'posting', 'stupid', 'worthless', 'garbage'],
+                   ['mr', 'licks', 'ate', 'my', 'steak', 'how', 'to', 'stop', 'him'],
+                   ['quit', 'buying', 'worthless', 'dog', 'food', 'stupid']]
+    classVec = [0, 1, 0, 1, 0, 1]  # 1代表侮辱性文字,0代表非侮辱文字
+    return postingList, classVec
+</pre><br>代码分析：postingList列表存储6条评论信息，classVec列表存储每条信息类别（1代表侮辱性文字,0代表非侮辱文字）。最后返回文档列表和类别列表。</p>
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>数据预处理包括对样本进行分词、词性筛选、停用词处理等，最后形成规范化干净的数据样本。由于本案例收集数据时默认进行了数据预处理，所以本节不在介绍（复旦新闻语料文本分类案例会详细介绍）。目前，我们采集的数据还是文本类型，计算机还不能直接处理，需要将文本数据转化成词向量进行处理。这里面需要获取特征的词汇集合（如果暂时不理解，先看看代码实现，下面会进行形式化描述）。其实现过程如下：</p>
+<p><pre><br>‘’’获取所有单词的集合:返回不含重复元素的单词列表’’’<br>def createVocabList(dataSet):<br>    vocabSet = set([])<br>    for document in dataSet:<br>        vocabSet = vocabSet | set(document)  # 操作符 | 用于求两个集合的并集</pre></p>
+<pre><code># print(vocabSet)
+return list(vocabSet)
+</code></pre><p>&lt;/pre&gt;<br>代码分析：方法参数dataSet即加载数据集返回的文档列表。vocabSet是定义的不重复的数据集合。然后for循环对文档列表每条数据进行遍历处理，将不重复的词汇添加到vocabSet中，最终形成整个文档的词汇集，然后以list形式返回。</p>
+<p>上面的方法已经获取了整个文档词汇集合，接着构建数据矩阵，代码实现如下：</p>
+<p><pre><br>‘’’词集模型构建数据矩阵’’’<br>def setOfWords2Vec(vocabList, inputSet):</pre></p>
+<pre><code># 创建一个和词汇表等长的向量，并将其元素都设置为0
+returnVec = [0] * len(vocabList)
+# 遍历文档中的所有单词，如果出现了词汇表中的单词，则将输出的文档向量中的对应值设为1
+for word in inputSet:
+    if word in vocabList:
+        returnVec[vocabList.index(word)] = 1
+    else:
+        print(&quot;单词: %s 不在词汇表之中!&quot; % word)
+# print(returnVec)
+return returnVec
+</code></pre><p>&lt;/pre&gt;<br>代码分析：本方法提供两个参数分别是整个训练文档词汇集（即全部训练文档6条评论不重复的单词集合），输入的数据列表。以整个词汇集等长的0向量。我们遍历输入数据列表，如果词特征在词汇集则标记1，不在词汇集保持为0.最后返回词向量矩阵。</p>
+<p>与词集模型对应的，有个词袋模型。两者都是构建词向量，只是方式不一样，词袋模型也是推荐使用的词向量化方法，其实现如下：</p>
+<p><pre><br>‘’’文档词袋模型构建数据矩阵’’’<br>def bagOfWords2VecMN(vocabList, inputSet):<br>    returnVec = [0] * len(vocabList)<br>    for word in inputSet:<br>        if word in vocabList:<br>            returnVec[vocabList.index(word)] += 1</pre></p>
+<pre><code># print(returnVec)
+return returnVec
+</code></pre><p>&lt;/pre&gt;</p>
 <h3 id="分析数据"><a href="#分析数据" class="headerlink" title="分析数据"></a>分析数据</h3><p>运行词集模型setOfWords2Vec(vocabList, dataSet[0])运行结果如下：</p>
 <pre><code>[&#39;dog&#39;, &#39;to&#39;, &#39;take&#39;, &#39;park&#39;, &#39;licks&#39;, &#39;has&#39;, &#39;help&#39;, &#39;stupid&#39;, &#39;him&#39;, &#39;so&#39;, &#39;not&#39;, &#39;love&#39;, &#39;buying&#39;, &#39;problems&#39;, &#39;cute&#39;, &#39;stop&#39;, &#39;steak&#39;, &#39;how&#39;, &#39;flea&#39;, &#39;maybe&#39;, &#39;food&#39;, &#39;I&#39;, &#39;please&#39;, &#39;dalmation&#39;, &#39;mr&#39;, &#39;posting&#39;, &#39;ate&#39;, &#39;garbage&#39;, &#39;worthless&#39;, &#39;my&#39;, &#39;is&#39;, &#39;quit&#39;]
 [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
@@ -580,8 +609,33 @@
 <p>数据样本分析仅仅如上所述？当然不是，本例子中数据量比较小，容易分析。当数据量比较大，特征数以万计之时，人工分析就显得捉襟见肘了。我们可以采用图形化分析方法，根据具体业务需求，可以选择基于python自带的matplotlib可视化分析、或者其他图形可视化工具进行平面或多维数据分析，然后便于特征的选择。</p>
 <p>如果是中文分词，我们还可以对词性进行分析，然后选择相应的词性特征，比如名词、动词、地名、人名、机构名等等，对虚词、助词等进行过滤，一方面达到数据降维另一方面防止模型训练拟合化等问题。</p>
 <h3 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h3><p>现在已经知道了一个词是否出现在一篇文档中，也知道该文档所属的类别。接下来我们重写贝叶斯准则，将之前的 x, y 替换为 w. 粗体的 w 表示这是一个向量，即它由多个值组成。在这个例子中，数值个数与词汇表中的词个数相同。</p>
-<script type="math/tex; mode=display">p(c_i|w)= \frac{p(w \mid c_i)p(c)} {p(w)}</script><p>我们使用上述公式，对每个类计算该值，然后比较这两个概率值的大小。根据上述公式可知，我们右边的式子等同于左边的式子，由于对于每个\(c_i\)，\(P(w)\)是固定的。并且我们只需要比较左边式子值的大小来决策分类，那么我们就可以简化为通过比较右边分子值得大小来做决策分类。<br>首先可以通过类别 i (侮辱性留言或者非侮辱性留言)中的文档数除以总的文档数来计算概率\(p(c_i)\)。接下来计算\(p(w|c_i)\)，这里就要用到朴素贝叶斯假设。如果将 w 展开为一个个独立特征，那么就可以将上述概率写作\(p(w_0,w_1,w_2…w_n|c_i)\)。这里假设所有词都互相独立，该假设也称作条件独立性假设（例如 A 和 B 两个人抛骰子，概率是互不影响的，也就是相互独立的，A 抛 2点的同时 B 抛 3 点的概率就是 1/6 * 1/6），它意味着可以使用\( p(w_0|c_i)p(w_1|c_i)p(w_2|;c_i)…p(w_n|c_i)\)来计算上述概率，这样就极大地简化了计算的过程。具体代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''朴素贝叶斯分类器训练函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_trainNB0</span><span class="params">(trainMatrix, trainCategory)</span>:</span></span><br><span class="line">    numTrainDocs = len(trainMatrix) <span class="comment"># 文件数</span></span><br><span class="line">    numWords = len(trainMatrix[<span class="number">0</span>]) <span class="comment"># 单词数</span></span><br><span class="line">    <span class="comment"># 侮辱性文件的出现概率，即trainCategory中所有的1的个数，</span></span><br><span class="line">    <span class="comment"># 代表的就是多少个侮辱性文件，与文件的总数相除就得到了侮辱性文件的出现概率</span></span><br><span class="line">    pAbusive = sum(trainCategory) / float(numTrainDocs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 构造单词出现次数列表</span></span><br><span class="line">    p0Num = zeros(numWords) <span class="comment"># [0,0,0,.....]</span></span><br><span class="line">    p1Num = zeros(numWords) <span class="comment"># [0,0,0,.....]</span></span><br><span class="line">    p0Denom = <span class="number">0.0</span>;p1Denom = <span class="number">0.0</span> <span class="comment"># 整个数据集单词出现总数</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTrainDocs):</span><br><span class="line">        <span class="comment"># 遍历所有的文件，如果是侮辱性文件，就计算此侮辱性文件中出现的侮辱性单词的个数</span></span><br><span class="line">        <span class="keyword">if</span> trainCategory[i] == <span class="number">1</span>:</span><br><span class="line">            p1Num += trainMatrix[i] <span class="comment">#[0,1,1,....]-&gt;[0,1,1,...]</span></span><br><span class="line">            p1Denom += sum(trainMatrix[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 如果不是侮辱性文件，则计算非侮辱性文件中出现的侮辱性单词的个数</span></span><br><span class="line">            p0Num += trainMatrix[i]</span><br><span class="line">            p0Denom += sum(trainMatrix[i])</span><br><span class="line">    <span class="comment"># 类别1，即侮辱性文档的[P(F1|C1),P(F2|C1),P(F3|C1),P(F4|C1),P(F5|C1)....]列表</span></span><br><span class="line">    <span class="comment"># 即 在1类别下，每个单词出现次数的占比</span></span><br><span class="line">    p1Vect = p1Num / p1Denom<span class="comment"># [1,2,3,5]/90-&gt;[1/90,...]</span></span><br><span class="line">    <span class="comment"># 类别0，即正常文档的[P(F1|C0),P(F2|C0),P(F3|C0),P(F4|C0),P(F5|C0)....]列表</span></span><br><span class="line">    <span class="comment"># 即 在0类别下，每个单词出现次数的占比</span></span><br><span class="line">    p0Vect = p0Num / p0Denom</span><br><span class="line">    <span class="keyword">return</span> p0Vect, p1Vect, pAbusive</span><br></pre></td></tr></table></figure></p>
-<p>代码分析：本方法参数分别是文档特征向量矩阵和文档类别向量矩阵。首先计算侮辱性文档占总文档的概率，然后计算正常文档下特征词的概率向量和侮辱性特征词的向量，为了更好理解上面的代码我们看下运行p0V,p1V,pAb=_trainNB0(trainMatrix,Classlabels)结果：</p>
+<script type="math/tex; mode=display">p(c_i|w)= \frac{p(w \mid c_i)p(c)} {p(w)}</script><p>我们使用上述公式，对每个类计算该值，然后比较这两个概率值的大小。根据上述公式可知，我们右边的式子等同于左边的式子，由于对于每个\(c_i\)，\(P(w)\)是固定的。并且我们只需要比较左边式子值的大小来决策分类，那么我们就可以简化为通过比较右边分子值得大小来做决策分类。<br>首先可以通过类别 i (侮辱性留言或者非侮辱性留言)中的文档数除以总的文档数来计算概率\(p(c_i)\)。接下来计算\(p(w|c_i)\)，这里就要用到朴素贝叶斯假设。如果将 w 展开为一个个独立特征，那么就可以将上述概率写作\(p(w_0,w_1,w_2…w_n|c_i)\)。这里假设所有词都互相独立，该假设也称作条件独立性假设（例如 A 和 B 两个人抛骰子，概率是互不影响的，也就是相互独立的，A 抛 2点的同时 B 抛 3 点的概率就是 1/6 * 1/6），它意味着可以使用\( p(w_0|c_i)p(w_1|c_i)p(w_2|;c_i)…p(w_n|c_i)\)来计算上述概率，这样就极大地简化了计算的过程。具体代码实现如下：</p>
+<p><pre><br>‘’’朴素贝叶斯分类器训练函数’’’<br>def _trainNB0(trainMatrix, trainCategory):<br>    numTrainDocs = len(trainMatrix) # 文件数<br>    numWords = len(trainMatrix[0]) # 单词数</pre></p>
+<pre><code># 侮辱性文件的出现概率，即trainCategory中所有的1的个数，
+# 代表的就是多少个侮辱性文件，与文件的总数相除就得到了侮辱性文件的出现概率
+pAbusive = sum(trainCategory) / float(numTrainDocs)
+
+# 构造单词出现次数列表
+p0Num = zeros(numWords) # [0,0,0,.....]
+p1Num = zeros(numWords) # [0,0,0,.....]
+p0Denom = 0.0;p1Denom = 0.0 # 整个数据集单词出现总数
+for i in range(numTrainDocs):
+    # 遍历所有的文件，如果是侮辱性文件，就计算此侮辱性文件中出现的侮辱性单词的个数
+    if trainCategory[i] == 1:
+        p1Num += trainMatrix[i] #[0,1,1,....]-&gt;[0,1,1,...]
+        p1Denom += sum(trainMatrix[i])
+    else:
+        # 如果不是侮辱性文件，则计算非侮辱性文件中出现的侮辱性单词的个数
+        p0Num += trainMatrix[i]
+        p0Denom += sum(trainMatrix[i])
+# 类别1，即侮辱性文档的[P(F1|C1),P(F2|C1),P(F3|C1),P(F4|C1),P(F5|C1)....]列表
+# 即 在1类别下，每个单词出现次数的占比
+p1Vect = p1Num / p1Denom# [1,2,3,5]/90-&gt;[1/90,...]
+# 类别0，即正常文档的[P(F1|C0),P(F2|C0),P(F3|C0),P(F4|C0),P(F5|C0)....]列表
+# 即 在0类别下，每个单词出现次数的占比
+p0Vect = p0Num / p0Denom
+return p0Vect, p1Vect, pAbusive
+</code></pre><p>&lt;/pre&gt;<br>代码分析：本方法参数分别是文档特征向量矩阵和文档类别向量矩阵。首先计算侮辱性文档占总文档的概率，然后计算正常文档下特征词的概率向量和侮辱性特征词的向量，为了更好理解上面的代码我们看下运行p0V,p1V,pAb=_trainNB0(trainMatrix,Classlabels)结果：</p>
 <pre><code>词汇表集
 [&#39;I&#39;, &#39;cute&#39;, &#39;help&#39;, &#39;dalmation&#39;, &#39;please&#39;, &#39;has&#39;, &#39;my&#39;, &#39;him&#39;, &#39;worthless&#39;, &#39;problems&#39;, &#39;so&#39;, &#39;mr&#39;, &#39;flea&#39;, &#39;love&#39;, &#39;take&#39;, &#39;stupid&#39;, &#39;dog&#39;, &#39;park&#39;, &#39;how&#39;, &#39;quit&#39;, &#39;buying&#39;, &#39;posting&#39;, &#39;steak&#39;, &#39;maybe&#39;, &#39;to&#39;, &#39;is&#39;, &#39;ate&#39;, &#39;not&#39;, &#39;garbage&#39;, &#39;food&#39;, &#39;stop&#39;, &#39;licks&#39;]
 各条评论特征向量，其中1,3,5条为类别0；2,4,6条为类别1
@@ -610,8 +664,31 @@
 <h3 id="测试算法"><a href="#测试算法" class="headerlink" title="测试算法"></a>测试算法</h3><p>在利用贝叶斯分类器对文档进行分类时，要计算多个概率的乘积以获得文档属于某个类别的概率，即计算\(p(w_0|1)<em>p(w_1|1)</em>p(w_2|1)\)。如果其中一个概率值为 0，那么最后的乘积也为 0。为降低这种影响，可以将所有词的出现数初始化为 1，并将分母初始化为 2 （取1 或 2 的目的主要是为了保证分子和分母不为0，大家可以根据业务需求进行更改）。<br>另一个遇到的问题是下溢出，这是由于太多很小的数相乘造成的。当计算乘积 \( p(w_0|c_i)<em>p(w_1|c_i)</em>p(w_2|c_i)…p(w_n|c_i)\)时，由于大部分因子都非常小，所以程序会下溢出或者得到不正确的答案。（用 Python 尝试相乘许多很小的数，最后四舍五入后会得到 0）。一种解决办法是对乘积取自然对数。在代数中有 ln(a * b) = ln(a) + ln(b), 于是通过求对数可以避免下溢出或者浮点数舍入导致的错误。同时，采用自然对数进行处理不会有任何损失。</p>
 <p>下图给出了函数 f(x) 与 ln(f(x)) 的曲线。可以看出，它们在相同区域内同时增加或者减少，并且在相同点上取到极值。它们的取值虽然不同，但不影响最终结果。</p>
 <p><img src="https://i.imgur.com/guO78D4.png" alt=""></p>
-<p>根据朴素贝叶斯公式，我们观察分子\(p(w_i|c_i)P(c_i)\)进行条件概率连乘时候，由于有条件概率极小或者为0，最后导致结果为0 ，显然不符合我们预期结果，因此对训练模型进行优化，其优化代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''训练数据优化版本'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">trainNB0</span><span class="params">(trainMatrix, trainCategory)</span>:</span></span><br><span class="line">    numTrainDocs = len(trainMatrix) <span class="comment"># 总文件数</span></span><br><span class="line">    numWords = len(trainMatrix[<span class="number">0</span>]) <span class="comment"># 总单词数</span></span><br><span class="line">    pAbusive = sum(trainCategory) / float(numTrainDocs) <span class="comment"># 侮辱性文件的出现概率</span></span><br><span class="line">    <span class="comment"># 构造单词出现次数列表,p0Num 正常的统计,p1Num 侮辱的统计</span></span><br><span class="line">    <span class="comment"># 避免单词列表中的任何一个单词为0，而导致最后的乘积为0，所以将每个单词的出现次数初始化为 1</span></span><br><span class="line">    p0Num = ones(numWords)<span class="comment">#[0,0......]-&gt;[1,1,1,1,1.....],ones初始化1的矩阵</span></span><br><span class="line">    p1Num = ones(numWords)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 整个数据集单词出现总数，2.0根据样本实际调查结果调整分母的值（2主要是避免分母为0，当然值可以调整）</span></span><br><span class="line">    <span class="comment"># p0Denom 正常的统计</span></span><br><span class="line">    <span class="comment"># p1Denom 侮辱的统计</span></span><br><span class="line">    p0Denom = <span class="number">2.0</span></span><br><span class="line">    p1Denom = <span class="number">2.0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTrainDocs):</span><br><span class="line">        <span class="keyword">if</span> trainCategory[i] == <span class="number">1</span>:</span><br><span class="line">            p1Num += trainMatrix[i]  <span class="comment"># 累加辱骂词的频次</span></span><br><span class="line">            p1Denom += sum(trainMatrix[i]) <span class="comment"># 对每篇文章的辱骂的频次 进行统计汇总</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            p0Num += trainMatrix[i]</span><br><span class="line">            p0Denom += sum(trainMatrix[i])</span><br><span class="line">    <span class="comment"># 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表,取对数避免下溢出或浮点舍入出错</span></span><br><span class="line">    p1Vect = log(p1Num / p1Denom)</span><br><span class="line">    <span class="comment"># 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表</span></span><br><span class="line">    p0Vect = log(p0Num / p0Denom)</span><br><span class="line">    <span class="keyword">return</span> p0Vect, p1Vect, pAbusive</span><br></pre></td></tr></table></figure></p>
-<p>我们再看生成条件概率结果如下：</p>
+<p>根据朴素贝叶斯公式，我们观察分子\(p(w_i|c_i)P(c_i)\)进行条件概率连乘时候，由于有条件概率极小或者为0，最后导致结果为0 ，显然不符合我们预期结果，因此对训练模型进行优化，其优化代码如下：</p>
+<p><pre><br>‘’’训练数据优化版本’’’<br>def trainNB0(trainMatrix, trainCategory):<br>    numTrainDocs = len(trainMatrix) # 总文件数<br>    numWords = len(trainMatrix[0]) # 总单词数<br>    pAbusive = sum(trainCategory) / float(numTrainDocs) # 侮辱性文件的出现概率</pre></p>
+<pre><code># 构造单词出现次数列表,p0Num 正常的统计,p1Num 侮辱的统计
+# 避免单词列表中的任何一个单词为0，而导致最后的乘积为0，所以将每个单词的出现次数初始化为 1
+p0Num = ones(numWords)#[0,0......]-&gt;[1,1,1,1,1.....],ones初始化1的矩阵
+p1Num = ones(numWords)
+
+# 整个数据集单词出现总数，2.0根据样本实际调查结果调整分母的值（2主要是避免分母为0，当然值可以调整）
+# p0Denom 正常的统计
+# p1Denom 侮辱的统计
+p0Denom = 2.0
+p1Denom = 2.0
+for i in range(numTrainDocs):
+    if trainCategory[i] == 1:
+        p1Num += trainMatrix[i]  # 累加辱骂词的频次
+        p1Denom += sum(trainMatrix[i]) # 对每篇文章的辱骂的频次 进行统计汇总
+    else:
+        p0Num += trainMatrix[i]
+        p0Denom += sum(trainMatrix[i])
+# 类别1，即侮辱性文档的[log(P(F1|C1)),log(P(F2|C1)),log(P(F3|C1)),log(P(F4|C1)),log(P(F5|C1))....]列表,取对数避免下溢出或浮点舍入出错
+p1Vect = log(p1Num / p1Denom)
+# 类别0，即正常文档的[log(P(F1|C0)),log(P(F2|C0)),log(P(F3|C0)),log(P(F4|C0)),log(P(F5|C0))....]列表
+p0Vect = log(p0Num / p0Denom)
+return p0Vect, p1Vect, pAbusive
+</code></pre><p>&lt;/pre&gt;<br>我们再看生成条件概率结果如下：</p>
 <pre><code>[-2.56494936 -2.15948425 -3.25809654 -2.56494936 -3.25809654 -3.25809654
  -2.56494936 -2.56494936 -3.25809654 -2.56494936 -3.25809654 -3.25809654
  -2.56494936 -2.56494936 -2.56494936 -3.25809654 -2.56494936 -2.56494936
@@ -630,12 +707,41 @@
 </blockquote>
 <p>将乘法转换为加法<br>乘法：<br><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;P(C|F_1,F_2...F_n)&space;=&space;\frac{&space;P(F_1,F_2...F_n|C)P(C)}&space;{&space;P(F_1,F_2,...,F_n)}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{90}&space;P(C|F_1,F_2...F_n)&space;=&space;\frac{&space;P(F_1,F_2...F_n|C)P(C)}&space;{&space;P(F_1,F_2,...,F_n)}" title="P(C|F_1,F_2...F_n) = \frac{ P(F_1,F_2...F_n|C)P(C)} { P(F_1,F_2,...,F_n)}"></a></p>
 <p>加法：<br><a href="http://www.codecogs.com/eqnedit.php?latex=\dpi{100}&space;\\&space;P(F_1|C)*P(F_2|C)....P(F_n|C)P(C)&space;\\&space;\Rightarrow&space;\\&space;log(P(F_1|C))&plus;log(P(F_2|C))&plus;....&plus;log(P(F_n|C))&plus;log(P(C))" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\dpi{100}&space;\\&space;P(F_1|C)*P(F_2|C)....P(F_n|C)P(C)&space;\\&space;\Rightarrow&space;\\&space;log(P(F_1|C))&plus;log(P(F_2|C))&plus;....&plus;log(P(F_n|C))&plus;log(P(C))" title="\\ P(F_1|C)*P(F_2|C)....P(F_n|C)P(C) \\ \Rightarrow \\ log(P(F_1|C))+log(P(F_2|C))+....+log(P(F_n|C))+log(P(C))"></a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):</span></span><br><span class="line"><span class="string">    # 计算公式  log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))</span></span><br><span class="line"><span class="string">    # 使用 NumPy 数组来计算两个向量相乘的结果，这里的相乘是指对应元素相乘，即先将两个向量中的第一个元素相乘，然后将第2个元素相乘，以此类推。这里的 vec2Classify * p1Vec 的意思就是将每个词与其对应的概率相关联起来</span></span><br><span class="line"><span class="string">    p1 = sum(vec2Classify * p1Vec) + log(pClass1)</span></span><br><span class="line"><span class="string">    p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)</span></span><br><span class="line"><span class="string">    if p1 &gt; p0:</span></span><br><span class="line"><span class="string">        return 1</span></span><br><span class="line"><span class="string">    else:</span></span><br><span class="line"><span class="string">        return 0</span></span><br></pre></td></tr></table></figure>
+<p><pre><br>‘’’<br>def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):</pre></p>
+<pre><code># 计算公式  log(P(F1|C))+log(P(F2|C))+....+log(P(Fn|C))+log(P(C))
+# 使用 NumPy 数组来计算两个向量相乘的结果，这里的相乘是指对应元素相乘，即先将两个向量中的第一个元素相乘，然后将第2个元素相乘，以此类推。这里的 vec2Classify * p1Vec 的意思就是将每个词与其对应的概率相关联起来
+p1 = sum(vec2Classify * p1Vec) + log(pClass1)
+p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)
+if p1 &gt; p0:
+    return 1
+else:
+    return 0
+</code></pre><p>&lt;/pre&gt;</p>
 <blockquote>
 <p>测试朴素贝叶斯算法</p>
 </blockquote>
-<p>结合上面分析流程和实现方法，我们综合测试朴素贝叶斯对评论信息分类如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''朴素贝叶斯算法屏蔽社区留言板的侮辱性言论的应用'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testingNB</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 1. 加载数据集</span></span><br><span class="line">    dataSet, Classlabels = loadDataSet()</span><br><span class="line">    <span class="comment"># 2. 创建单词集合</span></span><br><span class="line">    myVocabList = createVocabList(dataSet)</span><br><span class="line">    <span class="comment"># 3. 计算单词是否出现并创建数据矩阵</span></span><br><span class="line">    trainMat = []</span><br><span class="line">    <span class="keyword">for</span> postinDoc <span class="keyword">in</span> dataSet:</span><br><span class="line">        <span class="comment"># 返回m*len(myVocabList)的矩阵， 记录的都是0，1信息</span></span><br><span class="line">        trainMat.append(setOfWords2Vec(myVocabList, postinDoc))</span><br><span class="line">    <span class="comment"># print('test',len(array(trainMat)[0]))</span></span><br><span class="line">    <span class="comment"># 4. 训练数据</span></span><br><span class="line">    p0V, p1V, pAb = trainNB0(array(trainMat), array(Classlabels))</span><br><span class="line">    <span class="comment"># 5. 测试数据</span></span><br><span class="line">    testEntry = [<span class="string">'love'</span>, <span class="string">'my'</span>, <span class="string">'dalmation'</span>]</span><br><span class="line">    thisDoc = array(setOfWords2Vec(myVocabList, testEntry))</span><br><span class="line">    print(testEntry, <span class="string">'分类结果是: '</span>, classifyNB(thisDoc, p0V, p1V, pAb))</span><br><span class="line">    testEntry = [<span class="string">'stupid'</span>, <span class="string">'garbage'</span>]</span><br><span class="line">    thisDoc = array(setOfWords2Vec(myVocabList, testEntry))</span><br><span class="line">    print(testEntry, <span class="string">'分类结果是: '</span>, classifyNB(thisDoc, p0V, p1V, pAb))</span><br></pre></td></tr></table></figure></p>
-<p>运行结果如下：</p>
+<p>结合上面分析流程和实现方法，我们综合测试朴素贝叶斯对评论信息分类如下：</p>
+<p><pre><br>‘’’朴素贝叶斯算法屏蔽社区留言板的侮辱性言论的应用’’’<br>def testingNB():</pre></p>
+<pre><code># 1. 加载数据集
+dataSet, Classlabels = loadDataSet()
+# 2. 创建单词集合
+myVocabList = createVocabList(dataSet)
+# 3. 计算单词是否出现并创建数据矩阵
+trainMat = []
+for postinDoc in dataSet:
+    # 返回m*len(myVocabList)的矩阵， 记录的都是0，1信息
+    trainMat.append(setOfWords2Vec(myVocabList, postinDoc))
+# print(&#39;test&#39;,len(array(trainMat)[0]))
+# 4. 训练数据
+p0V, p1V, pAb = trainNB0(array(trainMat), array(Classlabels))
+# 5. 测试数据
+testEntry = [&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;]
+thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
+print(testEntry, &#39;分类结果是: &#39;, classifyNB(thisDoc, p0V, p1V, pAb))
+testEntry = [&#39;stupid&#39;, &#39;garbage&#39;]
+thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
+print(testEntry, &#39;分类结果是: &#39;, classifyNB(thisDoc, p0V, p1V, pAb))
+</code></pre><p>&lt;/pre&gt;<br>运行结果如下：</p>
 <pre><code>[&#39;love&#39;, &#39;my&#39;, &#39;dalmation&#39;] 分类结果是:  0
 [&#39;stupid&#39;, &#39;garbage&#39;] 分类结果是:  1
 </code></pre><h2 id="案例场景2-对社区留言板言论进行分类"><a href="#案例场景2-对社区留言板言论进行分类" class="headerlink" title="案例场景2: 对社区留言板言论进行分类"></a>案例场景2: 对社区留言板言论进行分类</h2><h3 id="项目概述-1"><a href="#项目概述-1" class="headerlink" title="项目概述"></a>项目概述</h3><p>我们运行朴素贝叶斯分类进行电子邮件垃圾过滤。在文档分类中，整个文档（如一封电子邮件）是实例，而电子邮件中的某些元素则构成特征。我们可以观察文档中出现的词，并把每个词作为一个特征，而每个词的出现或者不出现作为该特征的值，这样得到的特征数目就会跟词汇表中的词的数目一样多。</p>
@@ -648,12 +754,57 @@
 使用算法: 构建一个完整的程序对一组文档进行分类，将错分的文档输出到屏幕上
 </code></pre><h3 id="收集数据并预处理"><a href="#收集数据并预处理" class="headerlink" title="收集数据并预处理"></a>收集数据并预处理</h3><p>邮件格式内容如下：</p>
 <p><img src="https://i.imgur.com/ur4LMd3.png" alt=""></p>
-<p>对邮件进行读取实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''读取文本'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testParseTest</span><span class="params">()</span>:</span></span><br><span class="line">    print(textParse(open(<span class="string">'./email/ham/1.txt'</span>).read()))</span><br></pre></td></tr></table></figure></p>
-<h3 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h3><p>对读取的文本进行词条向量化，其实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''接收一个大字符串并将其解析为字符串列表'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">textParse</span><span class="params">(bigString)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> re</span><br><span class="line">    <span class="comment"># 使用正则表达式来切分句子，其中分隔符是除单词、数字外的任意字符串</span></span><br><span class="line">    listOfTokens = re.split(<span class="string">r'\W*'</span>, bigString)</span><br><span class="line">    <span class="keyword">return</span> [tok.lower() <span class="keyword">for</span> tok <span class="keyword">in</span> listOfTokens <span class="keyword">if</span> len(tok) &gt; <span class="number">2</span>]</span><br></pre></td></tr></table></figure></p>
+<p>对邮件进行读取实现如下：</p>
+<p><pre>
+'''读取文本'''
+def testParseTest():
+    print(textParse(open('./email/ham/1.txt').read()))
+</pre></p>
+<h3 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h3><p>对读取的文本进行词条向量化，其实现如下：</p>
+<p><pre><br>‘’’接收一个大字符串并将其解析为字符串列表’’’<br>def textParse(bigString):<br>    import re</pre></p>
+<pre><code># 使用正则表达式来切分句子，其中分隔符是除单词、数字外的任意字符串
+listOfTokens = re.split(r&#39;\W*&#39;, bigString)
+return [tok.lower() for tok in listOfTokens if len(tok) &gt; 2]
+</code></pre><p>&lt;/pre&gt;</p>
 <h3 id="分析数据-1"><a href="#分析数据-1" class="headerlink" title="分析数据"></a>分析数据</h3><p>这个部分在案例场景1进行了详细描述，此处不在赘述。</p>
 <h3 id="训练算法"><a href="#训练算法" class="headerlink" title="训练算法"></a>训练算法</h3><p>此处，我们去调用在场景1优化过的朴素贝叶斯训练模型trainNB0() 函数，这里也是一劳永逸的方法。还可以对数据预处理等进行封装。</p>
-<h3 id="测试算法-1"><a href="#测试算法-1" class="headerlink" title="测试算法"></a>测试算法</h3><p>本测试方法中使用的数据集，即文档可以参见下文代码下载。采用方法跟场景1基本类似，这里不作代码解析。具体实现代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''对贝叶斯垃圾邮件分类器进行自动化处理。'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spamTest</span><span class="params">()</span>:</span></span><br><span class="line">    docList = [];classList = [];fullText = [] <span class="comment"># 文档列表、类别列表、文本特征</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">26</span>): <span class="comment"># 总共25个文档</span></span><br><span class="line">        <span class="comment"># 切分，解析数据，并归类为 1 类别</span></span><br><span class="line">        wordList = textParse(open(<span class="string">'./email/spam/%d.txt'</span> % i).read())</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        classList.append(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># 切分，解析数据，并归类为 0 类别</span></span><br><span class="line">        wordList = textParse(open(<span class="string">'./email/ham/%d.txt'</span> % i,encoding=<span class="string">'UTF-8'</span>).read())</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        classList.append(<span class="number">0</span>)</span><br><span class="line">        fullText.extend(wordList)</span><br><span class="line">    <span class="comment"># 创建词汇表</span></span><br><span class="line">    vocabList = createVocabList(docList)</span><br><span class="line">    trainingSet = list(range(<span class="number">50</span>)) <span class="comment"># 词汇表文档索引</span></span><br><span class="line">    testSet = []</span><br><span class="line">    <span class="comment"># 随机取 10 个邮件用来测试</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        <span class="comment"># random.uniform(x, y) 随机生成一个范围为 x - y 的实数</span></span><br><span class="line">        randIndex = int(random.uniform(<span class="number">0</span>, len(trainingSet)))</span><br><span class="line">        testSet.append(trainingSet[randIndex]) <span class="comment"># 随机抽取测试样本</span></span><br><span class="line">        <span class="keyword">del</span>(trainingSet[randIndex]) <span class="comment"># 训练集中删除选择为测试集的文档</span></span><br><span class="line"></span><br><span class="line">    trainMat = [];trainClasses = [] <span class="comment"># 训练集合训练标签</span></span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> trainingSet:</span><br><span class="line">        trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))</span><br><span class="line">        trainClasses.append(classList[docIndex])</span><br><span class="line"></span><br><span class="line">    p0V, p1V, pSpam = trainNB0(array(trainMat), array(trainClasses))</span><br><span class="line">    errorCount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> testSet:</span><br><span class="line">        wordVector = setOfWords2Vec(vocabList, docList[docIndex])</span><br><span class="line">        <span class="keyword">if</span> classifyNB(array(wordVector), p0V, p1V, pSpam) != classList[docIndex]:</span><br><span class="line">            errorCount += <span class="number">1</span></span><br><span class="line">    print(<span class="string">'the errorCount is: '</span>, errorCount)</span><br><span class="line">    print(<span class="string">'the testSet length is :'</span>, len(testSet))</span><br><span class="line">    print(<span class="string">'the error rate is :'</span>, float(errorCount)/len(testSet))</span><br></pre></td></tr></table></figure></p>
-<p>运行结果如下：</p>
+<h3 id="测试算法-1"><a href="#测试算法-1" class="headerlink" title="测试算法"></a>测试算法</h3><p>本测试方法中使用的数据集，即文档可以参见下文代码下载。采用方法跟场景1基本类似，这里不作代码解析。具体实现代码如下：</p>
+<p><pre><br>‘’’对贝叶斯垃圾邮件分类器进行自动化处理。’’’<br>def spamTest():<br>    docList = [];classList = [];fullText = [] # 文档列表、类别列表、文本特征<br>    for i in range(1, 26): # 总共25个文档</pre></p>
+<pre><code>    # 切分，解析数据，并归类为 1 类别
+    wordList = textParse(open(&#39;./email/spam/%d.txt&#39; % i).read())
+    docList.append(wordList)
+    classList.append(1)
+    # 切分，解析数据，并归类为 0 类别
+    wordList = textParse(open(&#39;./email/ham/%d.txt&#39; % i,encoding=&#39;UTF-8&#39;).read())
+    docList.append(wordList)
+    classList.append(0)
+    fullText.extend(wordList)
+# 创建词汇表
+vocabList = createVocabList(docList)
+trainingSet = list(range(50)) # 词汇表文档索引
+testSet = []
+# 随机取 10 个邮件用来测试
+for i in range(10):
+    # random.uniform(x, y) 随机生成一个范围为 x - y 的实数
+    randIndex = int(random.uniform(0, len(trainingSet)))
+    testSet.append(trainingSet[randIndex]) # 随机抽取测试样本
+    del(trainingSet[randIndex]) # 训练集中删除选择为测试集的文档
+
+trainMat = [];trainClasses = [] # 训练集合训练标签
+for docIndex in trainingSet:
+    trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
+    trainClasses.append(classList[docIndex])
+
+p0V, p1V, pSpam = trainNB0(array(trainMat), array(trainClasses))
+errorCount = 0
+for docIndex in testSet:
+    wordVector = setOfWords2Vec(vocabList, docList[docIndex])
+    if classifyNB(array(wordVector), p0V, p1V, pSpam) != classList[docIndex]:
+        errorCount += 1
+print(&#39;the errorCount is: &#39;, errorCount)
+print(&#39;the testSet length is :&#39;, len(testSet))
+print(&#39;the error rate is :&#39;, float(errorCount)/len(testSet))
+</code></pre><p>&lt;/pre&gt;<br>运行结果如下：</p>
 <pre><code>the errorCount is:  2
 the testSet length is : 10
 the error rate is : 0.2
@@ -675,8 +826,43 @@ the error rate is : 0.2
 <h3 id="分析数据-2"><a href="#分析数据-2" class="headerlink" title="分析数据"></a>分析数据</h3><p>这个部分在案例场景1进行了详细描述，此处不在赘述。</p>
 <h3 id="训练算法-1"><a href="#训练算法-1" class="headerlink" title="训练算法"></a>训练算法</h3><p>此处，我们去调用在场景1优化过的朴素贝叶斯训练模型trainNB0() 函数，这里也是一劳永逸的方法。还可以对数据预处理等进行封装。</p>
 <h3 id="测试算法-2"><a href="#测试算法-2" class="headerlink" title="测试算法"></a>测试算法</h3><p>观察错误率，确保分类器可用。可以修改切分程序，以降低错误率，提高分类结果。其具体实现如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''RSS源分类器及高频词去除函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calcMostFreq</span><span class="params">(vocabList,fullText)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> operator</span><br><span class="line">    freqDict=&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> token <span class="keyword">in</span> vocabList:  <span class="comment">#遍历词汇表中的每个词</span></span><br><span class="line">        freqDict[token]=fullText.count(token)  <span class="comment">#统计每个词在文本中出现的次数</span></span><br><span class="line">    sortedFreq=sorted(freqDict.items(),key=operator.itemgetter(<span class="number">1</span>),reverse=<span class="keyword">True</span>)  <span class="comment">#根据每个词出现的次数从高到底对字典进行排序</span></span><br><span class="line">    <span class="keyword">return</span> sortedFreq[:<span class="number">30</span>]   <span class="comment">#返回出现次数最高的30个单词</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">localWords</span><span class="params">(feed1,feed0)</span>:</span></span><br><span class="line">    <span class="comment"># import feedparser # feedparser是python中最常用的RSS程序库</span></span><br><span class="line">    docList=[];classList=[];fullText=[]</span><br><span class="line">    minLen=min(len(feed1[<span class="string">'entries'</span>]),len(feed0[<span class="string">'entries'</span>])) <span class="comment"># entries内容无法抓取，网站涉及反爬虫技术</span></span><br><span class="line">    print(len(feed1[<span class="string">'entries'</span>]),len(feed0[<span class="string">'entries'</span>]))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(minLen):</span><br><span class="line">        wordList=textParse(feed1[<span class="string">'entries'</span>][i][<span class="string">'summary'</span>])   <span class="comment">#每次访问一条RSS源</span></span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        fullText.extend(wordList)</span><br><span class="line">        classList.append(<span class="number">1</span>)</span><br><span class="line">        wordList=textParse(feed0[<span class="string">'entries'</span>][i][<span class="string">'summary'</span>])</span><br><span class="line">        docList.append(wordList)</span><br><span class="line">        fullText.extend(wordList)</span><br><span class="line">        classList.append(<span class="number">0</span>)</span><br><span class="line">    vocabList=createVocabList(docList)</span><br><span class="line">    top30Words=calcMostFreq(vocabList,fullText)</span><br><span class="line">    <span class="keyword">for</span> pairW <span class="keyword">in</span> top30Words:</span><br><span class="line">        <span class="keyword">if</span> pairW[<span class="number">0</span>] <span class="keyword">in</span> vocabList:vocabList.remove(pairW[<span class="number">0</span>])    <span class="comment">#去掉出现次数最高的那些词</span></span><br><span class="line">    trainingSet=range(<span class="number">2</span>*minLen);testSet=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>):</span><br><span class="line">        randIndex=int(random.uniform(<span class="number">0</span>,len(trainingSet)))</span><br><span class="line">        testSet.append(trainingSet[randIndex])</span><br><span class="line">        <span class="keyword">del</span>(trainingSet[randIndex])</span><br><span class="line">    trainMat=[];trainClasses=[]</span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> trainingSet:</span><br><span class="line">        trainMat.append(bagOfWords2VecMN(vocabList,docList[docIndex]))</span><br><span class="line">        trainClasses.append(classList[docIndex])</span><br><span class="line">    p0V,p1V,pSpam=trainNB0(array(trainMat),array(trainClasses))</span><br><span class="line">    errorCount=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> docIndex <span class="keyword">in</span> testSet:</span><br><span class="line">        wordVector=bagOfWords2VecMN(vocabList,docList[docIndex])</span><br><span class="line">        <span class="keyword">if</span> classifyNB(array(wordVector),p0V,p1V,pSpam)!=classList[docIndex]:</span><br><span class="line">            errorCount+=<span class="number">1</span></span><br><span class="line">    print(<span class="string">'the error rate is:'</span>,float(errorCount)/len(testSet))</span><br><span class="line">    <span class="keyword">return</span> vocabList,p0V,p1V</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
+<p><pre><br>‘’’RSS源分类器及高频词去除函数’’’<br>def calcMostFreq(vocabList,fullText):<br>    import operator<br>    freqDict={}<br>    for token in vocabList:  #遍历词汇表中的每个词<br>        freqDict[token]=fullText.count(token)  #统计每个词在文本中出现的次数<br>    sortedFreq=sorted(freqDict.items(),key=operator.itemgetter(1),reverse=True)  #根据每个词出现的次数从高到底对字典进行排序<br>    return sortedFreq[:30]   #返回出现次数最高的30个单词</pre></p>
+<p>def localWords(feed1,feed0):</p>
+<pre><code># import feedparser # feedparser是python中最常用的RSS程序库
+docList=[];classList=[];fullText=[]
+minLen=min(len(feed1[&#39;entries&#39;]),len(feed0[&#39;entries&#39;])) # entries内容无法抓取，网站涉及反爬虫技术
+print(len(feed1[&#39;entries&#39;]),len(feed0[&#39;entries&#39;]))
+for i in range(minLen):
+    wordList=textParse(feed1[&#39;entries&#39;][i][&#39;summary&#39;])   #每次访问一条RSS源
+    docList.append(wordList)
+    fullText.extend(wordList)
+    classList.append(1)
+    wordList=textParse(feed0[&#39;entries&#39;][i][&#39;summary&#39;])
+    docList.append(wordList)
+    fullText.extend(wordList)
+    classList.append(0)
+vocabList=createVocabList(docList)
+top30Words=calcMostFreq(vocabList,fullText)
+for pairW in top30Words:
+    if pairW[0] in vocabList:vocabList.remove(pairW[0])    #去掉出现次数最高的那些词
+trainingSet=range(2*minLen);testSet=[]
+for i in range(20):
+    randIndex=int(random.uniform(0,len(trainingSet)))
+    testSet.append(trainingSet[randIndex])
+    del(trainingSet[randIndex])
+trainMat=[];trainClasses=[]
+for docIndex in trainingSet:
+    trainMat.append(bagOfWords2VecMN(vocabList,docList[docIndex]))
+    trainClasses.append(classList[docIndex])
+p0V,p1V,pSpam=trainNB0(array(trainMat),array(trainClasses))
+errorCount=0
+for docIndex in testSet:
+    wordVector=bagOfWords2VecMN(vocabList,docList[docIndex])
+    if classifyNB(array(wordVector),p0V,p1V,pSpam)!=classList[docIndex]:
+        errorCount+=1
+print(&#39;the error rate is:&#39;,float(errorCount)/len(testSet))
+return vocabList,p0V,p1V
+</code></pre><p>&lt;/pre&gt;<br>运行结果：</p>
 <pre><code>ny = feedparser.parse(&#39;http://newyork.craigslist.org/stp/index.rss&#39;)
 sf = feedparser.parse(&#39;http://sfbay.craigslist.org/stp/index.rss&#39;)
 # print(ny)

@@ -170,14 +170,13 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/F21lpQ9.gif">
 <meta property="og:image" content="https://i.imgur.com/lboN0FM.png">
-<meta property="og:image" content="https://i.imgur.com/zItcW74.png">
 <meta property="og:image" content="https://i.imgur.com/gKOUmLX.png">
 <meta property="og:image" content="https://i.imgur.com/DiOk1Kk.png">
 <meta property="og:image" content="https://i.imgur.com/55sH2AG.png">
 <meta property="og:image" content="https://i.imgur.com/BCv4mP2.png">
 <meta property="og:image" content="https://i.imgur.com/Z9eGXE6.png">
 <meta property="og:image" content="https://i.imgur.com/XEsawmS.png">
-<meta property="og:updated_time" content="2018-10-19T07:40:06.250Z">
+<meta property="og:updated_time" content="2019-03-06T09:04:36.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学K-means聚类算法">
 <meta name="twitter:description" content="摘要：k-均值算法（英文：k-means clustering），属于比较常用的算法之一，文本首先介绍聚类的理论知识包括什么是聚类、聚类的应用、聚类思想、聚类优缺点等等；然后通过k-均值聚类案例实现及其可视化有一个直观的感受，针对算法模型进行分析和结果优化提出了二分k-means算法。最后我们调用机器学习库函数，很短的代码完成聚类算法。（本文原创，转载必须注明出处.）">
@@ -489,7 +488,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:40:06" itemprop="dateModified" datetime="2018-10-19T15:40:06+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 17:04:36" itemprop="dateModified" datetime="2019-03-06T17:04:36+08:00">2019-03-06</time>
               
             
           </span>
@@ -647,19 +646,106 @@
 <hr>
 <h1 id="k-means聚类算法实现"><a href="#k-means聚类算法实现" class="headerlink" title="k-means聚类算法实现"></a>k-means聚类算法实现</h1><h2 id="案例描述"><a href="#案例描述" class="headerlink" title="案例描述"></a>案例描述</h2><p>我们假设这样的一个案例需求：某公司发布一批新型手机，根据客户热衷度进行投放。公司市场人员收集其中四个地区用户对手机的满意程度（由两个特征决定的）。分析哪个区域对手机产品比较热衷，对应的进行市场销售工作。这里就用到k-means聚类算法。</p>
 <h2 id="从文件加载数据集"><a href="#从文件加载数据集" class="headerlink" title="从文件加载数据集"></a>从文件加载数据集</h2><p>上文中我们收集好四个地区用户对产品满意的特征数据值，转化为向量预先保存到文本中（关于词向量转化及其词袋模型问题，参考：决策树算法模型研究与案例分析一文）。我们加载文件并以数据矩阵形式返回数据集，代码实现如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'''加载数据集'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    dataSet = [] <span class="comment"># 初始化一个空列表</span></span><br><span class="line">    fr = open(fileName)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">        <span class="comment"># 切割每一行的数据</span></span><br><span class="line">        curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">        <span class="comment"># 将数据追加到dataMat，映射所有的元素为 float类型</span></span><br><span class="line">        fltLine = list(map(float,curLine))    </span><br><span class="line">        dataSet.append(fltLine)</span><br><span class="line">    <span class="keyword">return</span> mat(dataSet)</span><br></pre></td></tr></table></figure>
-<p>我们打印看下结果：</p>
-<p><img src="https://i.imgur.com/zItcW74.png" alt=""></p>
-<h2 id="计算两个向量的欧氏距离"><a href="#计算两个向量的欧氏距离" class="headerlink" title="计算两个向量的欧氏距离"></a>计算两个向量的欧氏距离</h2><p>上文在k均值算法思想和工作流程都提到过，我们一个重要的方法就是随机设置质心，然后比较每条数据（可以理解为单一客户的特征数据）与质心之间的距离。这里距离公式包括很多，本文采用的是欧式距离计算，其代码实现如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''欧氏距离计算函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span><span class="params">(vecA, vecB)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sqrt(sum(power(vecA - vecB, <span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
-<h2 id="构建一个包含-K-个随机质心的集合"><a href="#构建一个包含-K-个随机质心的集合" class="headerlink" title="构建一个包含 K 个随机质心的集合"></a>构建一个包含 K 个随机质心的集合</h2><p>接下来，我们构建随机质心（中心点），这里的K值是经过数据观察随机设置的值，假如k=3，代表我们将数据集分为3个簇，也就是说分为3个部分。我们随机质心在整个数据集的边界之内，这可以通过找到数据集每一维的最小和最大值来完成,然后生成0到1.0之间的随机数并通过取值范围和最小值,以便确保随机点在数据的边界之内。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">随机质心</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span><span class="params">(dataMat, k)</span>:</span></span><br><span class="line">    <span class="comment"># 获取样本数与特征值</span></span><br><span class="line">    m, n = shape(dataMat)</span><br><span class="line">    <span class="comment"># 初始化质心,创建(k,n)个以零填充的矩阵</span></span><br><span class="line">    centroids = mat(zeros((k, n)))</span><br><span class="line">    <span class="comment"># 循环遍历特征值</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="comment"># 计算每一列的最小值</span></span><br><span class="line">        minJ = min(dataMat[:, j])</span><br><span class="line">        <span class="comment"># 计算每一列的范围值</span></span><br><span class="line">        rangeJ = float(max(dataMat[:, j]) - minJ)</span><br><span class="line">        <span class="comment"># 计算每一列的质心,并将值赋给centroids</span></span><br><span class="line">        centroids[:, j] = mat(minJ + rangeJ * random.rand(k, <span class="number">1</span>))</span><br><span class="line">    <span class="comment"># 返回质心</span></span><br><span class="line">    <span class="keyword">return</span> centroids</span><br></pre></td></tr></table></figure></p>
-<p>我们测试下k=3的随机质心结果：</p>
+<pre>
+
+'''加载数据集'''
+def loadDataSet(fileName):
+    dataSet = [] # 初始化一个空列表
+    fr = open(fileName)
+    for line in fr.readlines():
+        # 切割每一行的数据
+        curLine = line.strip().split('\t')
+        # 将数据追加到dataMat，映射所有的元素为 float类型
+        fltLine = list(map(float,curLine))    
+        dataSet.append(fltLine)
+    return mat(dataSet)
+</pre>
+我们打印看下结果：
+
+
+![](https://i.imgur.com/zItcW74.png)
+
+## 计算两个向量的欧氏距离
+
+上文在k均值算法思想和工作流程都提到过，我们一个重要的方法就是随机设置质心，然后比较每条数据（可以理解为单一客户的特征数据）与质心之间的距离。这里距离公式包括很多，本文采用的是欧式距离计算，其代码实现如下：
+
+<pre>
+'''欧氏距离计算函数'''
+def distEclud(vecA, vecB):
+    return sqrt(sum(power(vecA - vecB, 2)))
+</pre>
+
+<h2 id="构建一个包含-K-个随机质心的集合"><a href="#构建一个包含-K-个随机质心的集合" class="headerlink" title="构建一个包含 K 个随机质心的集合"></a>构建一个包含 K 个随机质心的集合</h2><p>接下来，我们构建随机质心（中心点），这里的K值是经过数据观察随机设置的值，假如k=3，代表我们将数据集分为3个簇，也就是说分为3个部分。我们随机质心在整个数据集的边界之内，这可以通过找到数据集每一维的最小和最大值来完成,然后生成0到1.0之间的随机数并通过取值范围和最小值,以便确保随机点在数据的边界之内。</p>
+<p><pre><br>‘’’<br>随机质心<br>‘’’<br>def randCent(dataMat, k):</pre></p>
+<pre><code># 获取样本数与特征值
+m, n = shape(dataMat)
+# 初始化质心,创建(k,n)个以零填充的矩阵
+centroids = mat(zeros((k, n)))
+# 循环遍历特征值
+for j in range(n):
+    # 计算每一列的最小值
+    minJ = min(dataMat[:, j])
+    # 计算每一列的范围值
+    rangeJ = float(max(dataMat[:, j]) - minJ)
+    # 计算每一列的质心,并将值赋给centroids
+    centroids[:, j] = mat(minJ + rangeJ * random.rand(k, 1))
+# 返回质心
+return centroids 
+</code></pre><p>&lt;/pre&gt;<br>我们测试下k=3的随机质心结果：</p>
 <p><img src="https://i.imgur.com/gKOUmLX.png" alt=""></p>
-<h2 id="K-Means-聚类算法"><a href="#K-Means-聚类算法" class="headerlink" title="K-Means 聚类算法"></a>K-Means 聚类算法</h2><p>我们基于以上算法构建k均值算法，该算法会创建k个质心，然后将每个点分配到最近的质心，再重新计算质心。这个过程重复数次，直到数据点的簇分配结果不再改变位置。返回类质心与点分配结果（多次运行结果可能会不一样，可以试试，原因为随机质心的影响，但总的结果是对的，因为数据足够相似，也<strong>可能会陷入局部最小值</strong>），代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">创建K个质心,然后将每个点分配到最近的质心,再重新计算质心。</span></span><br><span class="line"><span class="string">这个过程重复数次,直到数据点的簇分配结果不再改变为止</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kMeans</span><span class="params">(dataMat, k, distMeas=distEclud, createCent=randCent)</span>:</span></span><br><span class="line">    <span class="comment"># 获取样本数和特征数</span></span><br><span class="line">    m, n = shape(dataMat)</span><br><span class="line">    <span class="comment"># 初始化一个矩阵来存储每个点的簇分配结果</span></span><br><span class="line">    <span class="comment"># clusterAssment包含两个列:一列记录簇索引值,第二列存储误差(误差是指当前点到簇质心的距离,后面会使用该误差来评价聚类的效果)</span></span><br><span class="line">    clusterAssment = mat(zeros((m, <span class="number">2</span>)))</span><br><span class="line">    <span class="comment"># 创建质心,随机K个质心</span></span><br><span class="line">    centroids = createCent(dataMat, k)</span><br><span class="line">    <span class="comment"># 初始化标志变量,用于判断迭代是否继续,如果True,则继续迭代</span></span><br><span class="line">    clusterChanged = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> clusterChanged:</span><br><span class="line">        clusterChanged = <span class="keyword">False</span></span><br><span class="line">        <span class="comment"># 遍历所有数据找到距离每个点最近的质心,</span></span><br><span class="line">        <span class="comment"># 可以通过对每个点遍历所有质心并计算点到每个质心的距离来完成</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            minDist = inf <span class="comment"># 正无穷</span></span><br><span class="line">            minIndex = <span class="number">-1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k):</span><br><span class="line">                <span class="comment"># 计算数据点到质心的距离</span></span><br><span class="line">                <span class="comment"># 计算距离是使用distMeas参数给出的距离公式,默认距离函数是distEclud</span></span><br><span class="line">                distJI = distMeas(centroids[j, :], dataMat[i, :])</span><br><span class="line">                <span class="comment"># 如果距离比minDist(最小距离)还小,更新minDist(最小距离)和最小质心的index(索引)</span></span><br><span class="line">                <span class="keyword">if</span> distJI &lt; minDist:</span><br><span class="line">                    minDist = distJI</span><br><span class="line">                    minIndex = j</span><br><span class="line">            <span class="comment"># 如果任一点的簇分配结果发生改变,则更新clusterChanged标志</span></span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i, <span class="number">0</span>] != minIndex:</span><br><span class="line">                <span class="comment"># print(clusterAssment[i, 0],minIndex)</span></span><br><span class="line">                clusterChanged = <span class="keyword">True</span></span><br><span class="line">            <span class="comment"># 更新簇分配结果为最小质心的index(索引),minDist(最小距离)的平方</span></span><br><span class="line">            clusterAssment[i, :] = minIndex, minDist ** <span class="number">2</span></span><br><span class="line">        <span class="comment"># print(centroids)</span></span><br><span class="line">        <span class="comment"># 遍历所有质心并更新它们的取值</span></span><br><span class="line">        <span class="keyword">for</span> cent <span class="keyword">in</span> range(k):</span><br><span class="line">            <span class="comment"># 通过数据过滤来获得给定簇的所有点</span></span><br><span class="line">            ptsInClust = dataMat[nonzero(clusterAssment[:, <span class="number">0</span>].A == cent)[<span class="number">0</span>]]</span><br><span class="line">            <span class="comment"># 计算所有点的均值,axis=0表示沿矩阵的列方向进行均值计算</span></span><br><span class="line">            centroids[cent, :] = mean(ptsInClust, axis=<span class="number">0</span>)<span class="comment"># axis=0列方向</span></span><br><span class="line">    <span class="comment"># 返回所有的类质心与点分配结果</span></span><br><span class="line">    <span class="keyword">return</span> centroids, clusterAssment</span><br></pre></td></tr></table></figure></p>
-<p>测试查看下运行结果：</p>
+<h2 id="K-Means-聚类算法"><a href="#K-Means-聚类算法" class="headerlink" title="K-Means 聚类算法"></a>K-Means 聚类算法</h2><p>我们基于以上算法构建k均值算法，该算法会创建k个质心，然后将每个点分配到最近的质心，再重新计算质心。这个过程重复数次，直到数据点的簇分配结果不再改变位置。返回类质心与点分配结果（多次运行结果可能会不一样，可以试试，原因为随机质心的影响，但总的结果是对的，因为数据足够相似，也<strong>可能会陷入局部最小值</strong>），代码实现如下：</p>
+<p><pre><br>‘’’<br>创建K个质心,然后将每个点分配到最近的质心,再重新计算质心。<br>这个过程重复数次,直到数据点的簇分配结果不再改变为止<br>‘’’<br>def kMeans(dataMat, k, distMeas=distEclud, createCent=randCent):</pre></p>
+<pre><code># 获取样本数和特征数
+m, n = shape(dataMat)
+# 初始化一个矩阵来存储每个点的簇分配结果
+# clusterAssment包含两个列:一列记录簇索引值,第二列存储误差(误差是指当前点到簇质心的距离,后面会使用该误差来评价聚类的效果)
+clusterAssment = mat(zeros((m, 2)))
+# 创建质心,随机K个质心
+centroids = createCent(dataMat, k)
+# 初始化标志变量,用于判断迭代是否继续,如果True,则继续迭代
+clusterChanged = True
+while clusterChanged:
+    clusterChanged = False
+    # 遍历所有数据找到距离每个点最近的质心,
+    # 可以通过对每个点遍历所有质心并计算点到每个质心的距离来完成
+    for i in range(m):
+        minDist = inf # 正无穷
+        minIndex = -1
+        for j in range(k):
+            # 计算数据点到质心的距离
+            # 计算距离是使用distMeas参数给出的距离公式,默认距离函数是distEclud
+            distJI = distMeas(centroids[j, :], dataMat[i, :])
+            # 如果距离比minDist(最小距离)还小,更新minDist(最小距离)和最小质心的index(索引)
+            if distJI &lt; minDist:
+                minDist = distJI
+                minIndex = j
+        # 如果任一点的簇分配结果发生改变,则更新clusterChanged标志
+        if clusterAssment[i, 0] != minIndex:
+            # print(clusterAssment[i, 0],minIndex)
+            clusterChanged = True
+        # 更新簇分配结果为最小质心的index(索引),minDist(最小距离)的平方
+        clusterAssment[i, :] = minIndex, minDist ** 2
+    # print(centroids)
+    # 遍历所有质心并更新它们的取值
+    for cent in range(k):
+        # 通过数据过滤来获得给定簇的所有点
+        ptsInClust = dataMat[nonzero(clusterAssment[:, 0].A == cent)[0]]
+        # 计算所有点的均值,axis=0表示沿矩阵的列方向进行均值计算
+        centroids[cent, :] = mean(ptsInClust, axis=0)# axis=0列方向
+# 返回所有的类质心与点分配结果
+return centroids, clusterAssment
+</code></pre><p>&lt;/pre&gt;<br>测试查看下运行结果：</p>
 <p><img src="https://i.imgur.com/DiOk1Kk.png" alt=""></p>
-<h2 id="分析数据：聚类可视化"><a href="#分析数据：聚类可视化" class="headerlink" title="分析数据：聚类可视化"></a>分析数据：聚类可视化</h2><p>通过上文返回的数据结果，似乎我们还不能直观感受，接下来我们采用可视化分析方法直观感受下，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">可视化展示</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmeanShow</span><span class="params">(dataMat,centers,clusterAssment)</span>:</span></span><br><span class="line">    plt.scatter(np.array(dataMat)[:, <span class="number">0</span>], np.array(dataMat)[:, <span class="number">1</span>], c=np.array(clusterAssment)[:, <span class="number">0</span>].T)</span><br><span class="line">    plt.scatter(centers[:, <span class="number">0</span>].tolist(), centers[:, <span class="number">1</span>].tolist(), c=<span class="string">"r"</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
-<p>测试查看可视化结果：</p>
+<h2 id="分析数据：聚类可视化"><a href="#分析数据：聚类可视化" class="headerlink" title="分析数据：聚类可视化"></a>分析数据：聚类可视化</h2><p>通过上文返回的数据结果，似乎我们还不能直观感受，接下来我们采用可视化分析方法直观感受下，代码实现如下：</p>
+<p><pre>
+'''
+可视化展示
+'''
+def kmeanShow(dataMat,centers,clusterAssment):
+    plt.scatter(np.array(dataMat)[:, 0], np.array(dataMat)[:, 1], c=np.array(clusterAssment)[:, 0].T)
+    plt.scatter(centers[:, 0].tolist(), centers[:, 1].tolist(), c="r")
+    plt.show()
+</pre><br>测试查看可视化结果：</p>
 <p><img src="https://i.imgur.com/55sH2AG.png" alt=""></p>
 <h2 id="结果讨论与分析"><a href="#结果讨论与分析" class="headerlink" title="结果讨论与分析"></a>结果讨论与分析</h2><blockquote>
 <p>局部最小值（局部最优的结果，但不是全局最优的结果）</p>
@@ -678,13 +764,69 @@
     计算将该簇一分为二之后的总误差
 选择使得误差最小的那个簇进行划分操作
 </code></pre><p>另一种做法是选择 SSE 最大的簇进行划分，直到簇数目达到用户指定的数目位置。</p>
-<h2 id="二分-K-Means-聚类算法代码"><a href="#二分-K-Means-聚类算法代码" class="headerlink" title="二分 K-Means 聚类算法代码"></a>二分 K-Means 聚类算法代码</h2><p>根据算法思想，我们基于k均值算法做了少许的改动，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''在给定数据集,所期望的簇数目和距离计算方法的条件下,函数返回聚类结果'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">biKmeans</span><span class="params">(dataMat, k, distMeas=distEclud)</span>:</span></span><br><span class="line">    m, n = shape(dataMat)</span><br><span class="line">    <span class="comment"># 创建一个矩阵来存储数据集中每个点的簇分配结果及平方误差</span></span><br><span class="line">    clusterAssment = mat(zeros((m, <span class="number">2</span>)))</span><br><span class="line">    <span class="comment"># 计算整个数据集的质心,并使用一个列表来保留所有的质心</span></span><br><span class="line">    centroid0 = mean(dataMat, axis=<span class="number">0</span>).tolist()[<span class="number">0</span>]</span><br><span class="line">    centList = [centroid0] <span class="comment"># [-0.15772275000000002, 1.2253301166666664]</span></span><br><span class="line">    <span class="comment"># 遍历数据集中所有点来计算每个点到质心的误差值</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(m):</span><br><span class="line">        clusterAssment[j, <span class="number">1</span>] = distMeas(mat(centroid0), dataMat[j, :]) ** <span class="number">2</span></span><br><span class="line">    <span class="comment"># 对簇不停的进行划分,直到得到想要的簇数目为止</span></span><br><span class="line">    <span class="keyword">while</span> (len(centList) &lt; k):</span><br><span class="line">        <span class="comment"># 初始化最小SSE为无穷大,用于比较划分前后的SSE</span></span><br><span class="line">        lowestSSE = inf</span><br><span class="line">        <span class="comment"># 通过考察簇列表中的值来获得当前簇的数目,遍历所有的簇来决定最佳的簇进行划分</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(centList)):</span><br><span class="line">            <span class="comment"># 对每一个簇,将该簇中的所有点堪称一个小的数据集</span></span><br><span class="line">            ptsInCurrCluster = dataMat[nonzero(clusterAssment[:, <span class="number">0</span>].A == i)[<span class="number">0</span>], :]</span><br><span class="line">            <span class="comment"># 将ptsInCurrCluster输入到函数kMeans中进行处理,k=2,</span></span><br><span class="line">            <span class="comment"># kMeans会生成两个质心(簇),同时给出每个簇的误差值</span></span><br><span class="line">            centroidMat, splitClustAss = kMeans(ptsInCurrCluster, <span class="number">2</span>, distMeas)</span><br><span class="line">            <span class="comment"># 将误差值与剩余数据集的误差之和作为本次划分的误差</span></span><br><span class="line">            sseSplit = sum(splitClustAss[:, <span class="number">1</span>])</span><br><span class="line">            sseNotSplit = sum(clusterAssment[nonzero(clusterAssment[:, <span class="number">0</span>].A != i)[<span class="number">0</span>], <span class="number">1</span>])</span><br><span class="line">            print(<span class="string">'sseSplit, and notSplit: '</span>, sseSplit, sseNotSplit)</span><br><span class="line">            <span class="comment"># 如果本次划分的SSE值最小,则本次划分被保存</span></span><br><span class="line">            <span class="keyword">if</span> (sseSplit + sseNotSplit) &lt; lowestSSE:</span><br><span class="line">                bestCentToSplit = i</span><br><span class="line">                bestNewCents = centroidMat</span><br><span class="line">                bestClustAss = splitClustAss.copy()</span><br><span class="line">                lowestSSE = sseSplit + sseNotSplit</span><br><span class="line">        <span class="comment"># 找出最好的簇分配结果</span></span><br><span class="line">        <span class="comment"># 调用kmeans函数并且指定簇数为2时,会得到两个编号分别为0和1的结果簇</span></span><br><span class="line">        bestClustAss[nonzero(bestClustAss[:, <span class="number">0</span>].A == <span class="number">1</span>)[<span class="number">0</span>], <span class="number">0</span>] = len(centList)</span><br><span class="line">        <span class="comment"># 更新为最佳质心</span></span><br><span class="line">        bestClustAss[nonzero(bestClustAss[:, <span class="number">0</span>].A == <span class="number">0</span>)[<span class="number">0</span>], <span class="number">0</span>] = bestCentToSplit</span><br><span class="line">        print(<span class="string">'the bestCentToSplit is: '</span>, bestCentToSplit)</span><br><span class="line">        print(<span class="string">'the len of bestClustAss is: '</span>, len(bestClustAss))</span><br><span class="line">        <span class="comment"># 更新质心列表</span></span><br><span class="line">        <span class="comment"># 更新原质心list中的第i个质心为使用二分kMeans后bestNewCents的第一个质心</span></span><br><span class="line">        centList[bestCentToSplit] = bestNewCents[<span class="number">0</span>, :].tolist()[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 添加bestNewCents的第二个质心</span></span><br><span class="line">        centList.append(bestNewCents[<span class="number">1</span>, :].tolist()[<span class="number">0</span>])</span><br><span class="line">        <span class="comment"># 重新分配最好簇下的数据(质心)以及SSE</span></span><br><span class="line">        clusterAssment[nonzero(clusterAssment[:, <span class="number">0</span>].A == bestCentToSplit)[<span class="number">0</span>], :] = bestClustAss</span><br><span class="line">    <span class="keyword">return</span> mat(centList), clusterAssment</span><br></pre></td></tr></table></figure></p>
+<h2 id="二分-K-Means-聚类算法代码"><a href="#二分-K-Means-聚类算法代码" class="headerlink" title="二分 K-Means 聚类算法代码"></a>二分 K-Means 聚类算法代码</h2><p>根据算法思想，我们基于k均值算法做了少许的改动，代码实现如下：</p>
+<p><pre><br>‘’’在给定数据集,所期望的簇数目和距离计算方法的条件下,函数返回聚类结果’’’<br>def biKmeans(dataMat, k, distMeas=distEclud):<br>    m, n = shape(dataMat)</pre></p>
+<pre><code># 创建一个矩阵来存储数据集中每个点的簇分配结果及平方误差
+clusterAssment = mat(zeros((m, 2)))
+# 计算整个数据集的质心,并使用一个列表来保留所有的质心
+centroid0 = mean(dataMat, axis=0).tolist()[0]
+centList = [centroid0] # [-0.15772275000000002, 1.2253301166666664]
+# 遍历数据集中所有点来计算每个点到质心的误差值
+for j in range(m):
+    clusterAssment[j, 1] = distMeas(mat(centroid0), dataMat[j, :]) ** 2
+# 对簇不停的进行划分,直到得到想要的簇数目为止
+while (len(centList) &lt; k):
+    # 初始化最小SSE为无穷大,用于比较划分前后的SSE
+    lowestSSE = inf
+    # 通过考察簇列表中的值来获得当前簇的数目,遍历所有的簇来决定最佳的簇进行划分
+    for i in range(len(centList)):
+        # 对每一个簇,将该簇中的所有点堪称一个小的数据集
+        ptsInCurrCluster = dataMat[nonzero(clusterAssment[:, 0].A == i)[0], :]
+        # 将ptsInCurrCluster输入到函数kMeans中进行处理,k=2,
+        # kMeans会生成两个质心(簇),同时给出每个簇的误差值
+        centroidMat, splitClustAss = kMeans(ptsInCurrCluster, 2, distMeas)
+        # 将误差值与剩余数据集的误差之和作为本次划分的误差
+        sseSplit = sum(splitClustAss[:, 1])
+        sseNotSplit = sum(clusterAssment[nonzero(clusterAssment[:, 0].A != i)[0], 1])
+        print(&#39;sseSplit, and notSplit: &#39;, sseSplit, sseNotSplit)
+        # 如果本次划分的SSE值最小,则本次划分被保存
+        if (sseSplit + sseNotSplit) &lt; lowestSSE:
+            bestCentToSplit = i
+            bestNewCents = centroidMat
+            bestClustAss = splitClustAss.copy()
+            lowestSSE = sseSplit + sseNotSplit
+    # 找出最好的簇分配结果
+    # 调用kmeans函数并且指定簇数为2时,会得到两个编号分别为0和1的结果簇
+    bestClustAss[nonzero(bestClustAss[:, 0].A == 1)[0], 0] = len(centList)
+    # 更新为最佳质心
+    bestClustAss[nonzero(bestClustAss[:, 0].A == 0)[0], 0] = bestCentToSplit
+    print(&#39;the bestCentToSplit is: &#39;, bestCentToSplit)
+    print(&#39;the len of bestClustAss is: &#39;, len(bestClustAss))
+    # 更新质心列表
+    # 更新原质心list中的第i个质心为使用二分kMeans后bestNewCents的第一个质心
+    centList[bestCentToSplit] = bestNewCents[0, :].tolist()[0]
+    # 添加bestNewCents的第二个质心
+    centList.append(bestNewCents[1, :].tolist()[0])
+    # 重新分配最好簇下的数据(质心)以及SSE
+    clusterAssment[nonzero(clusterAssment[:, 0].A == bestCentToSplit)[0], :] = bestClustAss
+return mat(centList), clusterAssment
+</code></pre><p>&lt;/pre&gt;</p>
 <h2 id="测试二分-KMeans-聚类算法"><a href="#测试二分-KMeans-聚类算法" class="headerlink" title="测试二分 KMeans 聚类算法"></a>测试二分 KMeans 聚类算法</h2><p>经过改进后，我们运行biKmeans函数得到可视化结果如下：</p>
 <p><img src="https://i.imgur.com/BCv4mP2.png" alt=""></p>
 <p>总结：如此我们得到预想的结果，解决了局部最优的问题，聚类会收敛到全局最小值。而原始的 kMeans() 函数偶尔会陷入局部最小值。</p>
-<h1 id="调用机器学习库sklearn实现k-means-聚类"><a href="#调用机器学习库sklearn实现k-means-聚类" class="headerlink" title="调用机器学习库sklearn实现k-means 聚类"></a>调用机器学习库sklearn实现k-means 聚类</h1><h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">dataMat = []</span><br><span class="line">fr = open(<span class="string">"./testSet2.txt"</span>) <span class="comment"># 注意，这个是相对路径</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">    curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">    fltLine = list(map(float,curLine))    <span class="comment"># 映射所有的元素为 float（浮点数）类型</span></span><br><span class="line">    dataMat.append(fltLine)</span><br></pre></td></tr></table></figure>
-<h2 id="训练k-means算法模型"><a href="#训练k-means算法模型" class="headerlink" title="训练k-means算法模型"></a>训练k-means算法模型</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">km = KMeans(n_clusters=<span class="number">3</span>) <span class="comment"># 初始化</span></span><br><span class="line">km.fit(dataMat) <span class="comment"># 拟合</span></span><br><span class="line">km_pred = km.predict(dataMat) <span class="comment"># 预测</span></span><br><span class="line">centers = km.cluster_centers_ <span class="comment"># 质心</span></span><br></pre></td></tr></table></figure>
-<h2 id="可视化结果"><a href="#可视化结果" class="headerlink" title="可视化结果"></a>可视化结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(np.array(dataMat)[:, <span class="number">1</span>], np.array(dataMat)[:, <span class="number">0</span>], c=km_pred)</span><br><span class="line">plt.scatter(centers[:, <span class="number">1</span>], centers[:, <span class="number">0</span>], c=<span class="string">"r"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="调用机器学习库sklearn实现k-means-聚类"><a href="#调用机器学习库sklearn实现k-means-聚类" class="headerlink" title="调用机器学习库sklearn实现k-means 聚类"></a>调用机器学习库sklearn实现k-means 聚类</h1><h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><p><pre></pre></p>
+<h1 id="加载数据集-1"><a href="#加载数据集-1" class="headerlink" title="加载数据集"></a>加载数据集</h1><p>dataMat = []<br>fr = open(“./testSet2.txt”) # 注意，这个是相对路径<br>for line in fr.readlines():<br>    curLine = line.strip().split(‘\t’)<br>    fltLine = list(map(float,curLine))    # 映射所有的元素为 float（浮点数）类型<br>    dataMat.append(fltLine)<br>&lt;/pre&gt;</p>
+<h2 id="训练k-means算法模型"><a href="#训练k-means算法模型" class="headerlink" title="训练k-means算法模型"></a>训练k-means算法模型</h2><p><pre>
+km = KMeans(n_clusters=3) # 初始化
+km.fit(dataMat) # 拟合
+km_pred = km.predict(dataMat) # 预测
+centers = km.cluster_centers_ # 质心
+</pre></p>
+<h2 id="可视化结果"><a href="#可视化结果" class="headerlink" title="可视化结果"></a>可视化结果</h2><p><pre>
+plt.scatter(np.array(dataMat)[:, 1], np.array(dataMat)[:, 0], c=km_pred)
+plt.scatter(centers[:, 1], centers[:, 0], c="r")
+plt.show()
+</pre></p>
 <h2 id="聚类结果"><a href="#聚类结果" class="headerlink" title="聚类结果"></a>聚类结果</h2><p><img src="https://i.imgur.com/Z9eGXE6.png" alt=""></p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li>scikit中文社区：<a href="http://sklearn.apachecn.org/cn/0.19.0/" target="_blank" rel="noopener">http://sklearn.apachecn.org/cn/0.19.0/</a></li>
@@ -1285,7 +1427,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理论介绍"><span class="nav-number">1.</span> <span class="nav-text">理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类"><span class="nav-number">1.1.</span> <span class="nav-text">聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-means（k均值）聚类算法"><span class="nav-number">1.2.</span> <span class="nav-text">K-means（k均值）聚类算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k-means聚类算法实现"><span class="nav-number">2.</span> <span class="nav-text">k-means聚类算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述"><span class="nav-number">2.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从文件加载数据集"><span class="nav-number">2.2.</span> <span class="nav-text">从文件加载数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算两个向量的欧氏距离"><span class="nav-number">2.3.</span> <span class="nav-text">计算两个向量的欧氏距离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建一个包含-K-个随机质心的集合"><span class="nav-number">2.4.</span> <span class="nav-text">构建一个包含 K 个随机质心的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-Means-聚类算法"><span class="nav-number">2.5.</span> <span class="nav-text">K-Means 聚类算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：聚类可视化"><span class="nav-number">2.6.</span> <span class="nav-text">分析数据：聚类可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果讨论与分析"><span class="nav-number">2.7.</span> <span class="nav-text">结果讨论与分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分-K-Means-聚类算法"><span class="nav-number">3.</span> <span class="nav-text">二分 K-Means 聚类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法描述"><span class="nav-number">3.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分-K-Means-聚类算法伪代码"><span class="nav-number">3.2.</span> <span class="nav-text">二分 K-Means 聚类算法伪代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分-K-Means-聚类算法代码"><span class="nav-number">3.3.</span> <span class="nav-text">二分 K-Means 聚类算法代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试二分-KMeans-聚类算法"><span class="nav-number">3.4.</span> <span class="nav-text">测试二分 KMeans 聚类算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调用机器学习库sklearn实现k-means-聚类"><span class="nav-number">4.</span> <span class="nav-text">调用机器学习库sklearn实现k-means 聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加载数据集"><span class="nav-number">4.1.</span> <span class="nav-text">加载数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练k-means算法模型"><span class="nav-number">4.2.</span> <span class="nav-text">训练k-means算法模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化结果"><span class="nav-number">4.3.</span> <span class="nav-text">可视化结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类结果"><span class="nav-number">4.4.</span> <span class="nav-text">聚类结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理论介绍"><span class="nav-number">1.</span> <span class="nav-text">理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类"><span class="nav-number">1.1.</span> <span class="nav-text">聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-means（k均值）聚类算法"><span class="nav-number">1.2.</span> <span class="nav-text">K-means（k均值）聚类算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#k-means聚类算法实现"><span class="nav-number">2.</span> <span class="nav-text">k-means聚类算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述"><span class="nav-number">2.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从文件加载数据集"><span class="nav-number">2.2.</span> <span class="nav-text">从文件加载数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建一个包含-K-个随机质心的集合"><span class="nav-number">2.3.</span> <span class="nav-text">构建一个包含 K 个随机质心的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K-Means-聚类算法"><span class="nav-number">2.4.</span> <span class="nav-text">K-Means 聚类算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：聚类可视化"><span class="nav-number">2.5.</span> <span class="nav-text">分析数据：聚类可视化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果讨论与分析"><span class="nav-number">2.6.</span> <span class="nav-text">结果讨论与分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分-K-Means-聚类算法"><span class="nav-number">3.</span> <span class="nav-text">二分 K-Means 聚类算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法描述"><span class="nav-number">3.1.</span> <span class="nav-text">算法描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分-K-Means-聚类算法伪代码"><span class="nav-number">3.2.</span> <span class="nav-text">二分 K-Means 聚类算法伪代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分-K-Means-聚类算法代码"><span class="nav-number">3.3.</span> <span class="nav-text">二分 K-Means 聚类算法代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试二分-KMeans-聚类算法"><span class="nav-number">3.4.</span> <span class="nav-text">测试二分 KMeans 聚类算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调用机器学习库sklearn实现k-means-聚类"><span class="nav-number">4.</span> <span class="nav-text">调用机器学习库sklearn实现k-means 聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加载数据集"><span class="nav-number">4.1.</span> <span class="nav-text">加载数据集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载数据集-1"><span class="nav-number">5.</span> <span class="nav-text">加载数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#训练k-means算法模型"><span class="nav-number">5.1.</span> <span class="nav-text">训练k-means算法模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化结果"><span class="nav-number">5.2.</span> <span class="nav-text">可视化结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类结果"><span class="nav-number">5.3.</span> <span class="nav-text">聚类结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

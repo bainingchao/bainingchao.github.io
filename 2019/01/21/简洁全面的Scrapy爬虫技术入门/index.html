@@ -169,24 +169,18 @@
 <meta property="og:description" content="摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/V0vBdtm.png">
-<meta property="og:image" content="https://i.imgur.com/iYlbzmx.png">
-<meta property="og:image" content="https://i.imgur.com/a4cYjJK.png">
-<meta property="og:image" content="https://i.imgur.com/SoOQfdN.png">
 <meta property="og:image" content="https://i.imgur.com/q9exv7m.png">
 <meta property="og:image" content="https://i.imgur.com/ZQdW9t4.png">
 <meta property="og:image" content="https://i.imgur.com/HnLm569.png">
 <meta property="og:image" content="https://i.imgur.com/ONdv5PW.png">
-<meta property="og:image" content="https://i.imgur.com/uuoJN01.png">
 <meta property="og:image" content="https://i.imgur.com/UYv1DBd.png">
-<meta property="og:image" content="https://i.imgur.com/OiSTFDk.png">
-<meta property="og:image" content="https://i.imgur.com/lRluBiU.png">
 <meta property="og:image" content="https://i.imgur.com/BnoB97Y.png">
 <meta property="og:image" content="https://i.imgur.com/JGLwkJ8.png">
 <meta property="og:image" content="https://i.imgur.com/NCn5wkp.png">
 <meta property="og:image" content="https://i.imgur.com/NCn5wkp.png">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/kgyHXwx.png">
-<meta property="og:updated_time" content="2019-01-21T12:05:06.651Z">
+<meta property="og:updated_time" content="2019-03-06T08:46:06.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简洁全面的Scrapy爬虫技术入门">
 <meta name="twitter:description" content="摘要：AI时代在我们生活中扮演着愈加重要的角色，其显著特征就是对海量数据的处理。所谓海量数据即大数据，我们首先获取到数据才能够挖掘其信息，达到AI层面的应用。而数据的存在形式，绝大多数是非结构化的，网页存储就是典型的非结构化数据。由此引出了网络爬虫技术，本文主要介绍Scrapy的原理和入门应用，以及本地化存储。（本文原创，转载必须注明出处.）">
@@ -481,12 +475,24 @@
                 
               
 
-              <time title="创建时间：2019-01-21 19:38:26 / 修改时间：20:05:06" itemprop="dateCreated datePublished" datetime="2019-01-21T19:38:26+08:00">2019-01-21</time>
+              <time title="创建时间：2019-01-21 19:38:26" itemprop="dateCreated datePublished" datetime="2019-01-21T19:38:26+08:00">2019-01-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-06 16:46:06" itemprop="dateModified" datetime="2019-03-06T16:46:06+08:00">2019-03-06</time>
               
             
           </span>
@@ -625,46 +631,220 @@
 <li>mySpider/settings.py: 项目的设置文件。</li>
 <li>mySpider/spiders/: 存储爬虫代码目录。</li>
 </ul>
-<h2 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h2><h3 id="WIN-R调出cmd，并新建项目名为【BoLeSpider】如下："><a href="#WIN-R调出cmd，并新建项目名为【BoLeSpider】如下：" class="headerlink" title="WIN+R调出cmd，并新建项目名为【BoLeSpider】如下："></a>WIN+R调出cmd，并新建项目名为【BoLeSpider】如下：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span> scrapy startproject BoLeSpider</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/iYlbzmx.png" alt=""></p>
-<h3 id="在-BoLeSpider-项目下创建爬虫目录"><a href="#在-BoLeSpider-项目下创建爬虫目录" class="headerlink" title="在 BoLeSpider 项目下创建爬虫目录"></a>在 BoLeSpider 项目下创建爬虫目录</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span> cd BoLeSpider</span><br><span class="line"><span class="meta">&gt;&gt;</span> Scrapy genspider jobbole <span class="symbol">http:</span>/<span class="regexp">/www.jobbole.com/</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/a4cYjJK.png" alt=""></p>
-<h3 id="在-BoLeSpider-目录下创建main-py"><a href="#在-BoLeSpider-目录下创建main-py" class="headerlink" title="在 BoLeSpider 目录下创建main.py"></a>在 BoLeSpider 目录下创建main.py</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf<span class="number">-8</span> -*-</span><br><span class="line">__author__ = <span class="string">'BaiNingchao'</span></span><br><span class="line"></span><br><span class="line">import sys,<span class="built_in">os</span></span><br><span class="line">from scrapy.cmdline import <span class="built_in">execute</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sys.<span class="built_in">path</span>.append(<span class="built_in">os</span>.<span class="built_in">path</span>.dirname(<span class="built_in">os</span>.<span class="built_in">path</span>.abspath(__file__)))</span><br><span class="line"><span class="built_in">execute</span>([<span class="string">"scrapy"</span>, <span class="string">"crawl"</span>, <span class="string">"jobbole"</span>])  # scrapy crawl jobbole</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/SoOQfdN.png" alt=""></p>
-<p>main.py中的方法与cmd下执行效果是一致的，这个遍历执行程序创建该主函数。</p>
-<h2 id="爬取技术网站内容"><a href="#爬取技术网站内容" class="headerlink" title="爬取技术网站内容"></a>爬取技术网站内容</h2><h3 id="打开setting-py修改："><a href="#打开setting-py修改：" class="headerlink" title="打开setting.py修改："></a>打开setting.py修改：</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROBOTSTXT_OBEY = False。意思为不符合协议的也继续爬取，如果True很快就会停止爬虫</span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   'BoLeSpider.pipelines.BolespiderPipeline': 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h2><h3 id="WIN-R调出cmd，并新建项目名为【BoLeSpider】如下："><a href="#WIN-R调出cmd，并新建项目名为【BoLeSpider】如下：" class="headerlink" title="WIN+R调出cmd，并新建项目名为【BoLeSpider】如下："></a>WIN+R调出cmd，并新建项目名为【BoLeSpider】如下：</h3><pre>
+>> scrapy startproject BoLeSpider
+</pre>
+![](https://i.imgur.com/iYlbzmx.png)
+
+### 在 BoLeSpider 项目下创建爬虫目录
+<pre>
+>> cd BoLeSpider
+>> Scrapy genspider jobbole http://www.jobbole.com/
+</pre>
+![](https://i.imgur.com/a4cYjJK.png)
+
+### 在 BoLeSpider 目录下创建main.py
+
+<pre>
+# -*- coding: utf-8 -*-
+__author__ = 'BaiNingchao'
+
+import sys,os
+from scrapy.cmdline import execute
+
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+execute(["scrapy", "crawl", "jobbole"])  # scrapy crawl jobbole
+</pre>
+![](https://i.imgur.com/SoOQfdN.png)
+
+main.py中的方法与cmd下执行效果是一致的，这个遍历执行程序创建该主函数。
+
+
+## 爬取技术网站内容
+
+### 打开setting.py修改：
+
+<pre>
+ROBOTSTXT_OBEY = False。意思为不符合协议的也继续爬取，如果True很快就会停止爬虫
+ITEM_PIPELINES = {
+   'BoLeSpider.pipelines.BolespiderPipeline': 1,
+}
+</pre>
+
 <h3 id="分析目标网站设置提取特征"><a href="#分析目标网站设置提取特征" class="headerlink" title="分析目标网站设置提取特征"></a>分析目标网站设置提取特征</h3><p><img src="https://i.imgur.com/q9exv7m.png" alt=""><br><img src="https://i.imgur.com/ZQdW9t4.png" alt=""></p>
 <p>对以上文章内容，我们试图提取【新闻题目、创建时间、URL、点赞数、收藏数、评论数】这些内容</p>
-<h3 id="cmd下shell对各个字段调试（xpath或者css方法）："><a href="#cmd下shell对各个字段调试（xpath或者css方法）：" class="headerlink" title="cmd下shell对各个字段调试（xpath或者css方法）："></a>cmd下shell对各个字段调试（xpath或者css方法）：</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell http:<span class="regexp">//</span>blog.jobbole.com<span class="regexp">/114638/</span></span><br></pre></td></tr></table></figure>
-<p>打开页面F12,复制对应的xpath路径</p>
+<h3 id="cmd下shell对各个字段调试（xpath或者css方法）："><a href="#cmd下shell对各个字段调试（xpath或者css方法）：" class="headerlink" title="cmd下shell对各个字段调试（xpath或者css方法）："></a>cmd下shell对各个字段调试（xpath或者css方法）：</h3><pre><code>scrapy shell http://blog.jobbole.com/114638/
+</code></pre><p>打开页面F12,复制对应的xpath路径</p>
 <p><img src="https://i.imgur.com/HnLm569.png" alt=""></p>
 <p>对网页特征提取我们一般是shell里面调试（如上图所示），特征抽取有两种方式，一种的基于xpath方法，一种基于css方法，根据大家喜好去使用。</p>
 <blockquote>
 <p>基于xpath方法</p>
 </blockquote>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">title = response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[1]/h1/text()').extract()   <span class="comment"># 新闻题目</span></span><br><span class="line">crate_date = response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[2]/p/text()').extract()[0].strip().replace('·','')  <span class="comment"># 创建时间</span></span><br><span class="line">url = response.url     <span class="comment"># url</span></span><br><span class="line">dianzan = self.re_match(response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[3]/div[5]/span[1]/text()').extract()[1]) <span class="comment"># 点赞数</span></span><br><span class="line">soucang = self.re_match(response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[3]/div[5]/span[2]/text()').extract()[0]) <span class="comment"># 收藏数</span></span><br><span class="line">comment = self.re_match(response.xpath('//*[@id=<span class="string">"post-114638"</span>]/div[3]/div[5]/a/span/text()').extract()[0]) <span class="comment"># 评论数</span></span><br></pre></td></tr></table></figure>
+<pre>
+title = response.xpath('//*[@id="post-114638"]/div[1]/h1/text()').extract()   # 新闻题目
+crate_date = response.xpath('//*[@id="post-114638"]/div[2]/p/text()').extract()[0].strip().replace('·','')  # 创建时间
+url = response.url     # url
+dianzan = self.re_match(response.xpath('//*[@id="post-114638"]/div[3]/div[5]/span[1]/text()').extract()[1]) # 点赞数
+soucang = self.re_match(response.xpath('//*[@id="post-114638"]/div[3]/div[5]/span[2]/text()').extract()[0]) # 收藏数
+comment = self.re_match(response.xpath('//*[@id="post-114638"]/div[3]/div[5]/a/span/text()').extract()[0]) # 评论数
+</pre>
+
 <blockquote>
 <p>基于css方法</p>
 </blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># css获取内容</span></span><br><span class="line">title = response.css(<span class="string">'.entry-header h1::text'</span>).extract()   <span class="comment"># 新闻题目</span></span><br><span class="line">crate_date = response.css(<span class="string">'p.entry-meta-hide-on-mobile::text'</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">'·'</span>,<span class="string">''</span>)  <span class="comment"># 创建时间</span></span><br><span class="line">url = response.url     <span class="comment"># url</span></span><br><span class="line">dianzan = <span class="keyword">self</span>.re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 点赞数</span></span><br><span class="line">soucang = <span class="keyword">self</span>.re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 收藏数</span></span><br><span class="line">comment = <span class="keyword">self</span>.re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 评论数</span></span><br><span class="line"><span class="keyword">print</span>(title,<span class="string">'\n'</span>,crate_date,<span class="string">'\n'</span>,url,<span class="string">'\n'</span>,dianzan,<span class="string">'\n'</span>,soucang,<span class="string">'\n'</span>,comment)</span><br></pre></td></tr></table></figure>
+<pre>
+# css获取内容
+title = response.css('.entry-header h1::text').extract()   # 新闻题目
+crate_date = response.css('p.entry-meta-hide-on-mobile::text').extract()[0].strip().replace('·','')  # 创建时间
+url = response.url     # url
+dianzan = self.re_match(response.css('.vote-post-up h10::text').extract()[0]) # 点赞数
+soucang = self.re_match(response.css('.bookmark-btn::text').extract()[0]) # 收藏数
+comment = self.re_match(response.css('a[href="#article-comment"] span::text').extract()[0]) # 评论数
+print(title,'\n',crate_date,'\n',url,'\n',dianzan,'\n',soucang,'\n',comment)
+</pre>
+
 <blockquote>
 <p>编写jobbole.py完整代码：</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy,re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobboleSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'jobbole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'http://www.jobbole.com/'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://blog.jobbole.com/114638'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="string">'''获得单页的信息'''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="comment"># css获取内容</span></span><br><span class="line">        title = response.css(<span class="string">'.entry-header h1::text'</span>).extract()   <span class="comment"># 新闻题目</span></span><br><span class="line">        crate_date = response.css(<span class="string">'p.entry-meta-hide-on-mobile::text'</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">'·'</span>,<span class="string">''</span>)  <span class="comment"># 创建时间</span></span><br><span class="line">        url = response.url     <span class="comment"># url</span></span><br><span class="line">        dianzan = self.re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 点赞数</span></span><br><span class="line">        soucang = self.re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 收藏数</span></span><br><span class="line">        comment = self.re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>]) <span class="comment"># 评论数</span></span><br><span class="line"></span><br><span class="line">        print(<span class="string">'标题:'</span>,title,<span class="string">'\n'</span>,<span class="string">'发布时间:'</span>,crate_date,<span class="string">'\n'</span>,<span class="string">'文章地址:'</span>,url,<span class="string">'\n'</span>,<span class="string">'点赞数：'</span>,dianzan,<span class="string">'\n'</span>,<span class="string">'收藏数'</span>,soucang,<span class="string">'\n'</span>,<span class="string">'评论数'</span>,comment)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对点赞数、收藏数、评论数等进行正则数字提取</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">re_match</span><span class="params">(self,value)</span>:</span></span><br><span class="line">        match_value = re.match(<span class="string">'.*?(\d+).*'</span>,value)</span><br><span class="line">        <span class="keyword">if</span> match_value:</span><br><span class="line">            value = int(match_value.group(<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            value = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>
+<pre>
+# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+import scrapy,re
+
+
+class JobboleSpider(scrapy.Spider):
+    name = 'jobbole'
+    allowed_domains = ['http://www.jobbole.com/']
+    start_urls = ['http://blog.jobbole.com/114638']
+
+    '''获得单页的信息'''
+    def parse(self, response):
+        # css获取内容
+        title = response.css('.entry-header h1::text').extract()   # 新闻题目
+        crate_date = response.css('p.entry-meta-hide-on-mobile::text').extract()[0].strip().replace('·','')  # 创建时间
+        url = response.url     # url
+        dianzan = self.re_match(response.css('.vote-post-up h10::text').extract()[0]) # 点赞数
+        soucang = self.re_match(response.css('.bookmark-btn::text').extract()[0]) # 收藏数
+        comment = self.re_match(response.css('a[href="#article-comment"] span::text').extract()[0]) # 评论数
+
+        print('标题:',title,'\n','发布时间:',crate_date,'\n','文章地址:',url,'\n','点赞数：',dianzan,'\n','收藏数',soucang,'\n','评论数',comment)
+
+
+    # 对点赞数、收藏数、评论数等进行正则数字提取
+    def re_match(self,value):
+        match_value = re.match('.*?(\d+).*',value)
+        if match_value:
+            value = int(match_value.group(1))
+        else:
+            value = 0
+        return value
+</pre>
+
 <h3 id="运行main-py函数，便提前到所有信息："><a href="#运行main-py函数，便提前到所有信息：" class="headerlink" title="运行main.py函数，便提前到所有信息："></a>运行main.py函数，便提前到所有信息：</h3><p><img src="https://i.imgur.com/ONdv5PW.png" alt=""></p>
 <h3 id="获取列表页所有文章"><a href="#获取列表页所有文章" class="headerlink" title="获取列表页所有文章"></a>获取列表页所有文章</h3><blockquote>
 <p>获取列表下所有页的信息，找到列表页F12分析，使其下一页自动爬取.在cmd的项目根目录下</p>
 </blockquote>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scrapy <span class="keyword">shell</span><span class="bash"> http://blog.jobbole.com/all-posts/</span></span><br><span class="line"><span class="bash">response.css(<span class="string">"#archive .floated-thumb .post-thumb a::attr(href)"</span>).extract()</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://i.imgur.com/uuoJN01.png" alt=""></p>
-<blockquote>
-<p>设置items.py</p>
-</blockquote>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define here the models for your scraped items</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See documentation in:</span></span><br><span class="line"><span class="comment"># https://doc.scrapy.org/en/latest/topics/items.html</span></span><br><span class="line"></span><br><span class="line">import <span class="keyword">scrapy</span></span><br><span class="line"><span class="keyword">from </span><span class="keyword">scrapy.loader.processors </span>import MapCompose</span><br><span class="line"></span><br><span class="line">class <span class="keyword">BolespiderItem(scrapy.Item):</span></span><br><span class="line"><span class="keyword"> </span>   <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置提取字段的实体类</span></span><br><span class="line">class <span class="keyword">JobBoleItem(scrapy.Item):</span></span><br><span class="line"><span class="keyword"> </span>   title = <span class="keyword">scrapy.Field() </span><span class="comment"># 文章题目</span></span><br><span class="line">    create_date = <span class="keyword">scrapy.Field() </span><span class="comment">#发布时间</span></span><br><span class="line">    url =  <span class="keyword">scrapy.Field() </span><span class="comment">#当前文章url路径</span></span><br><span class="line">    <span class="keyword">dianzan </span>= <span class="keyword">scrapy.Field() </span><span class="comment">#点赞数</span></span><br><span class="line">    soucang = <span class="keyword">scrapy.Field() </span><span class="comment"># 收藏数</span></span><br><span class="line">    comment = <span class="keyword">scrapy.Field() </span><span class="comment"># 评论数</span></span><br></pre></td></tr></table></figure>
+<pre>
+scrapy shell http://blog.jobbole.com/all-posts/
+response.css("#archive .floated-thumb .post-thumb a::attr(href)").extract()
+</pre>
+![](https://i.imgur.com/uuoJN01.png)
+
+> 设置items.py
+
+<pre>
+# -*- coding: utf-8 -*-
+
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://doc.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+from scrapy.loader.processors import MapCompose
+
+class BolespiderItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    pass
+
+
+# 设置提取字段的实体类
+class JobBoleItem(scrapy.Item):
+    title = scrapy.Field() # 文章题目
+    create_date = scrapy.Field() #发布时间
+    url =  scrapy.Field() #当前文章url路径
+    dianzan = scrapy.Field() #点赞数
+    soucang = scrapy.Field() # 收藏数
+    comment = scrapy.Field() # 评论数
+</pre>
+
+
 <blockquote>
 <p>jobbole.py 的代码改为：</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy,re,datetime</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line"><span class="keyword">from</span> BoLeSpider.items <span class="keyword">import</span> JobBoleItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobboleSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'jobbole'</span></span><br><span class="line">    allowed_domains = [<span class="string">'http://www.jobbole.com/'</span>]</span><br><span class="line">    <span class="comment"># start_urls = ['http://blog.jobbole.com/114638']</span></span><br><span class="line">    start_urls = [<span class="string">'http://blog.jobbole.com/all-posts/'</span>] <span class="comment"># 所有页信息</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取列表下所有页信息</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        <span class="comment"># 1 获取文章列表中的具体文章url并交给解析函数具体字段解析</span></span><br><span class="line">        post_urls = response.css(<span class="string">"#archive .floated-thumb .post-thumb a::attr(href)"</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> post_url <span class="keyword">in</span> post_urls:</span><br><span class="line">            <span class="keyword">yield</span> Request(url=parse.urljoin(response.url,post_url),callback=self.parses_detail, dont_filter=<span class="keyword">True</span>) <span class="comment"># scrapy下载</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#  2 提取下一页并交给scrapy提供下载</span></span><br><span class="line">        next_url = response.css(<span class="string">".next.page-numbers::attr(href)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">if</span> next_url:</span><br><span class="line">            <span class="keyword">yield</span> Request(url=parse.urljoin(response.url, post_url), callback=self.parse, dont_filter=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># scrapy shell http://blog.jobbole.com/114638/</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parses_detail</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        article_item =JobBoleItem()</span><br><span class="line">        article_item[<span class="string">'title'</span>] = response.css(<span class="string">'.entry-header h1::text'</span>).extract()</span><br><span class="line">        article_item[<span class="string">'create_date'</span>] = date_convert(response.css(<span class="string">"p.entry-meta-hide-on-mobile::text"</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">"·"</span>,<span class="string">""</span>).strip())</span><br><span class="line">        article_item[<span class="string">'url'</span>] = response.url</span><br><span class="line">        article_item[<span class="string">'dianzan'</span>] = re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        article_item[<span class="string">'soucang'</span>] = re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        article_item[<span class="string">'comment'</span>] = re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">yield</span> article_item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># **************************正则对字段格式化处理******************************</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对点赞数、收藏数、评论数等进行正则数字提取</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">re_match</span><span class="params">(value)</span>:</span></span><br><span class="line">    match_value = re.match(<span class="string">'.*?(\d+).*'</span>,value)</span><br><span class="line">    <span class="keyword">if</span> match_value:</span><br><span class="line">        nums = int(match_value.group(<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        nums = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对时间格式化处理</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">date_convert</span><span class="params">(value)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        create_date = datetime.datetime.strptime(value, <span class="string">"%Y/%m/%d"</span>).date()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        create_date = datetime.datetime.now().date()</span><br><span class="line">    <span class="keyword">return</span> create_date</span><br></pre></td></tr></table></figure>
+<pre>
+# -*- coding: utf-8 -*-
+import scrapy,re,datetime
+from scrapy.http import Request
+from urllib import parse
+from BoLeSpider.items import JobBoleItem
+
+
+class JobboleSpider(scrapy.Spider):
+    name = 'jobbole'
+    allowed_domains = ['http://www.jobbole.com/']
+    # start_urls = ['http://blog.jobbole.com/114638']
+    start_urls = ['http://blog.jobbole.com/all-posts/'] # 所有页信息
+
+
+    # 获取列表下所有页信息
+    def parse(self, response):
+        # 1 获取文章列表中的具体文章url并交给解析函数具体字段解析
+        post_urls = response.css("#archive .floated-thumb .post-thumb a::attr(href)").extract()
+        for post_url in post_urls:
+            yield Request(url=parse.urljoin(response.url,post_url),callback=self.parses_detail, dont_filter=True) # scrapy下载
+
+        #  2 提取下一页并交给scrapy提供下载
+        next_url = response.css(".next.page-numbers::attr(href)").extract_first("")
+        if next_url:
+            yield Request(url=parse.urljoin(response.url, post_url), callback=self.parse, dont_filter=True)
+
+    # scrapy shell http://blog.jobbole.com/114638/
+    def parses_detail(self, response):
+        article_item =JobBoleItem()
+        article_item['title'] = response.css('.entry-header h1::text').extract()
+        article_item['create_date'] = date_convert(response.css("p.entry-meta-hide-on-mobile::text").extract()[0].strip().replace("·","").strip())
+        article_item['url'] = response.url
+        article_item['dianzan'] = re_match(response.css('.vote-post-up h10::text').extract()[0])
+        article_item['soucang'] = re_match(response.css('.bookmark-btn::text').extract()[0])
+        article_item['comment'] = re_match(response.css('a[href="#article-comment"] span::text').extract()[0])
+        yield article_item
+
+
+# **************************正则对字段格式化处理******************************
+
+# 对点赞数、收藏数、评论数等进行正则数字提取
+def re_match(value):
+    match_value = re.match('.*?(\d+).*',value)
+    if match_value:
+        nums = int(match_value.group(1))
+    else:
+        nums = 0
+    return nums
+
+
+# 对时间格式化处理
+def date_convert(value):
+    try:
+        create_date = datetime.datetime.strptime(value, "%Y/%m/%d").date()
+    except Exception as e:
+        create_date = datetime.datetime.now().date()
+    return create_date
+
+</pre>
+
 <blockquote>
 <p>网页提取后的结果</p>
 </blockquote>
@@ -672,47 +852,260 @@
 <h2 id="本地化存储爬取的网页内容"><a href="#本地化存储爬取的网页内容" class="headerlink" title="本地化存储爬取的网页内容"></a>本地化存储爬取的网页内容</h2><h3 id="将结果保存在json文件中"><a href="#将结果保存在json文件中" class="headerlink" title="将结果保存在json文件中"></a>将结果保存在json文件中</h3><blockquote>
 <p> 在pipline.py下修改代码如下</p>
 </blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define your item pipelines here</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Don't forget to add your pipeline to the ITEM_PIPELINES setting</span></span><br><span class="line"><span class="comment"># See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line"></span><br><span class="line">from scrapy.exporters import JsonItemExporter</span><br><span class="line">import codecs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BolespiderPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用scrapy提供的json export导出json文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonExporterPipleline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.file = open(<span class="string">'articleexport.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        <span class="keyword">self</span>.exporter = JsonItemExporter(<span class="keyword">self</span>.file, encoding=<span class="string">"utf-8"</span>, ensure_ascii=False)</span><br><span class="line">        <span class="keyword">self</span>.exporter.start_exporting()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.finish_exporting()</span><br><span class="line">        <span class="keyword">self</span>.file.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<pre>
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+from scrapy.exporters import JsonItemExporter
+import codecs
+
+class BolespiderPipeline(object):
+    def process_item(self, item, spider):
+        return item
+
+# 调用scrapy提供的json export导出json文件
+class JsonExporterPipleline(object):
+    def __init__(self):
+        self.file = open('articleexport.json', 'wb')
+        self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)
+        self.exporter.start_exporting()
+
+    def close_spider(self, spider):
+        self.exporter.finish_exporting()
+        self.file.close()
+
+    def process_item(self, item, spider):
+        self.exporter.export_item(item)
+        return item
+</pre>
+
+
 <blockquote>
 <p>在setting.py 中修改代码如下：</p>
 </blockquote>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   'BoLeSpider.pipelines.JsonExporterPipleline': 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在main.py运行程序，查看articleexport.json结果如下：</p>
-</blockquote>
-<p><img src="https://i.imgur.com/OiSTFDk.png" alt=""></p>
-<h3 id="将结果保存在MySql数据库中"><a href="#将结果保存在MySql数据库中" class="headerlink" title="将结果保存在MySql数据库中"></a>将结果保存在MySql数据库中</h3><blockquote>
-<p>数据库中表的设计</p>
-</blockquote>
-<p>本地数据库，用户名：root，密码：admin，数据库：test<br><img src="https://i.imgur.com/lRluBiU.png" alt=""></p>
-<blockquote>
-<p>pipline.py修改如下：</p>
-</blockquote>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">from scrapy.exporters import JsonItemExporter</span><br><span class="line">import codecs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BolespiderPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用scrapy提供的json export导出json文件</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonExporterPipleline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.file = open(<span class="string">'articleexport.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line">        <span class="keyword">self</span>.exporter = JsonItemExporter(<span class="keyword">self</span>.file, encoding=<span class="string">"utf-8"</span>, ensure_ascii=False)</span><br><span class="line">        <span class="keyword">self</span>.exporter.start_exporting()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(<span class="keyword">self</span>, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.finish_exporting()</span><br><span class="line">        <span class="keyword">self</span>.file.close()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.exporter.export_item(item)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将爬取的数据字段存储在mysql数据</span></span><br><span class="line"></span><br><span class="line">import MySQLdb</span><br><span class="line">import MySQLdb.cursors</span><br><span class="line"></span><br><span class="line"><span class="comment"># MYSQL数据库存储方法1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span>(<span class="title">object</span>):</span></span><br><span class="line">    <span class="comment">#采用同步的机制写入mysql</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.conn = MySQLdb.connect(<span class="string">'127.0.0.1'</span>, <span class="string">'root'</span>, <span class="string">'admin'</span>, <span class="string">'test'</span>, charset=<span class="string">"utf8"</span>, use_unicode=True)</span><br><span class="line">        <span class="keyword">self</span>.cursor = <span class="keyword">self</span>.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(<span class="keyword">self</span>, item, spider)</span></span><span class="symbol">:</span></span><br><span class="line">        insert_sql = <span class="string">""</span><span class="string">"</span></span><br><span class="line"><span class="string">            insert into myarticles(title, createdate,url,dianzan,soucang,comment) VALUES(%s,%s,%s,%s,%s,%s)</span></span><br><span class="line"><span class="string">        "</span><span class="string">""</span></span><br><span class="line">        <span class="keyword">self</span>.cursor.execute(insert_sql, (item[<span class="string">"title"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"url"</span>], item[<span class="string">"dianzan"</span>],item[<span class="string">"soucang"</span>],item[<span class="string">"comment"</span>]))</span><br><span class="line">        <span class="keyword">self</span>.conn.commit()</span><br></pre></td></tr></table></figure>
+<pre>
+ITEM_PIPELINES = {
+   'BoLeSpider.pipelines.JsonExporterPipleline': 1,
+}
+
+</pre>
+> 在main.py运行程序，查看articleexport.json结果如下：
+
+![](https://i.imgur.com/OiSTFDk.png)
+
+
+### 将结果保存在MySql数据库中
+
+> 数据库中表的设计
+
+本地数据库，用户名：root，密码：admin，数据库：test
+![](https://i.imgur.com/lRluBiU.png)
+
+
+> pipline.py修改如下：
+<pre>
+from scrapy.exporters import JsonItemExporter
+import codecs
+
+class BolespiderPipeline(object):
+    def process_item(self, item, spider):
+        return item
+
+# 调用scrapy提供的json export导出json文件
+class JsonExporterPipleline(object):
+    def __init__(self):
+        self.file = open('articleexport.json', 'wb')
+        self.exporter = JsonItemExporter(self.file, encoding="utf-8", ensure_ascii=False)
+        self.exporter.start_exporting()
+
+    def close_spider(self, spider):
+        self.exporter.finish_exporting()
+        self.file.close()
+
+    def process_item(self, item, spider):
+        self.exporter.export_item(item)
+        return item
+
+# 将爬取的数据字段存储在mysql数据
+
+import MySQLdb
+import MySQLdb.cursors
+
+# MYSQL数据库存储方法1
+class MysqlPipeline(object):
+    #采用同步的机制写入mysql
+    def __init__(self):
+        self.conn = MySQLdb.connect('127.0.0.1', 'root', 'admin', 'test', charset="utf8", use_unicode=True)
+        self.cursor = self.conn.cursor()
+
+    def process_item(self, item, spider):
+        insert_sql = """
+            insert into myarticles(title, createdate,url,dianzan,soucang,comment) VALUES(%s,%s,%s,%s,%s,%s)
+        """
+        self.cursor.execute(insert_sql, (item["title"], item["create_date"], item["url"], item["dianzan"],item["soucang"],item["comment"]))
+        self.conn.commit()
+</pre>
+
+
+
 <blockquote>
 <p>在setting.py 中修改代码如下：</p>
 </blockquote>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   'BoLeSpider.pipelines.MysqlPipeline': 1,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre>
+ITEM_PIPELINES = {
+   'BoLeSpider.pipelines.MysqlPipeline': 1,
+}
+
+</pre>
+
 <blockquote>
 <p>在main.py运行程序，查看数据库表结果如下：</p>
 </blockquote>
 <p><img src="https://i.imgur.com/BnoB97Y.png" alt=""></p>
 <h2 id="对网站图片爬取并本地化存储"><a href="#对网站图片爬取并本地化存储" class="headerlink" title="对网站图片爬取并本地化存储"></a>对网站图片爬取并本地化存储</h2><h3 id="本地化存储爬取的网页内容-重新进行数据库表的设计"><a href="#本地化存储爬取的网页内容-重新进行数据库表的设计" class="headerlink" title="本地化存储爬取的网页内容 重新进行数据库表的设计"></a>本地化存储爬取的网页内容 重新进行数据库表的设计</h3><p><img src="https://i.imgur.com/JGLwkJ8.png" alt=""></p>
-<h3 id="jobbole-py-修改如下："><a href="#jobbole-py-修改如下：" class="headerlink" title="jobbole.py 修改如下："></a>jobbole.py 修改如下：</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取列表下所有页信息</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(<span class="keyword">self</span>, response)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="comment"># 1 获取文章列表中的具体文章url并交给解析函数具体字段解析</span></span><br><span class="line">    post_nodes = response.css(<span class="string">"#archive .floated-thumb .post-thumb a"</span>)</span><br><span class="line">    <span class="keyword">for</span> post_node <span class="keyword">in</span> <span class="symbol">post_nodes:</span></span><br><span class="line">        image_url = post_node.css(<span class="string">"img::attr(src)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        post_url = post_node.css(<span class="string">"::attr(href)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">        <span class="keyword">yield</span> Request(url=parse.urljoin(response.url,post_url), meta=&#123;<span class="string">"front_image_url"</span><span class="symbol">:image_url</span>&#125;,callback=<span class="keyword">self</span>.parses_detail, dont_filter=True) <span class="comment"># scrapy下载</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#  2 提取下一页并交给scrapy提供下载</span></span><br><span class="line">    next_url = response.css(<span class="string">".next.page-numbers::attr(href)"</span>).extract_first(<span class="string">""</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="symbol">next_url:</span></span><br><span class="line">        <span class="keyword">yield</span> Request(url=parse.urljoin(response.url, post_url), callback=<span class="keyword">self</span>.parse, dont_filter=True)</span><br><span class="line"></span><br><span class="line"><span class="comment"># scrapy shell http://blog.jobbole.com/114638/</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parses_detail</span><span class="params">(<span class="keyword">self</span>, response)</span></span><span class="symbol">:</span></span><br><span class="line">    article_item =JobBoleItem()</span><br><span class="line">    article_item[<span class="string">'front_image_url'</span>] = [response.meta.get(<span class="string">"front_image_url"</span>, <span class="string">""</span>)]  <span class="comment"># 文章封面图</span></span><br><span class="line">    article_item[<span class="string">'title'</span>] = response.css(<span class="string">'.entry-header h1::text'</span>).extract()</span><br><span class="line">    article_item[<span class="string">'create_date'</span>] = date_convert(response.css(<span class="string">"p.entry-meta-hide-on-mobile::text"</span>).extract()[<span class="number">0</span>].strip().replace(<span class="string">"·"</span>,<span class="string">""</span>).strip())</span><br><span class="line">    article_item[<span class="string">'url'</span>] = response.url</span><br><span class="line">    article_item[<span class="string">'dianzan'</span>] = re_match(response.css(<span class="string">'.vote-post-up h10::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">    article_item[<span class="string">'soucang'</span>] = re_match(response.css(<span class="string">'.bookmark-btn::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">    article_item[<span class="string">'comment'</span>] = re_match(response.css(<span class="string">'a[href="#article-comment"] span::text'</span>).extract()[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">yield</span> article_item</span><br></pre></td></tr></table></figure>
-<h3 id="items-py-修改如下"><a href="#items-py-修改如下" class="headerlink" title="items.py 修改如下"></a>items.py 修改如下</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">设置提取字段的实体类</span><br><span class="line">class <span class="keyword">JobBoleItem(scrapy.Item):</span></span><br><span class="line"><span class="keyword"> </span>   title = <span class="keyword">scrapy.Field() </span><span class="comment"># 文章题目</span></span><br><span class="line">    create_date = <span class="keyword">scrapy.Field() </span><span class="comment">#发布时间</span></span><br><span class="line">    url =  <span class="keyword">scrapy.Field() </span><span class="comment">#当前文章url路径</span></span><br><span class="line">    <span class="keyword">dianzan </span>= <span class="keyword">scrapy.Field() </span><span class="comment">#点赞数</span></span><br><span class="line">    soucang = <span class="keyword">scrapy.Field() </span><span class="comment"># 收藏数</span></span><br><span class="line">    comment = <span class="keyword">scrapy.Field() </span><span class="comment"># 评论数</span></span><br><span class="line">    front_image_url = <span class="keyword">scrapy.Field() </span><span class="comment"># 原图片文件路径</span></span><br><span class="line">    front_image_path = <span class="keyword">scrapy.Field() </span><span class="comment"># 下载到本地图片路径</span></span><br></pre></td></tr></table></figure>
-<h3 id="pipline-py设置如下："><a href="#pipline-py设置如下：" class="headerlink" title="pipline.py设置如下："></a>pipline.py设置如下：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.pipelines.images <span class="keyword">import</span> ImagesPipeline</span><br><span class="line">获取下载后图片文件的路径</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleImagePipeline</span><span class="params">(ImagesPipeline)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">item_completed</span><span class="params">(self, results, item, info)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">"front_image_url"</span> <span class="keyword">in</span> item:</span><br><span class="line">            <span class="keyword">for</span> ok, value <span class="keyword">in</span> results:</span><br><span class="line">                image_file_path = value[<span class="string">"path"</span>]</span><br><span class="line">            item[<span class="string">"front_image_path"</span>] = image_file_path</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">将爬取的数据字段存储在mysql数据</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line"><span class="keyword">import</span> MySQLdb.cursors</span><br><span class="line"></span><br><span class="line"><span class="string">'''MYSQL数据库存储方法1'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment">#采用同步的机制写入mysql</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.conn = MySQLdb.connect(<span class="string">'127.0.0.1'</span>, <span class="string">'root'</span>, <span class="string">'admin'</span>, <span class="string">'test'</span>, charset=<span class="string">"utf8"</span>, use_unicode=<span class="keyword">True</span>)</span><br><span class="line">        self.cursor = self.conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        insert_sql = <span class="string">"""</span></span><br><span class="line"><span class="string">            insert into myarticles(title, createdate,url,dianzan,soucang,comment,img_url,img_path) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.cursor.execute(insert_sql, (item[<span class="string">"title"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"url"</span>], item[<span class="string">"dianzan"</span>],item[<span class="string">"soucang"</span>],item[<span class="string">"comment"</span>],item[<span class="string">"front_image_url"</span>],item[<span class="string">"front_image_path"</span>]))</span><br><span class="line">        self.conn.commit()</span><br></pre></td></tr></table></figure>
-<h3 id="setting-py修改："><a href="#setting-py修改：" class="headerlink" title="setting.py修改："></a>setting.py修改：</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   \# <span class="string">'BoLeSpider.pipelines.BolespiderPipeline'</span>: <span class="number">1</span>,</span><br><span class="line">   \# <span class="string">'BoLeSpider.pipelines.JsonExporterPipleline'</span>: <span class="number">1</span>,</span><br><span class="line">   <span class="string">'BoLeSpider.pipelines.ArticleImagePipeline'</span>:<span class="number">1</span>,</span><br><span class="line">   <span class="string">'BoLeSpider.pipelines.MysqlPipeline'</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import <span class="built_in">os</span></span><br><span class="line">IMAGES_URLS_FIELD = <span class="string">"front_image_url"</span> # 原图片路径</span><br><span class="line">project_dir = <span class="built_in">os</span>.<span class="built_in">path</span>.abspath(<span class="built_in">os</span>.<span class="built_in">path</span>.dirname(__file__))</span><br><span class="line">IMAGES_STORE = <span class="built_in">os</span>.<span class="built_in">path</span>.join(project_dir, <span class="string">'images'</span>) # 下载后图片保存位置</span><br></pre></td></tr></table></figure>
+<h3 id="jobbole-py-修改如下："><a href="#jobbole-py-修改如下：" class="headerlink" title="jobbole.py 修改如下："></a>jobbole.py 修改如下：</h3><pre>
+    # 获取列表下所有页信息
+    def parse(self, response):
+        # 1 获取文章列表中的具体文章url并交给解析函数具体字段解析
+        post_nodes = response.css("#archive .floated-thumb .post-thumb a")
+        for post_node in post_nodes:
+            image_url = post_node.css("img::attr(src)").extract_first("")
+            post_url = post_node.css("::attr(href)").extract_first("")
+            yield Request(url=parse.urljoin(response.url,post_url), meta={"front_image_url":image_url},callback=self.parses_detail, dont_filter=True) # scrapy下载
+
+        #  2 提取下一页并交给scrapy提供下载
+        next_url = response.css(".next.page-numbers::attr(href)").extract_first("")
+        if next_url:
+            yield Request(url=parse.urljoin(response.url, post_url), callback=self.parse, dont_filter=True)
+
+    # scrapy shell http://blog.jobbole.com/114638/
+    def parses_detail(self, response):
+        article_item =JobBoleItem()
+        article_item['front_image_url'] = [response.meta.get("front_image_url", "")]  # 文章封面图
+        article_item['title'] = response.css('.entry-header h1::text').extract()
+        article_item['create_date'] = date_convert(response.css("p.entry-meta-hide-on-mobile::text").extract()[0].strip().replace("·","").strip())
+        article_item['url'] = response.url
+        article_item['dianzan'] = re_match(response.css('.vote-post-up h10::text').extract()[0])
+        article_item['soucang'] = re_match(response.css('.bookmark-btn::text').extract()[0])
+        article_item['comment'] = re_match(response.css('a[href="#article-comment"] span::text').extract()[0])
+        yield article_item
+</pre>
+
+<h3 id="items-py-修改如下"><a href="#items-py-修改如下" class="headerlink" title="items.py 修改如下"></a>items.py 修改如下</h3><pre>
+设置提取字段的实体类
+class JobBoleItem(scrapy.Item):
+    title = scrapy.Field() # 文章题目
+    create_date = scrapy.Field() #发布时间
+    url =  scrapy.Field() #当前文章url路径
+    dianzan = scrapy.Field() #点赞数
+    soucang = scrapy.Field() # 收藏数
+    comment = scrapy.Field() # 评论数
+    front_image_url = scrapy.Field() # 原图片文件路径
+    front_image_path = scrapy.Field() # 下载到本地图片路径
+</pre>
+
+
+<h3 id="pipline-py设置如下："><a href="#pipline-py设置如下：" class="headerlink" title="pipline.py设置如下："></a>pipline.py设置如下：</h3><pre>
+from scrapy.pipelines.images import ImagesPipeline
+获取下载后图片文件的路径
+class ArticleImagePipeline(ImagesPipeline):
+    def item_completed(self, results, item, info):
+        if "front_image_url" in item:
+            for ok, value in results:
+                image_file_path = value["path"]
+            item["front_image_path"] = image_file_path
+        return item
+
+
+将爬取的数据字段存储在mysql数据
+
+import MySQLdb
+import MySQLdb.cursors
+
+'''MYSQL数据库存储方法1'''
+class MysqlPipeline(object):
+    #采用同步的机制写入mysql
+    def __init__(self):
+        self.conn = MySQLdb.connect('127.0.0.1', 'root', 'admin', 'test', charset="utf8", use_unicode=True)
+        self.cursor = self.conn.cursor()
+
+    def process_item(self, item, spider):
+        insert_sql = """
+            insert into myarticles(title, createdate,url,dianzan,soucang,comment,img_url,img_path) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+        """
+        self.cursor.execute(insert_sql, (item["title"], item["create_date"], item["url"], item["dianzan"],item["soucang"],item["comment"],item["front_image_url"],item["front_image_path"]))
+        self.conn.commit()
+</pre>
+
+<h3 id="setting-py修改："><a href="#setting-py修改：" class="headerlink" title="setting.py修改："></a>setting.py修改：</h3><pre>
+ITEM_PIPELINES = {
+   \# 'BoLeSpider.pipelines.BolespiderPipeline': 1,
+   \# 'BoLeSpider.pipelines.JsonExporterPipleline': 1,
+   'BoLeSpider.pipelines.ArticleImagePipeline':1,
+   'BoLeSpider.pipelines.MysqlPipeline': 2,
+}
+
+import os
+IMAGES_URLS_FIELD = "front_image_url" # 原图片路径
+project_dir = os.path.abspath(os.path.dirname(__file__))
+IMAGES_STORE = os.path.join(project_dir, 'images') # 下载后图片保存位置
+</pre>
+
 <h3 id="mian-py运行结果"><a href="#mian-py运行结果" class="headerlink" title="mian.py运行结果"></a>mian.py运行结果</h3><p><img src="https://i.imgur.com/NCn5wkp.png" alt=""></p>
 <h3 id="数据库异步存储"><a href="#数据库异步存储" class="headerlink" title="数据库异步存储"></a>数据库异步存储</h3><p>当我们爬虫海量网络数据的时候，爬取速度与存储速度便造成了冲突。采用前面交代的数据库存储技术可能会出现数据阻塞的情况。基于此，我们改进数据存储方式，使用异步存储。</p>
 <blockquote>
 <p>pipline.py添加如下</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> twisted.enterprise <span class="keyword">import</span> adbapi</span><br><span class="line"><span class="string">'''MYSQL数据库存储方法2：异步操作处理,针对大数据量'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlTwistedPipline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dbpool)</span>:</span></span><br><span class="line">        self.dbpool = dbpool</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_settings</span><span class="params">(cls, settings)</span>:</span> <span class="comment"># cls即MysqlTwistedPipline</span></span><br><span class="line">        dbparms = dict(</span><br><span class="line">            host = settings[<span class="string">"MYSQL_HOST"</span>],</span><br><span class="line">            db = settings[<span class="string">"MYSQL_DBNAME"</span>],</span><br><span class="line">            user = settings[<span class="string">"MYSQL_USER"</span>],</span><br><span class="line">            passwd = settings[<span class="string">"MYSQL_PASSWORD"</span>],</span><br><span class="line">            charset=<span class="string">'utf8'</span>,</span><br><span class="line">            cursorclass=MySQLdb.cursors.DictCursor,</span><br><span class="line">            use_unicode=<span class="keyword">True</span></span><br><span class="line">        )</span><br><span class="line">        dbpool = adbapi.ConnectionPool(<span class="string">"MySQLdb"</span>, **dbparms)</span><br><span class="line">        <span class="keyword">return</span> cls(dbpool)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#使用twisted将mysql插入变成异步执行</span></span><br><span class="line">        query = self.dbpool.runInteraction(self.do_insert, item)</span><br><span class="line">        query.addErrback(self.handle_error, item, spider) <span class="comment">#处理异常</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_error</span><span class="params">(self, failure, item, spider)</span>:</span></span><br><span class="line">        <span class="comment">#处理异步插入的异常</span></span><br><span class="line">        <span class="keyword">print</span> (failure)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_insert</span><span class="params">(self, cursor,item)</span>:</span></span><br><span class="line">        insert_sql = <span class="string">"""</span></span><br><span class="line"><span class="string">            insert into myarticles(title, createdate,url,dianzan,soucang,comment,img_url,img_path) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        cursor.execute(insert_sql, (item[<span class="string">"title"</span>], item[<span class="string">"create_date"</span>], item[<span class="string">"url"</span>], item[<span class="string">"dianzan"</span>],item[<span class="string">"soucang"</span>],item[<span class="string">"comment"</span>],item[<span class="string">"front_image_url"</span>],item[<span class="string">"front_image_path"</span>]))</span><br></pre></td></tr></table></figure>
+<pre>
+from twisted.enterprise import adbapi
+'''MYSQL数据库存储方法2：异步操作处理,针对大数据量'''
+class MysqlTwistedPipline(object):
+    def __init__(self, dbpool):
+        self.dbpool = dbpool
+
+    @classmethod
+    def from_settings(cls, settings): # cls即MysqlTwistedPipline
+        dbparms = dict(
+            host = settings["MYSQL_HOST"],
+            db = settings["MYSQL_DBNAME"],
+            user = settings["MYSQL_USER"],
+            passwd = settings["MYSQL_PASSWORD"],
+            charset='utf8',
+            cursorclass=MySQLdb.cursors.DictCursor,
+            use_unicode=True
+        )
+        dbpool = adbapi.ConnectionPool("MySQLdb", **dbparms)
+        return cls(dbpool)
+
+    def process_item(self, item, spider):
+        #使用twisted将mysql插入变成异步执行
+        query = self.dbpool.runInteraction(self.do_insert, item)
+        query.addErrback(self.handle_error, item, spider) #处理异常
+
+    def handle_error(self, failure, item, spider):
+        #处理异步插入的异常
+        print (failure)
+
+    def do_insert(self, cursor,item):
+        insert_sql = """
+            insert into myarticles(title, createdate,url,dianzan,soucang,comment,img_url,img_path) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+        """
+        cursor.execute(insert_sql, (item["title"], item["create_date"], item["url"], item["dianzan"],item["soucang"],item["comment"],item["front_image_url"],item["front_image_path"]))
+</pre>
+
 <blockquote>
 <p>setting.py添加如下</p>
 </blockquote>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据库设置</span></span><br><span class="line"><span class="attr">MYSQL_HOST</span> = <span class="string">"127.0.0.1"</span></span><br><span class="line"><span class="attr">MYSQL_DBNAME</span> = <span class="string">"test"</span></span><br><span class="line"><span class="attr">MYSQL_USER</span> = <span class="string">"root"</span></span><br><span class="line"><span class="attr">MYSQL_PASSWORD</span> = <span class="string">"admin"</span></span><br></pre></td></tr></table></figure>
-<blockquote>
+<pre><code># 数据库设置
+MYSQL_HOST = &quot;127.0.0.1&quot;
+MYSQL_DBNAME = &quot;test&quot;
+MYSQL_USER = &quot;root&quot;
+MYSQL_PASSWORD = &quot;admin&quot;
+</code></pre><blockquote>
 <p>mian.py运行结果</p>
 </blockquote>
 <p><img src="https://i.imgur.com/NCn5wkp.png" alt=""></p>
@@ -1297,7 +1690,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础准备"><span class="nav-number">1.</span> <span class="nav-text">基础准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy-与-requests-beautifulsoup-区别"><span class="nav-number">2.1.</span> <span class="nav-text">scrapy 与 requests+beautifulsoup 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫的作用"><span class="nav-number">2.2.</span> <span class="nav-text">爬虫的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.3.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫去重策略"><span class="nav-number">2.4.</span> <span class="nav-text">爬虫去重策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy爬取技术网站"><span class="nav-number">3.</span> <span class="nav-text">scrapy爬取技术网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy技术原理-绿线是数据流向"><span class="nav-number">3.1.</span> <span class="nav-text">Scrapy技术原理(绿线是数据流向)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作-Scrapy-爬虫步骤："><span class="nav-number">3.2.</span> <span class="nav-text">制作 Scrapy 爬虫步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy安装和项目创建"><span class="nav-number">3.3.</span> <span class="nav-text">scrapy安装和项目创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目准备"><span class="nav-number">4.</span> <span class="nav-text">项目准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WIN-R调出cmd，并新建项目名为【BoLeSpider】如下："><span class="nav-number">4.1.</span> <span class="nav-text">WIN+R调出cmd，并新建项目名为【BoLeSpider】如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-BoLeSpider-项目下创建爬虫目录"><span class="nav-number">4.2.</span> <span class="nav-text">在 BoLeSpider 项目下创建爬虫目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-BoLeSpider-目录下创建main-py"><span class="nav-number">4.3.</span> <span class="nav-text">在 BoLeSpider 目录下创建main.py</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取技术网站内容"><span class="nav-number">5.</span> <span class="nav-text">爬取技术网站内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开setting-py修改："><span class="nav-number">5.1.</span> <span class="nav-text">打开setting.py修改：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析目标网站设置提取特征"><span class="nav-number">5.2.</span> <span class="nav-text">分析目标网站设置提取特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmd下shell对各个字段调试（xpath或者css方法）："><span class="nav-number">5.3.</span> <span class="nav-text">cmd下shell对各个字段调试（xpath或者css方法）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行main-py函数，便提前到所有信息："><span class="nav-number">5.4.</span> <span class="nav-text">运行main.py函数，便提前到所有信息：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取列表页所有文章"><span class="nav-number">5.5.</span> <span class="nav-text">获取列表页所有文章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地化存储爬取的网页内容"><span class="nav-number">6.</span> <span class="nav-text">本地化存储爬取的网页内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将结果保存在json文件中"><span class="nav-number">6.1.</span> <span class="nav-text">将结果保存在json文件中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将结果保存在MySql数据库中"><span class="nav-number">6.2.</span> <span class="nav-text">将结果保存在MySql数据库中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对网站图片爬取并本地化存储"><span class="nav-number">7.</span> <span class="nav-text">对网站图片爬取并本地化存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地化存储爬取的网页内容-重新进行数据库表的设计"><span class="nav-number">7.1.</span> <span class="nav-text">本地化存储爬取的网页内容 重新进行数据库表的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jobbole-py-修改如下："><span class="nav-number">7.2.</span> <span class="nav-text">jobbole.py 修改如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#items-py-修改如下"><span class="nav-number">7.3.</span> <span class="nav-text">items.py 修改如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipline-py设置如下："><span class="nav-number">7.4.</span> <span class="nav-text">pipline.py设置如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setting-py修改："><span class="nav-number">7.5.</span> <span class="nav-text">setting.py修改：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mian-py运行结果"><span class="nav-number">7.6.</span> <span class="nav-text">mian.py运行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库异步存储"><span class="nav-number">7.7.</span> <span class="nav-text">数据库异步存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">8.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">9.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础准备"><span class="nav-number">1.</span> <span class="nav-text">基础准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy-与-requests-beautifulsoup-区别"><span class="nav-number">2.1.</span> <span class="nav-text">scrapy 与 requests+beautifulsoup 区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫的作用"><span class="nav-number">2.2.</span> <span class="nav-text">爬虫的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.3.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫去重策略"><span class="nav-number">2.4.</span> <span class="nav-text">爬虫去重策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scrapy爬取技术网站"><span class="nav-number">3.</span> <span class="nav-text">scrapy爬取技术网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy技术原理-绿线是数据流向"><span class="nav-number">3.1.</span> <span class="nav-text">Scrapy技术原理(绿线是数据流向)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作-Scrapy-爬虫步骤："><span class="nav-number">3.2.</span> <span class="nav-text">制作 Scrapy 爬虫步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy安装和项目创建"><span class="nav-number">3.3.</span> <span class="nav-text">scrapy安装和项目创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目准备"><span class="nav-number">4.</span> <span class="nav-text">项目准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WIN-R调出cmd，并新建项目名为【BoLeSpider】如下："><span class="nav-number">4.1.</span> <span class="nav-text">WIN+R调出cmd，并新建项目名为【BoLeSpider】如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析目标网站设置提取特征"><span class="nav-number">4.2.</span> <span class="nav-text">分析目标网站设置提取特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmd下shell对各个字段调试（xpath或者css方法）："><span class="nav-number">4.3.</span> <span class="nav-text">cmd下shell对各个字段调试（xpath或者css方法）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行main-py函数，便提前到所有信息："><span class="nav-number">4.4.</span> <span class="nav-text">运行main.py函数，便提前到所有信息：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取列表页所有文章"><span class="nav-number">4.5.</span> <span class="nav-text">获取列表页所有文章</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地化存储爬取的网页内容"><span class="nav-number">5.</span> <span class="nav-text">本地化存储爬取的网页内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将结果保存在json文件中"><span class="nav-number">5.1.</span> <span class="nav-text">将结果保存在json文件中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对网站图片爬取并本地化存储"><span class="nav-number">6.</span> <span class="nav-text">对网站图片爬取并本地化存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地化存储爬取的网页内容-重新进行数据库表的设计"><span class="nav-number">6.1.</span> <span class="nav-text">本地化存储爬取的网页内容 重新进行数据库表的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jobbole-py-修改如下："><span class="nav-number">6.2.</span> <span class="nav-text">jobbole.py 修改如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#items-py-修改如下"><span class="nav-number">6.3.</span> <span class="nav-text">items.py 修改如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pipline-py设置如下："><span class="nav-number">6.4.</span> <span class="nav-text">pipline.py设置如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setting-py修改："><span class="nav-number">6.5.</span> <span class="nav-text">setting.py修改：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mian-py运行结果"><span class="nav-number">6.6.</span> <span class="nav-text">mian.py运行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库异步存储"><span class="nav-number">6.7.</span> <span class="nav-text">数据库异步存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

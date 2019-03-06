@@ -176,12 +176,8 @@
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;w&space;:=w&space;+\alpha&space;\nabla_w&space;f(w&space;)">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?\dpi{100}&space;w&space;:=w&space; - \alpha&space;\nabla_w&space;f(w&space;)">
 <meta property="og:image" content="https://i.imgur.com/hnPHiUT.png">
-<meta property="og:image" content="https://i.imgur.com/0kXiZWs.png">
-<meta property="og:image" content="https://i.imgur.com/PFWw6FI.png">
-<meta property="og:image" content="https://i.imgur.com/vkDN1aJ.png">
-<meta property="og:image" content="https://i.imgur.com/I7lHYOk.png">
 <meta property="og:image" content="https://i.imgur.com/8fddzwM.png">
-<meta property="og:updated_time" content="2018-10-26T01:13:48.795Z">
+<meta property="og:updated_time" content="2019-03-06T08:42:33.395Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学逻辑回归模型算法">
 <meta name="twitter:description" content="摘要：逻辑回归（Logistic regression）即逻辑模型，属于常见的一种分类算法。本文将从理论介绍开始，搞清楚什么是逻辑回归、回归系数、算法思想、工作原理及其优缺点等。进一步通过两个实际案例深化理解逻辑回归，以及在工程应用进行实现。（本文原创，转载必须注明出处.）">
@@ -493,7 +489,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-26 09:13:48" itemprop="dateModified" datetime="2018-10-26T09:13:48+08:00">2018-10-26</time>
+                <time title="修改时间：2019-03-06 16:42:33" itemprop="dateModified" datetime="2019-03-06T16:42:33+08:00">2019-03-06</time>
               
             
           </span>
@@ -652,56 +648,227 @@
 使用算法: 对简单数据集中数据进行分类
 </code></pre><h2 id="数据采集"><a href="#数据采集" class="headerlink" title="数据采集"></a>数据采集</h2><p>本文采用100行的测试集文本。其中前两列是特征1，和特征2，第三类是对应的标签。（这里特征1，特征2作为测试使用没有实际意义，你可以理解为特征1 是水里游的，特征2是有鱼鳞。类别判断是否为鱼类。）</p>
 <p><img src="https://i.imgur.com/hnPHiUT.png" alt=""></p>
-<p>读取文本文件，加载数据集和类标签，这里将特征集第一列加1，便于后续回归系数的计算：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''加载数据集和类标签'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    <span class="comment"># dataMat为原始数据， labelMat为原始数据的标签</span></span><br><span class="line">    dataMat,labelMat = [],[]</span><br><span class="line">    fr = open(file_name)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</span><br><span class="line">        lineArr = line.strip().split(<span class="string">','</span>)</span><br><span class="line">        <span class="keyword">if</span> len(lineArr) == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">continue</span>    <span class="comment"># 这里如果就一个空的元素，则跳过本次循环</span></span><br><span class="line">        <span class="comment"># 为了方便计算，我们将每一行的开头添加一个 1.0 作为 X0</span></span><br><span class="line">        dataMat.append([<span class="number">1.0</span>, float(lineArr[<span class="number">0</span>]), float(lineArr[<span class="number">1</span>])])</span><br><span class="line">        labelMat.append(int(lineArr[<span class="number">2</span>]))</span><br><span class="line">    <span class="keyword">return</span> dataMat, labelMat</span><br></pre></td></tr></table></figure></p>
-<h2 id="梯度上升训练算法模型"><a href="#梯度上升训练算法模型" class="headerlink" title="梯度上升训练算法模型"></a>梯度上升训练算法模型</h2><blockquote>
-<p>梯度上升算法</p>
-</blockquote>
-<p>使用梯度上升训练算法模型，其代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 正常的梯度上升法，得到的最佳回归系数 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradAscent</span><span class="params">(dataMatIn, classLabels)</span>:</span></span><br><span class="line">    dataMatrix = mat(dataMatIn)  <span class="comment"># 转换为 NumPy 矩阵</span></span><br><span class="line">    <span class="comment"># 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]</span></span><br><span class="line">    <span class="comment"># transpose() 行列转置函数</span></span><br><span class="line">    <span class="comment"># 将行向量转化为列向量   =&gt;  矩阵的转置</span></span><br><span class="line">    labelMat = mat(classLabels).transpose()  <span class="comment"># 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量</span></span><br><span class="line">    <span class="comment"># m-&gt;数据量，样本数 n-&gt;特征数</span></span><br><span class="line">    m, n = shape(dataMatrix) <span class="comment"># 矩阵的行数和列数</span></span><br><span class="line">    <span class="comment"># print(m,n)</span></span><br><span class="line">    alpha = <span class="number">0.001</span>  <span class="comment"># alpha代表向目标移动的步长</span></span><br><span class="line">    maxCycles = <span class="number">500</span> <span class="comment"># 迭代次数</span></span><br><span class="line">    weights = ones((n, <span class="number">1</span>)) <span class="comment"># 代表回归系数,ones((n,1)) 长度和特征数相同矩阵全是1</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(maxCycles):</span><br><span class="line">        h = sigmoid(dataMatrix * weights)  <span class="comment"># 矩阵乘法</span></span><br><span class="line">        <span class="comment"># labelMat是实际值</span></span><br><span class="line">        error = (labelMat - h)  <span class="comment"># 向量相减</span></span><br><span class="line">        <span class="comment"># 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量</span></span><br><span class="line">        weights = weights + alpha * dataMatrix.transpose() * error  <span class="comment"># 矩阵乘法，最后得到回归系数</span></span><br><span class="line">    <span class="keyword">return</span> array(weights)</span><br></pre></td></tr></table></figure></p>
-<p>其中sigmoid函数实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' sigmoid跳跃函数 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(ZVar)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span> / (<span class="number">1</span> + exp(-ZVar))</span><br></pre></td></tr></table></figure></p>
-<p>代码分析：函数的两个参数是数据加载返回的特征集和标签类集合。对数据集进行mat矩阵话转化，而类标签集进行矩阵之后转置，便于行列式的计算。然后设定步长，和迭代次数。整个特征矩阵与回归系数乘积求sigmoid值，最后返回回归系数的值。运行结果如下：</p>
-<pre><code>[[ 4.12414349]
- [ 0.48007329]
- [-0.6168482 ]]
-</code></pre><p><strong>思考？步长和迭代次数的初始值如何设定？</strong></p>
-<blockquote>
-<p>随机梯度上升算法</p>
-</blockquote>
-<p>梯度上升算法在每次更新回归系数时都需要遍历整个数据集，该方法在处理 100 个左右的数据集时尚可，但如果有数十亿样本和成千上万的特征，那么该方法的计算复杂度就太高了。一种改进方法是一次仅用一个样本点来更新回归系数，该方法称为 随机梯度上升算法。由于可以在新样本到来时对分类器进行增量式更新，因而随机梯度上升算法是一个在线学习(online learning)算法。与 “在线学习” 相对应，一次处理所有数据被称作是 “批处理” （batch） 。其伪代码是：</p>
-<pre><code>所有回归系数初始化为 1
-对数据集中每个样本
-    计算该样本的梯度
-    使用 alpha x gradient 更新回归系数值
-返回回归系数值
-</code></pre><p>随机梯度上升算法的代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 随机梯度上升'''</span></span><br><span class="line"><span class="comment"># 梯度上升与随机梯度上升的区别？梯度下降在每次更新数据集时都需要遍历整个数据集，计算复杂都较高；随机梯度下降一次只用一个样本点来更新回归系数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradAscent0</span><span class="params">(dataMatrix, classLabels)</span>:</span></span><br><span class="line">    m, n = shape(dataMatrix)</span><br><span class="line">    alpha = <span class="number">0.01</span></span><br><span class="line">    weights = ones(n)  <span class="comment"># 初始化长度为n的数组，元素全部为 1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        <span class="comment"># sum(dataMatrix[i]*weights)为了求 f(x)的值，f(x)=a1*x1+b2*x2+..+nn*xn</span></span><br><span class="line">        h = sigmoid(sum(dataMatrix[i] * weights))</span><br><span class="line">        <span class="comment"># 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数</span></span><br><span class="line">        error = classLabels[i] - h</span><br><span class="line">        <span class="comment"># 0.01*(1*1)*(1*n)</span></span><br><span class="line">        weights = array(weights) + alpha * error * array(mat(dataMatrix[i]))</span><br><span class="line">    <span class="keyword">return</span> array(weights.transpose())</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，随机梯度上升算法与梯度上升算法在代码上很相似，但也有一些区别: 第一，后者的变量 h 和误差 error 都是向量，而前者则全是数值；第二，前者没有矩阵的转换过程，所有变量的数据类型都是 NumPy 数组。</p>
-<p>判断优化算法优劣的可靠方法是看它是否收敛，也就是说参数是否达到了稳定值，是否还会不断地变化？下图展示了随机梯度上升算法在 200 次迭代过程中回归系数的变化情况。其中的系数2，也就是 X2 只经过了 50 次迭代就达到了稳定值，但系数 1 和 0 则需要更多次的迭代。如下图所示:</p>
-<p><img src="https://i.imgur.com/0kXiZWs.png" alt=""></p>
-<p>针对波动问题，我们改进了之前的随机梯度上升算法，具体代码实现如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 改进版的随机梯度上升，使用随机的一个样本来更新回归系数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stocGradAscent1</span><span class="params">(dataMatrix, classLabels, numIter=<span class="number">150</span>)</span>:</span></span><br><span class="line">    m, n = shape(dataMatrix)</span><br><span class="line">    weights = ones(n)  <span class="comment"># 创建与列数相同的矩阵的系数矩阵</span></span><br><span class="line">    <span class="comment"># 随机梯度, 循环150,观察是否收敛</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(numIter):</span><br><span class="line">        dataIndex = list(range(m)) <span class="comment"># [0, 1, 2 .. m-1]</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="comment"># i和j的不断增大，导致alpha的值不断减少，但是不为0</span></span><br><span class="line">            alpha = <span class="number">4</span> / (<span class="number">1.0</span> + j + i) + <span class="number">0.0001</span> <span class="comment"># alpha随着迭代不断减小非0</span></span><br><span class="line">            <span class="comment"># random.uniform(x, y) 随机生成下一个实数，它在[x,y]范围内</span></span><br><span class="line">            Index = int(random.uniform(<span class="number">0</span>, len(dataIndex)))</span><br><span class="line">            <span class="comment"># sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn</span></span><br><span class="line">            h = sigmoid(sum(dataMatrix[dataIndex[Index]] * weights))</span><br><span class="line">            error = classLabels[dataIndex[Index]] - h</span><br><span class="line">            weights = weights + alpha * error *array(mat(dataMatrix[dataIndex[Index]]))</span><br><span class="line">            <span class="keyword">del</span> (dataIndex[Index])</span><br><span class="line">    <span class="comment"># print(weights.transpose())</span></span><br><span class="line">    <span class="keyword">return</span> weights.transpose()</span><br></pre></td></tr></table></figure></p>
-<p>上面的改进版随机梯度上升算法改了两处代码。</p>
-<ul>
-<li>改进为 alpha 的值。alpha 在每次迭代的时候都会调整，这回缓解上面波动图的数据波动或者高频波动。另外，虽然 alpha 会随着迭代次数不断减少，但永远不会减小到 0，因为我们在计算公式中添加了一个常数项。</li>
-<li>修改为 randIndex 更新，这里通过随机选取样本拉来更新回归系数。这种方法将减少周期性的波动。这种方法每次随机从列表中选出一个值，然后从列表中删掉该值（再进行下一次迭代）。</li>
-</ul>
-<h2 id="分析数据：画出决策边界"><a href="#分析数据：画出决策边界" class="headerlink" title="分析数据：画出决策边界"></a>分析数据：画出决策边界</h2><p>边界可视化的代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 数据可视化展示 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plotBestFit</span><span class="params">(dataArr, labelMat, weights)</span>:</span></span><br><span class="line">    n = shape(dataArr)[<span class="number">0</span>]</span><br><span class="line">    xcord1,xcord2,ycord1,ycord2 = [],[],[],[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="keyword">if</span> int(labelMat[i]) == <span class="number">1</span>:</span><br><span class="line">            xcord1.append(dataArr[i, <span class="number">1</span>])</span><br><span class="line">            ycord1.append(dataArr[i, <span class="number">2</span>])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            xcord2.append(dataArr[i, <span class="number">1</span>])</span><br><span class="line">            ycord2.append(dataArr[i, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax.scatter(xcord1, ycord1, s=<span class="number">30</span>, c=<span class="string">'red'</span>, marker=<span class="string">'s'</span>)</span><br><span class="line">    ax.scatter(xcord2, ycord2, s=<span class="number">30</span>, c=<span class="string">'green'</span>)</span><br><span class="line">    x = arange(<span class="number">-3.0</span>, <span class="number">3.0</span>, <span class="number">0.1</span>)</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])</span></span><br><span class="line"><span class="string">    w0*x0+w1*x1+w2*x2=f(x)</span></span><br><span class="line"><span class="string">    x0最开始就设置为1， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了</span></span><br><span class="line"><span class="string">    所以： w0+w1*x+w2*y=0 =&gt; y = (-w0-w1*x)/w2</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    y = (-weights[<span class="number">0</span>] - weights[<span class="number">1</span>] * x) / weights[<span class="number">2</span>]</span><br><span class="line">    ax.plot(x, y)</span><br><span class="line">    plt.xlabel(<span class="string">'X'</span>)</span><br><span class="line">    plt.ylabel(<span class="string">'Y'</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
-<p>运行结果分别是：</p>
-<p>梯度上升算法可视化结果图1-1：</p>
-<p><img src="https://i.imgur.com/PFWw6FI.png" alt=""></p>
-<p>随机梯度上升算法可视化结果：<br><img src="https://i.imgur.com/vkDN1aJ.png" alt=""></p>
-<p>优化随机梯度上升算法可视化结果：<br><img src="https://i.imgur.com/I7lHYOk.png" alt=""></p>
-<p>结果分析：</p>
-<p>图1-1的梯度上升算法在每次更新回归系数时都需要遍历整个数据集，虽然分类结果还不错该方法的计算复杂度就太高了。图1-2的随机梯度上升算法虽然分类效果不是很好（分类1/3左右），但是其迭代次数远远小于图1-1迭代次数（500次）。整体性能有所改进，但是其存在局部波动现象。基于此改进后的图1-3效果显示好很多。</p>
-<h2 id="测试算法-使用Logistic回归进行分类"><a href="#测试算法-使用Logistic回归进行分类" class="headerlink" title="测试算法: 使用Logistic回归进行分类"></a>测试算法: 使用Logistic回归进行分类</h2><p>代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''数据集决策可视化'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">simpleTest</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    <span class="comment"># 1.收集并准备数据</span></span><br><span class="line">    dataMat, labelMat = loadDataSet(file_name)</span><br><span class="line">    <span class="comment"># 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值</span></span><br><span class="line">    dataArr = array(dataMat)</span><br><span class="line">    weights = stocGradAscent1(dataArr, labelMat)</span><br><span class="line">    <span class="comment"># 数据可视化</span></span><br><span class="line">    plotBestFit(dataArr, labelMat, weights)</span><br></pre></td></tr></table></figure></p>
-<h1 id="案例分析2：从病毒性流感预测病人的死亡情况"><a href="#案例分析2：从病毒性流感预测病人的死亡情况" class="headerlink" title="案例分析2：从病毒性流感预测病人的死亡情况"></a>案例分析2：从病毒性流感预测病人的死亡情况</h1><h2 id="案例描述-1"><a href="#案例描述-1" class="headerlink" title="案例描述"></a>案例描述</h2><p>使用 Logistic 回归来预测病毒性流感预测病人的死亡问题。这个数据集中包含了医院检测病毒性流感的一些指标，有的指标比较主观，有的指标难以测量，例如人的疼痛级别。</p>
-<p><strong>开发流程</strong></p>
-<pre><code>收集数据: 给定数据文件
-准备数据: 用 Python 解析文本文件并填充缺失值
-分析数据: 可视化并观察数据
-训练算法: 使用优化算法，找到最佳的系数
-测试算法: 为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，
-         通过改变迭代的次数和步长的参数来得到更好的回归系数
-使用算法: 实现一个简单的命令行程序来收集马的症状并输出预测结果并非难事，
-         这可以作为留给大家的一道习题
-</code></pre><h2 id="收集数据-给定数据文件"><a href="#收集数据-给定数据文件" class="headerlink" title="收集数据: 给定数据文件"></a>收集数据: 给定数据文件</h2><p>训练数据已经给出，这里对文件处理即可，代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''加载数据集和类标签2'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet2</span><span class="params">(file_name)</span>:</span></span><br><span class="line">    frTrain = open(file_name)</span><br><span class="line">    trainingSet,trainingLabels = [],[]</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> frTrain.readlines():</span><br><span class="line">        currLine = line.strip().split(<span class="string">','</span>)</span><br><span class="line">        <span class="comment"># print(len(currLine))</span></span><br><span class="line">        lineArr = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(currLine)<span class="number">-1</span>):</span><br><span class="line">            lineArr.append(float(currLine[i]))</span><br><span class="line">        trainingSet.append(lineArr)</span><br><span class="line">        trainingLabels.append(float(currLine[len(currLine)<span class="number">-1</span>]))</span><br><span class="line">    <span class="keyword">return</span> trainingSet,trainingLabels</span><br></pre></td></tr></table></figure></p>
+<p>读取文本文件，加载数据集和类标签，这里将特征集第一列加1，便于后续回归系数的计算：</p>
+<pre>
+'''加载数据集和类标签'''
+def loadDataSet(file_name):
+    # dataMat为原始数据， labelMat为原始数据的标签
+    dataMat,labelMat = [],[]
+    fr = open(file_name)
+    for line in fr.readlines():
+        lineArr = line.strip().split(',')
+        if len(lineArr) == 1:
+            continue    # 这里如果就一个空的元素，则跳过本次循环
+        # 为了方便计算，我们将每一行的开头添加一个 1.0 作为 X0
+        dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
+        labelMat.append(int(lineArr[2]))
+    return dataMat, labelMat
+</pre>
+## 梯度上升训练算法模型
+
+> 梯度上升算法
+
+使用梯度上升训练算法模型，其代码实现如下：
+<pre>
+''' 正常的梯度上升法，得到的最佳回归系数 '''
+def gradAscent(dataMatIn, classLabels):
+    dataMatrix = mat(dataMatIn)  # 转换为 NumPy 矩阵
+    # 转化为矩阵[[0,1,0,1,0,1.....]]，并转制[[0],[1],[0].....]
+    # transpose() 行列转置函数
+    # 将行向量转化为列向量   =>  矩阵的转置
+    labelMat = mat(classLabels).transpose()  # 首先将数组转换为 NumPy 矩阵，然后再将行向量转置为列向量
+    # m->数据量，样本数 n->特征数
+    m, n = shape(dataMatrix) # 矩阵的行数和列数
+    # print(m,n)
+    alpha = 0.001  # alpha代表向目标移动的步长
+    maxCycles = 500 # 迭代次数
+    weights = ones((n, 1)) # 代表回归系数,ones((n,1)) 长度和特征数相同矩阵全是1
+    for k in range(maxCycles):
+        h = sigmoid(dataMatrix * weights)  # 矩阵乘法
+        # labelMat是实际值
+        error = (labelMat - h)  # 向量相减
+        # 0.001* (3*m)*(m*1) 表示在每一个列上的一个误差情况，最后得出 x1,x2,xn的系数的偏移量
+        weights = weights + alpha * dataMatrix.transpose() * error  # 矩阵乘法，最后得到回归系数
+    return array(weights)
+</pre>
+其中sigmoid函数实现如下：
+<pre>
+''' sigmoid跳跃函数 '''
+def sigmoid(ZVar):
+    return 1.0 / (1 + exp(-ZVar))
+</pre>
+代码分析：函数的两个参数是数据加载返回的特征集和标签类集合。对数据集进行mat矩阵话转化，而类标签集进行矩阵之后转置，便于行列式的计算。然后设定步长，和迭代次数。整个特征矩阵与回归系数乘积求sigmoid值，最后返回回归系数的值。运行结果如下：
+
+    [[ 4.12414349]
+     [ 0.48007329]
+     [-0.6168482 ]]
+
+
+**思考？步长和迭代次数的初始值如何设定？**
+
+> 随机梯度上升算法
+
+梯度上升算法在每次更新回归系数时都需要遍历整个数据集，该方法在处理 100 个左右的数据集时尚可，但如果有数十亿样本和成千上万的特征，那么该方法的计算复杂度就太高了。一种改进方法是一次仅用一个样本点来更新回归系数，该方法称为 随机梯度上升算法。由于可以在新样本到来时对分类器进行增量式更新，因而随机梯度上升算法是一个在线学习(online learning)算法。与 “在线学习” 相对应，一次处理所有数据被称作是 “批处理” （batch） 。其伪代码是：
+
+    所有回归系数初始化为 1
+    对数据集中每个样本
+        计算该样本的梯度
+        使用 alpha x gradient 更新回归系数值
+    返回回归系数值
+
+随机梯度上升算法的代码实现如下：
+<pre>
+''' 随机梯度上升'''
+# 梯度上升与随机梯度上升的区别？梯度下降在每次更新数据集时都需要遍历整个数据集，计算复杂都较高；随机梯度下降一次只用一个样本点来更新回归系数
+def stocGradAscent0(dataMatrix, classLabels):
+    m, n = shape(dataMatrix)
+    alpha = 0.01
+    weights = ones(n)  # 初始化长度为n的数组，元素全部为 1
+    for i in range(m):
+        # sum(dataMatrix[i]*weights)为了求 f(x)的值，f(x)=a1*x1+b2*x2+..+nn*xn
+        h = sigmoid(sum(dataMatrix[i] * weights))
+        # 计算真实类别与预测类别之间的差值，然后按照该差值调整回归系数
+        error = classLabels[i] - h
+        # 0.01*(1*1)*(1*n)
+        weights = array(weights) + alpha * error * array(mat(dataMatrix[i]))
+    return array(weights.transpose())
+</pre>
+可以看到，随机梯度上升算法与梯度上升算法在代码上很相似，但也有一些区别: 第一，后者的变量 h 和误差 error 都是向量，而前者则全是数值；第二，前者没有矩阵的转换过程，所有变量的数据类型都是 NumPy 数组。
+
+判断优化算法优劣的可靠方法是看它是否收敛，也就是说参数是否达到了稳定值，是否还会不断地变化？下图展示了随机梯度上升算法在 200 次迭代过程中回归系数的变化情况。其中的系数2，也就是 X2 只经过了 50 次迭代就达到了稳定值，但系数 1 和 0 则需要更多次的迭代。如下图所示:
+
+![](https://i.imgur.com/0kXiZWs.png)
+
+针对波动问题，我们改进了之前的随机梯度上升算法，具体代码实现如下:
+<pre> 
+''' 改进版的随机梯度上升，使用随机的一个样本来更新回归系数'''
+def stocGradAscent1(dataMatrix, classLabels, numIter=150):
+    m, n = shape(dataMatrix)
+    weights = ones(n)  # 创建与列数相同的矩阵的系数矩阵
+    # 随机梯度, 循环150,观察是否收敛
+    for j in range(numIter):
+        dataIndex = list(range(m)) # [0, 1, 2 .. m-1]
+        for i in range(m):
+            # i和j的不断增大，导致alpha的值不断减少，但是不为0
+            alpha = 4 / (1.0 + j + i) + 0.0001 # alpha随着迭代不断减小非0
+            # random.uniform(x, y) 随机生成下一个实数，它在[x,y]范围内
+            Index = int(random.uniform(0, len(dataIndex)))
+            # sum(dataMatrix[i]*weights)为了求 f(x)的值， f(x)=a1*x1+b2*x2+..+nn*xn
+            h = sigmoid(sum(dataMatrix[dataIndex[Index]] * weights))
+            error = classLabels[dataIndex[Index]] - h
+            weights = weights + alpha * error *array(mat(dataMatrix[dataIndex[Index]]))
+            del (dataIndex[Index])
+    # print(weights.transpose())
+    return weights.transpose()
+</pre>
+上面的改进版随机梯度上升算法改了两处代码。
+- 改进为 alpha 的值。alpha 在每次迭代的时候都会调整，这回缓解上面波动图的数据波动或者高频波动。另外，虽然 alpha 会随着迭代次数不断减少，但永远不会减小到 0，因为我们在计算公式中添加了一个常数项。
+- 修改为 randIndex 更新，这里通过随机选取样本拉来更新回归系数。这种方法将减少周期性的波动。这种方法每次随机从列表中选出一个值，然后从列表中删掉该值（再进行下一次迭代）。
+
+
+## 分析数据：画出决策边界
+
+边界可视化的代码实现如下：
+<pre>
+''' 数据可视化展示 '''
+def plotBestFit(dataArr, labelMat, weights):
+    n = shape(dataArr)[0]
+    xcord1,xcord2,ycord1,ycord2 = [],[],[],[]
+    for i in range(n):
+        if int(labelMat[i]) == 1:
+            xcord1.append(dataArr[i, 1])
+            ycord1.append(dataArr[i, 2])
+        else:
+            xcord2.append(dataArr[i, 1])
+            ycord2.append(dataArr[i, 2])
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(xcord1, ycord1, s=30, c='red', marker='s')
+    ax.scatter(xcord2, ycord2, s=30, c='green')
+    x = arange(-3.0, 3.0, 0.1)
+    """
+    dataMat.append([1.0, float(lineArr[0]), float(lineArr[1])])
+    w0*x0+w1*x1+w2*x2=f(x)
+    x0最开始就设置为1， x2就是我们画图的y值，而f(x)被我们磨合误差给算到w0,w1,w2身上去了
+    所以： w0+w1*x+w2*y=0 => y = (-w0-w1*x)/w2
+    """
+    y = (-weights[0] - weights[1] * x) / weights[2]
+    ax.plot(x, y)
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.show()
+</pre>
+运行结果分别是：
+
+梯度上升算法可视化结果图1-1：
+
+![](https://i.imgur.com/PFWw6FI.png)
+
+随机梯度上升算法可视化结果：
+![](https://i.imgur.com/vkDN1aJ.png)
+
+
+优化随机梯度上升算法可视化结果：
+![](https://i.imgur.com/I7lHYOk.png)
+
+
+
+结果分析：
+
+图1-1的梯度上升算法在每次更新回归系数时都需要遍历整个数据集，虽然分类结果还不错该方法的计算复杂度就太高了。图1-2的随机梯度上升算法虽然分类效果不是很好（分类1/3左右），但是其迭代次数远远小于图1-1迭代次数（500次）。整体性能有所改进，但是其存在局部波动现象。基于此改进后的图1-3效果显示好很多。
+
+## 测试算法: 使用Logistic回归进行分类
+
+代码实现如下：
+<pre>
+'''数据集决策可视化'''
+def simpleTest(file_name):
+    # 1.收集并准备数据
+    dataMat, labelMat = loadDataSet(file_name)
+    # 2.训练模型，  f(x)=a1*x1+b2*x2+..+nn*xn中 (a1,b2, .., nn).T的矩阵值
+    dataArr = array(dataMat)
+    weights = stocGradAscent1(dataArr, labelMat)
+    # 数据可视化
+    plotBestFit(dataArr, labelMat, weights)
+</pre>
+# 案例分析2：从病毒性流感预测病人的死亡情况
+
+## 案例描述
+
+使用 Logistic 回归来预测病毒性流感预测病人的死亡问题。这个数据集中包含了医院检测病毒性流感的一些指标，有的指标比较主观，有的指标难以测量，例如人的疼痛级别。
+
+**开发流程**
+
+    收集数据: 给定数据文件
+    准备数据: 用 Python 解析文本文件并填充缺失值
+    分析数据: 可视化并观察数据
+    训练算法: 使用优化算法，找到最佳的系数
+    测试算法: 为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，
+             通过改变迭代的次数和步长的参数来得到更好的回归系数
+    使用算法: 实现一个简单的命令行程序来收集马的症状并输出预测结果并非难事，
+             这可以作为留给大家的一道习题
+
+## 收集数据: 给定数据文件
+
+
+训练数据已经给出，这里对文件处理即可，代码如下：
+<pre>
+'''加载数据集和类标签2'''
+def loadDataSet2(file_name):
+    frTrain = open(file_name)
+    trainingSet,trainingLabels = [],[]
+    for line in frTrain.readlines():
+        currLine = line.strip().split(',')
+        # print(len(currLine))
+        lineArr = []
+        for i in range(len(currLine)-1):
+            lineArr.append(float(currLine[i]))
+        trainingSet.append(lineArr)
+        trainingLabels.append(float(currLine[len(currLine)-1]))
+    return trainingSet,trainingLabels
+</pre>
+
 <h2 id="准备数据-用-Python-解析文本文件并填充缺失值"><a href="#准备数据-用-Python-解析文本文件并填充缺失值" class="headerlink" title="准备数据: 用 Python 解析文本文件并填充缺失值"></a>准备数据: 用 Python 解析文本文件并填充缺失值</h2><blockquote>
 <p>处理数据中的缺失值</p>
 </blockquote>
@@ -714,10 +881,55 @@
 <li>使用另外的机器学习算法预测缺失值。</li>
 </ul>
 <p>现在，我们对下一节要用的数据集进行预处理，使其可以顺利地使用分类算法。在预处理需要做两件事:所有的缺失值必须用一个实数值来替换，因为我们使用的 NumPy 数据类型不允许包含缺失值。我们这里选择实数 0 来替换所有缺失值，恰好能适用于 Logistic 回归。这样做的直觉在于，我们需要的是一个在更新时不会影响系数的值。回归系数的更新公式如下:<br>weights = weights + alpha * error * dataMatrix[dataIndex[randIndex]]<br>如果 dataMatrix 的某个特征对应值为 0，那么该特征的系数将不做更新，即:weights = weights<br>另外，由于 Sigmoid(0) = 0.5 ，即它对结果的预测不具有任何倾向性，因此我们上述做法也不会对误差造成任何影响。基于上述原因，将缺失值用 0 代替既可以保留现有数据，也不需要对优化算法进行修改。此外，该数据集中的特征取值一般不为 0，因此在某种意义上说它也满足 “特殊值” 这个要求。<br>如果在测试数据集中发现了一条数据的类别标签已经缺失，那么我们的简单做法是将该条数据丢弃。这是因为类别标签与特征不同，很难确定采用某个合适的值来替换。采用 Logistic 回归进行分类时这种做法是合理的，而如果采用类似 kNN 的方法，则保留该条数据显得更加合理。</p>
-<h2 id="训练算法-使用优化算法，找到最佳的系数"><a href="#训练算法-使用优化算法，找到最佳的系数" class="headerlink" title="训练算法: 使用优化算法，找到最佳的系数"></a>训练算法: 使用优化算法，找到最佳的系数</h2><p>训练算法模型代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''测试Logistic算法分类'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testClassier</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 使用改进后的随机梯度上升算法 求得在此数据集上的最佳回归系数 trainWeights</span></span><br><span class="line">    file_name = <span class="string">'./HorseColicTraining.txt'</span></span><br><span class="line">    trainingSet,trainingLabels = loadDataSet2(file_name)</span><br><span class="line">    trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, <span class="number">500</span>)</span><br><span class="line">    <span class="comment"># 根据特征向量预测结果</span></span><br><span class="line">    teststr = <span class="string">'2.000000,1.000000,38.300000,40.000000,24.000000,1.000000,1.000000,3.000000,1.000000,3.000000,3.000000,1.000000,0.000000,0.000000,0.000000,1.000000,1.000000,33.000000,6.700000,0.000000,0.000000'</span></span><br><span class="line">    currLine = teststr.strip().split(<span class="string">','</span>)</span><br><span class="line">    lineArr = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(currLine)):</span><br><span class="line">        lineArr.append(float(currLine[i]))</span><br><span class="line">    res = classifyVector(array(lineArr), trainWeights)</span><br><span class="line">    <span class="comment"># 打印预测结果</span></span><br><span class="line">    reslut = [<span class="string">'死亡'</span>,<span class="string">'存活'</span>]</span><br><span class="line">    print(<span class="string">'预测结果是：'</span>,int(res))</span><br></pre></td></tr></table></figure></p>
-<p>分类函数代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''分类函数，根据回归系数和特征向量来计算 Sigmoid的值,大于0.5函数返回1，否则返回0'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classifyVector</span><span class="params">(featuresV, weights)</span>:</span></span><br><span class="line">    prob = sigmoid(sum(featuresV * weights))</span><br><span class="line">    print(prob)</span><br><span class="line">    <span class="keyword">if</span> prob &gt; <span class="number">0.9</span>: <span class="keyword">return</span> <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> <span class="number">0.0</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="测试算法：使用决策树执行分类"><a href="#测试算法：使用决策树执行分类" class="headerlink" title="测试算法：使用决策树执行分类"></a>测试算法：使用决策树执行分类</h2><p>为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，通过改变迭代的次数和步长的参数来得到更好的回归系数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''打开测试集和训练集,并对数据进行格式化处理'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">colicTest</span><span class="params">()</span>:</span></span><br><span class="line">    file_name = <span class="string">'./HorseColicTraining.txt'</span></span><br><span class="line">    trainingSet,trainingLabels = loadDataSet2(file_name)</span><br><span class="line">    <span class="comment"># 使用改进后的随机梯度上升算法 求得在此数据集上的最佳回归系数 trainWeights</span></span><br><span class="line">    trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, <span class="number">500</span>)</span><br><span class="line">    frTest = open(<span class="string">'./HorseColicTest.txt'</span>)</span><br><span class="line">    errorCount = <span class="number">0</span> ; numTestVec = <span class="number">0.0</span></span><br><span class="line">    <span class="comment"># 读取 测试数据集 进行测试，计算分类错误的样本条数和最终的错误率</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> frTest.readlines():</span><br><span class="line">        numTestVec += <span class="number">1.0</span></span><br><span class="line">        currLine = line.strip().split(<span class="string">','</span>)</span><br><span class="line">        lineArr = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">21</span>):</span><br><span class="line">            lineArr.append(float(currLine[i]))</span><br><span class="line">        <span class="keyword">if</span> int(classifyVector(array(lineArr), trainWeights)) != int(</span><br><span class="line">                currLine[<span class="number">21</span>]):</span><br><span class="line">            errorCount += <span class="number">1</span></span><br><span class="line">    errorRate = (float(errorCount) / numTestVec)</span><br><span class="line">    print(<span class="string">"逻辑回归算法测试集的错误率为: %f"</span> % errorRate)</span><br><span class="line">    <span class="keyword">return</span> errorRate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用 colicTest() 10次并求结果的平均值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiTest</span><span class="params">()</span>:</span></span><br><span class="line">    numTests = <span class="number">10</span>;errorSum = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(numTests):</span><br><span class="line">        errorSum += colicTest()</span><br><span class="line">    print(<span class="string">"迭代 %d 次后的平均错误率是: %f"</span> % (numTests, errorSum / float(numTests)))</span><br></pre></td></tr></table></figure></p>
-<p>其运行结果如下：</p>
+<h2 id="训练算法-使用优化算法，找到最佳的系数"><a href="#训练算法-使用优化算法，找到最佳的系数" class="headerlink" title="训练算法: 使用优化算法，找到最佳的系数"></a>训练算法: 使用优化算法，找到最佳的系数</h2><p>训练算法模型代码如下：</p>
+<pre>
+'''测试Logistic算法分类'''
+def testClassier():
+    # 使用改进后的随机梯度上升算法 求得在此数据集上的最佳回归系数 trainWeights
+    file_name = './HorseColicTraining.txt'
+    trainingSet,trainingLabels = loadDataSet2(file_name)
+    trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, 500)
+    # 根据特征向量预测结果
+    teststr = '2.000000,1.000000,38.300000,40.000000,24.000000,1.000000,1.000000,3.000000,1.000000,3.000000,3.000000,1.000000,0.000000,0.000000,0.000000,1.000000,1.000000,33.000000,6.700000,0.000000,0.000000'
+    currLine = teststr.strip().split(',')
+    lineArr = []
+    for i in range(len(currLine)):
+        lineArr.append(float(currLine[i]))
+    res = classifyVector(array(lineArr), trainWeights)
+    # 打印预测结果
+    reslut = ['死亡','存活']
+    print('预测结果是：',int(res))
+</pre>
+分类函数代码如下：
+<pre>
+'''分类函数，根据回归系数和特征向量来计算 Sigmoid的值,大于0.5函数返回1，否则返回0'''
+def classifyVector(featuresV, weights):
+    prob = sigmoid(sum(featuresV * weights))
+    print(prob)
+    if prob > 0.9: return 1.0
+    else: return 0.0
+</pre>
+
+<h2 id="测试算法：使用决策树执行分类"><a href="#测试算法：使用决策树执行分类" class="headerlink" title="测试算法：使用决策树执行分类"></a>测试算法：使用决策树执行分类</h2><p>为了量化回归的效果，需要观察错误率。根据错误率决定是否回退到训练阶段，通过改变迭代的次数和步长的参数来得到更好的回归系数</p>
+<p><pre><br>‘’’打开测试集和训练集,并对数据进行格式化处理’’’<br>def colicTest():<br>    file_name = ‘./HorseColicTraining.txt’<br>    trainingSet,trainingLabels = loadDataSet2(file_name)</pre></p>
+<pre><code># 使用改进后的随机梯度上升算法 求得在此数据集上的最佳回归系数 trainWeights
+trainWeights = stocGradAscent1(array(trainingSet), trainingLabels, 500)
+frTest = open(&#39;./HorseColicTest.txt&#39;)
+errorCount = 0 ; numTestVec = 0.0
+# 读取 测试数据集 进行测试，计算分类错误的样本条数和最终的错误率
+for line in frTest.readlines():
+    numTestVec += 1.0
+    currLine = line.strip().split(&#39;,&#39;)
+    lineArr = []
+    for i in range(21):
+        lineArr.append(float(currLine[i]))
+    if int(classifyVector(array(lineArr), trainWeights)) != int(
+            currLine[21]):
+        errorCount += 1
+errorRate = (float(errorCount) / numTestVec)
+print(&quot;逻辑回归算法测试集的错误率为: %f&quot; % errorRate)
+return errorRate
+</code></pre><h1 id="调用-colicTest-10次并求结果的平均值"><a href="#调用-colicTest-10次并求结果的平均值" class="headerlink" title="调用 colicTest() 10次并求结果的平均值"></a>调用 colicTest() 10次并求结果的平均值</h1><p>def multiTest():<br>    numTests = 10;errorSum = 0.0<br>    for k in range(numTests):<br>        errorSum += colicTest()<br>    print(“迭代 %d 次后的平均错误率是: %f” % (numTests, errorSum / float(numTests)))<br>&lt;/pre&gt;<br>其运行结果如下：</p>
 <pre><code>逻辑回归算法测试集的错误率为: 0.298507
 </code></pre><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li>scikit中文社区：<a href="http://sklearn.apachecn.org/cn/0.19.0/" target="_blank" rel="noopener">http://sklearn.apachecn.org/cn/0.19.0/</a></li>
@@ -1316,7 +1528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理论介绍"><span class="nav-number">1.</span> <span class="nav-text">理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归和Sigmoid-函数"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑回归和Sigmoid 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最优化方法的回归系数"><span class="nav-number">1.2.</span> <span class="nav-text">最优化方法的回归系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度上升与梯度下降"><span class="nav-number">1.3.</span> <span class="nav-text">梯度上升与梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归分类核心思想"><span class="nav-number">1.4.</span> <span class="nav-text">逻辑回归分类核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归工作原理"><span class="nav-number">1.5.</span> <span class="nav-text">逻辑回归工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归算法流程"><span class="nav-number">1.6.</span> <span class="nav-text">逻辑回归算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归优缺点"><span class="nav-number">1.7.</span> <span class="nav-text">逻辑回归优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例分析1：Logistic回归在简单数据集上的分类"><span class="nav-number">2.</span> <span class="nav-text">案例分析1：Logistic回归在简单数据集上的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述"><span class="nav-number">2.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据采集"><span class="nav-number">2.2.</span> <span class="nav-text">数据采集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度上升训练算法模型"><span class="nav-number">2.3.</span> <span class="nav-text">梯度上升训练算法模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：画出决策边界"><span class="nav-number">2.4.</span> <span class="nav-text">分析数据：画出决策边界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试算法-使用Logistic回归进行分类"><span class="nav-number">2.5.</span> <span class="nav-text">测试算法: 使用Logistic回归进行分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例分析2：从病毒性流感预测病人的死亡情况"><span class="nav-number">3.</span> <span class="nav-text">案例分析2：从病毒性流感预测病人的死亡情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述-1"><span class="nav-number">3.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收集数据-给定数据文件"><span class="nav-number">3.2.</span> <span class="nav-text">收集数据: 给定数据文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据-用-Python-解析文本文件并填充缺失值"><span class="nav-number">3.3.</span> <span class="nav-text">准备数据: 用 Python 解析文本文件并填充缺失值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练算法-使用优化算法，找到最佳的系数"><span class="nav-number">3.4.</span> <span class="nav-text">训练算法: 使用优化算法，找到最佳的系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试算法：使用决策树执行分类"><span class="nav-number">3.5.</span> <span class="nav-text">测试算法：使用决策树执行分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理论介绍"><span class="nav-number">1.</span> <span class="nav-text">理论介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归和Sigmoid-函数"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑回归和Sigmoid 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最优化方法的回归系数"><span class="nav-number">1.2.</span> <span class="nav-text">最优化方法的回归系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度上升与梯度下降"><span class="nav-number">1.3.</span> <span class="nav-text">梯度上升与梯度下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归分类核心思想"><span class="nav-number">1.4.</span> <span class="nav-text">逻辑回归分类核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归工作原理"><span class="nav-number">1.5.</span> <span class="nav-text">逻辑回归工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归算法流程"><span class="nav-number">1.6.</span> <span class="nav-text">逻辑回归算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑回归优缺点"><span class="nav-number">1.7.</span> <span class="nav-text">逻辑回归优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例分析1：Logistic回归在简单数据集上的分类"><span class="nav-number">2.</span> <span class="nav-text">案例分析1：Logistic回归在简单数据集上的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例描述"><span class="nav-number">2.1.</span> <span class="nav-text">案例描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据采集"><span class="nav-number">2.2.</span> <span class="nav-text">数据采集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据-用-Python-解析文本文件并填充缺失值"><span class="nav-number">2.3.</span> <span class="nav-text">准备数据: 用 Python 解析文本文件并填充缺失值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练算法-使用优化算法，找到最佳的系数"><span class="nav-number">2.4.</span> <span class="nav-text">训练算法: 使用优化算法，找到最佳的系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试算法：使用决策树执行分类"><span class="nav-number">2.5.</span> <span class="nav-text">测试算法：使用决策树执行分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调用-colicTest-10次并求结果的平均值"><span class="nav-number">3.</span> <span class="nav-text">调用 colicTest() 10次并求结果的平均值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

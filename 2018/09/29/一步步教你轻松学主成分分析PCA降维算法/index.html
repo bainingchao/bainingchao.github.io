@@ -172,7 +172,7 @@
 <meta property="og:image" content="https://i.imgur.com/3Ng3Ya4.png">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/zmKK4xs.jpg">
-<meta property="og:updated_time" content="2018-10-19T07:43:16.185Z">
+<meta property="og:updated_time" content="2019-03-06T08:33:18.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学主成分分析PCA降维算法">
 <meta name="twitter:description" content="摘要：主成分分析（英语：Principal components analysis，PCA）是一种分析、简化数据集的技术。主成分分析经常用于减少数据集的维数，同时保持数据集中的对方差贡献最大的特征。常常应用在文本处理、人脸识别、图片识别、自然语言处理等领域。可以做在数据预处理阶段非常重要的一环，本文首先对基本概念进行介绍，然后给出PCA算法思想、流程、优缺点等等。最后通过一个综合案例去实现应用。">
@@ -484,7 +484,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:43:16" itemprop="dateModified" datetime="2018-10-19T15:43:16+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:33:18" itemprop="dateModified" datetime="2019-03-06T16:33:18+08:00">2019-03-06</time>
               
             
           </span>
@@ -658,7 +658,16 @@
 10.362276    9.376892
 10.191204    11.250851
 </code></pre><p>数据集处理代码实现如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''加载数据集'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName, delim=<span class="string">'\t'</span>)</span>:</span></span><br><span class="line">    fr = open(fileName)</span><br><span class="line">    stringArr = [line.strip().split(delim) <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines()]</span><br><span class="line">    datArr = [list(map(float, line)) <span class="keyword">for</span> line <span class="keyword">in</span> stringArr]</span><br><span class="line">    <span class="comment">#注意这里和python2的区别，需要在map函数外加一个list（），否则显示结果为 map at 0x3fed1d0</span></span><br><span class="line">    <span class="keyword">return</span> mat(datArr)</span><br></pre></td></tr></table></figure>
+<pre>
+'''加载数据集'''
+def loadDataSet(fileName, delim='\t'):
+    fr = open(fileName)
+    stringArr = [line.strip().split(delim) for line in fr.readlines()]
+    datArr = [list(map(float, line)) for line in stringArr]
+    #注意这里和python2的区别，需要在map函数外加一个list（），否则显示结果为 map at 0x3fed1d0
+    return mat(datArr)
+</pre>
+
 <h3 id="PCA-数据降维"><a href="#PCA-数据降维" class="headerlink" title="PCA 数据降维"></a>PCA 数据降维</h3><p>在等式 Av=λv 中，v 是特征向量， λ 是特征值。表示 如果特征向量 v 被某个矩阵 A 左乘，那么它就等于某个标量 λ 乘以 v.<br>幸运的是： Numpy 中有寻找特征向量和特征值的模块 linalg，它有 eig() 方法，该方法用于求解特征向量和特征值。具体代码实现如下：</p>
 <ul>
 <li>方差：（一维）度量两个随机变量关系的统计量,数据离散程度，方差越小越稳定</li>
@@ -670,11 +679,72 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''pca算法</span></span><br><span class="line"><span class="string">    cov协方差=[(x1-x均值)*(y1-y均值)+(x2-x均值)*(y2-y均值)+...+(xn-x均值)*(yn-y均值)]/(n-1)</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        dataMat   原数据集矩阵</span></span><br><span class="line"><span class="string">        topNfeat  应用的N个特征</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        lowDDataMat  降维后数据集</span></span><br><span class="line"><span class="string">        reconMat     新的数据集空间</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pca</span><span class="params">(dataMat, topNfeat=<span class="number">9999999</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 计算每一列的均值</span></span><br><span class="line">    meanVals = mean(dataMat, axis=<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># print('meanVals', meanVals)</span></span><br><span class="line">    <span class="comment"># 每个向量同时都减去均值</span></span><br><span class="line">    meanRemoved = dataMat - meanVals</span><br><span class="line">    <span class="comment"># print('meanRemoved=', meanRemoved)</span></span><br><span class="line">    <span class="comment"># rowvar=0，传入的数据一行代表一个样本，若非0，传入的数据一列代表一个样本</span></span><br><span class="line">    covMat = cov(meanRemoved, rowvar=<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># eigVals为特征值， eigVects为特征向量</span></span><br><span class="line">    eigVals, eigVects = linalg.eig(mat(covMat))</span><br><span class="line">    <span class="comment"># print('eigVals=', eigVals)</span></span><br><span class="line">    <span class="comment"># print('eigVects=', eigVects)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对特征值，进行从小到大的排序，返回从小到大的index序号</span></span><br><span class="line">    <span class="comment"># 特征值的逆序就可以得到topNfeat个最大的特征向量</span></span><br><span class="line">    eigValInd = argsort(eigVals)</span><br><span class="line">    <span class="comment"># print('eigValInd1=', eigValInd)</span></span><br><span class="line">    <span class="comment"># -1表示倒序，返回topN的特征值[-1到-(topNfeat+1)不包括-(topNfeat+1)]</span></span><br><span class="line">    eigValInd = eigValInd[:-(topNfeat+<span class="number">1</span>):<span class="number">-1</span>]</span><br><span class="line">    <span class="comment"># print('eigValInd2=', eigValInd)</span></span><br><span class="line">    <span class="comment"># 重组 eigVects 最大到最小</span></span><br><span class="line">    redEigVects = eigVects[:, eigValInd]</span><br><span class="line">    <span class="comment"># print('redEigVects=', redEigVects.T)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将数据转换到新空间</span></span><br><span class="line">    <span class="comment"># print( "---", shape(meanRemoved), shape(redEigVects))</span></span><br><span class="line">    lowDDataMat = meanRemoved * redEigVects</span><br><span class="line">    reconMat = (lowDDataMat * redEigVects.T) + meanVals</span><br><span class="line">    <span class="comment"># print('lowDDataMat=', lowDDataMat)</span></span><br><span class="line">    <span class="comment"># print('reconMat=', reconMat)</span></span><br><span class="line">    <span class="keyword">return</span> lowDDataMat, reconMat</span><br></pre></td></tr></table></figure>
-<h3 id="可视化结果分析"><a href="#可视化结果分析" class="headerlink" title="可视化结果分析"></a>可视化结果分析</h3><p>接下来我们查看降维后的数据与原始数据可视化效果，我们将原始数据采用绿色△表示，降维后的数据采用红色○表示。可视化代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''降维后的数据和原始数据可视化'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_picture</span><span class="params">(dataMat, reconMat)</span>:</span></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax.scatter(dataMat[:, <span class="number">0</span>].flatten().A[<span class="number">0</span>], dataMat[:, <span class="number">1</span>].flatten().A[<span class="number">0</span>], marker=<span class="string">'^'</span>, s=<span class="number">90</span>,c=<span class="string">'green'</span>)</span><br><span class="line">    ax.scatter(reconMat[:, <span class="number">0</span>].flatten().A[<span class="number">0</span>], reconMat[:, <span class="number">1</span>].flatten().A[<span class="number">0</span>], marker=<span class="string">'o'</span>, s=<span class="number">50</span>, c=<span class="string">'red'</span>)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<pre>
+'''pca算法
+    cov协方差=[(x1-x均值)*(y1-y均值)+(x2-x均值)*(y2-y均值)+...+(xn-x均值)*(yn-y均值)]/(n-1)
+    Args:
+        dataMat   原数据集矩阵
+        topNfeat  应用的N个特征
+    Returns:
+        lowDDataMat  降维后数据集
+        reconMat     新的数据集空间
+'''
+def pca(dataMat, topNfeat=9999999):
+    # 计算每一列的均值
+    meanVals = mean(dataMat, axis=0)
+    # print('meanVals', meanVals)
+    # 每个向量同时都减去均值
+    meanRemoved = dataMat - meanVals
+    # print('meanRemoved=', meanRemoved)
+    # rowvar=0，传入的数据一行代表一个样本，若非0，传入的数据一列代表一个样本
+    covMat = cov(meanRemoved, rowvar=0)
+    # eigVals为特征值， eigVects为特征向量
+    eigVals, eigVects = linalg.eig(mat(covMat))
+    # print('eigVals=', eigVals)
+    # print('eigVects=', eigVects)
+
+    # 对特征值，进行从小到大的排序，返回从小到大的index序号
+    # 特征值的逆序就可以得到topNfeat个最大的特征向量
+    eigValInd = argsort(eigVals)
+    # print('eigValInd1=', eigValInd)
+    # -1表示倒序，返回topN的特征值[-1到-(topNfeat+1)不包括-(topNfeat+1)]
+    eigValInd = eigValInd[:-(topNfeat+1):-1]
+    # print('eigValInd2=', eigValInd)
+    # 重组 eigVects 最大到最小
+    redEigVects = eigVects[:, eigValInd]
+    # print('redEigVects=', redEigVects.T)
+
+    # 将数据转换到新空间
+    # print( "---", shape(meanRemoved), shape(redEigVects))
+    lowDDataMat = meanRemoved * redEigVects
+    reconMat = (lowDDataMat * redEigVects.T) + meanVals
+    # print('lowDDataMat=', lowDDataMat)
+    # print('reconMat=', reconMat)
+    return lowDDataMat, reconMat
+</pre>
+### 可视化结果分析
+
+接下来我们查看降维后的数据与原始数据可视化效果，我们将原始数据采用绿色△表示，降维后的数据采用红色○表示。可视化代码如下：
+
+<pre>
+'''降维后的数据和原始数据可视化'''
+def show_picture(dataMat, reconMat):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(dataMat[:, 0].flatten().A[0], dataMat[:, 1].flatten().A[0], marker='^', s=90,c='green')
+    ax.scatter(reconMat[:, 0].flatten().A[0], reconMat[:, 1].flatten().A[0], marker='o', s=50, c='red')
+    plt.show()
+</pre>
+
 <p>调用代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2 主成分分析降维特征向量设置</span></span><br><span class="line">lowDmat, reconMat = pca(dataMat, <span class="number">1</span>)</span><br><span class="line">print(shape(lowDmat))</span><br><span class="line"><span class="comment"># 3 将降维后的数据和原始数据一起可视化</span></span><br><span class="line">show_picture(dataMat, reconMat)</span><br></pre></td></tr></table></figure>
+<pre>
+    # 2 主成分分析降维特征向量设置
+    lowDmat, reconMat = pca(dataMat, 1)
+    print(shape(lowDmat))
+    # 3 将降维后的数据和原始数据一起可视化
+    show_picture(dataMat, reconMat)
+</pre>
+
 <p>运行结果显示：</p>
 <p><img src="https://i.imgur.com/wGdEvxm.png" alt=""></p>
 <h2 id="PCA对半导体制造数据降维"><a href="#PCA对半导体制造数据降维" class="headerlink" title="PCA对半导体制造数据降维"></a>PCA对半导体制造数据降维</h2><h3 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h3><p>半导体是在一些极为先进的工厂中制造出来的。设备的生命早期有限，并且花费极其巨大。虽然通过早期测试和频繁测试来发现有瑕疵的产品，但仍有一些存在瑕疵的产品通过测试。如果我们通过机器学习技术用于发现瑕疵产品，那么它就会为制造商节省大量的资金。具体来讲，它拥有590个特征。我们看看能否对这些特征进行降维处理。对于数据的缺失值的问题，将缺失值NaN(Not a Number缩写)，全部用平均值来替代(如果用0来处理的策略就太差了)。收集数据：提供文本文件,文件名：secom.data.文本文件部分数据格式如下：</p>
@@ -683,9 +753,52 @@
 -5419 2916.5 -4043.75 751 0.8955 1.773 3.049 64.2333 2.0222 0.1632 3.5191 
 83.3971 9.5126 50.617 64.2588 49.383 66.3141 86.9555 117.5132 61.29 4.515 70 
 352.7173 10.1841 130.3691 723.3092 1.3072 141.2282 1 624.3145 218.3174 0 4.592
-</code></pre><h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>将数据集中NaN替换成平均值，代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''将NaN替换成平均值函数'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replaceNanWithMean</span><span class="params">()</span>:</span></span><br><span class="line">    datMat = loadDataSet(<span class="string">'./secom.data'</span>, <span class="string">' '</span>)</span><br><span class="line">    numFeat = shape(datMat)[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numFeat):</span><br><span class="line">        <span class="comment"># 对value不为NaN的求均值</span></span><br><span class="line">        <span class="comment"># .A 返回矩阵基于的数组</span></span><br><span class="line">        meanVal = mean(datMat[nonzero(~isnan(datMat[:, i].A))[<span class="number">0</span>], i])</span><br><span class="line">        <span class="comment"># 将value为NaN的值赋值为均值</span></span><br><span class="line">        datMat[nonzero(isnan(datMat[:, i].A))[<span class="number">0</span>],i] = meanVal</span><br><span class="line">    <span class="keyword">return</span> datMat</span><br></pre></td></tr></table></figure></p>
-<h3 id="分析数据"><a href="#分析数据" class="headerlink" title="分析数据"></a>分析数据</h3><p>我们拿到数据进行数据预处理之后，再跑下程序，看看中间结果如果，分析数据代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''分析数据'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">analyse_data</span><span class="params">(dataMat)</span>:</span></span><br><span class="line">    meanVals = mean(dataMat, axis=<span class="number">0</span>)</span><br><span class="line">    meanRemoved = dataMat-meanVals</span><br><span class="line">    covMat = cov(meanRemoved, rowvar=<span class="number">0</span>)</span><br><span class="line">    eigvals, eigVects = linalg.eig(mat(covMat))</span><br><span class="line">    eigValInd = argsort(eigvals)</span><br><span class="line"></span><br><span class="line">    topNfeat = <span class="number">20</span></span><br><span class="line">    eigValInd = eigValInd[:-(topNfeat+<span class="number">1</span>):<span class="number">-1</span>]</span><br><span class="line">    cov_all_score = float(sum(eigvals))</span><br><span class="line">    sum_cov_score = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(eigValInd)):</span><br><span class="line">        line_cov_score = float(eigvals[eigValInd[i]])</span><br><span class="line">        sum_cov_score += line_cov_score</span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        我们发现其中有超过20%的特征值都是0。</span></span><br><span class="line"><span class="string">        这就意味着这些特征都是其他特征的副本，也就是说，它们可以通过其他特征来表示，而本身并没有提供额外的信息。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        最前面15个值的数量级大于10^5，实际上那以后的值都变得非常小。</span></span><br><span class="line"><span class="string">        这就相当于告诉我们只有部分重要特征，重要特征的数目也很快就会下降。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        print(<span class="string">'主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%'</span> % (format(i+<span class="number">1</span>, <span class="string">'2.0f'</span>), format(line_cov_score/cov_all_score*<span class="number">100</span>, <span class="string">'4.2f'</span>), format(sum_cov_score/cov_all_score*<span class="number">100</span>, <span class="string">'4.1f'</span>)))</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>将数据集中NaN替换成平均值，代码实现如下：</p>
+<pre>
+'''将NaN替换成平均值函数'''
+def replaceNanWithMean():
+    datMat = loadDataSet('./secom.data', ' ')
+    numFeat = shape(datMat)[1]
+    for i in range(numFeat):
+        # 对value不为NaN的求均值
+        # .A 返回矩阵基于的数组
+        meanVal = mean(datMat[nonzero(~isnan(datMat[:, i].A))[0], i])
+        # 将value为NaN的值赋值为均值
+        datMat[nonzero(isnan(datMat[:, i].A))[0],i] = meanVal
+    return datMat
+</pre>
+### 分析数据
+
+我们拿到数据进行数据预处理之后，再跑下程序，看看中间结果如果，分析数据代码如下：
+
+<pre>
+'''分析数据'''
+def analyse_data(dataMat):
+    meanVals = mean(dataMat, axis=0)
+    meanRemoved = dataMat-meanVals
+    covMat = cov(meanRemoved, rowvar=0)
+    eigvals, eigVects = linalg.eig(mat(covMat))
+    eigValInd = argsort(eigvals)
+
+    topNfeat = 20
+    eigValInd = eigValInd[:-(topNfeat+1):-1]
+    cov_all_score = float(sum(eigvals))
+    sum_cov_score = 0
+    for i in range(0, len(eigValInd)):
+        line_cov_score = float(eigvals[eigValInd[i]])
+        sum_cov_score += line_cov_score
+        '''
+        我们发现其中有超过20%的特征值都是0。
+        这就意味着这些特征都是其他特征的副本，也就是说，它们可以通过其他特征来表示，而本身并没有提供额外的信息。
+
+        最前面15个值的数量级大于10^5，实际上那以后的值都变得非常小。
+        这就相当于告诉我们只有部分重要特征，重要特征的数目也很快就会下降。
+
+        最后，我们可能会注意到有一些小的负值，他们主要源自数值误差应该四舍五入成0.
+        '''
+        print('主成分：%s, 方差占比：%s%%, 累积方差占比：%s%%' % (format(i+1, '2.0f'), format(line_cov_score/cov_all_score*100, '4.2f'), format(sum_cov_score/cov_all_score*100, '4.1f')))
+</pre>
+
 <p>去均值化的特征值结果显示如下：</p>
 <pre><code>[ 5.34151979e+07  2.17466719e+07  8.24837662e+06  2.07388086e+06
   1.31540439e+06  4.67693557e+05  2.90863555e+05  2.83668601e+05
@@ -780,7 +893,12 @@
 </table>
 </div>
 <h3 id="PCA降维结果可视化"><a href="#PCA降维结果可视化" class="headerlink" title="PCA降维结果可视化"></a>PCA降维结果可视化</h3><p>调用我们上文写的代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lowDmat, reconMat = pca(dataMat, <span class="number">20</span>)</span><br><span class="line">print(shape(lowDmat))</span><br><span class="line">show_picture(dataMat, reconMat)</span><br></pre></td></tr></table></figure>
+<pre>
+lowDmat, reconMat = pca(dataMat, 20)
+print(shape(lowDmat))
+show_picture(dataMat, reconMat)
+</pre>
+
 <p>运行结果如下：</p>
 <p><img src="https://i.imgur.com/3Ng3Ya4.png" alt=""></p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
@@ -1380,7 +1498,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据降维"><span class="nav-number">1.</span> <span class="nav-text">数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预备知识"><span class="nav-number">1.1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是降维"><span class="nav-number">1.2.</span> <span class="nav-text">什么是降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-概述"><span class="nav-number">2.</span> <span class="nav-text">PCA 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例理解"><span class="nav-number">3.</span> <span class="nav-text">实例理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-算法实现"><span class="nav-number">4.</span> <span class="nav-text">PCA 算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备数据"><span class="nav-number">4.1.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA-数据降维"><span class="nav-number">4.2.</span> <span class="nav-text">PCA 数据降维</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化结果分析"><span class="nav-number">4.3.</span> <span class="nav-text">可视化结果分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA对半导体制造数据降维"><span class="nav-number">5.</span> <span class="nav-text">PCA对半导体制造数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目概述"><span class="nav-number">5.1.</span> <span class="nav-text">项目概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理"><span class="nav-number">5.2.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析数据"><span class="nav-number">5.3.</span> <span class="nav-text">分析数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA降维结果可视化"><span class="nav-number">5.4.</span> <span class="nav-text">PCA降维结果可视化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据降维"><span class="nav-number">1.</span> <span class="nav-text">数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预备知识"><span class="nav-number">1.1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是降维"><span class="nav-number">1.2.</span> <span class="nav-text">什么是降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-概述"><span class="nav-number">2.</span> <span class="nav-text">PCA 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例理解"><span class="nav-number">3.</span> <span class="nav-text">实例理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-算法实现"><span class="nav-number">4.</span> <span class="nav-text">PCA 算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备数据"><span class="nav-number">4.1.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA-数据降维"><span class="nav-number">4.2.</span> <span class="nav-text">PCA 数据降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA对半导体制造数据降维"><span class="nav-number">5.</span> <span class="nav-text">PCA对半导体制造数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目概述"><span class="nav-number">5.1.</span> <span class="nav-text">项目概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理"><span class="nav-number">5.2.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA降维结果可视化"><span class="nav-number">5.3.</span> <span class="nav-text">PCA降维结果可视化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

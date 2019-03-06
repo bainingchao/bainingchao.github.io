@@ -179,19 +179,13 @@
 <meta property="og:image" content="https://i.imgur.com/EWJof18.png">
 <meta property="og:image" content="https://i.imgur.com/3y2teO7.png">
 <meta property="og:image" content="https://i.imgur.com/K8ePzT7.png">
-<meta property="og:image" content="https://i.imgur.com/qN4fpJm.png">
-<meta property="og:image" content="https://i.imgur.com/i0WdEma.png">
-<meta property="og:image" content="https://i.imgur.com/HuhjYMi.png">
-<meta property="og:image" content="https://i.imgur.com/EDdqonh.png">
-<meta property="og:image" content="https://i.imgur.com/T0XmvRU.png">
-<meta property="og:image" content="https://i.imgur.com/pDlENwI.png">
 <meta property="og:image" content="https://i.imgur.com/sdDO9Rh.png">
 <meta property="og:image" content="https://i.imgur.com/Pl72HY4.png">
 <meta property="og:image" content="https://i.imgur.com/XUNZ4tV.png">
 <meta property="og:image" content="https://i.imgur.com/VbMIHW1.png">
 <meta property="og:image" content="https://i.imgur.com/TYl13aT.png">
 <meta property="og:image" content="https://i.imgur.com/fDcgSzw.png">
-<meta property="og:updated_time" content="2018-10-19T07:41:21.579Z">
+<meta property="og:updated_time" content="2019-03-06T09:12:24.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何自定义文件格式转换">
 <meta name="twitter:description" content="摘要：随着大数据的快速发展，自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。本文主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预">
@@ -503,7 +497,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:41:21" itemprop="dateModified" datetime="2018-10-19T15:41:21+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 17:12:24" itemprop="dateModified" datetime="2019-03-06T17:12:24+08:00">2019-03-06</time>
               
             
           </span>
@@ -630,122 +624,450 @@
 <h2 id="类库重构"><a href="#类库重构" class="headerlink" title="类库重构"></a>类库重构</h2><blockquote>
 <p>算法基础类库重构</p>
 </blockquote>
-<p>重构又称高度代码封装，旨在代码重用和面向对象编程。本文将相关基本方法封装在一个类库中供外部类调用，提高代码复用性和可读性。具体重构文件结构如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">重构文件名：BaseClass.py</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：遍历目录，对子文件单独处理</span></span><br><span class="line"><span class="string">参数描述：</span></span><br><span class="line"><span class="string">        1 rootdir：待处理的目录路径</span></span><br><span class="line"><span class="string">        2 deffun： 方法参数，默认为空</span></span><br><span class="line"><span class="string">        3 savepath: 保存路径</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TraversalFun</span><span class="params">()</span>:</span></span><br><span class="line">	TraversalDir：遍历目录文件方法</span><br><span class="line">	creat_savepath：支持默认和自定义保存目录方法</span><br><span class="line">	AllFiles：递归遍历所有文件，并提供具体文件操作功能</span><br><span class="line">	TranType：通过指定关键字操作，检查文件类型并转化目标类型</span><br><span class="line">	filelogs：记录文件处理日志方法</span><br><span class="line">	cleardir：清空目录文件方法</span><br><span class="line">	writeFile：文件的写操作方法</span><br><span class="line">	readFile：文件的读操作方法</span><br><span class="line">	mkdir：创建目录方法</span><br><span class="line"></span><br><span class="line">	<span class="string">'''</span></span><br><span class="line"><span class="string">	功能描述：提供全局变量类</span></span><br><span class="line"><span class="string">	作    者：白宁超</span></span><br><span class="line"><span class="string">	时    间：2017年10月24日15:07:38</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Global</span><span class="params">(object)</span>:</span>提高各个公共全局变量</span><br><span class="line"></span><br><span class="line">	<span class="string">'''</span></span><br><span class="line"><span class="string">	功能描述：测试类</span></span><br><span class="line"><span class="string">	作    者：白宁超</span></span><br><span class="line"><span class="string">	时    间：2017年10月24日15:07:38</span></span><br><span class="line"><span class="string">	'''</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">TestMethod</span><span class="params">(filepath,newpath)</span>:</span>方法测试类</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>核心方法详解</p>
-</blockquote>
-<p>1 TraversalFun类方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,rootdir,deffun=None,savedir=<span class="string">""</span>)</span>:</span></span><br><span class="line">    self.rootdir = rootdir <span class="comment"># 目录路径</span></span><br><span class="line">    self.deffun = deffun   <span class="comment"># 参数方法</span></span><br><span class="line">    self.savedir = savedir <span class="comment"># 保存路径</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">''' 遍历目录文件'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TraversalDir</span><span class="params">(self,defpar=<span class="string">'newpath'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 支持默认和自定义保存目录</span></span><br><span class="line">        newdir = TraversalFun.creat_savepath(self,defpar)</span><br><span class="line">        <span class="comment"># 递归遍历word文件并将其转化txt文件</span></span><br><span class="line">        TraversalFun.AllFiles(self,self.rootdir,newdir)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">raise</span> e</span><br><span class="line"></span><br><span class="line"><span class="string">'''支持默认和自定义保存目录'''</span></span><br><span class="line"><span class="comment"># @staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">creat_savepath</span><span class="params">(self,defpar)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名('F:\\kjxm\\kjt', '1.txt')</span></span><br><span class="line">    prapath,filename = os.path.split(self.rootdir)</span><br><span class="line">    newdir = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> self.savedir==<span class="string">""</span>:</span><br><span class="line">        newdir = os.path.abspath(os.path.join(prapath,filename+<span class="string">"_"</span>+defpar))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newdir = self.savedir</span><br><span class="line">    print(<span class="string">"保存目录路径：\n"</span>+newdir)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newdir):</span><br><span class="line">        os.mkdir(newdir)</span><br><span class="line">    <span class="keyword">return</span> newdir</span><br><span class="line"></span><br><span class="line"><span class="string">'''递归遍历所有文件，并提供具体文件操作功能。'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AllFiles</span><span class="params">(self,rootdir,newdir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 返回指定目录包含的文件或文件夹的名字的列表</span></span><br><span class="line">    <span class="keyword">for</span> lists <span class="keyword">in</span> os.listdir(rootdir):</span><br><span class="line">        <span class="comment"># 待处理文件夹名字集合</span></span><br><span class="line">        path = os.path.join(rootdir, lists)</span><br><span class="line">        <span class="comment"># 核心算法，对文件具体操作</span></span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">            self.deffun(path,newdir) <span class="comment"># 具体方法实现功能</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># TraversalFun.filelogs(rootdir)  # 日志文件</span></span><br><span class="line">        <span class="comment"># 递归遍历文件目录</span></span><br><span class="line">        <span class="keyword">if</span> os.path.isdir(path):</span><br><span class="line">            newpath = os.path.join(newdir, lists)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newpath):</span><br><span class="line">                os.mkdir(newpath)</span><br><span class="line">            TraversalFun.AllFiles(self,path,newpath)</span><br><span class="line"></span><br><span class="line"><span class="string">''' 通过指定关键字操作，检查文件类型并转化目标类型'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TranType</span><span class="params">(filename,typename)</span>:</span></span><br><span class="line">    <span class="comment"># print("本方法支持文件类型处理格式：pdf2txt，代表pdf转化为txt；word2txt，代表word转化txt；word2pdf，代表word转化pdf。")</span></span><br><span class="line">    <span class="comment"># 新的文件名称</span></span><br><span class="line">    new_name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">"pdf2txt"</span> :</span><br><span class="line">        <span class="comment">#如果不是pdf文件，或者是pdf临时文件退出</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> fnmatch.fnmatch(filename, <span class="string">'*.pdf'</span>) <span class="keyword">or</span> <span class="keyword">not</span> fnmatch.fnmatch(filename, <span class="string">'*.PDF'</span>) <span class="keyword">or</span> fnmatch.fnmatch(filename, <span class="string">'~$*'</span>):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># 如果是pdf文件，修改文件名</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.pdf'</span>) <span class="keyword">or</span> fnmatch.fnmatch(filename, <span class="string">'*.PDF'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span> <span class="comment"># 截取".pdf"之前的文件名</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">"word2txt"</span> :</span><br><span class="line">        <span class="comment">#如果是word文件：</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.doc'</span>) :</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span></span><br><span class="line">            print(new_name)</span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.docx'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-5</span>]+<span class="string">'.txt'</span></span><br><span class="line">        <span class="comment"># 如果不是word文件，或者是word临时文件退出</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">"word2pdf"</span> :</span><br><span class="line">        <span class="comment">#如果是word文件：</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.doc'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.pdf'</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.docx'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-5</span>]+<span class="string">'.pdf'</span></span><br><span class="line">        <span class="comment">#如果不是word文件：继续</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">return</span> new_name</span><br><span class="line"></span><br><span class="line"><span class="string">'''记录文件处理日志'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filelogs</span><span class="params">(rootdir)</span>:</span></span><br><span class="line">    prapath,filename = os.path.split(rootdir)</span><br><span class="line">    <span class="comment"># 创建日志目录</span></span><br><span class="line">    dirpath = prapath+<span class="string">r"/"</span>+filename+<span class="string">"_logs"</span></span><br><span class="line">    TraversalFun.mkdir(dirpath)</span><br><span class="line">    <span class="comment"># 错误文件路径</span></span><br><span class="line">    errorpath = dirpath+<span class="string">r"/errorlogs.txt"</span></span><br><span class="line">    <span class="comment"># 限制文件路径</span></span><br><span class="line">    limitpath = dirpath+<span class="string">r"/limitlogs.txt"</span></span><br><span class="line">    <span class="comment"># 错误文件日志写入</span></span><br><span class="line">    TraversalFun.writeFile(errorpath,<span class="string">'\n'</span>.join(Global.error_file_list))</span><br><span class="line">    <span class="comment"># # 限制文件日志写入</span></span><br><span class="line">    TraversalFun.writeFile(limitpath,<span class="string">'\n'</span>.join(Global.limit_file_list))</span><br><span class="line"></span><br><span class="line"><span class="string">'''清空目录文件'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cleardir</span><span class="params">(dirpath)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(dirpath):</span><br><span class="line">        TraversalFun.mkdir(dirpath)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        shutil.rmtree(dirpath)</span><br><span class="line">        TraversalFun.mkdir(dirpath)</span><br><span class="line"></span><br><span class="line"><span class="string">''' 文件的写操作'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">writeFile</span><span class="params">(filepath,strs)</span>:</span> <span class="comment">#encoding="utf-8"</span></span><br><span class="line">    <span class="keyword">with</span> open(filepath,<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(strs.encode())</span><br><span class="line"></span><br><span class="line"><span class="string">''' 文件的读操作'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readFile</span><span class="params">(filepath)</span>:</span></span><br><span class="line">    isfile = os.path.exists(filepath)</span><br><span class="line">    readstr = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> isfile:</span><br><span class="line">        <span class="keyword">with</span> open(filepath,<span class="string">"r"</span>,encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">            readstr = f.read()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">return</span> readstr</span><br><span class="line"></span><br><span class="line"><span class="string">''' 创建目录 '''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mkdir</span><span class="params">(dirpath)</span>:</span></span><br><span class="line">    <span class="comment"># 判断路径是否存在</span></span><br><span class="line">    isExists=os.path.exists(dirpath)</span><br><span class="line">    <span class="comment"># 判断结果</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> isExists:</span><br><span class="line">        os.makedirs(dirpath)</span><br><span class="line">        print(dirpath+<span class="string">' 创建成功'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
-<p>2 TestMethod测试类<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestMethod</span><span class="params">(filepath,newpath)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> os.path.isfile(filepath) :</span><br><span class="line">        print(<span class="string">"this is file name:"</span>+filepath)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
-<p>3 利用测试类方法运行方法参数效果图</p>
-<p>方法的调用：传达参数分别是跟目录和测试类中的方法参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">t1=time.time()</span><br><span class="line"><span class="comment"># 根目录文件路径</span></span><br><span class="line">rootDir = <span class="string">r"../../Corpus/DataSet"</span></span><br><span class="line">tra=TraversalFun(rootDir,TestMethod) <span class="comment"># 默认方法参数打印所有文件路径</span></span><br><span class="line">tra.TraversalDir()                   <span class="comment"># 遍历文件并进行相关操作</span></span><br><span class="line"></span><br><span class="line">t2=time.time()</span><br><span class="line">totalTime=Decimal(str(t2-t1)).quantize(Decimal(<span class="string">'0.0000'</span>))</span><br><span class="line">print(<span class="string">"耗时："</span>+str(totalTime)+<span class="string">" s"</span>+<span class="string">"\n"</span>)</span><br><span class="line">input()</span><br></pre></td></tr></table></figure></p>
-<p>运行结果如图所示：<br><img src="https://i.imgur.com/qN4fpJm.png" alt=""></p>
-<h1 id="基于pdfminer插件的pdf批量格式转换代码实现"><a href="#基于pdfminer插件的pdf批量格式转换代码实现" class="headerlink" title="基于pdfminer插件的pdf批量格式转换代码实现"></a>基于pdfminer插件的pdf批量格式转换代码实现</h1><blockquote>
-<p>pdfminer原理介绍</p>
-</blockquote>
-<p><img src="https://i.imgur.com/i0WdEma.png" alt=""></p>
-<p>由于解析PDF是一件非常耗时和内存的工作，因此PDFMiner使用了一种称作lazy parsing的策略，只在需要的时候才去解析，以减少时间和内存的使用。要解析PDF至少需要两个类：PDFParser 和 PDFDocument，PDFParser 从文件中提取数据，PDFDocument保存数据。另外还需要PDFPageInterpreter去处理页面内容，PDFDevice将其转换为我们所需要的。PDFResourceManager用于保存共享内容例如字体或图片。</p>
-<p><img src="https://i.imgur.com/HuhjYMi.png" alt=""></p>
-<ol>
-<li>LTPage :表示整个页。可能会含有LTTextBox，LTFigure，LTImage，LTRect，LTCurve和LTLine子对象。</li>
-<li>LTTextBox:表示一组文本块可能包含在一个矩形区域。注意此box是由几何分析中创建，并且不一定表示该文本的一个逻辑边界。它包含TTextLine对象的列表。使用 get_text（）方法返回的文本内容。</li>
-<li>LTTextLine :包含表示单个文本行LTChar对象的列表。字符对齐要么 水平或垂直，取决于文本的写入模式。 </li>
-<li>get_text（）方法返回的文本内容。</li>
-<li>LTAnno:在文本中实际的字母表示为Unicode字符串（？）。需要注意的是，虽然一个LTChar对象具有实际边界，LTAnno对象没有，因为这些是“虚拟”的字符，根据两个字符间的关系（例如，一个空格）由布局分析后插入。</li>
-<li>LTImage:表示一个图像对象。嵌入式图像可以是JPEG或其它格式，但是目前PDFMiner没有放置太多精力在图形对象。</li>
-<li>LTLine:代表一条直线。可用于分离文本或附图。</li>
-<li>LTRect:表示矩形。可用于框架的另一图片或数字。</li>
-<li>LTCurve:表示一个通用的 Bezier曲线</li>
-</ol>
-<blockquote>
-<p>pdfminer学习文献</p>
-</blockquote>
-<p>英文官方：<a href="https://euske.github.io/pdfminer/index.html" target="_blank" rel="noopener">https://euske.github.io/pdfminer/index.html</a><br>中文：<a href="https://blog.csdn.net/robolinux/article/details/43318229" target="_blank" rel="noopener">https://blog.csdn.net/robolinux/article/details/43318229</a></p>
-<blockquote>
-<p>pdfminer代码实现</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pdfminer库的地址 https://pypi.python.org/pypi/pdfminer3k</span></span><br><span class="line"><span class="comment"># 下载后，用cmd执行命令 setup.py install</span></span><br><span class="line"><span class="keyword">from</span> pdfminer.pdfparser <span class="keyword">import</span> PDFParser,PDFDocument</span><br><span class="line"><span class="keyword">from</span> pdfminer.pdfinterp <span class="keyword">import</span> PDFResourceManager, PDFPageInterpreter</span><br><span class="line"><span class="keyword">from</span> pdfminer.converter <span class="keyword">import</span> PDFPageAggregator</span><br><span class="line"><span class="keyword">from</span> pdfminer.layout <span class="keyword">import</span> LTTextBoxHorizontal,LAParams</span><br><span class="line"><span class="keyword">from</span> pdfminer.pdfinterp <span class="keyword">import</span> PDFTextExtractionNotAllowed</span><br><span class="line"><span class="keyword">from</span> decimal <span class="keyword">import</span> Decimal</span><br><span class="line"><span class="keyword">import</span> time,fnmatch,os,re,sys</span><br><span class="line"><span class="keyword">from</span> BaseClass <span class="keyword">import</span> *  <span class="comment">#全局变量</span></span><br><span class="line"><span class="comment"># from BaseClass import TraversalFun # 文件遍历处理基类函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除警告</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.Logger.propagate = <span class="keyword">False</span></span><br><span class="line">logging.getLogger().setLevel(logging.ERROR)</span><br><span class="line"></span><br><span class="line"><span class="string">'''pdf文件格式转换为txt'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PdfToText</span><span class="params">(filepath,newdir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名</span></span><br><span class="line">    prapath,filename = os.path.split(filepath)</span><br><span class="line">    new_txt_name=TraversalFun.TranType(filename,<span class="string">"pdf2txt"</span>) <span class="comment"># 更改文件名</span></span><br><span class="line">    <span class="keyword">if</span> new_txt_name ==<span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    newpath = os.path.join(newdir,new_txt_name) <span class="comment"># 文件保存路径</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">"-&gt;格式转换后保留路径：\n"</span>+newpath)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        praser = PDFParser(open(filepath, <span class="string">'rb'</span>)) <span class="comment"># 创建一个pdf文档分析器</span></span><br><span class="line">        doc = PDFDocument()  <span class="comment"># 创建一个PDF文档</span></span><br><span class="line">        praser.set_document(doc)  <span class="comment"># 连接分析器 与文档对象</span></span><br><span class="line">        doc.set_parser(praser)</span><br><span class="line">        doc.initialize()  <span class="comment"># 提供初始化密码，如果没有密码 就创建一个空的字符串</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检测文档是否提供txt转换，不提供就忽略</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> doc.is_extractable:</span><br><span class="line">            Global.error_file_list.append(filepath)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        rsrcmgr = PDFResourceManager() <span class="comment"># 创建PDf 资源管理器管理共享资源</span></span><br><span class="line">        laparams = LAParams() <span class="comment"># 创建一个PDF设备对象</span></span><br><span class="line">        device = PDFPageAggregator(rsrcmgr, laparams=laparams)</span><br><span class="line">        interpreter = PDFPageInterpreter(rsrcmgr, device)  <span class="comment"># 创建一个PDF解释器对象</span></span><br><span class="line">        pdfStr = <span class="string">""</span> <span class="comment"># 存储解析后的提取内容</span></span><br><span class="line">        <span class="comment"># 循环遍历列表，每次处理一个page的内容</span></span><br><span class="line">        <span class="keyword">for</span> page <span class="keyword">in</span> doc.get_pages(): <span class="comment"># doc.get_pages()获取page列表</span></span><br><span class="line">            interpreter.process_page(page)</span><br><span class="line">            layout = device.get_result()  <span class="comment"># 接受该页面的LTPage对象</span></span><br><span class="line">            <span class="comment"># 这里layout是一个LTPage对象 里面存放着 这个page解析出的各种对象 一般包括LTTextBox, LTFigure, LTImage, LTTextBoxHorizontal 等等 想要获取文本就获得对象的text属性，</span></span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> layout:</span><br><span class="line">                <span class="keyword">if</span> (isinstance(x, LTTextBoxHorizontal)):</span><br><span class="line">                    pdfStr = pdfStr + x.get_text()</span><br><span class="line"></span><br><span class="line">        TraversalFun.writeFile(newpath,pdfStr) <span class="comment"># 写文件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 限制文件列表</span></span><br><span class="line">        filesize = os.path.getsize(newpath)</span><br><span class="line">        <span class="keyword">if</span> filesize &lt; Global.limit_file_size :</span><br><span class="line">            Global.limit_file_list.append(newpath+<span class="string">"\t"</span>+ str(Decimal(filesize/<span class="number">1024</span>).quantize(Decimal(<span class="string">'0.00'</span>))) +<span class="string">"KB"</span>)</span><br><span class="line">            os.remove(newpath)</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            Global.all_FileNum+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        Global.error_file_list.append(filepath)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    t1=time.time()</span><br><span class="line"></span><br><span class="line">    rootDir =  <span class="string">r"../../Corpus/DataSet"</span> <span class="comment"># 默认处理路径</span></span><br><span class="line">    TraversalFun.cleardir(<span class="string">r'../../Corpus/DataSet_newpath'</span>) <span class="comment"># 每次加载清空目录</span></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'【批量生成的文件:】'</span>)</span><br><span class="line">    tra=TraversalFun(rootDir,PdfToText) <span class="comment"># 默认方法参数打印所有文件路径</span></span><br><span class="line">    tra.TraversalDir()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 写入日志文件</span></span><br><span class="line">    TraversalFun.filelogs(rootDir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> (<span class="string">'共处理文档数目：'</span>+str(Global.all_FileNum+len(Global.error_file_list)+len(Global.limit_file_list))+<span class="string">' 个,其中:\n \</span></span><br><span class="line"><span class="string">        1) 筛选文件(可用)'</span>+str(Global.all_FileNum)+<span class="string">'个.\n \</span></span><br><span class="line"><span class="string">        2) 错误文件(不能识别)'</span>+ str(len(Global.error_file_list)) +<span class="string">'个.\n \</span></span><br><span class="line"><span class="string">        3) 限制文件(&lt;5K)'</span>+ str(len(Global.limit_file_list))+<span class="string">'个.'</span> )</span><br><span class="line">    t2=time.time()</span><br><span class="line">    totalTime=Decimal(str(t2-t1)).quantize(Decimal(<span class="string">'0.0000'</span>))</span><br><span class="line">    print(<span class="string">"耗时："</span>+str(totalTime)+<span class="string">" s"</span>+<span class="string">"\n"</span>)</span><br><span class="line">    input()</span><br></pre></td></tr></table></figure>
-<p>解析pdf文件用到的类：</p>
-<ol>
-<li>PDFParser：从一个文件中获取数据</li>
-<li>PDFDocument：保存获取的数据，和PDFParser是相互关联的</li>
-<li>PDFPageInterpreter处理页面内容</li>
-<li>PDFDevice将其翻译成你需要的格式</li>
-<li>PDFResourceManager用于存储共享资源，如字体或图像。</li>
-</ol>
-<blockquote>
-<p>pdfminer页面结果：</p>
-</blockquote>
-<p><img src="https://i.imgur.com/EDdqonh.png" alt=""></p>
-<blockquote>
-<p>pdfminer转化结果</p>
-</blockquote>
-<p><img src="https://i.imgur.com/T0XmvRU.png" alt=""></p>
-<blockquote>
-<p>实验结论</p>
-</blockquote>
-<p>错误分析，打开日志文件查看</p>
-<p><img src="https://i.imgur.com/pDlENwI.png" alt=""></p>
-<p>错误原因分析：因为我们在全局变量中限制了最小文件读取1KB，该文件0KB不符合要求故而过滤出来。打开查看发现该pdf是一张图片转换出来的，没有成功识别。但是，通过技术研究是可以实现的，本文没有深入进行。还有以下结论：</p>
-<pre><code>1 可以支持批量文本和单文本转化。
-2 编码格式一致，默认utf-8。
-3 生成文件名誉原始处理文件名保存一致。
-4 生成的文本信息相对比较规范。
-</code></pre><p>支持多方式转化，其他案例读者自行研究。</p>
-<blockquote>
-<p>扩展学习</p>
-</blockquote>
-<p>在解析有些PDF的时候会报这样的异常：pdfminer.pdfdocument.PDFEncryptionError: Unknown algorithm: param={‘CF’: {‘StdCF’: {‘Length’: 16, ‘CFM’: /AESV2, ‘AuthEvent’: /DocOpen}}, ‘O’: ‘\xe4\xe74\xb86/\xa8)\xa6x\xe6\xa3/U\xdf\x0fWR\x9cPh\xac\xae\x88B\x06_\xb0\x93@\x9f\x8d’, ‘Filter’: /Standard, ‘P’: -1340, ‘Length’: 128, ‘R’: 4, ‘U’: ‘|UTX#f\xc9V\x18\x87z\x10\xcb\xf5{\xa7\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00’, ‘V’: 4, ‘StmF’: /StdCF, ‘StrF’: /StdCF}<br>如上是加密的PDF，所以无法解析 ，但是如果直接打开PDF却是可以的并没有要求输密码什么的，原因是这个PDF虽然是加过密的，但密码是空，所以就出现了这样的问题。<br>解决这个的问题的办法是通过qpdf命令来解密文件（要确保已经安装了qpdf），要想在python中调用该命令只需使用call即可：<br>    1 from subprocess import call<br>    2 call(‘qpdf —password=%s —decrypt %s %s’ %(‘’, file_path, new_file_path), shell=True)<br>其中参数file_path是要解密的PDF的路径，new_file_path是解密后的PDF文件路径，然后使用解密后的文件去做解析就OK了</p>
-<h1 id="基于win32com插件的代码实现"><a href="#基于win32com插件的代码实现" class="headerlink" title="基于win32com插件的代码实现"></a>基于win32com插件的代码实现</h1><blockquote>
-<p>导入相关包</p>
-</blockquote>
-<pre><code>from win32com import client as wc
-from win32com.client import Dispatch, constants, gencache
-import os,fnmatch,time,sys
+<p>重构又称高度代码封装，旨在代码重用和面向对象编程。本文将相关基本方法封装在一个类库中供外部类调用，提高代码复用性和可读性。具体重构文件结构如下：</p>
+<pre>
+重构文件名：BaseClass.py
+
+'''
+功能描述：遍历目录，对子文件单独处理
+参数描述：
+        1 rootdir：待处理的目录路径
+        2 deffun： 方法参数，默认为空
+        3 savepath: 保存路径
+'''
+class TraversalFun():
+    TraversalDir：遍历目录文件方法
+    creat_savepath：支持默认和自定义保存目录方法
+    AllFiles：递归遍历所有文件，并提供具体文件操作功能
+    TranType：通过指定关键字操作，检查文件类型并转化目标类型
+    filelogs：记录文件处理日志方法
+    cleardir：清空目录文件方法
+    writeFile：文件的写操作方法
+    readFile：文件的读操作方法
+    mkdir：创建目录方法
+
+    '''
+    功能描述：提供全局变量类
+    作    者：白宁超
+    时    间：2017年10月24日15:07:38
+    '''
+    class Global(object):提高各个公共全局变量
+
+    '''
+    功能描述：测试类
+    作    者：白宁超
+    时    间：2017年10月24日15:07:38
+    '''
+    def TestMethod(filepath,newpath):方法测试类
+</pre>
+> 核心方法详解
+
+1 TraversalFun类方法：
+<pre>
+def __init__(self,rootdir,deffun=None,savedir=""):
+    self.rootdir = rootdir # 目录路径
+    self.deffun = deffun   # 参数方法
+    self.savedir = savedir # 保存路径
+
+
+''' 遍历目录文件'''
+def TraversalDir(self,defpar='newpath'):
+    try:
+        # 支持默认和自定义保存目录
+        newdir = TraversalFun.creat_savepath(self,defpar)
+        # 递归遍历word文件并将其转化txt文件
+        TraversalFun.AllFiles(self,self.rootdir,newdir)
+    except Exception as e:
+        raise e
+
+'''支持默认和自定义保存目录'''
+# @staticmethod
+def creat_savepath(self,defpar):
+    # 文件路径切分为上级路径和文件名('F:\\kjxm\\kjt', '1.txt')
+    prapath,filename = os.path.split(self.rootdir)
+    newdir = ""
+    if self.savedir=="":
+        newdir = os.path.abspath(os.path.join(prapath,filename+"_"+defpar))
+    else:
+        newdir = self.savedir
+    print("保存目录路径：\n"+newdir)
+    if not os.path.exists(newdir):
+        os.mkdir(newdir)
+    return newdir
+
+'''递归遍历所有文件，并提供具体文件操作功能。'''
+def AllFiles(self,rootdir,newdir=''):
+    # 返回指定目录包含的文件或文件夹的名字的列表
+    for lists in os.listdir(rootdir):
+        # 待处理文件夹名字集合
+        path = os.path.join(rootdir, lists)
+        # 核心算法，对文件具体操作
+        if os.path.isfile(path):
+            self.deffun(path,newdir) # 具体方法实现功能
+
+            # TraversalFun.filelogs(rootdir)  # 日志文件
+        # 递归遍历文件目录
+        if os.path.isdir(path):
+            newpath = os.path.join(newdir, lists)
+            if not os.path.exists(newpath):
+                os.mkdir(newpath)
+            TraversalFun.AllFiles(self,path,newpath)
+
+''' 通过指定关键字操作，检查文件类型并转化目标类型'''
+def TranType(filename,typename):
+    # print("本方法支持文件类型处理格式：pdf2txt，代表pdf转化为txt；word2txt，代表word转化txt；word2pdf，代表word转化pdf。")
+    # 新的文件名称
+    new_name = ""
+    if typename == "pdf2txt" :
+        #如果不是pdf文件，或者是pdf临时文件退出
+        if not fnmatch.fnmatch(filename, '*.pdf') or not fnmatch.fnmatch(filename, '*.PDF') or fnmatch.fnmatch(filename, '~$*'):
+            return
+        # 如果是pdf文件，修改文件名
+        if fnmatch.fnmatch(filename, '*.pdf') or fnmatch.fnmatch(filename, '*.PDF'):
+            new_name = filename[:-4]+'.txt' # 截取".pdf"之前的文件名
+    if typename == "word2txt" :
+        #如果是word文件：
+        if fnmatch.fnmatch(filename, '*.doc') :
+            new_name = filename[:-4]+'.txt'
+            print(new_name)
+        if fnmatch.fnmatch(filename, '*.docx'):
+            new_name = filename[:-5]+'.txt'
+        # 如果不是word文件，或者是word临时文件退出
+        else:
+            return
+    if typename == "word2pdf" :
+        #如果是word文件：
+        if fnmatch.fnmatch(filename, '*.doc'):
+            new_name = filename[:-4]+'.pdf'
+        if fnmatch.fnmatch(filename, '*.docx'):
+            new_name = filename[:-5]+'.pdf'
+        #如果不是word文件：继续
+        else:
+            return
+    return new_name
+
+'''记录文件处理日志'''
+def filelogs(rootdir):
+    prapath,filename = os.path.split(rootdir)
+    # 创建日志目录
+    dirpath = prapath+r"/"+filename+"_logs"
+    TraversalFun.mkdir(dirpath)
+    # 错误文件路径
+    errorpath = dirpath+r"/errorlogs.txt"
+    # 限制文件路径
+    limitpath = dirpath+r"/limitlogs.txt"
+    # 错误文件日志写入
+    TraversalFun.writeFile(errorpath,'\n'.join(Global.error_file_list))
+    # # 限制文件日志写入
+    TraversalFun.writeFile(limitpath,'\n'.join(Global.limit_file_list))
+
+'''清空目录文件'''
+def cleardir(dirpath):
+    if not os.path.exists(dirpath):
+        TraversalFun.mkdir(dirpath)
+    else:
+        shutil.rmtree(dirpath)
+        TraversalFun.mkdir(dirpath)
+
+''' 文件的写操作'''
+def writeFile(filepath,strs): #encoding="utf-8"
+    with open(filepath,'wb') as f:
+        f.write(strs.encode())
+
+''' 文件的读操作'''
+def readFile(filepath):
+    isfile = os.path.exists(filepath)
+    readstr = ""
+    if isfile:
+        with open(filepath,"r",encoding="utf-8") as f:
+            readstr = f.read()
+    else:
+        return
+    return readstr
+
+''' 创建目录 '''
+def mkdir(dirpath):
+    # 判断路径是否存在
+    isExists=os.path.exists(dirpath)
+    # 判断结果
+    if not isExists:
+        os.makedirs(dirpath)
+        print(dirpath+' 创建成功')
+    else:
+        pass
+```
+
+2 TestMethod测试类
+```python    
+def TestMethod(filepath,newpath):
+    if os.path.isfile(filepath) :
+        print("this is file name:"+filepath)
+    else:
+        pass
+</pre>
+3 利用测试类方法运行方法参数效果图
+
+方法的调用：传达参数分别是跟目录和测试类中的方法参数
+<pre>
+t1=time.time()
+# 根目录文件路径
+rootDir = r"../../Corpus/DataSet"
+tra=TraversalFun(rootDir,TestMethod) # 默认方法参数打印所有文件路径
+tra.TraversalDir()                   # 遍历文件并进行相关操作
+
+t2=time.time()
+totalTime=Decimal(str(t2-t1)).quantize(Decimal('0.0000'))
+print("耗时："+str(totalTime)+" s"+"\n")
+input()
+</pre>
+运行结果如图所示：
+![](https://i.imgur.com/qN4fpJm.png)
+
+# 基于pdfminer插件的pdf批量格式转换代码实现
+> pdfminer原理介绍
+
+![](https://i.imgur.com/i0WdEma.png)
+
+由于解析PDF是一件非常耗时和内存的工作，因此PDFMiner使用了一种称作lazy parsing的策略，只在需要的时候才去解析，以减少时间和内存的使用。要解析PDF至少需要两个类：PDFParser 和 PDFDocument，PDFParser 从文件中提取数据，PDFDocument保存数据。另外还需要PDFPageInterpreter去处理页面内容，PDFDevice将其转换为我们所需要的。PDFResourceManager用于保存共享内容例如字体或图片。
+
+![](https://i.imgur.com/HuhjYMi.png)
+
+1. LTPage :表示整个页。可能会含有LTTextBox，LTFigure，LTImage，LTRect，LTCurve和LTLine子对象。
+1. LTTextBox:表示一组文本块可能包含在一个矩形区域。注意此box是由几何分析中创建，并且不一定表示该文本的一个逻辑边界。它包含TTextLine对象的列表。使用 get_text（）方法返回的文本内容。
+1. LTTextLine :包含表示单个文本行LTChar对象的列表。字符对齐要么 水平或垂直，取决于文本的写入模式。 
+1. get_text（）方法返回的文本内容。
+1. LTAnno:在文本中实际的字母表示为Unicode字符串（？）。需要注意的是，虽然一个LTChar对象具有实际边界，LTAnno对象没有，因为这些是“虚拟”的字符，根据两个字符间的关系（例如，一个空格）由布局分析后插入。
+1. LTImage:表示一个图像对象。嵌入式图像可以是JPEG或其它格式，但是目前PDFMiner没有放置太多精力在图形对象。
+1. LTLine:代表一条直线。可用于分离文本或附图。
+1. LTRect:表示矩形。可用于框架的另一图片或数字。
+1. LTCurve:表示一个通用的 Bezier曲线
+
+> pdfminer学习文献
+
+英文官方：https://euske.github.io/pdfminer/index.html
+中文：https://blog.csdn.net/robolinux/article/details/43318229
+
+> pdfminer代码实现
+
+<pre>
+# pdfminer库的地址 https://pypi.python.org/pypi/pdfminer3k
+# 下载后，用cmd执行命令 setup.py install
+from pdfminer.pdfparser import PDFParser,PDFDocument
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.converter import PDFPageAggregator
+from pdfminer.layout import LTTextBoxHorizontal,LAParams
+from pdfminer.pdfinterp import PDFTextExtractionNotAllowed
 from decimal import Decimal
-from BaseClass import *  # 自定义类库
-</code></pre><blockquote>
-<p>word的doc或docx文件转化pdf文本</p>
-</blockquote>
-<p>1 代码实现<br>    ‘’’<br>    功能名称：word的doc或docx文件转化pdf文本<br>    功能描述：输入一个doc或docx文件路径，自动转化为pdf文件，并存储在当前路径下。<br>              用户可以指定存储文件路径。<br>    参数描述：<br>              1 filepath：单个文件路径<br>              2 newdir： 指定保存路径<br>    测试路径： F:\corper\kjt\1.docx<br>    ‘’’<br>    def doc2pdf(filepath,newDir=’’):</p>
-<pre><code>    # 文件路径切分为上级路径和文件名
+import time,fnmatch,os,re,sys
+from BaseClass import *  #全局变量
+# from BaseClass import TraversalFun # 文件遍历处理基类函数
+
+# 清除警告
+import logging
+logging.Logger.propagate = False
+logging.getLogger().setLevel(logging.ERROR)
+
+'''pdf文件格式转换为txt'''
+def PdfToText(filepath,newdir=''):
+    # 文件路径切分为上级路径和文件名
+    prapath,filename = os.path.split(filepath)
+    new_txt_name=TraversalFun.TranType(filename,"pdf2txt") # 更改文件名
+    if new_txt_name ==None:
+        return
+    newpath = os.path.join(newdir,new_txt_name) # 文件保存路径
+    print ("->格式转换后保留路径：\n"+newpath)
+
+    try:
+        praser = PDFParser(open(filepath, 'rb')) # 创建一个pdf文档分析器
+        doc = PDFDocument()  # 创建一个PDF文档
+        praser.set_document(doc)  # 连接分析器 与文档对象
+        doc.set_parser(praser)
+        doc.initialize()  # 提供初始化密码，如果没有密码 就创建一个空的字符串
+
+        # 检测文档是否提供txt转换，不提供就忽略
+        if not doc.is_extractable:
+            Global.error_file_list.append(filepath)
+            return
+
+        rsrcmgr = PDFResourceManager() # 创建PDf 资源管理器管理共享资源
+        laparams = LAParams() # 创建一个PDF设备对象
+        device = PDFPageAggregator(rsrcmgr, laparams=laparams)
+        interpreter = PDFPageInterpreter(rsrcmgr, device)  # 创建一个PDF解释器对象
+        pdfStr = "" # 存储解析后的提取内容
+        # 循环遍历列表，每次处理一个page的内容
+        for page in doc.get_pages(): # doc.get_pages()获取page列表
+            interpreter.process_page(page)
+            layout = device.get_result()  # 接受该页面的LTPage对象
+            # 这里layout是一个LTPage对象 里面存放着 这个page解析出的各种对象 一般包括LTTextBox, LTFigure, LTImage, LTTextBoxHorizontal 等等 想要获取文本就获得对象的text属性，
+            for x in layout:
+                if (isinstance(x, LTTextBoxHorizontal)):
+                    pdfStr = pdfStr + x.get_text()
+
+        TraversalFun.writeFile(newpath,pdfStr) # 写文件
+
+        # 限制文件列表
+        filesize = os.path.getsize(newpath)
+        if filesize < Global.limit_file_size :
+            Global.limit_file_list.append(newpath+"\t"+ str(Decimal(filesize/1024).quantize(Decimal('0.00'))) +"KB")
+            os.remove(newpath)
+        else :
+            Global.all_FileNum+=1
+
+    except Exception as e:
+        Global.error_file_list.append(filepath)
+        return
+
+if __name__ == '__main__':
+    t1=time.time()
+
+    rootDir =  r"../../Corpus/DataSet" # 默认处理路径
+    TraversalFun.cleardir(r'../../Corpus/DataSet_newpath') # 每次加载清空目录
+    print ('【批量生成的文件:】')
+    tra=TraversalFun(rootDir,PdfToText) # 默认方法参数打印所有文件路径
+    tra.TraversalDir()
+
+    # 写入日志文件
+    TraversalFun.filelogs(rootDir)
+
+
+    print ('共处理文档数目：'+str(Global.all_FileNum+len(Global.error_file_list)+len(Global.limit_file_list))+' 个,其中:\n \
+        1) 筛选文件(可用)'+str(Global.all_FileNum)+'个.\n \
+        2) 错误文件(不能识别)'+ str(len(Global.error_file_list)) +'个.\n \
+        3) 限制文件(<5k)'+ str(len(global.limit_file_list))+'个.'="" )="" t2="time.time()" totaltime="Decimal(str(t2-t1)).quantize(Decimal('0.0000'))" print("耗时："+str(totaltime)+"="" s"+"\n")="" input()="" <="" pre="">
+解析pdf文件用到的类：
+1.     PDFParser：从一个文件中获取数据
+1.     PDFDocument：保存获取的数据，和PDFParser是相互关联的
+1.     PDFPageInterpreter处理页面内容
+1.     PDFDevice将其翻译成你需要的格式
+1.     PDFResourceManager用于存储共享资源，如字体或图像。
+
+> pdfminer页面结果：
+
+![](https://i.imgur.com/EDdqonh.png)
+
+> pdfminer转化结果
+
+![](https://i.imgur.com/T0XmvRU.png)
+
+> 实验结论
+
+错误分析，打开日志文件查看
+
+![](https://i.imgur.com/pDlENwI.png)
+
+错误原因分析：因为我们在全局变量中限制了最小文件读取1KB，该文件0KB不符合要求故而过滤出来。打开查看发现该pdf是一张图片转换出来的，没有成功识别。但是，通过技术研究是可以实现的，本文没有深入进行。还有以下结论：
+
+    1 可以支持批量文本和单文本转化。
+    2 编码格式一致，默认utf-8。
+    3 生成文件名誉原始处理文件名保存一致。
+    4 生成的文本信息相对比较规范。
+
+支持多方式转化，其他案例读者自行研究。
+
+> 扩展学习
+
+在解析有些PDF的时候会报这样的异常：
+
+    pdfminer.pdfdocument.PDFEncryptionError: Unknown algorithm: param={'CF': {'StdCF': {'Length': 16, 'CFM': /AESV2, 'AuthEvent': /DocOpen}}, 'O': '\xe4\xe74\xb86/\xa8)\xa6x\xe6\xa3/U\xdf\x0fWR\x9cPh\xac\xae\x88B\x06_\xb0\x93@\x9f\x8d', 'Filter': /Standard, 'P': -1340, 'Length': 128, 'R': 4, 'U': '|UTX#f\xc9V\x18\x87z\x10\xcb\xf5{\xa7\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00', 'V': 4, 'StmF': /StdCF, 'StrF': /StdCF}
+
+如上是加密的PDF，所以无法解析 ，但是如果直接打开PDF却是可以的并没有要求输密码什么的，原因是这个PDF虽然是加过密的，但密码是空，所以就出现了这样的问题。
+解决这个的问题的办法是通过qpdf命令来解密文件（要确保已经安装了qpdf），要想在python中调用该命令只需使用call即可：
+
+    1 from subprocess import call
+    2 call('qpdf --password=%s --decrypt %s %s' %('', file_path, new_file_path), shell=True)
+
+其中参数file_path是要解密的PDF的路径，new_file_path是解密后的PDF文件路径，然后使用解密后的文件去做解析就OK了
+
+# 基于win32com插件的代码实现
+
+> 导入相关包
+
+    from win32com import client as wc
+    from win32com.client import Dispatch, constants, gencache
+    import os,fnmatch,time,sys
+    from decimal import Decimal
+    from BaseClass import *  # 自定义类库
+
+> word的doc或docx文件转化pdf文本
+
+1 代码实现
+<pre>
+功能名称：word的doc或docx文件转化pdf文本
+功能描述：输入一个doc或docx文件路径，自动转化为pdf文件，并存储在当前路径下。
+          用户可以指定存储文件路径。
+参数描述：
+          1 filepath：单个文件路径
+          2 newdir： 指定保存路径
+测试路径： F:\corper\kjt\1.docx
+'''
+def doc2pdf(filepath,newDir=''):
+    # 文件路径切分为上级路径和文件名
     prapath,filename = os.path.split(filepath)
     # 单文件处理使用
-    if newDir==&#39;&#39;:
+    if newDir=='':
         newDir = prapath
     else:
         newDir =newDir
-    new_txt_name=TraversalFun.TranType(filename,&quot;word2pdf&quot;)
+    new_txt_name=TraversalFun.TranType(filename,"word2pdf")
     if new_txt_name ==None:
         return
     else:
         print(new_txt_name)
         newpath = os.path.join(newDir,new_txt_name)
-        word = wc.DispatchEx(&quot;Word.Application&quot;)
+        word = wc.DispatchEx("Word.Application")
         worddoc = word.Documents.Open(filepath,ReadOnly = 1)
         worddoc.SaveAs(newpath, FileFormat = 17)
         worddoc.Close()
 
         Global.all_FileNum+=1
-</code></pre><p>2 单个word转换pdf<br>主程序运行代码：</p>
+</pre>
+
+<p>2 单个word转换pdf<br>主程序运行代码：</p>
 <pre><code># 单个word转换pdf
 filepath=os.path.abspath(r&quot;../../Corpus/DataSet/2012/科技项目数据挖掘决策架构.docx&quot;)
 doc2pdf(filepath)
-</code></pre><p>控制台打印效果：<br>    科技项目数据挖掘决策架构.pdf<br>    共处理文档数目：1 个<br>    耗时：3.6121 s</p>
-<p>结果：</p>
+</code></pre><p>控制台打印效果：</p>
+<pre><code>科技项目数据挖掘决策架构.pdf
+共处理文档数目：1 个
+耗时：3.6121 s
+</code></pre><p>结果：</p>
 <p><img src="https://i.imgur.com/sdDO9Rh.png" alt=""></p>
 <p>打开显示：</p>
 <p><img src="https://i.imgur.com/Pl72HY4.png" alt=""></p>
-<p>3 批量word转换pdf<br>主程序运行代码：<br>    rootDir =os.path.abspath(r”../../Corpus/DataSet”)</p>
-<pre><code># 1 批量的word转换pdf
+<p>3 批量word转换pdf<br>主程序运行代码：</p>
+<pre><code>rootDir =os.path.abspath(r&quot;../../Corpus/DataSet&quot;)
+# 1 批量的word转换pdf
 tra=TraversalFun(rootDir,doc2pdf) # 默认方法参数打印所有文件路径
 tra.TraversalDir(&#39;word2pdf&#39;)
-</code></pre><p>控制台打印效果：<br>    保存目录路径：<br>    F:\AllNote\AllProject\TechDataMining\Corpus\DataSet_word2pdf<br>    科技项目数据挖掘决策架构.pdf<br>    科技项目数据挖掘决策架构.pdf<br>    共处理文档数目：2 个<br>    耗时：7.1494 s<br>结果：</p>
+</code></pre><p>控制台打印效果：<br>    保存目录路径：<br>    F:\AllNote\AllProject\TechDataMining\Corpus\DataSet_word2pdf<br>    科技项目数据挖掘决策架构.pdf<br>    科技项目数据挖掘决策架构.pdf<br>    共处理文档数目：2 个<br>    耗时：7.1494 s</p>
+<p>结果：</p>
 <p><img src="https://i.imgur.com/XUNZ4tV.png" alt=""></p>
 <blockquote>
 <p>word的doc或docx文件转化txt文本</p>
 </blockquote>
-<p>1 代码实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能名称：单个word的doc或docx文件转化txt文本</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">WordTranslate</span><span class="params">(filepath,newDir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名</span></span><br><span class="line">    prapath,filename = os.path.split(os.path.abspath(filepath))</span><br><span class="line">    <span class="keyword">if</span> newDir==<span class="string">''</span>:</span><br><span class="line">        newDir = prapath</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newDir =newDir</span><br><span class="line">    new_txt_name=TraversalFun.TranType(filename,<span class="string">'word2txt'</span>)</span><br><span class="line">    <span class="keyword">if</span> new_txt_name == <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        word_to_txt = os.path.join(newDir,new_txt_name)</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">"格式转换后保留路径：\n"</span>+word_to_txt)</span><br><span class="line">        <span class="comment">#加载处理应用</span></span><br><span class="line">        wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">        doc = wordapp.Documents.Open(filepath)</span><br><span class="line">        <span class="comment">#为了让python可以在后续操作中r方式读取txt和不产生乱码，参数为4</span></span><br><span class="line">        doc.SaveAs(word_to_txt,<span class="number">4</span>)</span><br><span class="line">        doc.Close()</span><br><span class="line">        <span class="comment"># print(word_to_txt)</span></span><br><span class="line">        Global.all_FileNum += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>2  单个word转换txt</p>
+<p>1 代码实现</p>
+<p><pre><br>‘’’<br>功能名称：单个word的doc或docx文件转化txt文本<br>‘’’<br>def WordTranslate(filepath,newDir=’’):</pre></p>
+<pre><code># 文件路径切分为上级路径和文件名
+prapath,filename = os.path.split(os.path.abspath(filepath))
+if newDir==&#39;&#39;:
+    newDir = prapath
+else:
+    newDir =newDir
+new_txt_name=TraversalFun.TranType(filename,&#39;word2txt&#39;)
+if new_txt_name == None:
+    return
+else:
+    word_to_txt = os.path.join(newDir,new_txt_name)
+    print (&quot;格式转换后保留路径：\n&quot;+word_to_txt)
+    #加载处理应用
+    wordapp = wc.Dispatch(&#39;Word.Application&#39;)
+    doc = wordapp.Documents.Open(filepath)
+    #为了让python可以在后续操作中r方式读取txt和不产生乱码，参数为4
+    doc.SaveAs(word_to_txt,4)
+    doc.Close()
+    # print(word_to_txt)
+    Global.all_FileNum += 1
+</code></pre><p>&lt;/pre&gt;<br>2  单个word转换txt</p>
 <pre><code># 单个word转换txt  
 filepath=os.path.abspath(r&quot;../../Corpus/DataSet/2012/科技项目数据挖掘决策架构.docx&quot;)
 WordTranslate(filepath)
@@ -758,8 +1080,29 @@ tra.TraversalDir(&#39;word2txt&#39;)
 <blockquote>
 <p>pdf文件转化txt文本</p>
 </blockquote>
-<p>1 代码实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能名称：pdf文件转化txt文本</span></span><br><span class="line"><span class="string">功能描述：输入一个pdf文件路径，自动转化为txt文件，并存储在当前路径下。</span></span><br><span class="line"><span class="string">          用户可以指定存储文件路径。</span></span><br><span class="line"><span class="string">参数描述：</span></span><br><span class="line"><span class="string">          1 filepath：单个文件路径</span></span><br><span class="line"><span class="string">          2 newdir： 指定保存路径</span></span><br><span class="line"><span class="string">测试路径： F:\corper\kjt\申报书.pdf</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">PdfTranslate</span><span class="params">(filepath,newDir=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 文件路径切分为上级路径和文件名</span></span><br><span class="line">    prapath,filename = os.path.split(filepath)</span><br><span class="line">    <span class="keyword">if</span> newDir==<span class="string">""</span>:</span><br><span class="line">        newDir = prapath</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newDir = newDir</span><br><span class="line">    new_txt_name=TraversalFun.TranType(filename,<span class="string">"pdf2txt"</span>)</span><br><span class="line">    <span class="keyword">if</span> new_txt_name ==<span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        word_to_txt = os.path.join(newDir,new_txt_name)</span><br><span class="line">        <span class="comment"># print(word_to_txt)</span></span><br><span class="line">        <span class="comment">#加载处理应用</span></span><br><span class="line">        wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">        doc = wordapp.Documents.Open(filepath)</span><br><span class="line">        <span class="comment">#为了让python可以在后续操作中r方式读取txt和不产生乱码，参数为4</span></span><br><span class="line">        doc.SaveAs(word_to_txt,<span class="number">4</span>)</span><br><span class="line">        doc.Close()</span><br><span class="line">        Global.all_FileNum += <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>2  单个pdf文件转化txt文本</p>
+<p>1 代码实现</p>
+<p><pre><br>‘’’<br>功能名称：pdf文件转化txt文本<br>功能描述：输入一个pdf文件路径，自动转化为txt文件，并存储在当前路径下。<br>          用户可以指定存储文件路径。<br>参数描述：<br>          1 filepath：单个文件路径<br>          2 newdir： 指定保存路径<br>测试路径： F:\corper\kjt\申报书.pdf<br>‘’’</pre></p>
+<p>def PdfTranslate(filepath,newDir=’’):</p>
+<pre><code># 文件路径切分为上级路径和文件名
+prapath,filename = os.path.split(filepath)
+if newDir==&quot;&quot;:
+    newDir = prapath
+else:
+    newDir = newDir
+new_txt_name=TraversalFun.TranType(filename,&quot;pdf2txt&quot;)
+if new_txt_name ==None:
+    return
+else:
+    word_to_txt = os.path.join(newDir,new_txt_name)
+    # print(word_to_txt)
+    #加载处理应用
+    wordapp = wc.Dispatch(&#39;Word.Application&#39;)
+    doc = wordapp.Documents.Open(filepath)
+    #为了让python可以在后续操作中r方式读取txt和不产生乱码，参数为4
+    doc.SaveAs(word_to_txt,4)
+    doc.Close()
+    Global.all_FileNum += 1
+</code></pre><p>&lt;/pre&gt;<br>2  单个pdf文件转化txt文本</p>
 <pre><code># 单个pdf转换txt
 filepath=os.path.abspath(r&quot;../../Corpus/DataSet/2012/改进朴素贝叶斯文本分类方法研究.pdf&quot;)
 PdfTranslate(filepath)
@@ -784,7 +1127,7 @@ tra.TraversalDir(&quot;pdf2txt&quot;)
 <h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
 <p>本文版权归作者所有，旨在技术交流使用。未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则相关责任自行承担。</p>
 </blockquote>
-
+</5k)'+></pre>
       
     </div>
 
@@ -1371,7 +1714,7 @@ tra.TraversalDir(&quot;pdf2txt&quot;)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文概述"><span class="nav-number">1.</span> <span class="nav-text">本文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于自定义格式转换介绍"><span class="nav-number">1.2.</span> <span class="nav-text">基于自定义格式转换介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础配置工作"><span class="nav-number">2.</span> <span class="nav-text">基础配置工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">基础准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类库重构"><span class="nav-number">2.2.</span> <span class="nav-text">类库重构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于pdfminer插件的pdf批量格式转换代码实现"><span class="nav-number">3.</span> <span class="nav-text">基于pdfminer插件的pdf批量格式转换代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于win32com插件的代码实现"><span class="nav-number">4.</span> <span class="nav-text">基于win32com插件的代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文概述"><span class="nav-number">1.</span> <span class="nav-text">本文概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于自定义格式转换介绍"><span class="nav-number">1.2.</span> <span class="nav-text">基于自定义格式转换介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础配置工作"><span class="nav-number">2.</span> <span class="nav-text">基础配置工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">基础准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类库重构"><span class="nav-number">2.2.</span> <span class="nav-text">类库重构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">3.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">5.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

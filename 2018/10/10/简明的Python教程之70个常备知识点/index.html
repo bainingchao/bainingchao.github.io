@@ -169,7 +169,7 @@
 <meta property="og:description" content="摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在阅读python相关书籍中，对其进行简单的笔记记录。旨在注意一些细节问题，在今后项目中灵活运用，并对部分小知识点进行代码标注。（本文原创，转载必须注明出处.）">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
-<meta property="og:updated_time" content="2018-10-19T07:44:06.435Z">
+<meta property="og:updated_time" content="2019-03-06T08:50:27.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简明的Python教程之70个常备知识点">
 <meta name="twitter:description" content="摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在阅读python相关书籍中，对其进行简单的笔记记录。旨在注意一些细节问题，在今后项目中灵活运用，并对部分小知识点进行代码标注。（本文原创，转载必须注明出处.）">
@@ -481,7 +481,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:44:06" itemprop="dateModified" datetime="2018-10-19T15:44:06+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:50:27" itemprop="dateModified" datetime="2019-03-06T16:50:27+08:00">2019-03-06</time>
               
             
           </span>
@@ -545,30 +545,266 @@
 <p>摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。在阅读python相关书籍中，对其进行简单的笔记记录。旨在注意一些细节问题，在今后项目中灵活运用，并对部分小知识点进行代码标注。（本文原创，转载必须注明出处.）</p>
 </blockquote>
 <a id="more"></a>
-<p>1 python始终记录变量最新值。<br>2 变量应简短且具有描述性，如student_name等。<br>3 变量名推荐小写。<br>4 单双引号括起来的，字符串可以包含引号和撇号。用法：”this’s a cup”<br>5 title()将每个单词的首字母都改为大写。用法：str.title()<br>6 upper()将字符串转化为大写。用法：str.upper()<br>7 lower()将字符串转化为小写。用法：str.lower()<br>8 空白泛指任何非打印字符。如空格、制表符和换行符。<br>9 rstrip()剔除字符串末尾空白。用法：str.rstrip()<br>10 lstrip()剔除字符串开头空白。用法：str.lstrip()<br>11 strip()剔除字符串两端空白。用法：str.strip()<br>12 Python使用两个称号表示乘方。用法：3 ** 2<br>13 编程理念。Python之禅：import this<br>14 list中使用逗号来分割其中的元素。<br>15 list索引-1返回最后一个元素列表，-2以此类推。用法：list[-3:]<br>16 list[0] = ‘update’ 修改列表元素<br>17 list.append(‘add’) 列表中添加元素<br>18 list.insert(0.’insert’) 列表中指定位置插入元素<br>19 del list[0] del元素删除list元素<br>20 newlist = list.pop()方法pop()删除元素<br>21 从列表中删除元素且不再使用用del方法，删除元素后还有可能用选择pop()<br>22 list.remove(‘element’) 根据值移除第一个指定的元素，可接着使用。<br>23 sort()列表按照字母永久性排序。如：list.sort()<br>24 sort()列表按照字母相反的排序。如：list.sort(reverse=True)<br>25 reverse() 反转列表元素排序。用法：list.reverse()<br>26 for循环遍历时候选择有意义的名称。用法： for cat in cats:<br>27 range() 生成一系列数字。用法： numbers= list(range(1,11,2))<br>28 list的内建统计函数。用法：min(list)/max(list)/sum(list)<br>29 python的切片功能。用法： list[0:3]/list[:]/list[-3:]/list[:9]<br>30 list复制。用法：new_foods = old_food[:]<br>31 元组包括一些列不可修改的元素且用圆括号标识。用法：tulple = (2,3)<br>32 检查是否相等时不考虑大小写。用法：str.lower() == ‘somestr’<br>33 使用and检查多个条件。用法：condition1&gt;=1 and condition2&gt;=2 and …<br>34 使用or检查多个条件。用法：condition1&gt;=1 or condition2&gt;=2 or …<br>35 使用多个列表。用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>,<span class="string">'4'</span>]</span><br><span class="line">list2 = [<span class="string">'1'</span>,<span class="string">'4'</span>]</span><br><span class="line"><span class="keyword">for</span> l2 <span class="keyword">in</span> list2:</span><br><span class="line">    <span class="keyword">if</span> l2 <span class="keyword">in</span> list1:</span><br><span class="line">        go()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>36 比较运算符两边各添加空格，便于可读性。用法：if age &gt; 40：<br>37 dict修改值，用法：dict[‘key’] = value<br>38 dict删除键值对，用法： del dict[‘key’]<br>39 字典的遍历，用法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> key,value <span class="keyword">in</span> dict.items():</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> dict:</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> dict.keys():</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> dict.values():</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> set(dict.values()): <span class="comment"># 遍历字典的无重复值</span></span><br></pre></td></tr></table></figure></p>
-<p>40 字典列表，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dict1 = [<span class="string">'key1'</span>:<span class="string">'values1'</span>,<span class="string">'key2'</span>:<span class="string">'values2'</span>]</span><br><span class="line">dict2 = [<span class="string">'key1'</span>:<span class="string">'values3'</span>,<span class="string">'key2'</span>:<span class="string">'values4'</span>]</span><br><span class="line">dict3 = [<span class="string">'key1'</span>:<span class="string">'values5'</span>,<span class="string">'key2'</span>:<span class="string">'values6'</span>]</span><br><span class="line"> </span><br><span class="line">dicts = [dict1,dict2,dict3]</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span> dict <span class="keyword">in</span> dicts:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>41 字典中存储列表，用法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">dict1 = &#123;<span class="string">'key1'</span>:<span class="string">'values1'</span>,<span class="string">'key2'</span>:[<span class="string">'values1'</span>,<span class="string">'values2'</span>]&#125;</span><br><span class="line"><span class="keyword">for</span> dict <span class="keyword">in</span> dict1[<span class="string">'key2'</span>]:</span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">42</span> 字典中存储字典，用法：</span><br><span class="line">```python</span><br><span class="line">dicts = &#123;</span><br><span class="line"><span class="string">'keys1'</span>:&#123;<span class="string">'key1'</span>:<span class="string">'values1'</span>，<span class="string">'key1'</span>:<span class="string">'values2'</span><span class="string">'key1'</span>:<span class="string">'values3'</span>&#125;,</span><br><span class="line"><span class="string">'keys2'</span>:&#123;<span class="string">'key2'</span>:<span class="string">'values2'</span>，<span class="string">'key2'</span>:<span class="string">'values2'</span><span class="string">'key2'</span>:<span class="string">'values3'</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">43</span> input接收用户输入，用法：message = input(<span class="string">'user input some values!'</span>)</span><br><span class="line"><span class="number">44</span> %取模运算判断奇偶，用法：</span><br><span class="line">```python</span><br><span class="line"><span class="keyword">if</span> (<span class="number">4</span> % <span class="number">3</span>) == <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'偶数'</span>)：</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'奇数'</span>)</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>python始终记录变量最新值。</li>
+<li>变量应简短且具有描述性，如student_name等。</li>
+<li>变量名推荐小写。</li>
+<li>单双引号括起来的，字符串可以包含引号和撇号。用法：”this’s a cup”</li>
+<li>title()将每个单词的首字母都改为大写。用法：str.title()</li>
+<li>upper()将字符串转化为大写。用法：str.upper()</li>
+<li>lower()将字符串转化为小写。用法：str.lower()</li>
+<li>空白泛指任何非打印字符。如空格、制表符和换行符。</li>
+<li>rstrip()剔除字符串末尾空白。用法：str.rstrip()</li>
+<li>lstrip()剔除字符串开头空白。用法：str.lstrip()</li>
+<li>strip()剔除字符串两端空白。用法：str.strip()</li>
+<li>Python使用两个称号表示乘方。用法：3 ** 2</li>
+<li>编程理念。Python之禅：import this</li>
+<li>list中使用逗号来分割其中的元素。</li>
+<li>list索引-1返回最后一个元素列表，-2以此类推。用法：list[-3:]</li>
+<li>list[0] = ‘update’ 修改列表元素</li>
+<li>list.append(‘add’) 列表中添加元素</li>
+<li>list.insert(0.’insert’) 列表中指定位置插入元素</li>
+<li>del list[0] del元素删除list元素</li>
+<li>newlist = list.pop()方法pop()删除元素</li>
+<li>从列表中删除元素且不再使用用del方法，删除元素后还有可能用选择pop()</li>
+<li>list.remove(‘element’) 根据值移除第一个指定的元素，可接着使用。</li>
+<li>sort()列表按照字母永久性排序。如：list.sort()</li>
+<li>sort()列表按照字母相反的排序。如：list.sort(reverse=True)</li>
+<li>reverse() 反转列表元素排序。用法：list.reverse()</li>
+<li>for循环遍历时候选择有意义的名称。用法： for cat in cats:</li>
+<li>range() 生成一系列数字。用法： numbers= list(range(1,11,2))</li>
+<li>list的内建统计函数。用法：min(list)/max(list)/sum(list)</li>
+<li>python的切片功能。用法： list[0:3]/list[:]/list[-3:]/list[:9]</li>
+<li>list复制。用法：new_foods = old_food[:]</li>
+<li>元组包括一些列不可修改的元素且用圆括号标识。用法：tulple = (2,3)</li>
+<li>检查是否相等时不考虑大小写。用法：str.lower() == ‘somestr’</li>
+<li>使用and检查多个条件。用法：condition1&gt;=1 and condition2&gt;=2 and …</li>
+<li>使用or检查多个条件。用法：condition1&gt;=1 or condition2&gt;=2 or …</li>
+<li>使用多个列表。用法：</li>
+</ol>
+<pre>
+list1 = ['1','2','3','4']
+list2 = ['1','4']
+for l2 in list2:
+    if l2 in list1:
+        go()
+    else:
+        pass
+</pre>
+
+<p>36 比较运算符两边各添加空格，便于可读性。用法：if age &gt; 40：<br>37 dict修改值，用法：dict[‘key’] = value<br>38 dict删除键值对，用法： del dict[‘key’]<br>39 字典的遍历，用法：</p>
+<pre>
+for key,value in dict.items():
+for key in dict:
+for key in dict.keys():
+for value in dict.values():
+for value in set(dict.values()): # 遍历字典的无重复值
+</pre>
+40 字典列表，用法：
+
+<pre>
+dict1 = ['key1':'values1','key2':'values2']
+dict2 = ['key1':'values3','key2':'values4']
+dict3 = ['key1':'values5','key2':'values6']
+
+dicts = [dict1,dict2,dict3]
+
+for dict in dicts:
+    pass
+</pre>
+
+<p>41 字典中存储列表，用法：</p>
+<pre>
+dict1 = {'key1':'values1','key2':['values1','values2']}
+for dict in dict1['key2']:
+</pre>
+
+<p>42 字典中存储字典，用法：</p>
+<pre>
+dicts = {
+'keys1':{'key1':'values1'，'key1':'values2''key1':'values3'},
+'keys2':{'key2':'values2'，'key2':'values2''key2':'values3'}
+}
+</pre>
+
+<p>43 input接收用户输入，用法：message = input(‘user input some values!’)<br>44 %取模运算判断奇偶，用法：</p>
+<pre>
+if (4 % 3) == 0:
+    print('偶数')：
+else:
+    print('奇数')
+</pre>
+
 <p>45 while循环的常规用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">current_number = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> current_number &lt;= <span class="number">10</span>:</span><br><span class="line">    print(<span class="string">'current_number'</span>)</span><br><span class="line">    current_number += <span class="number">1</span></span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">46</span> <span class="keyword">while</span>循环使用标志的用法：</span><br><span class="line">```python</span><br><span class="line">flag = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">while</span> flag:</span><br><span class="line">    message = input(prompt)</span><br></pre></td></tr></table></figure>
+<pre>
+current_number = 1
+while current_number <= 10:="" print('current_number')="" current_number="" +="1" <="" pre="">
+
+<p>46 while循环使用标志的用法：</p>
+<pre>
+flag = True
+while flag:
+    message = input(prompt)
+</pre>
+
 <p>47 列表之间移动元素，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> list[]:</span><br><span class="line">    newlist.append(list[].pop())</span><br></pre></td></tr></table></figure>
+<pre>
+while list[]:
+    newlist.append(list[].pop())
+</pre>
+
 <p>48 删除特定的元素，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> element <span class="keyword">in</span> list:</span><br><span class="line">   list.remove(element)</span><br></pre></td></tr></table></figure>
+<pre>
+while element in list:
+   list.remove(element)
+</pre>
+
 <p>49 形参与实参的理解，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">method</span><span class="params">(username)</span>:</span> <span class="comment"># username形参</span></span><br><span class="line">method(<span class="string">'zhangsan'</span>) <span class="comment"># zhangsan实参</span></span><br><span class="line">```　　</span><br><span class="line"></span><br><span class="line"><span class="number">50</span> 位置参数，用法：</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">describe</span><span class="params">(name,age)</span>:</span></span><br><span class="line">describe(<span class="string">'zhangsan'</span>,<span class="number">22</span>) <span class="comment"># 参数位置对应传递</span></span><br></pre></td></tr></table></figure>
+<pre>
+def method(username): # username形参
+method('zhangsan') # zhangsan实参
+</pre>　
+
+50 位置参数，用法：
+
+<pre>
+def describe(name,age):
+describe('zhangsan',22) # 参数位置对应传递
+</pre>
+
 <p>51 关键字实参是传递函数的名称-值对，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">describe</span><span class="params">(name,age)</span>:</span></span><br><span class="line">describe(name=<span class="string">'zhangsan'</span>,age=<span class="number">22</span>) <span class="comment"># 关键字实参</span></span><br><span class="line">describe(age=<span class="number">22</span>,name=<span class="string">'zhangsan'</span>) <span class="comment"># 关键字实参,位置不重要</span></span><br></pre></td></tr></table></figure>
+<pre>
+def describe(name,age):
+describe(name='zhangsan',age=22) # 关键字实参
+describe(age=22,name='zhangsan') # 关键字实参,位置不重要
+</pre>
+
 <p>52 形参设置默认值，用法：def describe(name=’lisi’,age):<br>53 返回值，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">describe</span><span class="params">(name=<span class="string">'lisi'</span>,age)</span>:</span></span><br><span class="line">    des = name + str(age)</span><br><span class="line"><span class="keyword">return</span> des <span class="comment"># 可以返回字典、列表等形式</span></span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">54</span> 列表参数，用法：</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">lists = [<span class="string">'huangsan'</span>,<span class="string">'lisi'</span>,<span class="string">'wangjun'</span>,<span class="string">'denghui'</span>]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cats_name</span><span class="params">(lists)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> list <span class="keyword">in</span> lists:</span><br><span class="line">        print(<span class="string">"'my love is :\t'+list"</span>.title())</span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">55</span> 传递任意参数，用法：<span class="function"><span class="keyword">def</span> <span class="title">cats_name</span><span class="params">(*cats)</span>:</span> <span class="comment"># 可以传递多个形参</span></span><br><span class="line"><span class="number">56</span> 位置实参和任意数量实参：</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cats_name</span><span class="params">(parament1,parament2,*cats)</span>:</span> <span class="comment"># 可以传递多个形参</span></span><br><span class="line">cats_name(para1,para2,para3,para4,...)</span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">57</span> 任意实参和关键字实参，用法：(cats.py)</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cats_name</span><span class="params">(parament1,parament2,**cats)</span>:</span> <span class="comment"># 可以传递多个形参</span></span><br><span class="line">cats_name(para1,para2,para3,newname=para4,...)</span><br></pre></td></tr></table></figure>
+<pre>
+def describe(name='lisi',age):
+    des = name + str(age)
+return des # 可以返回字典、列表等形式
+</pre>
+
+<p>54 列表参数，用法：</p>
+<pre>
+lists = ['huangsan','lisi','wangjun','denghui']
+def cats_name(lists):
+    for list in lists:
+        print("'my love is :\t'+list".title())
+</pre>　
+
+55 传递任意参数，用法：def cats_name(*cats): # 可以传递多个形参
+56 位置实参和任意数量实参：
+
+<pre>
+def cats_name(parament1,parament2,*cats): # 可以传递多个形参
+cats_name(para1,para2,para3,para4,...)
+</pre>　
+
+57 任意实参和关键字实参，用法：(cats.py)
+
+<pre>
+def cats_name(parament1,parament2,**cats): # 可以传递多个形参
+cats_name(para1,para2,para3,newname=para4,...)
+</pre>
+
 <p>58 导入整个模块，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cats</span><br><span class="line">cats.cats_name(para1,para2,para3,newname=para4,...)</span><br><span class="line">```　</span><br><span class="line"></span><br><span class="line"><span class="number">59</span> 导入特定的函数,用法：<span class="keyword">from</span> nltk <span class="keyword">import</span> map_tag <span class="keyword">as</span> mt</span><br><span class="line"><span class="number">60</span> 导入模块所有函数,用法：<span class="keyword">from</span> nltk <span class="keyword">import</span> *</span><br><span class="line"><span class="number">61</span> 形参默认时，两边不能为空，用法：<span class="function"><span class="keyword">def</span> <span class="title">function_name</span><span class="params">(parament_0,parament_1=<span class="string">'default'</span>)</span></span></span><br><span class="line"><span class="function">62 类的命名是驼峰型即首字母大写。</span></span><br><span class="line"><span class="function">63 <span class="title">__init__</span><span class="params">(self,papa1,para2)</span>:</span>避免python默认方法跟普通方法名称冲突,self必不可少，必须位于其他形参的前面，指向实例本身。</span><br><span class="line"><span class="number">64</span> 类的继承，用法：</span><br><span class="line">```python</span><br><span class="line"><span class="comment"># 父类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">animal_call</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'this is '</span>+self.name.title()+<span class="string">' call.'</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 子类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span><span class="params">(Animal)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,age,color)</span>:</span></span><br><span class="line">        super().__init__(name,age)</span><br><span class="line">        self.color =color</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cat_color</span><span class="params">(self)</span>:</span></span><br><span class="line">        my_color = <span class="string">'the cat is '</span>+self.color</span><br><span class="line">        print(my_color)</span><br><span class="line">        <span class="keyword">return</span> my_color</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    cat = Cat(<span class="string">'tom'</span>,<span class="number">22</span>,<span class="string">'blue'</span>)</span><br><span class="line">    cat.animal_call()</span><br><span class="line">    strs=cat.cat_color()</span><br></pre></td></tr></table></figure>
+<pre>
+import cats
+cats.cats_name(para1,para2,para3,newname=para4,...)
+</pre>　
+
+59 导入特定的函数,用法：from nltk import map_tag as mt
+60 导入模块所有函数,用法：from nltk import *
+61 形参默认时，两边不能为空，用法：def function_name(parament_0,parament_1='default')
+62 类的命名是驼峰型即首字母大写。
+63 __init__(self,papa1,para2):避免python默认方法跟普通方法名称冲突,self必不可少，必须位于其他形参的前面，指向实例本身。
+64 类的继承，用法：
+<pre>
+# 父类
+class Animal():
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+
+    def animal_call(self):
+        print('this is '+self.name.title()+' call.')
+
+
+# 子类
+class Cat(Animal):
+    def __init__(self,name,age,color):
+        super().__init__(name,age)
+        self.color =color
+
+    def cat_color(self):
+        my_color = 'the cat is '+self.color
+        print(my_color)
+        return my_color
+
+
+if __name__ == '__main__':
+    cat = Cat('tom',22,'blue')
+    cat.animal_call()
+    strs=cat.cat_color()
+</pre>
+
 <p>65 几种类的导入方式，用法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> cat <span class="keyword">import</span> Cat <span class="comment"># 导入单个类</span></span><br><span class="line"><span class="keyword">from</span> cat <span class="keyword">import</span> Animal,Cat <span class="comment"># 导入多个类</span></span><br><span class="line"><span class="keyword">from</span> cat <span class="comment"># 导入整个模块</span></span><br><span class="line"><span class="keyword">from</span> cat <span class="keyword">import</span> * <span class="comment"># 导入所有类</span></span><br></pre></td></tr></table></figure>
-<p>66 读取文本文件，并删除字符串始末空白，用法：my_str = line.strip()<br>67 opem()自动创建文件路径，若路径不存在时候。<br>68 异常代码块：try-except<br>69 split()创建单词列表<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">'this is a string'</span></span><br><span class="line">str.split()</span><br><span class="line">[<span class="string">'this'</span>,<span class="string">'is'</span>,<span class="string">'a'</span>,<span class="string">'string'</span>]</span><br></pre></td></tr></table></figure></p>
-<p>70 存储数据json.dump()和json.load()<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 父类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">animal_call</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'this is '</span>+self.name.title()+<span class="string">' call.'</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 子类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span><span class="params">(Animal)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,age,color)</span>:</span></span><br><span class="line">        super().__init__(name,age)</span><br><span class="line">        self.color =color</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cat_color</span><span class="params">(self)</span>:</span></span><br><span class="line">        my_color = <span class="string">'the cat is '</span>+self.color</span><br><span class="line">        print(my_color)</span><br><span class="line">        <span class="keyword">return</span> my_color</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    cat = Cat(<span class="string">'tom'</span>,<span class="number">22</span>,<span class="string">'blue'</span>)</span><br><span class="line">    cat.animal_call()</span><br><span class="line">    strs=cat.cat_color()</span><br><span class="line"> </span><br><span class="line">    filename = <span class="string">r'../AllProject/V4.0EngInfoExtract/Document/EnPapers_single/test.json'</span></span><br><span class="line">    <span class="keyword">with</span> open(filename,<span class="string">'w'</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">        json.dump(strs,f_obj)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">with</span> open(filename,<span class="string">'r'</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">        strs = json.load(f_obj)</span><br><span class="line">    print(strs)</span><br></pre></td></tr></table></figure></p>
+<pre>
+from cat import Cat # 导入单个类
+from cat import Animal,Cat # 导入多个类
+from cat # 导入整个模块
+from cat import * # 导入所有类
+</pre>
+
+<p>66 读取文本文件，并删除字符串始末空白，用法：my_str = line.strip()<br>67 opem()自动创建文件路径，若路径不存在时候。<br>68 异常代码块：try-except<br>69 split()创建单词列表</p>
+<pre>
+str = 'this is a string'
+str.split()
+['this','is','a','string']
+</pre>
+
+<p>70 存储数据json.dump()和json.load()</p>
+<pre>
+import json
+
+# 父类
+class Animal():
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+
+    def animal_call(self):
+        print('this is '+self.name.title()+' call.')
+
+
+# 子类
+class Cat(Animal):
+    def __init__(self,name,age,color):
+        super().__init__(name,age)
+        self.color =color
+
+    def cat_color(self):
+        my_color = 'the cat is '+self.color
+        print(my_color)
+        return my_color
+
+
+if __name__ == '__main__':
+    cat = Cat('tom',22,'blue')
+    cat.animal_call()
+    strs=cat.cat_color()
+
+    filename = r'../AllProject/V4.0EngInfoExtract/Document/EnPapers_single/test.json'
+    with open(filename,'w') as f_obj:
+        json.dump(strs,f_obj)
+
+    with open(filename,'r') as f_obj:
+        strs = json.load(f_obj)
+    print(strs)
+</pre>
+
 <hr>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li><a href="https://www.python.org/downloads/" target="_blank" rel="noopener">Python官网</a></li>
@@ -583,7 +819,7 @@
 <h1 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h1><blockquote>
 <p>本文版权归作者所有，旨在技术交流使用。未经作者同意禁止转载，转载后需在文章页面明显位置给出原文连接，否则相关责任自行承担。</p>
 </blockquote>
-
+</=></pre>
       
     </div>
 

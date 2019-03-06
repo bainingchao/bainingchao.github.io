@@ -18,7 +18,7 @@
 
 <html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+  <meta charset="UTF-8"/>
 <meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
 <meta name="baidu-site-verification" content="3frqY9KiVO" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -168,19 +168,15 @@
 <meta property="og:site_name" content="白宁超的官网">
 <meta property="og:description" content="摘要：机器学习算法中KNN属于比较简单的典型算法，既可以做聚类又可以做分类使用。本文通过一个模拟的实际案例进行讲解。整个流程包括：采集数据、数据格式化处理、数据分析、数据归一化处理、构造算法模型、评估算法模型和算法模型的应用。（本文原创，转载必须注明出处.）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.imgur.com/8hDPG00.png">
-<meta property="og:image" content="https://i.imgur.com/KPIb9fs.png">
-<meta property="og:image" content="https://i.imgur.com/m1b96kb.png">
-<meta property="og:image" content="https://i.imgur.com/CE8vS7x.png">
 <meta property="og:image" content="https://i.imgur.com/Wj2RFGO.png">
 <meta property="og:image" content="https://i.imgur.com/CAms1ZO.png">
 <meta property="og:image" content="https://i.imgur.com/GePUbW8.png">
 <meta property="og:image" content="https://i.imgur.com/SUOetQD.png">
-<meta property="og:updated_time" content="2018-10-19T07:40:15.621Z">
+<meta property="og:updated_time" content="2019-03-06T09:03:39.193Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学KNN模型算法">
 <meta name="twitter:description" content="摘要：机器学习算法中KNN属于比较简单的典型算法，既可以做聚类又可以做分类使用。本文通过一个模拟的实际案例进行讲解。整个流程包括：采集数据、数据格式化处理、数据分析、数据归一化处理、构造算法模型、评估算法模型和算法模型的应用。（本文原创，转载必须注明出处.）">
-<meta name="twitter:image" content="https://i.imgur.com/8hDPG00.png">
+<meta name="twitter:image" content="https://i.imgur.com/Wj2RFGO.png">
 
 
 
@@ -235,7 +231,7 @@
       .logo-line-after i { right: initial; }
     }
   </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</noscript>
 
 </head>
 
@@ -246,7 +242,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
 	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
@@ -488,7 +484,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:40:15" itemprop="dateModified" datetime="2018-10-19T15:40:15+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 17:03:39" itemprop="dateModified" datetime="2019-03-06T17:03:39+08:00">2019-03-06</time>
               
             
           </span>
@@ -599,213 +595,479 @@
 <p>创建模拟数据集</p>
 </blockquote>
 <p>描述：现在你来了一个新的任务，任务其实非常简单，就是根据吃冰淇淋和喝水的数量判断成都天气冷热程度。你现在要做的就是去成都春熙路街头采访记录一些游客吃了多少冰淇淋，又喝了几瓶水，他觉得成都天气怎么样（这里只考虑二分类问题，假设只有‘非常热’和‘一般热’）。其中特征向量包括两个分别是冰激凌数t1和喝水数t2，标签类别分别是非常热A和一般热B。</p>
-<p>现在我们开始行动，随机采访4个游客（暂时不考虑样本数量问题），询问每个游客吃多少冰淇淋和喝多少水（两个整型的特征向量，不考虑特征重要程度），并记录下他们口中的成都天气感受（非常热A与一般热B）。然后通过采访数据训练一个KNN分类器，新的游客只需要说出特征向量自动判别成都天气冷热程度。创建模拟数据集代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''KNN创建数据源，返回数据集和标签'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_dataset</span><span class="params">()</span>:</span></span><br><span class="line">    group = array(random.randint(<span class="number">0</span>,<span class="number">10</span>,size=(<span class="number">4</span>,<span class="number">2</span>))) <span class="comment"># 数据集</span></span><br><span class="line">    labels = [<span class="string">'A'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'B'</span>] <span class="comment"># 标签</span></span><br><span class="line">    <span class="keyword">return</span> group,labels</span><br></pre></td></tr></table></figure></p>
-<p>运行查看数据集的特征向量和分类标签：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''1 KNN模拟数据分类算法'''</span></span><br><span class="line">dataset,labels = create_dataset()</span><br><span class="line">print(<span class="string">'特征集：\n'</span>+str(dataset))</span><br><span class="line">print(<span class="string">'标签集：\n'</span>+str(labels))</span><br></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<pre><code>特征集：
-[[8 4]
- [7 1]
- [1 4]
- [3 0]]
-标签集：
-[&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;]
-</code></pre><p>分析解读：</p>
-<p>本段代码没有实际意义，只是帮助读者理解特征向量和分类标签。可以这么理解，A代表非常热，B代表一般热，属性1代表吃冰淇淋数量，属性2代表喝水的数量。那么样本数据可以解读为：</p>
-<pre><code>游客       冰淇淋    喝水    冷热程度        判断描述
+<p>现在我们开始行动，随机采访4个游客（暂时不考虑样本数量问题），询问每个游客吃多少冰淇淋和喝多少水（两个整型的特征向量，不考虑特征重要程度），并记录下他们口中的成都天气感受（非常热A与一般热B）。然后通过采访数据训练一个KNN分类器，新的游客只需要说出特征向量自动判别成都天气冷热程度。创建模拟数据集代码如下：</p>
+<pre>
+'''KNN创建数据源，返回数据集和标签'''
+def create_dataset():
+    group = array(random.randint(0,10,size=(4,2))) # 数据集
+    labels = ['A','A','B','B'] # 标签
+    return group,labels
+</pre>
+运行查看数据集的特征向量和分类标签：    
+<pre>
+'''1 KNN模拟数据分类算法'''
+dataset,labels = create_dataset()
+print('特征集：\n'+str(dataset))
+print('标签集：\n'+str(labels))
+</pre>
+运行结果：
 
-小王        8        4        A            小王吃了8个冰淇淋喝了4瓶水，成都天气非常热
+    特征集：
+    [[8 4]
+     [7 1]
+     [1 4]
+     [3 0]]
+    标签集：
+    ['A', 'A', 'B', 'B']
 
-小张        7        1        A            小张吃了7个冰淇淋喝了1瓶水，成都天气非常热
+分析解读：
 
-小李        1        4        B            小王吃了1个冰淇淋喝了4瓶水，成都天气一般热
+本段代码没有实际意义，只是帮助读者理解特征向量和分类标签。可以这么理解，A代表非常热，B代表一般热，属性1代表吃冰淇淋数量，属性2代表喝水的数量。那么样本数据可以解读为：
 
-小赵        3        0        B            小王吃了3个冰淇淋喝了0瓶水，成都天气一般热
-</code></pre><p>思考：</p>
-<p>计算机是不能直接处理自然语言，往往需要将自然语言转化成特征向量，再通过计算机处理。比如这里不是吃喝看天气情况了，而是垃圾邮件自动识别，我们就需要对邮件转化成数值型特征向量再输入计算机进行处理。</p>
-<blockquote>
-<p>规范文件数据集处理</p>
-</blockquote>
-<p>如下是一个规范文件的数据集（已经经过数采集、数据格式化、数据预处理等），特征向量包括3个，样本属于一个多分类的情况。即我们通过周飞行里程数、玩游戏占比、吃冰激凌数量判断一个人的优秀程度。假设1代表普通，2代表比较优秀，3代表非常优秀。（ps：一个人一周都在飞机上度过忙碌的工作，又不太玩游戏，关键还注意饮食，说明优秀是有道理的。）</p>
-<pre><code>周飞行里程数（km）     周玩游戏占比（%）      周消耗冰激凌（公升）        样本分类
-40920                8.326976            0.953952                3
-14488                 7.153469             1.673904                2
-26052                 1.441871            0.805124                1
-...                     ...                 ...                    ...
-75136                 13.147394            0.428964                   1
-38344                1.669788            0.134296                1
-72993                10.141740            1.032955                1
-</code></pre><p>上面是处理好保存在txt文本的数据，计算机如何去识别并处理这些数据呢？这里我们分别提取特征向量和标签向量。数据集处理代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''对文件进行格式处理，便于分类器可以理解'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file_matrix</span><span class="params">(filename)</span>:</span></span><br><span class="line">    f = open(filename)</span><br><span class="line">    arrayLines = f.readlines()</span><br><span class="line">    returnMat = zeros((len(arrayLines),<span class="number">3</span>))    <span class="comment"># 数据集</span></span><br><span class="line">    classLabelVactor = []                     <span class="comment"># 标签集</span></span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> arrayLines:</span><br><span class="line">        listFromLine = line.strip().split(<span class="string">'    '</span>)    <span class="comment"># 分析数据，空格处理</span></span><br><span class="line">        returnMat[index,:] = listFromLine[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line">        classLabelVactor.append(int(listFromLine[<span class="number">-1</span>]))</span><br><span class="line">        index +=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> returnMat,classLabelVactor</span><br></pre></td></tr></table></figure></p>
-<p>代码说明：</p>
-<pre><code>1 zeros(Y,X)：填充矩阵，需要导入NumPy包。Y向量代表样本行数，X向量代表样本特征数即列数。
-2 returnMat[index,:]：遍历样本特征向量
-</code></pre><p>运行查看数据集的特征向量和分类标签：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' KNN针对文件的分类算法'''</span></span><br><span class="line">filename = os.path.abspath(<span class="string">r'./datasource/datingTestSet2.txt'</span>)</span><br><span class="line">dataset,labels = file_matrix(filename)</span><br><span class="line">print(<span class="string">'特征集：\n'</span>+str(dataset))</span><br><span class="line">print(<span class="string">'标签集：\n'</span>+str(labels))</span><br></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<pre><code>特征集：
-[[4.0920000e+04 8.3269760e+00 9.5395200e-01]
- [1.4488000e+04 7.1534690e+00 1.6739040e+00]
- [2.6052000e+04 1.4418710e+00 8.0512400e-01]
- ...
- [2.6575000e+04 1.0650102e+01 8.6662700e-01]
- [4.8111000e+04 9.1345280e+00 7.2804500e-01]
- [4.3757000e+04 7.8826010e+00 1.3324460e+00]]
-标签集：
-[3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 
- 1, 1, 1, 2, 3, 2, 1, 2, 3, 2, 3, 2, 3, 2, 1, 
- 3, 1, 3, 1, 2, 1, 1, 2, 3, 3, 1, 2, 3, 3, 3, 
- ...    
- 3, 3, 1, 2, 3, 1, 3, 1, 2, 2, 1, 1, 1, 1, 1]
-</code></pre><blockquote>
-<p>不规范数据集处理</p>
-</blockquote>
-<p>这里我们只是提供一个思路。比如做文本分类算法，如何将一篇篇新闻转化为规范的数值型数据集呢。假设Z政治新闻100篇，T体育新闻100篇，Y娱乐新闻100篇，K科技新闻100篇。我们进行分类：</p>
-<pre><code>1 遍历所有文本转化统一的txt格式文件（2.2节会讲到）
-2 对全部ZTYK文本进行分词和停用词处理。
-3 统计全部样本词频尺寸（可以采用TF-IDF或者深度学习方法处理）。
-4 每个样本进行词频统计
-</code></pre><p>最终模拟效果如下：</p>
-<pre><code>样本        词1        词2        词3        词4        ...        词n        标签
-p1         200       0       100        50         ...    20           Z
-p2         100       0       80        40         ...    10           Z
-p3         0           100       5        5         ...    200           T
-p4         6              230       40        12         ...    670           T
-p5         0           2       110        57         ...    234           Y
-...         ...       ...       ...        ...         ...    ...           ...
-pn         123       45       0        580         ...    24           K
-</code></pre><h3 id="2-2-数据格式化"><a href="#2-2-数据格式化" class="headerlink" title="2.2 数据格式化"></a>2.2 数据格式化</h3><blockquote>
-<p>数据文件转化</p>
-</blockquote>
-<p>自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。这里所谓格式转化主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预处理工作。具体详情请参照之前写的<a href="https://www.cnblogs.com/baiboy/p/pybnc1.html" target="_blank" rel="noopener">数据分析：基于Python的自定义文件格式转换系统</a>一文。</p>
-<blockquote>
-<p>文件格式化处理</p>
-</blockquote>
-<p>这里可以采用多种方式，诸如上文提到的矩阵填充法，当然也可以采用现成的工具。比如百度的Echarts中<a href="http://echarts.baidu.com/spreadsheet.html" target="_blank" rel="noopener">表格数据转换工具</a>。其支持纯数组的转换，数组+对象，地理坐标等方式，还支持json数据的转化，这对使用百度EChart可视化是非常友好的，也有助于可视化数据分析。文本数据格式效果如下图：</p>
-<p><img src="https://i.imgur.com/8hDPG00.png" alt=""></p>
-<pre><code>[
-    [&#39;40920    8.326976    0.953952    3&#39;],
-    [&#39;14488    7.153469    1.673904    2&#39;],
-    [&#39;26052    1.441871    0.805124    1&#39;],
-    [&#39;75136    13.147394    0.428964    1&#39;],
-    [&#39;38344    1.669788    0.134296    1&#39;],
-    [&#39;72993    10.141740    1.032955    1&#39;],
-    ...
-    [&#39;35948    6.830792    1.213192    3&#39;],
-    [&#39;42666    13.276369    0.543880    3&#39;],
-    [&#39;67497    8.631577    0.749278    1&#39;],
-    [&#39;35483    12.273169    1.508053    3&#39;],
-    [&#39;50242    3.723498    0.831917    1&#39;],
-    [&#39;63275    8.385879    1.669485    1&#39;],
-    [&#39;5569    4.875435    0.728658    2&#39;],
-    [&#39;15669    0.000000    1.250185    2&#39;],
-    [&#39;28488    10.528555    1.304844    3&#39;],
-    [&#39;6487    3.540265    0.822483    2&#39;],
-    [&#39;37708    2.991551    0.833920    1&#39;]
-]
-</code></pre><h3 id="2-3-数据归一化"><a href="#2-3-数据归一化" class="headerlink" title="2.3 数据归一化"></a>2.3 数据归一化</h3><blockquote>
-<p>数据归一化</p>
-</blockquote>
-<p>机器学习、数据挖掘、自然语言处理等数据科学工作中，数据前期准备、数据预处理过程、特征提取等几个步骤比较花费时间。同时，数据预处理的效果也直接影响了后续模型能否有效的工作。然而，目前的很多研究主要集中在模型的构建、优化等方面，对数据预处理的理论研究甚少，很多数据预处理工作仍然是靠工程师的经验进行的。也不是所有数据都需要归一化，诸如</p>
-<pre><code>1.     数据类型一致且分布均匀。
-2.     概率模型可以不做归一化，如决策树。
-</code></pre><blockquote>
-<p>数据归一化优点</p>
-</blockquote>
-<pre><code>1. 归一化后加快了梯度下降求最优解的速度;
-2. 归一化有可能提高精度;
-</code></pre><blockquote>
-<p>归一化方法</p>
-</blockquote>
-<p>1 sklearn线性归一化</p>
-<pre><code># 线性函数将原始数据线性化的方法转换到[0, 1]的范围    
-min_max_scaler = preprocessing.MinMaxScaler()
-X_train_minmax = min_max_scaler.fit_transform(X_train)
-X_test_minmax = min_max_scaler.transform(X_test)
-</code></pre><p>2 标准差标准化</p>
-<pre><code># 经过处理的数据符合标准正态分布，即均值为0，标准差为1，其转化函数为：
-scaler = preprocessing.StandardScaler().fit(X_train)
-scaler.transform(X_test)
-</code></pre><p>3 非线性归一化</p>
-<p>经常用在数据分化比较大的场景，有些数值很大，有些很小。通过一些数学函数，将原始值进行映射。该方法包括 log、指数，正切等。需要根据数据分布的情况，决定非线性函数的曲线，比如log(V, 2)还是log(V, 10)等。</p>
-<blockquote>
-<p>线性归一化方法代码实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''数值归一化：特征值转化为0-1之间：newValue = (oldValue-min)/(max-min)'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm_dataset</span><span class="params">(dataset)</span>:</span></span><br><span class="line">    minVals = dataset.min(<span class="number">0</span>)  <span class="comment"># 参数0是取得列表中的最小值，而不是行中最小值</span></span><br><span class="line">    maxVals = dataset.max(<span class="number">0</span>)</span><br><span class="line">    ranges = maxVals - minVals</span><br><span class="line">    normdataset = zeros(shape(dataset)) <span class="comment"># 生成原矩阵一样大小的0矩阵</span></span><br><span class="line"></span><br><span class="line">    m = dataset.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># tile:复制同样大小的矩阵</span></span><br><span class="line">    molecular = dataset - tile(minVals,(m,<span class="number">1</span>))  <span class="comment"># 分子： (oldValue-min)</span></span><br><span class="line">    Denominator = tile(ranges,(m,<span class="number">1</span>))           <span class="comment"># 分母：(max-min)</span></span><br><span class="line">    normdataset = molecular/Denominator     <span class="comment"># 归一化结果。</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> normdataset,ranges,minVals</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>数据归一化前：</p>
-<pre><code>归一化的数据结果：
-[[4.0920000e+04 8.3269760e+00 9.5395200e-01]
- [1.4488000e+04 7.1534690e+00 1.6739040e+00]
- [2.6052000e+04 1.4418710e+00 8.0512400e-01]
- ...
- [2.6575000e+04 1.0650102e+01 8.6662700e-01]
- [4.8111000e+04 9.1345280e+00 7.2804500e-01]
- [4.3757000e+04 7.8826010e+00 1.3324460e+00]]
-</code></pre><p>展开第一条信息“40920    8.326976    0.953952    3”，其中里程40000多，而公升数才0.9.两者根本不在同一个数量级上面，也就是说，如果特征属性相同的情况下，公升数即使变动100倍对里程数的影响也微乎其微。而里程数轻微变化就直接影响公升数的结果。所以我们将其放在同一尺度下进行处理，也就是本文采用的线性缩放方，数据归一化后结果如下：</p>
-<pre><code>归一化的数据结果：
-[[0.44832535 0.39805139 0.56233353]
- [0.15873259 0.34195467 0.98724416]
- [0.28542943 0.06892523 0.47449629]
- ...
- [0.29115949 0.50910294 0.51079493]
- [0.52711097 0.43665451 0.4290048 ]
- [0.47940793 0.3768091  0.78571804]]
-</code></pre><p>分析：</p>
-<p>经过上述归一化处理后，各个特征指标都是0-1这样一个范畴中进行比较。当然实际工作中不同特征的权重不同，这个可以通过增加权重方法处理即可，本文不在进行深入讨论。</p>
-<h3 id="2-4-数据分析"><a href="#2-4-数据分析" class="headerlink" title="2.4 数据分析"></a>2.4 数据分析</h3><blockquote>
-<p>基于matplotlib的可视化分析</p>
-</blockquote>
-<p>我们对数据处理后，很不容易进行数据分析。毕竟密密麻麻的数字略显冰冷无趣。我们可以将其可视化展示出来，进而查看数据稀疏程度，离散程度等等。我们查看’玩游戏所耗时间百分比’,’每周消耗在冰淇淋的公升数’两个属性的散点图，实现代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">散列表分析数据：</span></span><br><span class="line"><span class="string">dataset：数据集</span></span><br><span class="line"><span class="string">datingLabels：标签集</span></span><br><span class="line"><span class="string">Title:列表，标题、横坐标标题、纵坐标标题。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">analyze_data_plot</span><span class="params">(dataset,datingLabels,Title)</span>:</span></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    <span class="comment"># 将画布划分为1行1列1块</span></span><br><span class="line">    ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">    ax.scatter(dataset[:,<span class="number">1</span>],dataset[:,<span class="number">2</span>],<span class="number">15.0</span>*array(datingLabels),<span class="number">15.0</span>*array(datingLabels))</span><br><span class="line"></span><br><span class="line">     <span class="comment"># 设置散点图标题和横纵坐标标题</span></span><br><span class="line">    plt.title(Title[<span class="number">0</span>],fontsize=<span class="number">25</span>,fontname=<span class="string">'宋体'</span>,fontproperties=myfont)</span><br><span class="line">    plt.xlabel(Title[<span class="number">1</span>],fontsize=<span class="number">15</span>,fontname=<span class="string">'宋体'</span>,fontproperties=myfont)</span><br><span class="line">    plt.ylabel(Title[<span class="number">2</span>],fontsize=<span class="number">15</span>,fontname=<span class="string">'宋体'</span>,fontproperties=myfont)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置刻度标记大小,axis='both'参数影响横纵坐标，labelsize刻度大小</span></span><br><span class="line">    plt.tick_params(axis=<span class="string">'both'</span>,which=<span class="string">'major'</span>,labelsize=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置每个坐标轴取值范围</span></span><br><span class="line">    <span class="comment"># plt.axis([-1,25,-1,2.0])</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 截图保存图片</span></span><br><span class="line">    <span class="comment"># plt.savefig('datasets_plot.png',bbox_inches='tight')</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 显示图形</span></span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
-<p>这里注意一个问题，横纵坐标是乱码显示，解决这个问题，添加如下代码：</p>
-<pre><code>#加入中文显示
-import  matplotlib.font_manager as fm
-# 解决中文乱码，本案例使用宋体字
-myfont=fm.FontProperties(fname=r&quot;C:\\Windows\\Fonts\\simsun.ttc&quot;)
-</code></pre><p>调用可视化数据分析方法如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 文件数据图形化分析数据 '''</span></span><br><span class="line">dataset,labels = file_matrix(filename)</span><br><span class="line">noredataset = norm_dataset(dataset)[<span class="number">0</span>] <span class="comment"># 数据归一化</span></span><br><span class="line">title = [<span class="string">'约会数据游戏和饮食散列点'</span>,<span class="string">'玩游戏所耗时间百分比'</span>,<span class="string">'每周消耗在冰淇淋的公升数'</span>]</span><br><span class="line">visualplot.analyze_data_plot(noredataset,labels,title)</span><br></pre></td></tr></table></figure></p>
-<p>游戏占比与冰淇淋公升数关系散点图可视化：</p>
-<p><img src="https://i.imgur.com/KPIb9fs.png" alt=""></p>
-<p>折线图代码实现如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''折线图'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">line_chart</span><span class="params">(xvalues,yvalues)</span>:</span></span><br><span class="line">    <span class="comment"># 绘制折线图,c颜色设置，alpha透明度</span></span><br><span class="line">    plt.plot(xvalues,yvalues,linewidth=<span class="number">0.5</span>,alpha=<span class="number">0.5</span>,c=<span class="string">'red'</span>) <span class="comment"># num_squares数据值，linewidth设置线条粗细</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置折线图标题和横纵坐标标题</span></span><br><span class="line">    plt.title(<span class="string">"Python绘制折线图"</span>,fontsize=<span class="number">30</span>,fontname=<span class="string">'宋体'</span>,fontproperties=myfont)</span><br><span class="line">    plt.xlabel(<span class="string">'横坐标'</span>,fontsize=<span class="number">20</span>,fontname=<span class="string">'宋体'</span>,fontproperties=myfont)</span><br><span class="line">    plt.ylabel(<span class="string">'纵坐标'</span>,fontsize=<span class="number">20</span>,fontname=<span class="string">'宋体'</span>,fontproperties=myfont)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置刻度标记大小,axis='both'参数影响横纵坐标，labelsize刻度大小</span></span><br><span class="line">    plt.tick_params(axis=<span class="string">'both'</span>,labelsize=<span class="number">14</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 显示图形</span></span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
-<p>游戏占比与冰淇淋公升数关系折线图可视化：（此处折线图明显不合适，只是突出另一种分析方式。）</p>
-<p><img src="https://i.imgur.com/m1b96kb.png" alt=""></p>
-<p>扩展：</p>
-<p>更多matplotlib可视化实现效果图参考文章<a href="https://www.cnblogs.com/baiboy/p/pythonnotes1.html#top" target="_blank" rel="noopener"> 70个注意的Python小Notes:完整的matplotlib可视化</a></p>
-<blockquote>
-<p>基于Echart的可视化分析</p>
-</blockquote>
-<p>我们上面采用的matplotlib可视化效果，采用该方式主要是结合python数据分析绑定比较方便。有些时候我们为了取得更加漂亮的可视化效果，可以选择百度echart进行分析，百度Echart使用简单且文档规范容易上手。我们对原数据进行分析并转化为json代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''array数据转化json'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm_Json</span><span class="params">(dataset)</span>:</span></span><br><span class="line">    noredataset = norm_dataset(dataset)[<span class="number">0</span>] <span class="comment"># 数据归一化</span></span><br><span class="line">    number1 = np.around(noredataset[:,<span class="number">1</span>], decimals=<span class="number">4</span>) <span class="comment"># 获取数据集第二列</span></span><br><span class="line">    number2 = np.around(noredataset[:,<span class="number">2</span>], decimals=<span class="number">4</span>) <span class="comment"># 获取数据集第三列</span></span><br><span class="line">    returnMat=zeros((dataset.shape[<span class="number">0</span>],<span class="number">2</span>))             <span class="comment"># 二维矩阵</span></span><br><span class="line">    returnMat[:,<span class="number">0</span>] = number1</span><br><span class="line">    returnMat[:,<span class="number">1</span>] = number2</span><br><span class="line"></span><br><span class="line">    file_path = os.path.abspath(<span class="string">r"./datasource/test.json"</span>)</span><br><span class="line">    json.dump(returnMat.tolist(), codecs.open(file_path, <span class="string">'w'</span>, encoding=<span class="string">'utf-8'</span>), separators=(<span class="string">','</span>, <span class="string">':'</span>), sort_keys=<span class="keyword">True</span>, indent=<span class="number">4</span>)</span><br></pre></td></tr></table></figure></p>
-<p>生成json数据保存在指定文件中，打开文件查看数据如下：</p>
-<pre><code>[
+    游客       冰淇淋    喝水    冷热程度        判断描述
+
+    小王        8        4        A            小王吃了8个冰淇淋喝了4瓶水，成都天气非常热
+
+    小张        7        1        A            小张吃了7个冰淇淋喝了1瓶水，成都天气非常热
+
+    小李        1        4        B            小王吃了1个冰淇淋喝了4瓶水，成都天气一般热
+
+    小赵        3        0        B            小王吃了3个冰淇淋喝了0瓶水，成都天气一般热
+
+思考：
+
+计算机是不能直接处理自然语言，往往需要将自然语言转化成特征向量，再通过计算机处理。比如这里不是吃喝看天气情况了，而是垃圾邮件自动识别，我们就需要对邮件转化成数值型特征向量再输入计算机进行处理。
+
+
+> 规范文件数据集处理
+
+如下是一个规范文件的数据集（已经经过数采集、数据格式化、数据预处理等），特征向量包括3个，样本属于一个多分类的情况。即我们通过周飞行里程数、玩游戏占比、吃冰激凌数量判断一个人的优秀程度。假设1代表普通，2代表比较优秀，3代表非常优秀。（ps：一个人一周都在飞机上度过忙碌的工作，又不太玩游戏，关键还注意饮食，说明优秀是有道理的。）
+
+    周飞行里程数（km）     周玩游戏占比（%）      周消耗冰激凌（公升）        样本分类
+    40920                8.326976            0.953952                3
+    14488                 7.153469             1.673904                2
+    26052                 1.441871            0.805124                1
+    ...                     ...                 ...                    ...
+    75136                 13.147394            0.428964                   1
+    38344                1.669788            0.134296                1
+    72993                10.141740            1.032955                1
+
+上面是处理好保存在txt文本的数据，计算机如何去识别并处理这些数据呢？这里我们分别提取特征向量和标签向量。数据集处理代码如下：
+<pre>
+'''对文件进行格式处理，便于分类器可以理解'''
+def file_matrix(filename):
+    f = open(filename)
+    arrayLines = f.readlines()
+    returnMat = zeros((len(arrayLines),3))    # 数据集
+    classLabelVactor = []                     # 标签集
+    index = 0
+    for line in arrayLines:
+        listFromLine = line.strip().split('    ')    # 分析数据，空格处理
+        returnMat[index,:] = listFromLine[0:3]
+        classLabelVactor.append(int(listFromLine[-1]))
+        index +=1
+    return returnMat,classLabelVactor
+</pre>
+代码说明：
+
+    1 zeros(Y,X)：填充矩阵，需要导入NumPy包。Y向量代表样本行数，X向量代表样本特征数即列数。
+    2 returnMat[index,:]：遍历样本特征向量
+
+运行查看数据集的特征向量和分类标签：
+<pre>
+''' KNN针对文件的分类算法'''
+filename = os.path.abspath(r'./datasource/datingTestSet2.txt')
+dataset,labels = file_matrix(filename)
+print('特征集：\n'+str(dataset))
+print('标签集：\n'+str(labels))
+</pre>
+运行结果：
+
+    特征集：
+    [[4.0920000e+04 8.3269760e+00 9.5395200e-01]
+     [1.4488000e+04 7.1534690e+00 1.6739040e+00]
+     [2.6052000e+04 1.4418710e+00 8.0512400e-01]
+     ...
+     [2.6575000e+04 1.0650102e+01 8.6662700e-01]
+     [4.8111000e+04 9.1345280e+00 7.2804500e-01]
+     [4.3757000e+04 7.8826010e+00 1.3324460e+00]]
+    标签集：
+    [3, 2, 1, 1, 1, 1, 3, 3, 1, 3, 1, 1, 2, 1, 1, 
+     1, 1, 1, 2, 3, 2, 1, 2, 3, 2, 3, 2, 3, 2, 1, 
+     3, 1, 3, 1, 2, 1, 1, 2, 3, 3, 1, 2, 3, 3, 3, 
+     ...    
+     3, 3, 1, 2, 3, 1, 3, 1, 2, 2, 1, 1, 1, 1, 1]
+
+> 不规范数据集处理
+
+这里我们只是提供一个思路。比如做文本分类算法，如何将一篇篇新闻转化为规范的数值型数据集呢。假设Z政治新闻100篇，T体育新闻100篇，Y娱乐新闻100篇，K科技新闻100篇。我们进行分类：
+
+    1 遍历所有文本转化统一的txt格式文件（2.2节会讲到）
+    2 对全部ZTYK文本进行分词和停用词处理。
+    3 统计全部样本词频尺寸（可以采用TF-IDF或者深度学习方法处理）。
+    4 每个样本进行词频统计
+
+最终模拟效果如下：
+
+    样本        词1        词2        词3        词4        ...        词n        标签
+    p1         200       0       100        50         ...    20           Z
+    p2         100       0       80        40         ...    10           Z
+    p3         0           100       5        5         ...    200           T
+    p4         6              230       40        12         ...    670           T
+    p5         0           2       110        57         ...    234           Y
+    ...         ...       ...       ...        ...         ...    ...           ...
+    pn         123       45       0        580         ...    24           K
+
+### 2.2 数据格式化
+
+> 数据文件转化
+
+自然语言处理、数据挖掘、机器学习技术应用愈加广泛。针对大数据的预处理工作是一项庞杂、棘手的工作。首先数据采集和存储，尤其高质量数据采集往往不是那么简单。采集后的信息文件格式不一，诸如pdf，doc，docx，Excel，ppt等多种形式。然而最常见便是txt、pdf和word类型的文档。这里所谓格式转化主要对pdf和word文档进行文本格式转换成txt。格式一致化以后再进行后续预处理工作。具体详情请参照之前写的<a href="https://www.cnblogs.com/baiboy/p/pybnc1.html" target="_blank" rel="noopener">数据分析：基于Python的自定义文件格式转换系统</a>一文。
+
+> 文件格式化处理
+
+这里可以采用多种方式，诸如上文提到的矩阵填充法，当然也可以采用现成的工具。比如百度的Echarts中<a href="http://echarts.baidu.com/spreadsheet.html" target="_blank" rel="noopener">表格数据转换工具</a>。其支持纯数组的转换，数组+对象，地理坐标等方式，还支持json数据的转化，这对使用百度EChart可视化是非常友好的，也有助于可视化数据分析。文本数据格式效果如下图：
+
+![](https://i.imgur.com/8hDPG00.png)
+
     [
-        0.3981,
-        0.5623
-    ],
-    [
-        0.342,
-        0.9872
-    ],
-    [
-        0.0689,
-        0.4745
-    ],
-    [
-        0.6285,
-        0.2525
+        ['40920    8.326976    0.953952    3'],
+        ['14488    7.153469    1.673904    2'],
+        ['26052    1.441871    0.805124    1'],
+        ['75136    13.147394    0.428964    1'],
+        ['38344    1.669788    0.134296    1'],
+        ['72993    10.141740    1.032955    1'],
+        ...
+        ['35948    6.830792    1.213192    3'],
+        ['42666    13.276369    0.543880    3'],
+        ['67497    8.631577    0.749278    1'],
+        ['35483    12.273169    1.508053    3'],
+        ['50242    3.723498    0.831917    1'],
+        ['63275    8.385879    1.669485    1'],
+        ['5569    4.875435    0.728658    2'],
+        ['15669    0.000000    1.250185    2'],
+        ['28488    10.528555    1.304844    3'],
+        ['6487    3.540265    0.822483    2'],
+        ['37708    2.991551    0.833920    1']
     ]
-    ...
+
+### 2.3 数据归一化
+
+> 数据归一化
+
+机器学习、数据挖掘、自然语言处理等数据科学工作中，数据前期准备、数据预处理过程、特征提取等几个步骤比较花费时间。同时，数据预处理的效果也直接影响了后续模型能否有效的工作。然而，目前的很多研究主要集中在模型的构建、优化等方面，对数据预处理的理论研究甚少，很多数据预处理工作仍然是靠工程师的经验进行的。也不是所有数据都需要归一化，诸如
+
+    1.     数据类型一致且分布均匀。
+    2.     概率模型可以不做归一化，如决策树。
+
+> 数据归一化优点
+
+    1. 归一化后加快了梯度下降求最优解的速度;
+    2. 归一化有可能提高精度;
+
+
+> 归一化方法
+
+1 sklearn线性归一化
+
+    # 线性函数将原始数据线性化的方法转换到[0, 1]的范围    
+    min_max_scaler = preprocessing.MinMaxScaler()
+    X_train_minmax = min_max_scaler.fit_transform(X_train)
+    X_test_minmax = min_max_scaler.transform(X_test)
+
+2 标准差标准化
+
+    # 经过处理的数据符合标准正态分布，即均值为0，标准差为1，其转化函数为：
+    scaler = preprocessing.StandardScaler().fit(X_train)
+    scaler.transform(X_test)
+
+3 非线性归一化
+
+经常用在数据分化比较大的场景，有些数值很大，有些很小。通过一些数学函数，将原始值进行映射。该方法包括 log、指数，正切等。需要根据数据分布的情况，决定非线性函数的曲线，比如log(V, 2)还是log(V, 10)等。
+
+
+> 线性归一化方法代码实现
+<pre>
+'''数值归一化：特征值转化为0-1之间：newValue = (oldValue-min)/(max-min)'''
+def norm_dataset(dataset):
+    minVals = dataset.min(0)  # 参数0是取得列表中的最小值，而不是行中最小值
+    maxVals = dataset.max(0)
+    ranges = maxVals - minVals
+    normdataset = zeros(shape(dataset)) # 生成原矩阵一样大小的0矩阵
+
+    m = dataset.shape[0]
+    # tile:复制同样大小的矩阵
+    molecular = dataset - tile(minVals,(m,1))  # 分子： (oldValue-min)
+    Denominator = tile(ranges,(m,1))           # 分母：(max-min)
+    normdataset = molecular/Denominator     # 归一化结果。
+
+    return normdataset,ranges,minVals
+</pre>
+数据归一化前：
+
+    归一化的数据结果：
+    [[4.0920000e+04 8.3269760e+00 9.5395200e-01]
+     [1.4488000e+04 7.1534690e+00 1.6739040e+00]
+     [2.6052000e+04 1.4418710e+00 8.0512400e-01]
+     ...
+     [2.6575000e+04 1.0650102e+01 8.6662700e-01]
+     [4.8111000e+04 9.1345280e+00 7.2804500e-01]
+     [4.3757000e+04 7.8826010e+00 1.3324460e+00]]
+
+展开第一条信息“40920    8.326976    0.953952    3”，其中里程40000多，而公升数才0.9.两者根本不在同一个数量级上面，也就是说，如果特征属性相同的情况下，公升数即使变动100倍对里程数的影响也微乎其微。而里程数轻微变化就直接影响公升数的结果。所以我们将其放在同一尺度下进行处理，也就是本文采用的线性缩放方，数据归一化后结果如下：
+
+    归一化的数据结果：
+    [[0.44832535 0.39805139 0.56233353]
+     [0.15873259 0.34195467 0.98724416]
+     [0.28542943 0.06892523 0.47449629]
+     ...
+     [0.29115949 0.50910294 0.51079493]
+     [0.52711097 0.43665451 0.4290048 ]
+     [0.47940793 0.3768091  0.78571804]]
+
+分析：
+
+经过上述归一化处理后，各个特征指标都是0-1这样一个范畴中进行比较。当然实际工作中不同特征的权重不同，这个可以通过增加权重方法处理即可，本文不在进行深入讨论。
+
+### 2.4 数据分析
+
+> 基于matplotlib的可视化分析
+
+我们对数据处理后，很不容易进行数据分析。毕竟密密麻麻的数字略显冰冷无趣。我们可以将其可视化展示出来，进而查看数据稀疏程度，离散程度等等。我们查看'玩游戏所耗时间百分比','每周消耗在冰淇淋的公升数'两个属性的散点图，实现代码如下：
+<pre>
+'''
+散列表分析数据：
+dataset：数据集
+datingLabels：标签集
+Title:列表，标题、横坐标标题、纵坐标标题。
+'''
+def analyze_data_plot(dataset,datingLabels,Title):
+    fig = plt.figure()
+    # 将画布划分为1行1列1块
+    ax = fig.add_subplot(111)
+    ax.scatter(dataset[:,1],dataset[:,2],15.0*array(datingLabels),15.0*array(datingLabels))
+
+     # 设置散点图标题和横纵坐标标题
+    plt.title(Title[0],fontsize=25,fontname='宋体',fontproperties=myfont)
+    plt.xlabel(Title[1],fontsize=15,fontname='宋体',fontproperties=myfont)
+    plt.ylabel(Title[2],fontsize=15,fontname='宋体',fontproperties=myfont)
+
+    # 设置刻度标记大小,axis='both'参数影响横纵坐标，labelsize刻度大小
+    plt.tick_params(axis='both',which='major',labelsize=10)
+
+    # 设置每个坐标轴取值范围
+    # plt.axis([-1,25,-1,2.0])
+
+    # 截图保存图片
+    # plt.savefig('datasets_plot.png',bbox_inches='tight')
+
+    # 显示图形
+    plt.show()
+</pre>
+这里注意一个问题，横纵坐标是乱码显示，解决这个问题，添加如下代码：
+
+    #加入中文显示
+    import  matplotlib.font_manager as fm
+    # 解决中文乱码，本案例使用宋体字
+    myfont=fm.FontProperties(fname=r"C:\\Windows\\Fonts\\simsun.ttc")
+
+调用可视化数据分析方法如下：
+<pre>
+''' 文件数据图形化分析数据 '''
+dataset,labels = file_matrix(filename)
+noredataset = norm_dataset(dataset)[0] # 数据归一化
+title = ['约会数据游戏和饮食散列点','玩游戏所耗时间百分比','每周消耗在冰淇淋的公升数']
+visualplot.analyze_data_plot(noredataset,labels,title)
+</pre>
+游戏占比与冰淇淋公升数关系散点图可视化：
+
+![](https://i.imgur.com/KPIb9fs.png)
+
+折线图代码实现如下：    
+<pre>
+'''折线图'''
+def line_chart(xvalues,yvalues):
+    # 绘制折线图,c颜色设置，alpha透明度
+    plt.plot(xvalues,yvalues,linewidth=0.5,alpha=0.5,c='red') # num_squares数据值，linewidth设置线条粗细
+
+    # 设置折线图标题和横纵坐标标题
+    plt.title("Python绘制折线图",fontsize=30,fontname='宋体',fontproperties=myfont)
+    plt.xlabel('横坐标',fontsize=20,fontname='宋体',fontproperties=myfont)
+    plt.ylabel('纵坐标',fontsize=20,fontname='宋体',fontproperties=myfont)
+
+    # 设置刻度标记大小,axis='both'参数影响横纵坐标，labelsize刻度大小
+    plt.tick_params(axis='both',labelsize=14)
+
+    # 显示图形
+    plt.show()
+</pre>
+游戏占比与冰淇淋公升数关系折线图可视化：（此处折线图明显不合适，只是突出另一种分析方式。）
+
+![](https://i.imgur.com/m1b96kb.png)
+
+扩展：
+
+更多matplotlib可视化实现效果图参考文章<a href="https://www.cnblogs.com/baiboy/p/pythonnotes1.html#top" target="_blank" rel="noopener"> 70个注意的Python小Notes:完整的matplotlib可视化</a>
+
+> 基于Echart的可视化分析
+
+我们上面采用的matplotlib可视化效果，采用该方式主要是结合python数据分析绑定比较方便。有些时候我们为了取得更加漂亮的可视化效果，可以选择百度echart进行分析，百度Echart使用简单且文档规范容易上手。我们对原数据进行分析并转化为json代码：
+<pre>
+'''array数据转化json'''
+def norm_Json(dataset):
+    noredataset = norm_dataset(dataset)[0] # 数据归一化
+    number1 = np.around(noredataset[:,1], decimals=4) # 获取数据集第二列
+    number2 = np.around(noredataset[:,2], decimals=4) # 获取数据集第三列
+    returnMat=zeros((dataset.shape[0],2))             # 二维矩阵
+    returnMat[:,0] = number1
+    returnMat[:,1] = number2
+
+    file_path = os.path.abspath(r"./datasource/test.json")
+    json.dump(returnMat.tolist(), codecs.open(file_path, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4)
+</pre>
+生成json数据保存在指定文件中，打开文件查看数据如下：
+
     [
-        0.4367,
-        0.429
-    ],
-    [
-        0.3768,
-        0.7857
+        [
+            0.3981,
+            0.5623
+        ],
+        [
+            0.342,
+            0.9872
+        ],
+        [
+            0.0689,
+            0.4745
+        ],
+        [
+            0.6285,
+            0.2525
+        ]
+        ...
+        [
+            0.4367,
+            0.429
+        ],
+        [
+            0.3768,
+            0.7857
+        ]
     ]
-]
-</code></pre><p>从百度Echart实例中选择一种散点图并绑定json文件，其html代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>图案例<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./js/echarts.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"chartmain"</span> <span class="attr">style</span>=<span class="string">"width:800px; height: 400px; margin:auto; "</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript">        <span class="comment">//初始化echarts实例</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> myChart = echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">'chartmain'</span>));</span></span><br><span class="line"><span class="javascript">        $.getJSON(<span class="string">'game-food.json'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> option = &#123;</span></span><br><span class="line"><span class="undefined">            title: &#123;</span></span><br><span class="line"><span class="actionscript">                text: <span class="string">'玩游戏时间占比和饮食数据描述'</span>,</span></span><br><span class="line"><span class="actionscript">                left: <span class="string">'center'</span>,</span></span><br><span class="line"><span class="undefined">                top: 0</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            visualMap: &#123;</span></span><br><span class="line"><span class="undefined">                min: 15202,</span></span><br><span class="line"><span class="undefined">                max: 159980,</span></span><br><span class="line"><span class="undefined">                dimension: 1,</span></span><br><span class="line"><span class="actionscript">                orient: <span class="string">'vertical'</span>,</span></span><br><span class="line"><span class="undefined">                right: 10,</span></span><br><span class="line"><span class="actionscript">                top: <span class="string">'center'</span>,</span></span><br><span class="line"><span class="actionscript">                text: [<span class="string">'优秀'</span>, <span class="string">'一般'</span>],</span></span><br><span class="line"><span class="actionscript">                calculable: <span class="literal">true</span>,</span></span><br><span class="line"><span class="undefined">                inRange: &#123;</span></span><br><span class="line"><span class="actionscript">                    color: [<span class="string">'#f2c31a'</span>, <span class="string">'#24b7f2'</span>]</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            tooltip: &#123;</span></span><br><span class="line"><span class="actionscript">                trigger: <span class="string">'item'</span>,</span></span><br><span class="line"><span class="undefined">                axisPointer: &#123;</span></span><br><span class="line"><span class="actionscript">                    type: <span class="string">'cross'</span></span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;,</span></span><br><span class="line"><span class="undefined">            xAxis: [&#123;</span></span><br><span class="line"><span class="actionscript">                type: <span class="string">'value'</span></span></span><br><span class="line"><span class="undefined">            &#125;],</span></span><br><span class="line"><span class="undefined">            yAxis: [&#123;</span></span><br><span class="line"><span class="actionscript">                type: <span class="string">'value'</span></span></span><br><span class="line"><span class="undefined">            &#125;],</span></span><br><span class="line"><span class="undefined">            series: [&#123;</span></span><br><span class="line"><span class="actionscript">                name: <span class="string">'price-area'</span>,</span></span><br><span class="line"><span class="actionscript">                type: <span class="string">'scatter'</span>,</span></span><br><span class="line"><span class="undefined">                symbolSize: 5,</span></span><br><span class="line"><span class="undefined">                data: data</span></span><br><span class="line"><span class="undefined">            &#125;]</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="undefined">        myChart.setOption(option);</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>json文件读取需要在web运行环境中，单纯的运行效果如下图所示：</p>
-<p><img src="https://i.imgur.com/CE8vS7x.png" alt=""></p>
-<blockquote>
-<p>数据转化工具</p>
-</blockquote>
-<p>本文采用自己构建的方式进行json文件生成，此外我们也可以采用现有的数据转化工具进行处理。比如百度的表格数据转化工具（2.2节已经介绍了）。</p>
-<p>另一个便是<a href="http://www.bejson.com/" target="_blank" rel="noopener">在线json验证格式工具:http://www.bejson.com/</a></p>
-<h3 id="2-5-KNN分类器实现"><a href="#2-5-KNN分类器实现" class="headerlink" title="2.5 KNN分类器实现"></a>2.5 KNN分类器实现</h3><p>通过数据分析，我们查看数据样本是否偏态分别，数据规模情况等等。针对性进行数据预处理后，编写具体算法模型。本文主要是KNN分类器，其代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''' 构造KNN分类器</span></span><br><span class="line"><span class="string">    vecX:输入向量，待测数据</span></span><br><span class="line"><span class="string">    filename: 特征集文件路径</span></span><br><span class="line"><span class="string">    isnorm:是否进行归一化处理</span></span><br><span class="line"><span class="string">    k:k值的选择，默认选择3</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">knn_classifier</span><span class="params">(vecX,dataset,labels,isnorm=<span class="string">'Y'</span>,k=<span class="number">3</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 距离计算（方法1）</span></span><br><span class="line">    <span class="keyword">if</span> isnorm == <span class="string">'Y'</span>:</span><br><span class="line">        normMat,ranges,minVals = norm_dataset(dataset)     <span class="comment"># 对数据进行归一化处理</span></span><br><span class="line">        normvecX = norm_dataset(vecX)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        normMat = dataset</span><br><span class="line">        normvecX = vecX</span><br><span class="line"></span><br><span class="line">    m = normMat.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># tile方法是在列向量vecX，datasetSize次，行向量vecX1次叠加</span></span><br><span class="line">    diffMat = tile(normvecX,(m,<span class="number">1</span>)) - normMat</span><br><span class="line">    sqDiffMat = diffMat ** <span class="number">2</span></span><br><span class="line">    sqDistances = sqDiffMat.sum(axis=<span class="number">1</span>)   <span class="comment"># axis=0 是列相加,axis=1是行相加</span></span><br><span class="line">    distances = sqDistances**<span class="number">0.5</span></span><br><span class="line">    <span class="comment"># print('vecX向量到数据集各点距离：\n'+str(distances))</span></span><br><span class="line"></span><br><span class="line">    sortedDistIndexs = distances.argsort(axis=<span class="number">0</span>)  <span class="comment"># 距离排序，升序</span></span><br><span class="line">    <span class="comment"># print(sortedDistIndicies)</span></span><br><span class="line"></span><br><span class="line">    classCount = &#123;&#125;   <span class="comment"># 统计前k个类别出现频率</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        votelabel = labels[sortedDistIndexs[i]]</span><br><span class="line">        classCount[votelabel] = classCount.get(votelabel,<span class="number">0</span>) + <span class="number">1</span> <span class="comment">#统计键值</span></span><br><span class="line">    <span class="comment"># 类别频率出现最高的点,itemgetter(0)按照key排序，itemgetter(1)按照value排序</span></span><br><span class="line">    sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(<span class="number">1</span>),reverse=<span class="keyword">True</span>)</span><br><span class="line">    print(str(vecX)+<span class="string">'KNN的投票决策结果：\n'</span>+str(sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+
+从百度Echart实例中选择一种散点图并绑定json文件，其html代码如下：
+<pre>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+        <title>图案例</title>
+        <script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/echarts.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </head>
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="chartmain" style="width:800px; height: 400px; margin:auto; ">
+        </div>
+
+        <script type="text/javascript">
+            //初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chartmain'));
+            $.getJSON('game-food.json', function (data) {
+            var option = {
+                title: {
+                    text: '玩游戏时间占比和饮食数据描述',
+                    left: 'center',
+                    top: 0
+                },
+                visualMap: {
+                    min: 15202,
+                    max: 159980,
+                    dimension: 1,
+                    orient: 'vertical',
+                    right: 10,
+                    top: 'center',
+                    text: ['优秀', '一般'],
+                    calculable: true,
+                    inRange: {
+                        color: ['#f2c31a', '#24b7f2']
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                xAxis: [{
+                    type: 'value'
+                }],
+                yAxis: [{
+                    type: 'value'
+                }],
+                series: [{
+                    name: 'price-area',
+                    type: 'scatter',
+                    symbolSize: 5,
+                    data: data
+                }]
+            };
+            myChart.setOption(option);
+    });
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    </body>
+    </html>
+</pre>
+json文件读取需要在web运行环境中，单纯的运行效果如下图所示：
+
+![](https://i.imgur.com/CE8vS7x.png)
+
+> 数据转化工具
+
+本文采用自己构建的方式进行json文件生成，此外我们也可以采用现有的数据转化工具进行处理。比如百度的表格数据转化工具（2.2节已经介绍了）。
+
+另一个便是<a href="http://www.bejson.com/" target="_blank" rel="noopener">在线json验证格式工具:http://www.bejson.com/</a>
+
+
+### 2.5 KNN分类器实现
+
+通过数据分析，我们查看数据样本是否偏态分别，数据规模情况等等。针对性进行数据预处理后，编写具体算法模型。本文主要是KNN分类器，其代码如下：
+<pre>
+''' 构造KNN分类器
+    vecX:输入向量，待测数据
+    filename: 特征集文件路径
+    isnorm:是否进行归一化处理
+    k:k值的选择，默认选择3
+'''
+def knn_classifier(vecX,dataset,labels,isnorm='Y',k=3):
+    # 距离计算（方法1）
+    if isnorm == 'Y':
+        normMat,ranges,minVals = norm_dataset(dataset)     # 对数据进行归一化处理
+        normvecX = norm_dataset(vecX)
+    else:
+        normMat = dataset
+        normvecX = vecX
+
+    m = normMat.shape[0]
+    # tile方法是在列向量vecX，datasetSize次，行向量vecX1次叠加
+    diffMat = tile(normvecX,(m,1)) - normMat
+    sqDiffMat = diffMat ** 2
+    sqDistances = sqDiffMat.sum(axis=1)   # axis=0 是列相加,axis=1是行相加
+    distances = sqDistances**0.5
+    # print('vecX向量到数据集各点距离：\n'+str(distances))
+
+    sortedDistIndexs = distances.argsort(axis=0)  # 距离排序，升序
+    # print(sortedDistIndicies)
+
+    classCount = {}   # 统计前k个类别出现频率
+    for i in range(k):
+        votelabel = labels[sortedDistIndexs[i]]
+        classCount[votelabel] = classCount.get(votelabel,0) + 1 #统计键值
+    # 类别频率出现最高的点,itemgetter(0)按照key排序，itemgetter(1)按照value排序
+    sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)
+    print(str(vecX)+'KNN的投票决策结果：\n'+str(sortedClassCount[0][0]))
+    return sortedClassCount[0][0]
+</pre>
+
 <h2 id="3-KNN算法模型评估"><a href="#3-KNN算法模型评估" class="headerlink" title="3 KNN算法模型评估"></a>3 KNN算法模型评估</h2><h3 id="3-1-评价指标介绍"><a href="#3-1-评价指标介绍" class="headerlink" title="3.1 评价指标介绍"></a>3.1 评价指标介绍</h3><blockquote>
 <p>基本知识</p>
 </blockquote>
@@ -829,8 +1091,18 @@ myfont=fm.FontProperties(fname=r&quot;C:\\Windows\\Fonts\\simsun.ttc&quot;)
 <p>模型评估拓展</p>
 </blockquote>
 <p>参见<a href="">《自然语言处理理论与实战》</a>一书<a href="https://www.cnblogs.com/baiboy/p/nlpbook.html" target="_blank" rel="noopener">第13章模型评估</a>。</p>
-<h3 id="3-2-评估算法模型实现"><a href="#3-2-评估算法模型实现" class="headerlink" title="3.2 评估算法模型实现"></a>3.2 评估算法模型实现</h3><p>本文只是对错误率进行评估，其也是knn分类器核心指标，实现代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''测试评估算法模型'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_knn_perfor</span><span class="params">(filename)</span>:</span></span><br><span class="line">    hoRatio = <span class="number">0.1</span></span><br><span class="line">    dataset,label = file_matrix(filename)              <span class="comment"># 获取训练数据和标签</span></span><br><span class="line">    normMat,ranges,minVals = norm_dataset(dataset)     <span class="comment"># 对数据进行归一化处理</span></span><br><span class="line">    m = normMat.shape[<span class="number">0</span>]</span><br><span class="line">    numTestVecs = int(m*hoRatio)                       <span class="comment"># 10%的测试数据条数</span></span><br><span class="line"></span><br><span class="line">    errorCount = <span class="number">0.0</span>                                   <span class="comment"># 统计错误分类数</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numTestVecs):</span><br><span class="line">        classifierResult = knn_classifier(normMat[i,:],normMat[numTestVecs:m,:],label[numTestVecs:m],<span class="number">3</span>)          <span class="comment"># 此处分类器可以替换不同分类模型</span></span><br><span class="line">        print(<span class="string">'分类结果:'</span>+str(classifierResult)+<span class="string">'\t\t准确结果:'</span>+str(label[i]))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> classifierResult != label[i]:</span><br><span class="line">            errorCount += <span class="number">1.0</span></span><br><span class="line">        Global.all_FileNum += <span class="number">1</span></span><br><span class="line">    print(<span class="string">'总的错误率为：'</span>+str(errorCount/float(numTestVecs))+<span class="string">"\n总测试数据量: "</span>+str(Global.all_FileNum))</span><br></pre></td></tr></table></figure></p>
-<p>运行效果如下：</p>
+<h3 id="3-2-评估算法模型实现"><a href="#3-2-评估算法模型实现" class="headerlink" title="3.2 评估算法模型实现"></a>3.2 评估算法模型实现</h3><p>本文只是对错误率进行评估，其也是knn分类器核心指标，实现代码如下：</p>
+<p><pre><br>‘’’测试评估算法模型’’’<br>def test_knn_perfor(filename):<br>    hoRatio = 0.1<br>    dataset,label = file_matrix(filename)              # 获取训练数据和标签<br>    normMat,ranges,minVals = norm_dataset(dataset)     # 对数据进行归一化处理<br>    m = normMat.shape[0]<br>    numTestVecs = int(m*hoRatio)                       # 10%的测试数据条数</pre></p>
+<pre><code>errorCount = 0.0                                   # 统计错误分类数
+for i in range(numTestVecs):
+    classifierResult = knn_classifier(normMat[i,:],normMat[numTestVecs:m,:],label[numTestVecs:m],3)          # 此处分类器可以替换不同分类模型
+    print(&#39;分类结果:&#39;+str(classifierResult)+&#39;\t\t准确结果:&#39;+str(label[i]))
+
+    if classifierResult != label[i]:
+        errorCount += 1.0
+    Global.all_FileNum += 1
+print(&#39;总的错误率为：&#39;+str(errorCount/float(numTestVecs))+&quot;\n总测试数据量: &quot;+str(Global.all_FileNum))
+</code></pre><p>&lt;/pre&gt;<br>运行效果如下：</p>
 <pre><code>[0.44832535 0.39805139 0.56233353]KNN的投票决策结果：
 分类结果:3        准确结果:3
 [0.15873259 0.34195467 0.98724416]KNN的投票决策结果：
@@ -853,8 +1125,14 @@ myfont=fm.FontProperties(fname=r&quot;C:\\Windows\\Fonts\\simsun.ttc&quot;)
 <h2 id="4-KNN算法模型的实际应用"><a href="#4-KNN算法模型的实际应用" class="headerlink" title="4 KNN算法模型的实际应用"></a>4 KNN算法模型的实际应用</h2><blockquote>
 <p>knn分类器应用</p>
 </blockquote>
-<p>经过如上的改进最终形成实际应用的算法模型API开发给外部程序使用，调用knn算法代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''调用可用算法'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_classifyPerson</span><span class="params">(filename)</span>:</span></span><br><span class="line">    resultlist = [<span class="string">'不喜欢'</span>,<span class="string">'还可以'</span>,<span class="string">'特别喜欢'</span>]</span><br><span class="line">    ffMiles = float(input(<span class="string">'每年飞行的历程多少公里？\n'</span>))</span><br><span class="line">    percentTats = float(input(<span class="string">'玩游戏时间占百分比多少？\n'</span>)) <span class="comment"># [751,13,0.4][40920 ,8.326976,0.953952]</span></span><br><span class="line">    iceCream = float(input(<span class="string">'每周消费冰淇淋多少公升？\n'</span>))</span><br><span class="line"></span><br><span class="line">    dataset,labels = file_matrix(filename) <span class="comment"># 数据格式化处理</span></span><br><span class="line">    inArr = array([ffMiles,percentTats,iceCream])</span><br><span class="line"></span><br><span class="line">    classifierResult = knn_classifier(inArr,dataset,labels,<span class="number">3</span>) <span class="comment"># 数据归一化并进行分类</span></span><br><span class="line">    print(<span class="string">'预测的约会结果是：'</span>+resultlist[classifierResult<span class="number">-1</span>])</span><br></pre></td></tr></table></figure></p>
-<p>运行结果如下：</p>
+<p>经过如上的改进最终形成实际应用的算法模型API开发给外部程序使用，调用knn算法代码如下：</p>
+<p><pre><br>‘’’调用可用算法’’’<br>def show_classifyPerson(filename):<br>    resultlist = [‘不喜欢’,’还可以’,’特别喜欢’]<br>    ffMiles = float(input(‘每年飞行的历程多少公里？\n’))<br>    percentTats = float(input(‘玩游戏时间占百分比多少？\n’)) # [751,13,0.4][40920 ,8.326976,0.953952]<br>    iceCream = float(input(‘每周消费冰淇淋多少公升？\n’))</pre></p>
+<pre><code>dataset,labels = file_matrix(filename) # 数据格式化处理
+inArr = array([ffMiles,percentTats,iceCream])
+
+classifierResult = knn_classifier(inArr,dataset,labels,3) # 数据归一化并进行分类
+print(&#39;预测的约会结果是：&#39;+resultlist[classifierResult-1])
+</code></pre><p>&lt;/pre&gt;<br>运行结果如下：</p>
 <pre><code>每年飞行的历程多少公里？
 10000
 玩游戏时间占百分比多少？
@@ -877,7 +1155,6 @@ KNN的投票决策结果：
 <li>模型评估：<a href="http://www.cnblogs.com/baiboy/p/mxpg2.html" target="_blank" rel="noopener">http://www.cnblogs.com/baiboy/p/mxpg2.html</a></li>
 </ol>
 <h2 id="完整代码下载"><a href="#完整代码下载" class="headerlink" title="完整代码下载"></a>完整代码下载</h2><p>源码请进QQ群文件下载：</p>
-
 
 <p><img src="https://i.imgur.com/SUOetQD.png" alt=""></p>
 <h2 id="作者声明"><a href="#作者声明" class="headerlink" title="作者声明"></a>作者声明</h2><blockquote>
@@ -1468,7 +1745,7 @@ KNN的投票决策结果：
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-理论介绍"><span class="nav-number">1.</span> <span class="nav-text">1 理论介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-KNN算法实现与分析"><span class="nav-number">2.</span> <span class="nav-text">2 KNN算法实现与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-数据准备"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-数据格式化"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-数据归一化"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 数据归一化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-数据分析"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 数据分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-KNN分类器实现"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 KNN分类器实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-KNN算法模型评估"><span class="nav-number">3.</span> <span class="nav-text">3 KNN算法模型评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-评价指标介绍"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 评价指标介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-评估算法模型实现"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 评估算法模型实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-KNN算法模型的实际应用"><span class="nav-number">4.</span> <span class="nav-text">4 KNN算法模型的实际应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-理论介绍"><span class="nav-number">1.</span> <span class="nav-text">1 理论介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-KNN算法实现与分析"><span class="nav-number">2.</span> <span class="nav-text">2 KNN算法实现与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-数据准备"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据准备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-KNN算法模型评估"><span class="nav-number">3.</span> <span class="nav-text">3 KNN算法模型评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-评价指标介绍"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 评价指标介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-评估算法模型实现"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 评估算法模型实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-KNN算法模型的实际应用"><span class="nav-number">4.</span> <span class="nav-text">4 KNN算法模型的实际应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码下载"><span class="nav-number">6.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">7.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>
@@ -2093,23 +2370,6 @@ KNN的投票决策结果：
   
 
   <!-- 页面点击小红心 -->
-	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+	<script type="text/javascript" src="../js/src/love.js"></script>
 </body>
 </html>

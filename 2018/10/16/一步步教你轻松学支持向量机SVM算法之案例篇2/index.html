@@ -173,7 +173,7 @@
 <meta property="og:image" content="https://i.imgur.com/DKbNQKs.jpg">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/S5lgCKY.jpg">
-<meta property="og:updated_time" content="2018-10-19T07:40:50.320Z">
+<meta property="og:updated_time" content="2019-03-06T08:35:07.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一步步教你轻松学支持向量机SVM算法之案例篇2">
 <meta name="twitter:description" content="摘要：支持向量机即SVM(Support Vector Machine) ，是一种监督学习算法，属于分类的范畴。首先，支持向量机不是一种机器，而是一种机器学习算法。在数据挖掘的应用中，与无监督学习的聚类相对应和区别。广泛应用于机器学习，计算机视觉和数据挖掘当中。（本文原创，转载必须注明出处.）">
@@ -485,7 +485,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:40:50" itemprop="dateModified" datetime="2018-10-19T15:40:50+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:35:07" itemprop="dateModified" datetime="2019-03-06T16:35:07+08:00">2019-03-06</time>
               
             
           </span>
@@ -676,29 +676,319 @@
 <blockquote>
 <p>SMO 伪代码大致如下：</p>
 </blockquote>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">创建一个 alpha 向量并将其初始化为<span class="number">0</span>向量</span><br><span class="line">当迭代次数小于最大迭代次数时<span class="comment">(外循环)</span></span><br><span class="line">    对数据集中的每个数据向量<span class="comment">(内循环)</span>：</span><br><span class="line">        如果该数据向量可以被优化</span><br><span class="line">            随机选择另外一个数据向量</span><br><span class="line">            同时优化这两个向量</span><br><span class="line">            如果两个向量都不能被优化，退出内循环</span><br><span class="line">    如果所有向量都没被优化，增加迭代数目，继续下一次循环</span><br></pre></td></tr></table></figure>
-<h2 id="SVM-开发流程"><a href="#SVM-开发流程" class="headerlink" title="SVM 开发流程"></a>SVM 开发流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">收集数据：可以使用任意方法。</span><br><span class="line">准备数据：需要数值型数据。</span><br><span class="line">分析数据：有助于可视化分隔超平面。</span><br><span class="line">训练算法：SVM的大部分时间都源自训练，该过程主要实现两个参数的调优。</span><br><span class="line">测试算法：十分简单的计算过程就可以实现。</span><br><span class="line">使用算法：几乎所有分类问题都可以使用SVM，值得一提的是，SVM本身是一个二类分类器，对多类问题应用SVM需要对代码做一些修改。</span><br></pre></td></tr></table></figure>
-<h2 id="SVM-算法特点"><a href="#SVM-算法特点" class="headerlink" title="SVM 算法特点"></a>SVM 算法特点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">优点：泛化（由具体的、个别的扩大为一般的，就是说：模型训练完后的新样本）错误率低，计算开销不大，结果易理解。</span><br><span class="line">缺点：对参数调节和核函数的选择敏感，原始分类器不加修改仅适合于处理二分类问题。</span><br><span class="line">使用数据类型：数值型和标称型数据。</span><br></pre></td></tr></table></figure>
-<hr>
+<pre><code>创建一个 alpha 向量并将其初始化为0向量
+当迭代次数小于最大迭代次数时(外循环)
+    对数据集中的每个数据向量(内循环)：
+        如果该数据向量可以被优化
+            随机选择另外一个数据向量
+            同时优化这两个向量
+            如果两个向量都不能被优化，退出内循环
+    如果所有向量都没被优化，增加迭代数目，继续下一次循环
+</code></pre><h2 id="SVM-开发流程"><a href="#SVM-开发流程" class="headerlink" title="SVM 开发流程"></a>SVM 开发流程</h2><pre><code>收集数据：可以使用任意方法。
+准备数据：需要数值型数据。
+分析数据：有助于可视化分隔超平面。
+训练算法：SVM的大部分时间都源自训练，该过程主要实现两个参数的调优。
+测试算法：十分简单的计算过程就可以实现。
+使用算法：几乎所有分类问题都可以使用SVM，值得一提的是，SVM本身是一个二类分类器，对多类问题应用SVM需要对代码做一些修改。
+</code></pre><h2 id="SVM-算法特点"><a href="#SVM-算法特点" class="headerlink" title="SVM 算法特点"></a>SVM 算法特点</h2><pre><code>优点：泛化（由具体的、个别的扩大为一般的，就是说：模型训练完后的新样本）错误率低，计算开销不大，结果易理解。
+缺点：对参数调节和核函数的选择敏感，原始分类器不加修改仅适合于处理二分类问题。
+使用数据类型：数值型和标称型数据。
+</code></pre><hr>
 <h1 id="SVM无核函数分类"><a href="#SVM无核函数分类" class="headerlink" title="SVM无核函数分类"></a>SVM无核函数分类</h1><p>这里是对小规模数据点进行分类</p>
 <h2 id="收集数据"><a href="#收集数据" class="headerlink" title="收集数据"></a>收集数据</h2><p>文本文件格式：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.542485</span>	<span class="number">1.977398</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">3.018896</span>	<span class="number">2.556416</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">7.551510</span>	<span class="number">-1.580030</span>	<span class="number">1</span></span><br><span class="line"><span class="number">2.114999</span>	<span class="number">-0.004466</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">8.127113</span>	<span class="number">1.274372</span>	<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h2><p>‘’’对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵’’’<br>def loadDataSet(fileName):<br>    dataMat = [];labelMat = []<br>    fr = open(fileName)<br>    for line in fr.readlines():<br>        lineArr = line.strip().split(‘\t’)<br>        dataMat.append([float(lineArr[0]), float(lineArr[1])])<br>        labelMat.append(float(lineArr[2]))<br>    return dataMat, labelMat</p>
-<h2 id="训练算法"><a href="#训练算法" class="headerlink" title="训练算法"></a>训练算法</h2><p>简化版SMO（序列最小优化）算法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">简化版SMO（序列最小优化）算法</span></span><br><span class="line"><span class="string">输入参数：</span></span><br><span class="line"><span class="string">C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。控制最大化间隔和</span></span><br><span class="line"><span class="string">    保证大部分的函数间隔小于1.0这两个目标权重。通过调节该参数达到不同的结果。</span></span><br><span class="line"><span class="string">toler   容错率（在某个体系中能减小一些因素或选择对某个系统产生不稳定的概率。）</span></span><br><span class="line"><span class="string">maxIter 退出前最大的循环次数</span></span><br><span class="line"><span class="string">返回参数：</span></span><br><span class="line"><span class="string">b       模型的常量值</span></span><br><span class="line"><span class="string">alphas  拉格朗日乘子</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">smoSimple</span><span class="params">(dataMatIn, classLabels, C, toler, maxIter)</span>:</span></span><br><span class="line">    dataMatrix = mat(dataMatIn)</span><br><span class="line">    labelMat = mat(classLabels).transpose()</span><br><span class="line">    m, n = shape(dataMatrix)</span><br><span class="line">    <span class="comment"># 初始化 b和alphas(alpha有点类似权重值。)</span></span><br><span class="line">    b = <span class="number">0</span>;alphas = mat(zeros((m, <span class="number">1</span>)))</span><br><span class="line">    <span class="comment"># 没有任何alpha改变的情况下遍历数据的次数</span></span><br><span class="line">    iter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> (iter &lt; maxIter):</span><br><span class="line">        <span class="comment"># w = calcWs(alphas, dataMatIn, classLabels)</span></span><br><span class="line">        <span class="comment"># print("w:", w)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历</span></span><br><span class="line">        alphaPairsChanged = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="comment"># 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]*lable[n]*x[n]</span></span><br><span class="line">            fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b</span><br><span class="line">            <span class="comment"># 预测结果与真实结果比对，计算误差Ei</span></span><br><span class="line">            Ei = fXi - float(labelMat[i])</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)</span></span><br><span class="line">            <span class="comment"># 0&lt;=alphas[i]&lt;=C，但由于0和C是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。</span></span><br><span class="line">            <span class="comment"># 表示发生错误的概率：labelMat[i]*Ei 如果超出了 toler， 才需要优化。至于正负号，我们考虑绝对值就对了。</span></span><br><span class="line">            <span class="string">'''</span></span><br><span class="line"><span class="string">            # 检验训练样本(xi, yi)是否满足KKT条件</span></span><br><span class="line"><span class="string">            yi*f(i) &gt;= 1 and alpha = 0 (outside the boundary)</span></span><br><span class="line"><span class="string">            yi*f(i) == 1 and 0&lt;alpha&lt; C (on the boundary)</span></span><br><span class="line"><span class="string">            yi*f(i) &lt;= 1 and alpha = C (between the boundary)</span></span><br><span class="line"><span class="string">            '''</span></span><br><span class="line">            <span class="keyword">if</span> ((labelMat[i]*Ei &lt; -toler) <span class="keyword">and</span> (alphas[i] &lt; C)) <span class="keyword">or</span> ((labelMat[i]*Ei &gt; toler) <span class="keyword">and</span> (alphas[i] &gt; <span class="number">0</span>)):</span><br><span class="line">                <span class="comment"># 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较</span></span><br><span class="line">                j = selectJrand(i, m)</span><br><span class="line">                <span class="comment"># 预测j的结果</span></span><br><span class="line">                fXj = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[j, :].T)) + b</span><br><span class="line">                Ej = fXj - float(labelMat[j])</span><br><span class="line">                alphaIold = alphas[i].copy()</span><br><span class="line">                alphaJold = alphas[j].copy()</span><br><span class="line"></span><br><span class="line">                <span class="comment"># L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接执行continue语句</span></span><br><span class="line">                <span class="comment"># labelMat[i] != labelMat[j] 表示异侧，就相减，否则是同侧，就相加。</span></span><br><span class="line">                <span class="keyword">if</span> (labelMat[i] != labelMat[j]):</span><br><span class="line">                    L = max(<span class="number">0</span>, alphas[j] - alphas[i])</span><br><span class="line">                    H = min(C, C + alphas[j] - alphas[i])</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    L = max(<span class="number">0</span>, alphas[j] + alphas[i] - C)</span><br><span class="line">                    H = min(C, alphas[j] + alphas[i])</span><br><span class="line">                <span class="comment"># 如果相同，就没发优化了</span></span><br><span class="line">                <span class="keyword">if</span> L == H:</span><br><span class="line">                    <span class="comment"># print("L==H")</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程</span></span><br><span class="line">                <span class="comment"># 参考《统计学习方法》李航-P125~P128&lt;序列最小最优化算法&gt;</span></span><br><span class="line">                eta = <span class="number">2.0</span> * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i, :].T - dataMatrix[j, :]*dataMatrix[j, :].T</span><br><span class="line">                <span class="keyword">if</span> eta &gt;= <span class="number">0</span>:</span><br><span class="line">                    <span class="comment"># print("eta&gt;=0")</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 计算出一个新的alphas[j]值</span></span><br><span class="line">                alphas[j] -= labelMat[j]*(Ei - Ej)/eta</span><br><span class="line">                <span class="comment"># 并使用辅助函数，以及L和H对其进行调整</span></span><br><span class="line">                alphas[j] = clipAlpha(alphas[j], H, L)</span><br><span class="line">                <span class="comment"># 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。</span></span><br><span class="line">                <span class="keyword">if</span> (abs(alphas[j] - alphaJold) &lt; <span class="number">0.00001</span>):</span><br><span class="line">                    <span class="comment"># print("j not moving enough")</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="comment"># 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反</span></span><br><span class="line">                alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])</span><br><span class="line">                <span class="comment"># 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。</span></span><br><span class="line">                <span class="comment"># w= Σ[1~n] ai*yi*xi =&gt; b = yj- Σ[1~n] ai*yi(xi*xj)</span></span><br><span class="line">                <span class="comment"># 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)</span></span><br><span class="line">                <span class="comment"># 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍</span></span><br><span class="line">                b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[i, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i, :]*dataMatrix[j, :].T</span><br><span class="line">                b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[j, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j, :]*dataMatrix[j, :].T</span><br><span class="line">                <span class="keyword">if</span> (<span class="number">0</span> &lt; alphas[i]) <span class="keyword">and</span> (C &gt; alphas[i]):</span><br><span class="line">                    b = b1</span><br><span class="line">                <span class="keyword">elif</span> (<span class="number">0</span> &lt; alphas[j]) <span class="keyword">and</span> (C &gt; alphas[j]):</span><br><span class="line">                    b = b2</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    b = (b1 + b2)/<span class="number">2.0</span></span><br><span class="line">                alphaPairsChanged += <span class="number">1</span></span><br><span class="line">                <span class="comment"># print("iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))</span></span><br><span class="line">        <span class="comment"># 在for循环外，检查alpha值是否做了更新，如果在更新则将iter设为0后继续运行程序</span></span><br><span class="line">        <span class="comment"># 知道更新完毕后，iter次循环无变化，才推出循环。</span></span><br><span class="line">        <span class="keyword">if</span> (alphaPairsChanged == <span class="number">0</span>):</span><br><span class="line">            iter += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            iter = <span class="number">0</span></span><br><span class="line">        <span class="comment"># print("iteration number: %d" % iter)</span></span><br><span class="line">    <span class="keyword">return</span> b, alphas</span><br></pre></td></tr></table></figure>
+<pre><code>3.542485    1.977398    -1
+3.018896    2.556416    -1
+7.551510    -1.580030    1
+2.114999    -0.004466    -1
+8.127113    1.274372    1
+</code></pre><h2 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h2><pre>
+'''对文件进行逐行解析，从而得到第行的类标签和整个数据矩阵'''
+def loadDataSet(fileName):
+    dataMat = [];labelMat = []
+    fr = open(fileName)
+    for line in fr.readlines():
+        lineArr = line.strip().split('\t')
+        dataMat.append([float(lineArr[0]), float(lineArr[1])])
+        labelMat.append(float(lineArr[2]))
+    return dataMat, labelMat
+</pre>
+## 训练算法
+
+简化版SMO（序列最小优化）算法
+
+<pre>
+'''
+简化版SMO（序列最小优化）算法
+输入参数：
+C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。控制最大化间隔和
+    保证大部分的函数间隔小于1.0这两个目标权重。通过调节该参数达到不同的结果。
+toler   容错率（在某个体系中能减小一些因素或选择对某个系统产生不稳定的概率。）
+maxIter 退出前最大的循环次数
+返回参数：
+b       模型的常量值
+alphas  拉格朗日乘子
+'''
+def smoSimple(dataMatIn, classLabels, C, toler, maxIter):
+    dataMatrix = mat(dataMatIn)
+    labelMat = mat(classLabels).transpose()
+    m, n = shape(dataMatrix)
+    # 初始化 b和alphas(alpha有点类似权重值。)
+    b = 0;alphas = mat(zeros((m, 1)))
+    # 没有任何alpha改变的情况下遍历数据的次数
+    iter = 0
+    while (iter < maxIter):
+        # w = calcWs(alphas, dataMatIn, classLabels)
+        # print("w:", w)
+
+        # 记录alpha是否已经进行优化，每次循环时设为0，然后再对整个集合顺序遍历
+        alphaPairsChanged = 0
+        for i in range(m):
+            # 我们预测的类别 y = w^Tx[i]+b; 其中因为 w = Σ(1~n) a[n]*lable[n]*x[n]
+            fXi = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[i, :].T)) + b
+            # 预测结果与真实结果比对，计算误差Ei
+            Ei = fXi - float(labelMat[i])
+
+            # 约束条件 (KKT条件是解决最优化问题的时用到的一种方法。我们这里提到的最优化问题通常是指对于给定的某一函数，求其在指定作用域上的全局最小值)
+            # 0<=alphas[i]<=c，但由于0和c是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。 #="" 表示发生错误的概率：labelmat[i]*ei="" 如果超出了="" toler，="" 才需要优化。至于正负号，我们考虑绝对值就对了。="" '''="" 检验训练样本(xi,="" yi)是否满足kkt条件="" yi*f(i)="">= 1 and alpha = 0 (outside the boundary)
+            yi*f(i) == 1 and 0<alpha< c="" (on="" the="" boundary)="" yi*f(i)="" <="1" and="" alpha="C" (between="" '''="" if="" ((labelmat[i]*ei="" -toler)="" (alphas[i]="" c))="" or=""> toler) and (alphas[i] > 0)):
+                # 如果满足优化的条件，我们就随机选取非i的一个点，进行优化比较
+                j = selectJrand(i, m)
+                # 预测j的结果
+                fXj = float(multiply(alphas, labelMat).T*(dataMatrix*dataMatrix[j, :].T)) + b
+                Ej = fXj - float(labelMat[j])
+                alphaIold = alphas[i].copy()
+                alphaJold = alphas[j].copy()
+
+                # L和H用于将alphas[j]调整到0-C之间。如果L==H，就不做任何改变，直接执行continue语句
+                # labelMat[i] != labelMat[j] 表示异侧，就相减，否则是同侧，就相加。
+                if (labelMat[i] != labelMat[j]):
+                    L = max(0, alphas[j] - alphas[i])
+                    H = min(C, C + alphas[j] - alphas[i])
+                else:
+                    L = max(0, alphas[j] + alphas[i] - C)
+                    H = min(C, alphas[j] + alphas[i])
+                # 如果相同，就没发优化了
+                if L == H:
+                    # print("L==H")
+                    continue
+
+                # eta是alphas[j]的最优修改量，如果eta==0，需要退出for循环的当前迭代过程
+                # 参考《统计学习方法》李航-P125~P128<序列最小最优化算法>
+                eta = 2.0 * dataMatrix[i, :]*dataMatrix[j, :].T - dataMatrix[i, :]*dataMatrix[i, :].T - dataMatrix[j, :]*dataMatrix[j, :].T
+                if eta >= 0:
+                    # print("eta>=0")
+                    continue
+
+                # 计算出一个新的alphas[j]值
+                alphas[j] -= labelMat[j]*(Ei - Ej)/eta
+                # 并使用辅助函数，以及L和H对其进行调整
+                alphas[j] = clipAlpha(alphas[j], H, L)
+                # 检查alpha[j]是否只是轻微的改变，如果是的话，就退出for循环。
+                if (abs(alphas[j] - alphaJold) < 0.00001):
+                    # print("j not moving enough")
+                    continue
+                # 然后alphas[i]和alphas[j]同样进行改变，虽然改变的大小一样，但是改变的方向正好相反
+                alphas[i] += labelMat[j]*labelMat[i]*(alphaJold - alphas[j])
+                # 在对alpha[i], alpha[j] 进行优化之后，给这两个alpha值设置一个常数b。
+                # w= Σ[1~n] ai*yi*xi => b = yj- Σ[1~n] ai*yi(xi*xj)
+                # 所以：  b1 - b = (y1-y) - Σ[1~n] yi*(a1-a)*(xi*x1)
+                # 为什么减2遍？ 因为是 减去Σ[1~n]，正好2个变量i和j，所以减2遍
+                b1 = b - Ei- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[i, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[i, :]*dataMatrix[j, :].T
+                b2 = b - Ej- labelMat[i]*(alphas[i]-alphaIold)*dataMatrix[i, :]*dataMatrix[j, :].T - labelMat[j]*(alphas[j]-alphaJold)*dataMatrix[j, :]*dataMatrix[j, :].T
+                if (0 < alphas[i]) and (C > alphas[i]):
+                    b = b1
+                elif (0 < alphas[j]) and (C > alphas[j]):
+                    b = b2
+                else:
+                    b = (b1 + b2)/2.0
+                alphaPairsChanged += 1
+                # print("iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
+        # 在for循环外，检查alpha值是否做了更新，如果在更新则将iter设为0后继续运行程序
+        # 知道更新完毕后，iter次循环无变化，才推出循环。
+        if (alphaPairsChanged == 0):
+            iter += 1
+        else:
+            iter = 0
+        # print("iteration number: %d" % iter)
+    return b, alphas
+</序列最小最优化算法></alpha<></=alphas[i]<=c，但由于0和c是边界值，我们无法进行优化，因为需要增加一个alphas和降低一个alphas。></pre>
+
 <p>SVM简化版，应用简化版SMO算法处理小规模数据集；SVM完整版，使用完整 Platt SMO算法加速优化，优化点：选择alpha的方式不同。具体代码实现下面提供<font color="red"><b>完整代码下载</b></font></p>
 <h2 id="核函数-kernel-使用"><a href="#核函数-kernel-使用" class="headerlink" title="核函数(kernel) 使用"></a>核函数(kernel) 使用</h2><p>对于线性可分的情况，效果明显,对于非线性的情况也一样，此时需要用到一种叫<code>核函数(kernel)</code>的工具将数据转化为分类器易于理解的形式。利用核函数将数据映射到高维空间,使用核函数可以将数据从某个特征空间到另一个特征空间的映射。（通常情况下：这种映射会将低维特征空间映射到高维空间。） 如果觉得特征空间很难理解,可以把核函数想象成一个包装器(wrapper)或者是接口(interface)，它能将数据从某个很难处理的形式转换成为另一个较容易处理的形式。经过空间转换后：低维需要解决的非线性问题，就变成了高维需要解决的线性问题。SVM 优化特别好的地方，在于所有的运算都可以写成内积(inner product: 是指2个向量相乘，得到单个标量 或者 数值)；内积替换成核函数的方式被称为<code>核技巧(kernel trick)</code>或者<code>核&quot;变电&quot;(kernel substation)</code>. 核函数并不仅仅应用于支持向量机，很多其他的机器学习算法也都用到核函数。最流行的核函数：径向基函数(radial basis function).</p>
 <hr>
 <h1 id="手写数字识别的优化（有核函数）"><a href="#手写数字识别的优化（有核函数）" class="headerlink" title="手写数字识别的优化（有核函数）"></a>手写数字识别的优化（有核函数）</h1><p>你的老板要求：你写的那个手写识别程序非常好，但是它占用内存太大。顾客无法通过无线的方式下载我们的应用。所以：我们可以考虑使用支持向量机，保留支持向量就行（knn需要保留所有的向量），就可以获得非常好的效果。</p>
-<h2 id="收集数据：提供的文本文件"><a href="#收集数据：提供的文本文件" class="headerlink" title="收集数据：提供的文本文件"></a>收集数据：提供的文本文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00000000000000001111000000000000</span></span><br><span class="line"><span class="number">00000000000000011111111000000000</span></span><br><span class="line"><span class="number">00000000000000011111111100000000</span></span><br><span class="line"><span class="number">00000000000000011111111110000000</span></span><br><span class="line"><span class="number">00000000000000011111111110000000</span></span><br><span class="line"><span class="number">00000000000000111111111100000000</span></span><br><span class="line"><span class="number">00000000000000111111111100000000</span></span><br><span class="line"><span class="number">00000000000001111111111100000000</span></span><br><span class="line"><span class="number">00000000000000111111111100000000</span></span><br><span class="line"><span class="number">00000000000000111111111100000000</span></span><br><span class="line"><span class="number">00000000000000111111111000000000</span></span><br><span class="line"><span class="number">00000000000001111111111000000000</span></span><br><span class="line"><span class="number">00000000000011111111111000000000</span></span><br><span class="line"><span class="number">00000000000111111111110000000000</span></span><br><span class="line"><span class="number">00000000001111111111111000000000</span></span><br><span class="line"><span class="number">00000001111111111111111000000000</span></span><br><span class="line"><span class="number">00000011111111111111110000000000</span></span><br><span class="line"><span class="number">00000111111111111111110000000000</span></span><br><span class="line"><span class="number">00000111111111111111110000000000</span></span><br><span class="line"><span class="number">00000001111111111111110000000000</span></span><br><span class="line"><span class="number">00000001111111011111110000000000</span></span><br><span class="line"><span class="number">00000000111100011111110000000000</span></span><br><span class="line"><span class="number">00000000000000011111110000000000</span></span><br><span class="line"><span class="number">00000000000000011111100000000000</span></span><br><span class="line"><span class="number">00000000000000111111110000000000</span></span><br><span class="line"><span class="number">00000000000000011111110000000000</span></span><br><span class="line"><span class="number">00000000000000011111110000000000</span></span><br><span class="line"><span class="number">00000000000000011111111000000000</span></span><br><span class="line"><span class="number">00000000000000011111111000000000</span></span><br><span class="line"><span class="number">00000000000000011111111000000000</span></span><br><span class="line"><span class="number">00000000000000000111111110000000</span></span><br><span class="line"><span class="number">00000000000000000111111100000000</span></span><br></pre></td></tr></table></figure>
-<h2 id="准备数据：基于二值图像构造向量"><a href="#准备数据：基于二值图像构造向量" class="headerlink" title="准备数据：基于二值图像构造向量"></a>准备数据：基于二值图像构造向量</h2><p><code>将 32*32的文本转化为 1*1024的矩阵</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">img2vector</span><span class="params">(filename)</span>:</span></span><br><span class="line">    returnVect = zeros((<span class="number">1</span>, <span class="number">1024</span>))</span><br><span class="line">    fr = open(filename)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">        lineStr = fr.readline()</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            returnVect[<span class="number">0</span>, <span class="number">32</span> * i + j] = int(lineStr[j])</span><br><span class="line">    <span class="keyword">return</span> returnVect</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadImages</span><span class="params">(dirName)</span>:</span></span><br><span class="line">    <span class="keyword">from</span> os <span class="keyword">import</span> listdir</span><br><span class="line">    hwLabels = []</span><br><span class="line">    print(dirName)</span><br><span class="line">    trainingFileList = listdir(dirName)  <span class="comment"># load the training set</span></span><br><span class="line">    m = len(trainingFileList)</span><br><span class="line">    trainingMat = zeros((m, <span class="number">1024</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        fileNameStr = trainingFileList[i]</span><br><span class="line">        fileStr = fileNameStr.split(<span class="string">'.'</span>)[<span class="number">0</span>]  <span class="comment"># take off .txt</span></span><br><span class="line">        classNumStr = int(fileStr.split(<span class="string">'_'</span>)[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">if</span> classNumStr == <span class="number">9</span>:</span><br><span class="line">            hwLabels.append(<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            hwLabels.append(<span class="number">1</span>)</span><br><span class="line">        trainingMat[i, :] = img2vector(<span class="string">'%s/%s'</span> % (dirName, fileNameStr))</span><br><span class="line">    <span class="keyword">return</span> trainingMat, hwLabels</span><br></pre></td></tr></table></figure>
-<h2 id="分析数据：对图像向量进行目测"><a href="#分析数据：对图像向量进行目测" class="headerlink" title="分析数据：对图像向量进行目测"></a>分析数据：对图像向量进行目测</h2><h2 id="训练算法-1"><a href="#训练算法-1" class="headerlink" title="训练算法"></a>训练算法</h2><p>采用两种不同的核函数，并对径向基核函数采用不同的设置来运行SMO算法.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''核转换函数</span></span><br><span class="line"><span class="string">X     dataMatIn数据集</span></span><br><span class="line"><span class="string">A     dataMatIn数据集的第i行的数据</span></span><br><span class="line"><span class="string">kTup  核函数的信息</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kernelTrans</span><span class="params">(X, A, kTup)</span>:</span></span><br><span class="line">    m, n = shape(X)</span><br><span class="line">    K = mat(zeros((m, <span class="number">1</span>)))</span><br><span class="line">    <span class="keyword">if</span> kTup[<span class="number">0</span>] == <span class="string">'lin'</span>:</span><br><span class="line">        <span class="comment"># linear kernel:   m*n * n*1 = m*1</span></span><br><span class="line">        K = X * A.T</span><br><span class="line">    <span class="keyword">elif</span> kTup[<span class="number">0</span>] == <span class="string">'rbf'</span>:</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(m):</span><br><span class="line">            deltaRow = X[j, :] - A</span><br><span class="line">            K[j] = deltaRow * deltaRow.T</span><br><span class="line">        <span class="comment"># 径向基函数的高斯版本</span></span><br><span class="line">        K = exp(K / (<span class="number">-1</span> * kTup[<span class="number">1</span>] ** <span class="number">2</span>))  <span class="comment"># divide in NumPy is element-wise not matrix like Matlab</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> NameError(<span class="string">'Houston We Have a Problem -- That Kernel is not recognized'</span>)</span><br><span class="line">    <span class="keyword">return</span> K</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">完整SMO算法外循环，与smoSimple有些类似，但这里的循环退出条件更多一些</span></span><br><span class="line"><span class="string">Args:</span></span><br><span class="line"><span class="string">    dataMatIn    数据集</span></span><br><span class="line"><span class="string">    classLabels  类别标签</span></span><br><span class="line"><span class="string">    C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。</span></span><br><span class="line"><span class="string">        控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。</span></span><br><span class="line"><span class="string">        可以通过调节该参数达到不同的结果。</span></span><br><span class="line"><span class="string">    toler   容错率</span></span><br><span class="line"><span class="string">    maxIter 退出前最大的循环次数</span></span><br><span class="line"><span class="string">    kTup    包含核函数信息的元组</span></span><br><span class="line"><span class="string">Returns:</span></span><br><span class="line"><span class="string">    b       模型的常量值</span></span><br><span class="line"><span class="string">    alphas  拉格朗日乘子</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">smoP</span><span class="params">(dataMatIn, classLabels, C, toler, maxIter, kTup=<span class="params">(<span class="string">'lin'</span>, <span class="number">0</span>)</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 创建一个 optStruct 对象</span></span><br><span class="line">    oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)</span><br><span class="line">    iter = <span class="number">0</span></span><br><span class="line">    entireSet = <span class="keyword">True</span></span><br><span class="line">    alphaPairsChanged = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）</span></span><br><span class="line">    <span class="keyword">while</span> (iter &lt; maxIter) <span class="keyword">and</span> ((alphaPairsChanged &gt; <span class="number">0</span>) <span class="keyword">or</span> (entireSet)):</span><br><span class="line">        alphaPairsChanged = <span class="number">0</span></span><br><span class="line">        <span class="comment">#  当entireSet=true or 非边界alpha对没有了；就开始寻找 alpha对，然后决定是否要进行else。</span></span><br><span class="line">        <span class="keyword">if</span> entireSet:</span><br><span class="line">            <span class="comment"># 在数据集上遍历所有可能的alpha</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(oS.m):</span><br><span class="line">                <span class="comment"># 是否存在alpha对，存在就+1</span></span><br><span class="line">                alphaPairsChanged += innerL(i, oS)</span><br><span class="line">                <span class="comment"># print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))</span></span><br><span class="line">            iter += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对已存在 alpha对，选出非边界的alpha值，进行优化。</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 遍历所有的非边界alpha值，也就是不在边界0或C上的值。</span></span><br><span class="line">            nonBoundIs = nonzero((oS.alphas.A &gt; <span class="number">0</span>) * (oS.alphas.A &lt; C))[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> nonBoundIs:</span><br><span class="line">                alphaPairsChanged += innerL(i, oS)</span><br><span class="line">                <span class="comment"># print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))</span></span><br><span class="line">            iter += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。</span></span><br><span class="line">        <span class="keyword">if</span> entireSet:</span><br><span class="line">            entireSet = <span class="keyword">False</span>  <span class="comment"># toggle entire set loop</span></span><br><span class="line">        <span class="keyword">elif</span> alphaPairsChanged == <span class="number">0</span>:</span><br><span class="line">            entireSet = <span class="keyword">True</span></span><br><span class="line">        print(<span class="string">"iteration number: %d"</span> % iter)</span><br><span class="line">    <span class="keyword">return</span> oS.b, oS.alphas</span><br></pre></td></tr></table></figure>
+<h2 id="收集数据：提供的文本文件"><a href="#收集数据：提供的文本文件" class="headerlink" title="收集数据：提供的文本文件"></a>收集数据：提供的文本文件</h2><pre><code>00000000000000001111000000000000
+00000000000000011111111000000000
+00000000000000011111111100000000
+00000000000000011111111110000000
+00000000000000011111111110000000
+00000000000000111111111100000000
+00000000000000111111111100000000
+00000000000001111111111100000000
+00000000000000111111111100000000
+00000000000000111111111100000000
+00000000000000111111111000000000
+00000000000001111111111000000000
+00000000000011111111111000000000
+00000000000111111111110000000000
+00000000001111111111111000000000
+00000001111111111111111000000000
+00000011111111111111110000000000
+00000111111111111111110000000000
+00000111111111111111110000000000
+00000001111111111111110000000000
+00000001111111011111110000000000
+00000000111100011111110000000000
+00000000000000011111110000000000
+00000000000000011111100000000000
+00000000000000111111110000000000
+00000000000000011111110000000000
+00000000000000011111110000000000
+00000000000000011111111000000000
+00000000000000011111111000000000
+00000000000000011111111000000000
+00000000000000000111111110000000
+00000000000000000111111100000000
+</code></pre><h2 id="准备数据：基于二值图像构造向量"><a href="#准备数据：基于二值图像构造向量" class="headerlink" title="准备数据：基于二值图像构造向量"></a>准备数据：基于二值图像构造向量</h2><p><code>将 32*32的文本转化为 1*1024的矩阵</code></p>
+<pre>
+def img2vector(filename):
+    returnVect = zeros((1, 1024))
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        for j in range(32):
+            returnVect[0, 32 * i + j] = int(lineStr[j])
+    return returnVect
+
+def loadImages(dirName):
+    from os import listdir
+    hwLabels = []
+    print(dirName)
+    trainingFileList = listdir(dirName)  # load the training set
+    m = len(trainingFileList)
+    trainingMat = zeros((m, 1024))
+    for i in range(m):
+        fileNameStr = trainingFileList[i]
+        fileStr = fileNameStr.split('.')[0]  # take off .txt
+        classNumStr = int(fileStr.split('_')[0])
+        if classNumStr == 9:
+            hwLabels.append(-1)
+        else:
+            hwLabels.append(1)
+        trainingMat[i, :] = img2vector('%s/%s' % (dirName, fileNameStr))
+    return trainingMat, hwLabels
+</pre>
+
+<h2 id="分析数据：对图像向量进行目测"><a href="#分析数据：对图像向量进行目测" class="headerlink" title="分析数据：对图像向量进行目测"></a>分析数据：对图像向量进行目测</h2><h2 id="训练算法"><a href="#训练算法" class="headerlink" title="训练算法"></a>训练算法</h2><p>采用两种不同的核函数，并对径向基核函数采用不同的设置来运行SMO算法.</p>
+<pre>
+'''核转换函数
+X     dataMatIn数据集
+A     dataMatIn数据集的第i行的数据
+kTup  核函数的信息
+'''
+def kernelTrans(X, A, kTup):
+    m, n = shape(X)
+    K = mat(zeros((m, 1)))
+    if kTup[0] == 'lin':
+        # linear kernel:   m*n * n*1 = m*1
+        K = X * A.T
+    elif kTup[0] == 'rbf':
+        for j in range(m):
+            deltaRow = X[j, :] - A
+            K[j] = deltaRow * deltaRow.T
+        # 径向基函数的高斯版本
+        K = exp(K / (-1 * kTup[1] ** 2))  # divide in NumPy is element-wise not matrix like Matlab
+    else:
+        raise NameError('Houston We Have a Problem -- That Kernel is not recognized')
+    return K
+
+
+"""
+完整SMO算法外循环，与smoSimple有些类似，但这里的循环退出条件更多一些
+Args:
+    dataMatIn    数据集
+    classLabels  类别标签
+    C   松弛变量(常量值)，允许有些数据点可以处于分隔面的错误一侧。
+        控制最大化间隔和保证大部分的函数间隔小于1.0这两个目标的权重。
+        可以通过调节该参数达到不同的结果。
+    toler   容错率
+    maxIter 退出前最大的循环次数
+    kTup    包含核函数信息的元组
+Returns:
+    b       模型的常量值
+    alphas  拉格朗日乘子
+"""
+def smoP(dataMatIn, classLabels, C, toler, maxIter, kTup=('lin', 0)):
+    # 创建一个 optStruct 对象
+    oS = optStruct(mat(dataMatIn), mat(classLabels).transpose(), C, toler, kTup)
+    iter = 0
+    entireSet = True
+    alphaPairsChanged = 0
+
+    # 循环遍历：循环maxIter次 并且 （alphaPairsChanged存在可以改变 or 所有行遍历一遍）
+    while (iter < maxIter) and ((alphaPairsChanged > 0) or (entireSet)):
+        alphaPairsChanged = 0
+        #  当entireSet=true or 非边界alpha对没有了；就开始寻找 alpha对，然后决定是否要进行else。
+        if entireSet:
+            # 在数据集上遍历所有可能的alpha
+            for i in range(oS.m):
+                # 是否存在alpha对，存在就+1
+                alphaPairsChanged += innerL(i, oS)
+                # print("fullSet, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
+            iter += 1
+
+        # 对已存在 alpha对，选出非边界的alpha值，进行优化。
+        else:
+            # 遍历所有的非边界alpha值，也就是不在边界0或C上的值。
+            nonBoundIs = nonzero((oS.alphas.A > 0) * (oS.alphas.A < C))[0]
+            for i in nonBoundIs:
+                alphaPairsChanged += innerL(i, oS)
+                # print("non-bound, iter: %d i:%d, pairs changed %d" % (iter, i, alphaPairsChanged))
+            iter += 1
+        # 如果找到alpha对，就优化非边界alpha值，否则，就重新进行寻找，如果寻找一遍 遍历所有的行还是没找到，就退出循环。
+        if entireSet:
+            entireSet = False  # toggle entire set loop
+        elif alphaPairsChanged == 0:
+            entireSet = True
+        print("iteration number: %d" % iter)
+    return oS.b, oS.alphas
+</pre>
+
 <blockquote>
 <p>测试算法：便携一个函数来测试不同的和函数并计算错误率</p>
+<p><pre><br>def testDigits(kTup=(‘rbf’, 10)):</pre></p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testDigits</span><span class="params">(kTup=<span class="params">(<span class="string">'rbf'</span>, <span class="number">10</span>)</span>)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 1. 导入训练数据</span></span><br><span class="line">    dataArr, labelArr = loadImages(<span class="string">'input/6.SVM/trainingDigits'</span>)</span><br><span class="line">    b, alphas = smoP(dataArr, labelArr, <span class="number">200</span>, <span class="number">0.0001</span>, <span class="number">10000</span>, kTup)</span><br><span class="line">    datMat = mat(dataArr)</span><br><span class="line">    labelMat = mat(labelArr).transpose()</span><br><span class="line">    svInd = nonzero(alphas.A &gt; <span class="number">0</span>)[<span class="number">0</span>]</span><br><span class="line">    sVs = datMat[svInd]</span><br><span class="line">    labelSV = labelMat[svInd]</span><br><span class="line">    <span class="comment"># print("there are %d Support Vectors" % shape(sVs)[0])</span></span><br><span class="line">    m, n = shape(datMat)</span><br><span class="line">    errorCount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)</span><br><span class="line">        <span class="comment"># 1*m * m*1 = 1*1 单个预测结果</span></span><br><span class="line">        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b</span><br><span class="line">        <span class="keyword">if</span> sign(predict) != sign(labelArr[i]): errorCount += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"the training error rate is: %f"</span> % (float(errorCount) / m))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 导入测试数据</span></span><br><span class="line">    dataArr, labelArr = loadImages(<span class="string">'input/6.SVM/testDigits'</span>)</span><br><span class="line">    errorCount = <span class="number">0</span></span><br><span class="line">    datMat = mat(dataArr)</span><br><span class="line">    labelMat = mat(labelArr).transpose()</span><br><span class="line">    m, n = shape(datMat)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        kernelEval = kernelTrans(sVs, datMat[i, :], kTup)</span><br><span class="line">        <span class="comment"># 1*m * m*1 = 1*1 单个预测结果</span></span><br><span class="line">        predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b</span><br><span class="line">        <span class="keyword">if</span> sign(predict) != sign(labelArr[i]): errorCount += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"the test error rate is: %f"</span> % (float(errorCount) / m))</span><br></pre></td></tr></table></figure>
+<pre><code># 1. 导入训练数据
+dataArr, labelArr = loadImages(&#39;input/6.SVM/trainingDigits&#39;)
+b, alphas = smoP(dataArr, labelArr, 200, 0.0001, 10000, kTup)
+datMat = mat(dataArr)
+labelMat = mat(labelArr).transpose()
+svInd = nonzero(alphas.A &gt; 0)[0]
+sVs = datMat[svInd]
+labelSV = labelMat[svInd]
+# print(&quot;there are %d Support Vectors&quot; % shape(sVs)[0])
+m, n = shape(datMat)
+errorCount = 0
+for i in range(m):
+    kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+    # 1*m * m*1 = 1*1 单个预测结果
+    predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+    if sign(predict) != sign(labelArr[i]): errorCount += 1
+print(&quot;the training error rate is: %f&quot; % (float(errorCount) / m))
+
+# 2. 导入测试数据
+dataArr, labelArr = loadImages(&#39;input/6.SVM/testDigits&#39;)
+errorCount = 0
+datMat = mat(dataArr)
+labelMat = mat(labelArr).transpose()
+m, n = shape(datMat)
+for i in range(m):
+    kernelEval = kernelTrans(sVs, datMat[i, :], kTup)
+    # 1*m * m*1 = 1*1 单个预测结果
+    predict = kernelEval.T * multiply(labelSV, alphas[svInd]) + b
+    if sign(predict) != sign(labelArr[i]): errorCount += 1
+print(&quot;the test error rate is: %f&quot; % (float(errorCount) / m))
+</code></pre><p>&lt;/pre&gt;</p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
 <li>scikit中文社区：<a href="http://sklearn.apachecn.org/cn/0.19.0/" target="_blank" rel="noopener">http://sklearn.apachecn.org/cn/0.19.0/</a></li>
 <li><a href="http://www.apachecn.org/" target="_blank" rel="noopener">ApacheCN</a></li>
@@ -1298,7 +1588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#寻找最大间隔"><span class="nav-number">1.</span> <span class="nav-text">寻找最大间隔</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么寻找最大间隔"><span class="nav-number">1.1.</span> <span class="nav-text">怎么寻找最大间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SMO-高效优化算法"><span class="nav-number">1.2.</span> <span class="nav-text">SMO 高效优化算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM-开发流程"><span class="nav-number">1.3.</span> <span class="nav-text">SVM 开发流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM-算法特点"><span class="nav-number">1.4.</span> <span class="nav-text">SVM 算法特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM无核函数分类"><span class="nav-number">2.</span> <span class="nav-text">SVM无核函数分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#收集数据"><span class="nav-number">2.1.</span> <span class="nav-text">收集数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据"><span class="nav-number">2.2.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练算法"><span class="nav-number">2.3.</span> <span class="nav-text">训练算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数-kernel-使用"><span class="nav-number">2.4.</span> <span class="nav-text">核函数(kernel) 使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手写数字识别的优化（有核函数）"><span class="nav-number">3.</span> <span class="nav-text">手写数字识别的优化（有核函数）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#收集数据：提供的文本文件"><span class="nav-number">3.1.</span> <span class="nav-text">收集数据：提供的文本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据：基于二值图像构造向量"><span class="nav-number">3.2.</span> <span class="nav-text">准备数据：基于二值图像构造向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：对图像向量进行目测"><span class="nav-number">3.3.</span> <span class="nav-text">分析数据：对图像向量进行目测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练算法-1"><span class="nav-number">3.4.</span> <span class="nav-text">训练算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#寻找最大间隔"><span class="nav-number">1.</span> <span class="nav-text">寻找最大间隔</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么寻找最大间隔"><span class="nav-number">1.1.</span> <span class="nav-text">怎么寻找最大间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SMO-高效优化算法"><span class="nav-number">1.2.</span> <span class="nav-text">SMO 高效优化算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM-开发流程"><span class="nav-number">1.3.</span> <span class="nav-text">SVM 开发流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM-算法特点"><span class="nav-number">1.4.</span> <span class="nav-text">SVM 算法特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVM无核函数分类"><span class="nav-number">2.</span> <span class="nav-text">SVM无核函数分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#收集数据"><span class="nav-number">2.1.</span> <span class="nav-text">收集数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据"><span class="nav-number">2.2.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核函数-kernel-使用"><span class="nav-number">2.3.</span> <span class="nav-text">核函数(kernel) 使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手写数字识别的优化（有核函数）"><span class="nav-number">3.</span> <span class="nav-text">手写数字识别的优化（有核函数）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#收集数据：提供的文本文件"><span class="nav-number">3.1.</span> <span class="nav-text">收集数据：提供的文本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据：基于二值图像构造向量"><span class="nav-number">3.2.</span> <span class="nav-text">准备数据：基于二值图像构造向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析数据：对图像向量进行目测"><span class="nav-number">3.3.</span> <span class="nav-text">分析数据：对图像向量进行目测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练算法"><span class="nav-number">3.4.</span> <span class="nav-text">训练算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">5.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">6.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

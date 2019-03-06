@@ -169,7 +169,7 @@
 <meta property="og:description" content="摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
-<meta property="og:updated_time" content="2018-10-19T07:43:49.584Z">
+<meta property="og:updated_time" content="2019-03-06T08:56:49.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简明的Python教程之实例篇">
 <meta name="twitter:description" content="摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库">
@@ -481,7 +481,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:43:49" itemprop="dateModified" datetime="2018-10-19T15:43:49+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:56:49" itemprop="dateModified" datetime="2019-03-06T16:56:49+08:00">2019-03-06</time>
               
             
           </span>
@@ -546,88 +546,331 @@
 </blockquote>
 <a id="more"></a>
 <h1 id="语句和控制流"><a href="#语句和控制流" class="headerlink" title="语句和控制流"></a>语句和控制流</h1><h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>编程第一步，打印“Hello World”的输入结果：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callHello</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"hello world！"</span>)</span><br><span class="line"></span><br><span class="line">callHello()</span><br></pre></td></tr></table></figure>
+<pre>
+def callHello():
+    print("hello world！")
+
+callHello()
+</pre>
+
 <p>运行结果：</p>
 <pre><code>hello world！
-</code></pre><h2 id="if-语句-根据成绩评判等级"><a href="#if-语句-根据成绩评判等级" class="headerlink" title="if 语句::根据成绩评判等级"></a>if 语句::根据成绩评判等级</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if 语句:根据成绩评判等级</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CallLevel</span><span class="params">(score)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">90</span> :</span><br><span class="line">        print(<span class="string">"优秀"</span>)</span><br><span class="line">    <span class="keyword">elif</span> score &gt;= <span class="number">60</span>:</span><br><span class="line">        print(<span class="string">"及格"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"不及格"</span>)</span><br><span class="line">CallLevel(score=<span class="number">60</span>)</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>及格
-</code></pre><h2 id="for-语句-循环输出所有评分指标"><a href="#for-语句-循环输出所有评分指标" class="headerlink" title="for 语句:循环输出所有评分指标"></a>for 语句:循环输出所有评分指标</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for 语句:循环输出所有评分指标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetLevel</span><span class="params">(score)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> lev <span class="keyword">in</span> score:</span><br><span class="line">        print(lev,end=<span class="string">" "</span>) <span class="comment"># 设置不换行</span></span><br><span class="line">GetLevel(score=[<span class="string">"优秀"</span>,<span class="string">"及格"</span>,<span class="string">"不及格"</span>]) <span class="comment"># 列表参数</span></span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>优秀 及格 不及格
-</code></pre><h2 id="while-语句-循环输出所有评分"><a href="#while-语句-循环输出所有评分" class="headerlink" title="while 语句:循环输出所有评分"></a>while 语句:循环输出所有评分</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># while 语句:循环输出所有评分</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetLevel2</span><span class="params">(score)</span>:</span></span><br><span class="line">    countlen=len(score)</span><br><span class="line">    <span class="keyword">while</span> countlen &gt; <span class="number">0</span>:</span><br><span class="line">        print(score[countlen<span class="number">-1</span>],end=<span class="string">" "</span>) <span class="comment"># 设置不换行</span></span><br><span class="line">        countlen -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">GetLevel2(score=[<span class="number">90</span>,<span class="number">30</span>,<span class="number">100</span>,<span class="number">98</span>,<span class="number">60</span>])</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>60 98 100 30 90 
-</code></pre><blockquote>
-<p>range() 函数:循环输出所有评分指标的下标<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># range() 函数:循环输出所有评分指标的下标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetValue</span><span class="params">(score)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> lev <span class="keyword">in</span> range(len(score)):</span><br><span class="line">        print(lev,end=<span class="string">" "</span>)</span><br><span class="line">GetValue(score=[<span class="string">"优秀"</span>,<span class="string">"及格"</span>,<span class="string">"不及格"</span>])</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>运行结果：</p>
-<pre><code>0 1 2 
-</code></pre><h2 id="break-语句：统计优秀学生的个数"><a href="#break-语句：统计优秀学生的个数" class="headerlink" title="break 语句：统计优秀学生的个数"></a>break 语句：统计优秀学生的个数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># break 语句:不及格的跳过</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetHighLev</span><span class="params">(score)</span>:</span></span><br><span class="line">    result=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> lev <span class="keyword">in</span> score:</span><br><span class="line">        <span class="keyword">if</span> lev &lt; <span class="number">90</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"成绩优秀的学生有："</span>+str(result)+<span class="string">"位。"</span>)</span><br><span class="line"></span><br><span class="line">GetHighLev(score=[<span class="number">90</span>,<span class="number">30</span>,<span class="number">100</span>,<span class="number">98</span>,<span class="number">60</span>])</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>成绩优秀的学生有：1位。
+</code></pre><h2 id="if-语句-根据成绩评判等级"><a href="#if-语句-根据成绩评判等级" class="headerlink" title="if 语句::根据成绩评判等级"></a>if 语句::根据成绩评判等级</h2><pre>
+# if 语句:根据成绩评判等级
+def CallLevel(score):
+    if score >= 90 :
+        print("优秀")
+    elif score >= 60:
+        print("及格")
+    else:
+        print("不及格")
+CallLevel(score=60)
+</pre>
+运行结果：
 
-分析：实际优秀者个数是90,100,98共计3位，输出结果却是1位。造成这种结果的原因是，当循环输入列表90时候，满足条件自动加1.继续输入30，不满足条件，直接跳出整个程序，输出最后一条语句。
-</code></pre><h2 id="continue-语句：统计优秀成绩的个数"><a href="#continue-语句：统计优秀成绩的个数" class="headerlink" title="continue 语句：统计优秀成绩的个数"></a>continue 语句：统计优秀成绩的个数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># continue 语句:统计优秀成绩的个数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">GetHighLev2</span><span class="params">(score)</span>:</span></span><br><span class="line">    result=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> lev <span class="keyword">in</span> score:</span><br><span class="line">        <span class="keyword">if</span> lev &lt; <span class="number">90</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"成绩优秀的学生有："</span>+str(result)+<span class="string">"位。"</span>)</span><br><span class="line"></span><br><span class="line">GetHighLev2(score=[<span class="number">90</span>,<span class="number">30</span>,<span class="number">100</span>,<span class="number">98</span>,<span class="number">60</span>])</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>成绩优秀的学生有：3位。
-</code></pre><blockquote>
-<p>pass 语句：什么也不做，占位符<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pass 语句：什么也不做，占位符</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callPass</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">print(callPass())</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>运行结果：</p>
-<pre><code>None
-</code></pre><hr>
-<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="定义函数：斐波那契数列"><a href="#定义函数：斐波那契数列" class="headerlink" title="定义函数：斐波那契数列"></a>定义函数：斐波那契数列</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出指定数的斐波那契数列</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span><span class="params">(n)</span>:</span></span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> a &lt; n:</span><br><span class="line">        print(a, end=<span class="string">' '</span>)</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">    print()</span><br><span class="line">fib(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code> 0 1 1 2 3 5 8 13 21 34 55 89 
-</code></pre><p>结果分析：</p>
-<p>关键字 def 引入了一个函数定义。在其后必须跟有函数名和包括形式参数的圆括号。函数体语句从下一行开始，必须是缩进的。一个函数定义会在当前符号表内引入函数名。函数名指代的值（即函数体）有一个被 Python 解释器认定为用户自定义函数的类型。</p>
-<h2 id="函数默认参数"><a href="#函数默认参数" class="headerlink" title="函数默认参数"></a>函数默认参数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数默认参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayhello</span><span class="params">(name=<span class="string">"Tom"</span>)</span>:</span></span><br><span class="line">    print(<span class="string">"Hello,"</span>+name)</span><br><span class="line"></span><br><span class="line">sayhello()</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>Hello,Tom
-</code></pre><h2 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关键字参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">person</span><span class="params">(name, age, **kw)</span>:</span>  <span class="comment">#前两个是必须参数，最后一个可选可变参数</span></span><br><span class="line">    print(<span class="string">'name:'</span>, name, <span class="string">'age:'</span>, age, <span class="string">'other:'</span>, kw)</span><br><span class="line"></span><br><span class="line">person(<span class="string">"Tome"</span>,<span class="number">30</span>) <span class="comment"># 只调用必须参数</span></span><br><span class="line">person(<span class="string">"Tom"</span>,<span class="number">30</span>,city=<span class="string">"ChengDu"</span>,sex=<span class="string">"man"</span>) <span class="comment"># 自定义关键字参数</span></span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>name: Tome age: 30 other: {}
-name: Tom age: 30 other: {&#39;sex&#39;: &#39;man&#39;, &#39;city&#39;: &#39;ChengDu&#39;}
-</code></pre><h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可变参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">concat</span><span class="params">(*args, sep=<span class="string">"/"</span>)</span>:</span></span><br><span class="line">    print(sep.join(args))</span><br><span class="line">concat(<span class="string">'我'</span>,<span class="string">'是'</span>,<span class="string">'可变'</span>,<span class="string">'参数'</span>)</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>我/是/可变/参数
-</code></pre><h2 id="Lambda-形式"><a href="#Lambda-形式" class="headerlink" title="Lambda 形式"></a>Lambda 形式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Lambda 形式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Lambda</span><span class="params">(nums)</span>:</span></span><br><span class="line">    nums.sort(key=<span class="keyword">lambda</span> num: num[<span class="number">0</span>])</span><br><span class="line">    print(nums)</span><br><span class="line"></span><br><span class="line">Lambda(nums = [(<span class="number">1</span>, <span class="string">'one'</span>), (<span class="number">2</span>, <span class="string">'two'</span>), (<span class="number">3</span>, <span class="string">'three'</span>), (<span class="number">4</span>, <span class="string">'four'</span>)])</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<pre><code>[(1, &#39;one&#39;), (2, &#39;two&#39;), (3, &#39;three&#39;), (4, &#39;four&#39;)]
-</code></pre><hr>
-<h1 id="List-列表"><a href="#List-列表" class="headerlink" title="List 列表"></a>List 列表</h1><h2 id="list常用方法"><a href="#list常用方法" class="headerlink" title="list常用方法"></a>list常用方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">list.append(x)    添加元素到列表尾部。</span><br><span class="line">list.extend(L)    列表合并。</span><br><span class="line">list.insert(i, x) 在指定位置插入一个元素。</span><br><span class="line">list.remove(x)    删除列表中值为 x 的第一个元素。</span><br><span class="line">list.pop([i])     从列表的指定位置删除元素，并将其返回。</span><br><span class="line">list.clear()      从列表中删除所有元素。相当于 <span class="keyword">del</span> a[:]。</span><br><span class="line">list.index(x)     返回列表中第一个值为 x 的元素的索引。</span><br><span class="line">list.count(x)     返回 x 在列表中出现的次数。</span><br><span class="line">list.sort()       对列表中的元素就地进行排序。</span><br><span class="line">list.reverse()    就地倒排列表中的元素。</span><br><span class="line">list.copy()       返回列表的一个浅拷贝。等同于 a[:]。</span><br></pre></td></tr></table></figure>
-<h2 id="列表的切分"><a href="#列表的切分" class="headerlink" title="列表的切分"></a>列表的切分</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表的切分</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calllist</span><span class="params">(names)</span>:</span></span><br><span class="line">    print(names[<span class="number">-1</span>:]) <span class="comment"># 输出列表最后一个值</span></span><br><span class="line">    print(names[:<span class="number">3</span>])  <span class="comment"># 输出列表前3个值</span></span><br><span class="line">calllist(names=[<span class="string">'this'</span>,<span class="string">'is'</span>,<span class="string">'a'</span>,<span class="string">'list'</span>])</span><br></pre></td></tr></table></figure>
+    及格
+
+## for 语句:循环输出所有评分指标
+
+    # for 语句:循环输出所有评分指标
+    def GetLevel(score):
+        for lev in score:
+            print(lev,end=" ") # 设置不换行
+    GetLevel(score=["优秀","及格","不及格"]) # 列表参数
+
+运行结果：
+
+    优秀 及格 不及格
+
+## while 语句:循环输出所有评分
+<pre>
+# while 语句:循环输出所有评分
+def GetLevel2(score):
+    countlen=len(score)
+    while countlen > 0:
+        print(score[countlen-1],end=" ") # 设置不换行
+        countlen -= 1
+
+GetLevel2(score=[90,30,100,98,60])
+</pre>
+运行结果：
+
+    60 98 100 30 90 
+
+> range() 函数:循环输出所有评分指标的下标
+<pre>
+# range() 函数:循环输出所有评分指标的下标
+def GetValue(score):
+    for lev in range(len(score)):
+        print(lev,end=" ")
+GetValue(score=["优秀","及格","不及格"])
+</pre>
+运行结果：
+
+    0 1 2 
+
+## break 语句：统计优秀学生的个数
+<pre>
+# break 语句:不及格的跳过
+def GetHighLev(score):
+    result=0
+    for lev in score:
+        if lev < 90:
+            break
+        else:
+            result += 1
+    print("成绩优秀的学生有："+str(result)+"位。")
+
+GetHighLev(score=[90,30,100,98,60])
+</pre>
+运行结果：
+
+    成绩优秀的学生有：1位。
+
+    分析：实际优秀者个数是90,100,98共计3位，输出结果却是1位。造成这种结果的原因是，当循环输入列表90时候，满足条件自动加1.继续输入30，不满足条件，直接跳出整个程序，输出最后一条语句。
+
+
+
+## continue 语句：统计优秀成绩的个数
+<pre>
+# continue 语句:统计优秀成绩的个数
+def GetHighLev2(score):
+    result=0
+    for lev in score:
+        if lev < 90:
+            continue
+        else:
+            result += 1
+    print("成绩优秀的学生有："+str(result)+"位。")
+
+GetHighLev2(score=[90,30,100,98,60])
+</pre>
+运行结果：
+
+    成绩优秀的学生有：3位。
+
+> pass 语句：什么也不做，占位符
+<pre>
+# pass 语句：什么也不做，占位符
+def callPass():
+    pass
+print(callPass())
+</pre>
+运行结果：
+
+    None
+
+
+***
+# 函数
+## 定义函数：斐波那契数列
+<pre>
+# 输出指定数的斐波那契数列
+def fib(n):
+    a, b = 0, 1
+    while a < n:
+        print(a, end=' ')
+        a, b = b, a+b
+    print()
+fib(100)
+</pre>
+运行结果：
+
+     0 1 1 2 3 5 8 13 21 34 55 89 
+结果分析：
+
+关键字 def 引入了一个函数定义。在其后必须跟有函数名和包括形式参数的圆括号。函数体语句从下一行开始，必须是缩进的。一个函数定义会在当前符号表内引入函数名。函数名指代的值（即函数体）有一个被 Python 解释器认定为用户自定义函数的类型。
+
+## 函数默认参数
+<pre>
+# 函数默认参数
+def sayhello(name="Tom"):
+    print("Hello,"+name)
+
+sayhello()
+</pre>
+运行结果：
+
+    Hello,Tom
+
+## 关键字参数
+<pre>
+# 关键字参数
+def person(name, age, **kw):  #前两个是必须参数，最后一个可选可变参数
+    print('name:', name, 'age:', age, 'other:', kw)
+
+person("Tome",30) # 只调用必须参数
+person("Tom",30,city="ChengDu",sex="man") # 自定义关键字参数
+</pre>
+运行结果：
+
+    name: Tome age: 30 other: {}
+    name: Tom age: 30 other: {'sex': 'man', 'city': 'ChengDu'}
+
+## 可变参数
+<pre>
+# 可变参数
+def concat(*args, sep="/"):
+    print(sep.join(args))
+concat('我','是','可变','参数')
+</pre>
+运行结果：
+
+    我/是/可变/参数
+
+## Lambda 形式
+<pre>
+# Lambda 形式
+def Lambda(nums):
+    nums.sort(key=lambda num: num[0])
+    print(nums)
+
+Lambda(nums = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')])
+</pre>
+运行结果：
+
+    [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
+
+
+***
+
+# List 列表
+## list常用方法
+<pre>
+list.append(x)    添加元素到列表尾部。
+list.extend(L)    列表合并。
+list.insert(i, x) 在指定位置插入一个元素。
+list.remove(x)    删除列表中值为 x 的第一个元素。
+list.pop([i])     从列表的指定位置删除元素，并将其返回。
+list.clear()      从列表中删除所有元素。相当于 del a[:]。
+list.index(x)     返回列表中第一个值为 x 的元素的索引。
+list.count(x)     返回 x 在列表中出现的次数。
+list.sort()       对列表中的元素就地进行排序。
+list.reverse()    就地倒排列表中的元素。
+list.copy()       返回列表的一个浅拷贝。等同于 a[:]。
+</pre>
+
+<h2 id="列表的切分"><a href="#列表的切分" class="headerlink" title="列表的切分"></a>列表的切分</h2><pre>
+# 列表的切分
+def calllist(names):
+    print(names[-1:]) # 输出列表最后一个值
+    print(names[:3])  # 输出列表前3个值
+calllist(names=['this','is','a','list'])
+</pre>
+
 <p>运行结果：</p>
 <pre><code>[&#39;list&#39;] 
 [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;]
-</code></pre><h2 id="List-列表作堆栈-先进先出"><a href="#List-列表作堆栈-先进先出" class="headerlink" title="List :列表作堆栈(先进先出)"></a>List :列表作堆栈(先进先出)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把列表当作堆栈使用</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SomeList</span><span class="params">(stack)</span>:</span></span><br><span class="line">    print(<span class="string">"原始列表（栈）："</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(stack)</span><br><span class="line">    stack.append(<span class="string">'贺知章'</span>)</span><br><span class="line">    stack.append(<span class="string">'杜牧'</span>)</span><br><span class="line">    print(<span class="string">"追加后列表（栈）："</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(stack)</span><br><span class="line">    stack.pop()</span><br><span class="line">    stack.pop()</span><br><span class="line">    print(<span class="string">"出栈后的数据："</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(stack)</span><br><span class="line"></span><br><span class="line">SomeList(stack=[<span class="string">'李白'</span>,<span class="string">'杜甫'</span>, <span class="string">'白居易'</span>])</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="List-列表作堆栈-先进先出"><a href="#List-列表作堆栈-先进先出" class="headerlink" title="List :列表作堆栈(先进先出)"></a>List :列表作堆栈(先进先出)</h2><pre>
+# 把列表当作堆栈使用
+def SomeList(stack):
+    print("原始列表（栈）：",end=' ')
+    print(stack)
+    stack.append('贺知章')
+    stack.append('杜牧')
+    print("追加后列表（栈）：",end=' ')
+    print(stack)
+    stack.pop()
+    stack.pop()
+    print("出栈后的数据：",end=' ')
+    print(stack)
+
+SomeList(stack=['李白','杜甫', '白居易'])
+</pre>
+
 <p>运行结果：(先进先出)</p>
 <pre><code>原始列表（栈）： [&#39;李白&#39;, &#39;杜甫&#39;, &#39;白居易&#39;]
 追加后列表（栈）： [&#39;李白&#39;, &#39;杜甫&#39;, &#39;白居易&#39;, &#39;贺知章&#39;, &#39;杜牧&#39;]
 出栈后的数据： [&#39;李白&#39;, &#39;杜甫&#39;, &#39;白居易&#39;]
-</code></pre><h2 id="List-列表作队列-先进后出"><a href="#List-列表作队列-先进后出" class="headerlink" title="List :列表作队列(先进后出)"></a>List :列表作队列(先进后出)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把列表当作队列使用：使用队列时调用collections.deque，它为在首尾两端快速插入和删除而设计。</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SomeList2</span><span class="params">(queue)</span>:</span></span><br><span class="line">    print(<span class="string">"原始列表："</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(queue)</span><br><span class="line">    queue.append(<span class="string">"李商隐"</span>)</span><br><span class="line">    queue.append(<span class="string">"杜牧"</span>)</span><br><span class="line">    print(<span class="string">"入队的列表："</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(queue)</span><br><span class="line">    queue.popleft()</span><br><span class="line">    queue.popleft()</span><br><span class="line">    print(<span class="string">"出队后列表："</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(queue)</span><br><span class="line"></span><br><span class="line">SomeList2(queue = deque([<span class="string">'李白'</span>,<span class="string">'杜甫'</span>, <span class="string">'白居易'</span>]))</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="List-列表作队列-先进后出"><a href="#List-列表作队列-先进后出" class="headerlink" title="List :列表作队列(先进后出)"></a>List :列表作队列(先进后出)</h2><pre>
+# 把列表当作队列使用：使用队列时调用collections.deque，它为在首尾两端快速插入和删除而设计。
+from collections import deque
+def SomeList2(queue):
+    print("原始列表：",end=' ')
+    print(queue)
+    queue.append("李商隐")
+    queue.append("杜牧")
+    print("入队的列表：",end=' ')
+    print(queue)
+    queue.popleft()
+    queue.popleft()
+    print("出队后列表：",end=' ')
+    print(queue)
+
+SomeList2(queue = deque(['李白','杜甫', '白居易']))
+</pre>
+
 <p>运行结果：(先进后出)</p>
 <pre><code>原始列表： deque([&#39;李白&#39;, &#39;杜甫&#39;, &#39;白居易&#39;])
 入队的列表： deque([&#39;李白&#39;, &#39;杜甫&#39;, &#39;白居易&#39;, &#39;李商隐&#39;, &#39;杜牧&#39;])
 出队后列表： deque([&#39;白居易&#39;, &#39;李商隐&#39;, &#39;杜牧&#39;])
-</code></pre><h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表推导式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callList</span><span class="params">(nums)</span>:</span></span><br><span class="line">    squares = [n**<span class="number">2</span> <span class="keyword">for</span> n <span class="keyword">in</span> nums]</span><br><span class="line">    print(squares)</span><br><span class="line">callList(nums=[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>])</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="列表推导式"><a href="#列表推导式" class="headerlink" title="列表推导式"></a>列表推导式</h2><pre>
+# 列表推导式
+def callList(nums):
+    squares = [n**2 for n in nums]
+    print(squares)
+callList(nums=[2,4,6,8])
+</pre>
+
 <p>运行结果：</p>
 <pre><code>[4, 16, 36, 64]
-</code></pre><h2 id="列表的矩阵转秩"><a href="#列表的矩阵转秩" class="headerlink" title="列表的矩阵转秩"></a>列表的矩阵转秩</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 矩阵转秩</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countList</span><span class="params">(matrix)</span>:</span></span><br><span class="line">    result = [[row[i] <span class="keyword">for</span> row <span class="keyword">in</span> matrix] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>)]</span><br><span class="line">    print(result)</span><br><span class="line"></span><br><span class="line">matrix = [</span><br><span class="line">     [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">     [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>],</span><br><span class="line">     [<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>],</span><br><span class="line">]</span><br><span class="line">countList(matrix)</span><br></pre></td></tr></table></figure>
+</code></pre><h2 id="列表的矩阵转秩"><a href="#列表的矩阵转秩" class="headerlink" title="列表的矩阵转秩"></a>列表的矩阵转秩</h2><pre>
+# 矩阵转秩
+def countList(matrix):
+    result = [[row[i] for row in matrix] for i in range(4)]
+    print(result)
+
+matrix = [
+     [1, 2, 3, 4],
+     [5, 6, 7, 8],
+     [9, 10, 11, 12],
+]
+countList(matrix)
+</pre>
+
 <p>运行结果：</p>
 <pre><code>[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 </code></pre><hr>
 <h1 id="元组-集合-字典"><a href="#元组-集合-字典" class="headerlink" title="元组/集合/字典"></a>元组/集合/字典</h1><p>虽然元组和列表很类似，它们经常被用来在不同的情况和不同的用途。元组有很多用途。例如 (x, y) 坐标对，数据库中的员工记录等等。元组就像字符串， 不可变的。列表是可变的 ，它们的元素通常是相同类型的并通过迭代访问。</p>
-<h2 id="操作元组"><a href="#操作元组" class="headerlink" title="操作元组"></a>操作元组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calltuple</span><span class="params">(tuples)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> tuples:</span><br><span class="line">        print(t+<span class="string">"\t"</span>,end=<span class="string">" "</span>)</span><br><span class="line">    print()</span><br><span class="line">calltuple(tuples=(<span class="string">'百度'</span>,<span class="string">'阿里巴巴'</span>,<span class="string">'腾讯'</span>)) <span class="comment"># 元组参数</span></span><br></pre></td></tr></table></figure>
+<h2 id="操作元组"><a href="#操作元组" class="headerlink" title="操作元组"></a>操作元组</h2><pre>
+def calltuple(tuples):
+    for t in tuples:
+        print(t+"\t",end=" ")
+    print()
+calltuple(tuples=('百度','阿里巴巴','腾讯')) # 元组参数
+</pre>
+
 <p>运行结果：</p>
 <pre><code>百度     阿里巴巴     腾讯    
 </code></pre><h2 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h2><p>集合是一个无序不重复元素的集。基本功能包括关系测试和消除重复元素。集合对象还支持 union（联合），intersection（交），difference（差）和 sysmmetric difference（对称差集）等数学运算。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callset</span><span class="params">(basket)</span>:</span></span><br><span class="line">    result= set(basket)</span><br><span class="line">    print(result)</span><br><span class="line"></span><br><span class="line">callset(basket = &#123;<span class="string">'apple'</span>, <span class="string">'orange'</span>, <span class="string">'apple'</span>, <span class="string">'pear'</span>, <span class="string">'orange'</span>, <span class="string">'banana'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<pre>
+def callset(basket):
+    result= set(basket)
+    print(result)
+
+callset(basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'})
+</pre>
+
 <p>运行结果：</p>
 <pre><code>{&#39;pear&#39;, &#39;orange&#39;, &#39;apple&#39;, &#39;banana&#39;}
 </code></pre><h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>理解字典的最佳方式是把它看做无序的键：值对（key:value 对）集合，键必须是互不相同的（在同一个字典之内）。一对大括号创建一个空的字典： {} 。初始化列表时，在大括号内放置一组逗号分隔的键：值对，这也是字典输出的方式。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calldict</span><span class="params">(dicts)</span>:</span></span><br><span class="line">    print(<span class="string">"原始字典"</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(dicts)   <span class="comment"># 原始字典</span></span><br><span class="line">    dicts[<span class="string">'欧阳修'</span>] = <span class="string">'宋朝'</span> <span class="comment"># 追加字典</span></span><br><span class="line">    print(<span class="string">"追加后的字典"</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(dicts)    <span class="comment"># 追加后的字典</span></span><br><span class="line">    print(<span class="string">"字典键的集合"</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(list(dicts.keys())) <span class="comment"># 字典键的集合</span></span><br><span class="line">    print(<span class="string">"字典键的排序"</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(sorted(dicts.keys())) <span class="comment"># 字典键的排序</span></span><br><span class="line">    print(<span class="string">"字典值的集合"</span>,end=<span class="string">' '</span>)</span><br><span class="line">    print(list(dicts.values())) <span class="comment"># 字典值的集合</span></span><br><span class="line"></span><br><span class="line">calldict(dicts = &#123;<span class="string">'李白'</span>: <span class="string">'唐朝'</span>, <span class="string">'杜甫'</span>: <span class="string">'唐朝'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<pre>
+def calldict(dicts):
+    print("原始字典",end=' ')
+    print(dicts)   # 原始字典
+    dicts['欧阳修'] = '宋朝' # 追加字典
+    print("追加后的字典",end=' ')
+    print(dicts)    # 追加后的字典
+    print("字典键的集合",end=' ')
+    print(list(dicts.keys())) # 字典键的集合
+    print("字典键的排序",end=' ')
+    print(sorted(dicts.keys())) # 字典键的排序
+    print("字典值的集合",end=' ')
+    print(list(dicts.values())) # 字典值的集合
+
+calldict(dicts = {'李白': '唐朝', '杜甫': '唐朝'})
+</pre>
+
 <p>运行结果：</p>
 <pre><code>原始字典 {&#39;杜甫&#39;: &#39;唐朝&#39;, &#39;李白&#39;: &#39;唐朝&#39;}
 追加后的字典 {&#39;杜甫&#39;: &#39;唐朝&#39;, &#39;李白&#39;: &#39;唐朝&#39;, &#39;欧阳修&#39;: &#39;宋朝&#39;}
@@ -635,7 +878,36 @@ name: Tom age: 30 other: {&#39;sex&#39;: &#39;man&#39;, &#39;city&#39;: &#39;Che
 字典键的排序 [&#39;李白&#39;, &#39;杜甫&#39;, &#39;欧阳修&#39;]
 字典值的集合 [&#39;唐朝&#39;, &#39;唐朝&#39;, &#39;宋朝&#39;]
 </code></pre><hr>
-<h1 id="面向对象编程：类"><a href="#面向对象编程：类" class="headerlink" title="面向对象编程：类"></a>面向对象编程：类</h1><p>通过案例理解python中的类：父类是动物类，有初始化函数，且有动物讲话的方法，子类是一个狗类，继承父类所有属性，并扩展自己方法，调用子类讲话方法，并直接调用父类讲话方法。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># 欢迎进入我的主页：http://www.cnblogs.com/baiboy/.</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseAnimal</span>:</span> <span class="comment"># 父类：动物</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,age)</span>:</span> <span class="comment"># 初始化方法：括号里是形参</span></span><br><span class="line">        self.name=name</span><br><span class="line">        self.age=age</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">speak</span><span class="params">(self)</span>:</span> <span class="comment"># 父类的行为方法</span></span><br><span class="line">        print(<span class="string">"我的名字是[ %s ],今年[ %d ]岁"</span> %(self.name,self.age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubDog</span><span class="params">(BaseAnimal)</span>:</span> <span class="comment"># 子类：小狗</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,age,say)</span>:</span> <span class="comment"># 初始化方法：括号里是形参</span></span><br><span class="line">        BaseAnimal.__init__(self,name,age)</span><br><span class="line">        self.say=say</span><br><span class="line">        print(<span class="string">"这是子类[ %s ]."</span>%(self.name))</span><br><span class="line">        print(<span class="string">'_'</span>*<span class="number">20</span>+<span class="string">'调用子函数方法'</span>+<span class="string">'_'</span>*<span class="number">20</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">talk</span><span class="params">(self)</span>:</span>      <span class="comment"># 子类的行为方法</span></span><br><span class="line">        <span class="comment"># BaseAnimal.speak(self) # 调用父类的行为方法</span></span><br><span class="line">        print(<span class="string">"我的名字是[ %s ],今年[ %d ]岁,我想说： %s"</span> %(self.name,self.age,self.say))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ani=SubDog(<span class="string">'dog'</span>,<span class="number">12</span>,<span class="string">'汪汪...'</span>)</span><br><span class="line">print(ani.talk())</span><br><span class="line">print(<span class="string">'_'</span>*<span class="number">20</span>+<span class="string">'直接调用父函数方法'</span>+<span class="string">'_'</span>*<span class="number">20</span>)</span><br><span class="line">BaseAnimal(<span class="string">'tom'</span>,<span class="number">13</span>).speak()</span><br></pre></td></tr></table></figure></p>
+<h1 id="面向对象编程：类"><a href="#面向对象编程：类" class="headerlink" title="面向对象编程：类"></a>面向对象编程：类</h1><p>通过案例理解python中的类：父类是动物类，有初始化函数，且有动物讲话的方法，子类是一个狗类，继承父类所有属性，并扩展自己方法，调用子类讲话方法，并直接调用父类讲话方法。</p>
+<pre>
+"""
+# 欢迎进入我的主页：http://www.cnblogs.com/baiboy/.
+"""
+class BaseAnimal: # 父类：动物
+    def __init__(self,name,age): # 初始化方法：括号里是形参
+        self.name=name
+        self.age=age
+    def speak(self): # 父类的行为方法
+        print("我的名字是[ %s ],今年[ %d ]岁" %(self.name,self.age))
+
+
+class SubDog(BaseAnimal): # 子类：小狗
+    def __init__(self,name,age,say): # 初始化方法：括号里是形参
+        BaseAnimal.__init__(self,name,age)
+        self.say=say
+        print("这是子类[ %s ]."%(self.name))
+        print('_'*20+'调用子函数方法'+'_'*20)
+    def talk(self):      # 子类的行为方法
+        # BaseAnimal.speak(self) # 调用父类的行为方法
+        print("我的名字是[ %s ],今年[ %d ]岁,我想说： %s" %(self.name,self.age,self.say))
+
+
+ani=SubDog('dog',12,'汪汪...')
+print(ani.talk())
+print('_'*20+'直接调用父函数方法'+'_'*20)
+BaseAnimal('tom',13).speak()
+</pre>
+
 <p>运行结果：</p>
 <pre><code>这是子类[ dog ].
 
@@ -1281,7 +1553,7 @@ ____________________直接调用父函数方法____________________
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#语句和控制流"><span class="nav-number">1.</span> <span class="nav-text">语句和控制流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">1.1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-语句-根据成绩评判等级"><span class="nav-number">1.2.</span> <span class="nav-text">if 语句::根据成绩评判等级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-语句-循环输出所有评分指标"><span class="nav-number">1.3.</span> <span class="nav-text">for 语句:循环输出所有评分指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-语句-循环输出所有评分"><span class="nav-number">1.4.</span> <span class="nav-text">while 语句:循环输出所有评分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break-语句：统计优秀学生的个数"><span class="nav-number">1.5.</span> <span class="nav-text">break 语句：统计优秀学生的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continue-语句：统计优秀成绩的个数"><span class="nav-number">1.6.</span> <span class="nav-text">continue 语句：统计优秀成绩的个数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">2.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义函数：斐波那契数列"><span class="nav-number">2.1.</span> <span class="nav-text">定义函数：斐波那契数列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数默认参数"><span class="nav-number">2.2.</span> <span class="nav-text">函数默认参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键字参数"><span class="nav-number">2.3.</span> <span class="nav-text">关键字参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可变参数"><span class="nav-number">2.4.</span> <span class="nav-text">可变参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda-形式"><span class="nav-number">2.5.</span> <span class="nav-text">Lambda 形式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#List-列表"><span class="nav-number">3.</span> <span class="nav-text">List 列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#list常用方法"><span class="nav-number">3.1.</span> <span class="nav-text">list常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表的切分"><span class="nav-number">3.2.</span> <span class="nav-text">列表的切分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-列表作堆栈-先进先出"><span class="nav-number">3.3.</span> <span class="nav-text">List :列表作堆栈(先进先出)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-列表作队列-先进后出"><span class="nav-number">3.4.</span> <span class="nav-text">List :列表作队列(先进后出)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表推导式"><span class="nav-number">3.5.</span> <span class="nav-text">列表推导式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表的矩阵转秩"><span class="nav-number">3.6.</span> <span class="nav-text">列表的矩阵转秩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元组-集合-字典"><span class="nav-number">4.</span> <span class="nav-text">元组/集合/字典</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作元组"><span class="nav-number">4.1.</span> <span class="nav-text">操作元组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set集合"><span class="nav-number">4.2.</span> <span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典"><span class="nav-number">4.3.</span> <span class="nav-text">字典</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象编程：类"><span class="nav-number">5.</span> <span class="nav-text">面向对象编程：类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标准库"><span class="nav-number">6.</span> <span class="nav-text">标准库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python第三方库"><span class="nav-number">7.</span> <span class="nav-text">Python第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web框架库"><span class="nav-number">7.1.</span> <span class="nav-text">Web框架库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#科学计算库"><span class="nav-number">7.2.</span> <span class="nav-text">科学计算库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GUI库"><span class="nav-number">7.3.</span> <span class="nav-text">GUI库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他库"><span class="nav-number">7.4.</span> <span class="nav-text">其他库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">9.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">10.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#语句和控制流"><span class="nav-number">1.</span> <span class="nav-text">语句和控制流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">1.1.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-语句-根据成绩评判等级"><span class="nav-number">1.2.</span> <span class="nav-text">if 语句::根据成绩评判等级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表的切分"><span class="nav-number">1.3.</span> <span class="nav-text">列表的切分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-列表作堆栈-先进先出"><span class="nav-number">1.4.</span> <span class="nav-text">List :列表作堆栈(先进先出)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-列表作队列-先进后出"><span class="nav-number">1.5.</span> <span class="nav-text">List :列表作队列(先进后出)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表推导式"><span class="nav-number">1.6.</span> <span class="nav-text">列表推导式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表的矩阵转秩"><span class="nav-number">1.7.</span> <span class="nav-text">列表的矩阵转秩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元组-集合-字典"><span class="nav-number">2.</span> <span class="nav-text">元组/集合/字典</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作元组"><span class="nav-number">2.1.</span> <span class="nav-text">操作元组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set集合"><span class="nav-number">2.2.</span> <span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典"><span class="nav-number">2.3.</span> <span class="nav-text">字典</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象编程：类"><span class="nav-number">3.</span> <span class="nav-text">面向对象编程：类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标准库"><span class="nav-number">4.</span> <span class="nav-text">标准库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python第三方库"><span class="nav-number">5.</span> <span class="nav-text">Python第三方库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Web框架库"><span class="nav-number">5.1.</span> <span class="nav-text">Web框架库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#科学计算库"><span class="nav-number">5.2.</span> <span class="nav-text">科学计算库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GUI库"><span class="nav-number">5.3.</span> <span class="nav-text">GUI库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他库"><span class="nav-number">5.4.</span> <span class="nav-text">其他库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码下载"><span class="nav-number">7.</span> <span class="nav-text">完整代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

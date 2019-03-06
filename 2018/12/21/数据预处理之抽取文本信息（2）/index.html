@@ -175,7 +175,7 @@
 <meta property="og:image" content="https://i.imgur.com/mvEnEch.png">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
 <meta property="og:image" content="https://i.imgur.com/NEXhm2W.png">
-<meta property="og:updated_time" content="2018-12-25T08:34:54.490Z">
+<meta property="og:updated_time" content="2019-03-06T09:06:38.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python数据预处理之抽取文本信息（2）">
 <meta name="twitter:description" content="摘要：大数据技术与我们日常生活越来越紧密，要做大数据，首要解决数据问题。原始数据存在大量不完整、不一致、有异常的数据，严重影响到数据建模的执行效率，甚至可能导致模型结果的偏差，因此要数据预处。数据预处理主要是将原始数据经过文本抽取、数据清理、数据集成、数据处理、数据变换、数据降维等处理后，不仅提高了数据质量，而且更好的提升算法模型性能。数据预处理在数据挖掘、自然语言处理、机器学习、深度学习算法中">
@@ -487,7 +487,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-25 16:34:54" itemprop="dateModified" datetime="2018-12-25T16:34:54+08:00">2018-12-25</time>
+                <time title="修改时间：2019-03-06 17:06:38" itemprop="dateModified" datetime="2019-03-06T17:06:38+08:00">2019-03-06</time>
               
             
           </span>
@@ -598,7 +598,15 @@
 <blockquote>
 <p>半结构化数据</p>
 </blockquote>
-<p>半结构化数据是结构化数据的一种形式，它并不符合关系型数据库或其他数据表的形式关联起来的数据模型结构，但包含相关标记，用来分隔语义元素以及对记录和字段进行分层。因此，它也被称为自描述的结构。半结构化数据，属于同一类实体可以有不同的属性，即使他们被组合在一起，这些属性的顺序并不重要。常见的半结构数据有XML如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">person</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>李花<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">age</span>&gt;</span>13<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gender</span>&gt;</span>女<span class="tag">&lt;/<span class="name">gender</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">person</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>半结构化数据是结构化数据的一种形式，它并不符合关系型数据库或其他数据表的形式关联起来的数据模型结构，但包含相关标记，用来分隔语义元素以及对记录和字段进行分层。因此，它也被称为自描述的结构。半结构化数据，属于同一类实体可以有不同的属性，即使他们被组合在一起，这些属性的顺序并不重要。常见的半结构数据有XML如下：</p>
+<pre>
+<person>
+    <name>李花</name>
+    <age>13</age>
+    <gender>女</gender>
+</person>
+</pre>
+
 <ul>
 <li>数据特点：非关系模型数据，还有一定的格式。</li>
 <li>常见格式：比如Email、HTML、XML、JSON等。</li>
@@ -617,47 +625,11 @@
 <li>数据采集：网络爬虫、数据存档等方式。</li>
 </ul>
 <h2 id="常见的文本抽取方法"><a href="#常见的文本抽取方法" class="headerlink" title="常见的文本抽取方法"></a>常见的文本抽取方法</h2><p>针对数据不同形式，通过特定方式的数据采集方式（文档下载、数据库导出、网络爬虫、语音收集、图片解析等等）获取数据，无论是结构化的数据库文件、半结构化的网页数据，还是非结构化的图片、音视频。我们最终的目的都是将数据传入到电脑之中，通过算法模型挖掘其潜在的价值，为最终的AI技术做支撑。不同的是，在结构化和半结构化数据数据集成过程中，我们可以提取相关文本信息，做进一步的数据预处理；而非结构化的图片、音视频我们采用一定的技术手段，获取其对应的数据点矩阵。这一点不太容易理解，我们比如说想解析一张图片的数据，我们知道图片是有长宽高组成的，还包括红蓝绿三种基本色。那么我们就找到对应的多维特征，采用数据点占位表示，比如：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">图片名</th>
-<th style="text-align:right">长(bit)</th>
-<th style="text-align:center">宽(bit)</th>
-<th style="text-align:center">红</th>
-<th style="text-align:center">绿</th>
-<th style="text-align:center">蓝</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">猫1</td>
-<td style="text-align:right">12</td>
-<td style="text-align:center">100</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">狗2</td>
-<td style="text-align:right">101</td>
-<td style="text-align:center">234</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">猪3</td>
-<td style="text-align:right">202</td>
-<td style="text-align:center">24</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>上面就数据表示猫1这张图片，长宽位点（12,100）处只有蓝色构成；狗2这张图片，长宽位点（101,234）处有红绿蓝3中色构成；猪3这张图片，长宽位点（202,24）处只有绿构成。这就是非结构数据图片转化为数值型数据的原理。完整流程数据挖掘的流程图如下所示：</p>
+<pre><code>图片名    长(bit)        宽(bit)        红        绿        蓝
+猫1        12            100            0        0        1
+狗2        101            234            1        1        1
+猪3        202            24            0        1        0
+</code></pre><p>上面就数据表示猫1这张图片，长宽位点（12,100）处只有蓝色构成；狗2这张图片，长宽位点（101,234）处有红绿蓝3中色构成；猪3这张图片，长宽位点（202,24）处只有绿构成。这就是非结构数据图片转化为数值型数据的原理。完整流程数据挖掘的流程图如下所示：</p>
 <p><img src="https://i.imgur.com/ifprovl.png" alt=""></p>
 <p>我根据不同的数据类型，采用对应的数据采集方式获取目标数据。这时候的数据质量很差，存在文本格式不同，数据表示形式不同等诸多问题。这里我们单纯的考虑文本信息的处理，就文本信息而言，你采集的数据可能是网页、数据库文件、pdf文档、word文档等等。我们想去处理这些数据，还需要对数据进行集成即转化为统一的数据格式，这里我们就需要文本信息抽取，常见的抽取方式包括以下几个内容：在线格式转换工具、office内置格式转换、自己开发文本抽取工具。详见下图：</p>
 <p><img src="https://i.imgur.com/SKmSm17.png" alt=""></p>
@@ -695,8 +667,39 @@
 <p><img src="https://i.imgur.com/xzvVZra.png" alt=""></p>
 <blockquote>
 <p>代码实现：</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Description: Word文件转化TXT文本</span></span><br><span class="line"><span class="string">Author：伏草惟存</span></span><br><span class="line"><span class="string">Prompt: code in Python3 env</span></span><br><span class="line"><span class="string">Install package： pip install pypiwin32</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os,fnmatch</span><br><span class="line"><span class="keyword">from</span> win32com <span class="keyword">import</span> client <span class="keyword">as</span> wc</span><br><span class="line"><span class="keyword">from</span> win32com.client <span class="keyword">import</span> Dispatch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：word文件转存txt文件，默认存储当前路径下；用户可以指定存储文件路径。</span></span><br><span class="line"><span class="string">参数描述：1 filePath：文件路径   2 savePath： 指定保存路径</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Word2Txt</span><span class="params">(filePath,savePath=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 1 切分文件上级目录和文件名</span></span><br><span class="line">    dirs,filename = os.path.split(filePath)</span><br><span class="line">    <span class="comment"># print(dirs,'\n',filename)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2 修改转化后的文件名</span></span><br><span class="line">    new_name = <span class="string">''</span></span><br><span class="line">    <span class="keyword">if</span> fnmatch.fnmatch(filename,<span class="string">'*.doc'</span>):</span><br><span class="line">        new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span></span><br><span class="line">    <span class="keyword">elif</span> fnmatch.fnmatch(filename,<span class="string">'*.docx'</span>):</span><br><span class="line">        new_name = filename[:<span class="number">-5</span>]+<span class="string">'.txt'</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span></span><br><span class="line">    print(<span class="string">'-&gt;'</span>,new_name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3 文件转化后的保存路径</span></span><br><span class="line">    <span class="keyword">if</span> savePath==<span class="string">''</span>: savePath = dirs</span><br><span class="line">    <span class="keyword">else</span>: savePath = savePath</span><br><span class="line">    word_to_txt = os.path.join(savePath,new_name)</span><br><span class="line">    print(<span class="string">'-&gt;'</span>,word_to_txt)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4 加载处理应用,word转化txt</span></span><br><span class="line">    wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">    mytxt = wordapp.Documents.Open(filePath)</span><br><span class="line">    mytxt.SaveAs(word_to_txt,<span class="number">4</span>)</span><br><span class="line">    mytxt.Close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    filepath = os.path.abspath(<span class="string">r'../dataSet/filename.doc'</span>)</span><br><span class="line">    <span class="comment"># savepath = ''</span></span><br><span class="line">    Word2Txt(filepath)</span><br></pre></td></tr></table></figure>
+<p><pre></pre></p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="coding=utf-8"></a>coding=utf-8</h1></blockquote>
+<p>“””<br>Description: Word文件转化TXT文本<br>Author：伏草惟存<br>Prompt: code in Python3 env<br>Install package： pip install pypiwin32<br>“””</p>
+<p>import os,fnmatch<br>from win32com import client as wc<br>from win32com.client import Dispatch</p>
+<p>‘’’<br>功能描述：word文件转存txt文件，默认存储当前路径下；用户可以指定存储文件路径。<br>参数描述：1 filePath：文件路径   2 savePath： 指定保存路径<br>‘’’<br>def Word2Txt(filePath,savePath=’’):</p>
+<pre><code># 1 切分文件上级目录和文件名
+dirs,filename = os.path.split(filePath)
+# print(dirs,&#39;\n&#39;,filename)
+
+# 2 修改转化后的文件名
+new_name = &#39;&#39;
+if fnmatch.fnmatch(filename,&#39;*.doc&#39;):
+    new_name = filename[:-4]+&#39;.txt&#39;
+elif fnmatch.fnmatch(filename,&#39;*.docx&#39;):
+    new_name = filename[:-5]+&#39;.txt&#39;
+else: return
+print(&#39;-&gt;&#39;,new_name)
+
+# 3 文件转化后的保存路径
+if savePath==&#39;&#39;: savePath = dirs
+else: savePath = savePath
+word_to_txt = os.path.join(savePath,new_name)
+print(&#39;-&gt;&#39;,word_to_txt)
+
+# 4 加载处理应用,word转化txt
+wordapp = wc.Dispatch(&#39;Word.Application&#39;)
+mytxt = wordapp.Documents.Open(filePath)
+mytxt.SaveAs(word_to_txt,4)
+mytxt.Close()
+</code></pre><p>if <strong>name</strong>==’<strong>main</strong>‘:<br>    filepath = os.path.abspath(r’../dataSet/filename.doc’)</p>
+<pre><code># savepath = &#39;&#39;
+Word2Txt(filepath)
+</code></pre><p>&lt;/pre&gt;</p>
 <h2 id="抽取PDF文档文本"><a href="#抽取PDF文档文本" class="headerlink" title="抽取PDF文档文本"></a>抽取PDF文档文本</h2><blockquote>
 <p>算法思路：</p>
 </blockquote>
@@ -714,7 +717,57 @@
 <blockquote>
 <p>代码实现：</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Description: PDF文件转化TXT文本</span></span><br><span class="line"><span class="string">Author：伏草惟存</span></span><br><span class="line"><span class="string">Prompt: code in Python3 env</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os,fnmatch</span><br><span class="line"><span class="keyword">from</span> win32com <span class="keyword">import</span> client <span class="keyword">as</span> wc</span><br><span class="line"><span class="keyword">from</span> win32com.client <span class="keyword">import</span> Dispatch,gencache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：pdf文件转化txt文本</span></span><br><span class="line"><span class="string">参数描述：1 filePath：文件路径  2 savePath： 指定保存路径</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Pdf2Txt</span><span class="params">(filePath,savePath=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="comment"># 1 切分文件上级目录和文件名</span></span><br><span class="line">    dirs,filename = os.path.split(filePath)</span><br><span class="line">    <span class="comment"># print('目录：',dirs,'\n文件名：',filename)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2 修改转化后的文件名</span></span><br><span class="line">    new_name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> fnmatch.fnmatch(filename,<span class="string">'*.pdf'</span>) <span class="keyword">or</span> fnmatch.fnmatch(filename,<span class="string">'*.PDF'</span>):</span><br><span class="line">        new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span> <span class="comment"># 截取".pdf"之前的文件名</span></span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span></span><br><span class="line">    print(<span class="string">'新的文件名：'</span>,new_name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3 文件转化后的保存路径</span></span><br><span class="line">    <span class="keyword">if</span> savePath==<span class="string">""</span>: savePath = dirs</span><br><span class="line">    <span class="keyword">else</span>: savePath = savePath</span><br><span class="line">    pdf_to_txt = os.path.join(savePath,new_name)</span><br><span class="line">    print(<span class="string">'保存路径：'</span>,pdf_to_txt)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4 加载处理应用,pdf转化txt</span></span><br><span class="line">    wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">    mytxt = wordapp.Documents.Open(filePath)</span><br><span class="line">    mytxt.SaveAs(pdf_to_txt,<span class="number">4</span>)</span><br><span class="line">    mytxt.Close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 使用绝对路径</span></span><br><span class="line">    filePath = os.path.abspath(<span class="string">r'../dataSet/Corpus/pdftotxt/2018年世界新闻自由日.pdf'</span>)</span><br><span class="line">    <span class="comment"># savePath = r'E:\\'</span></span><br><span class="line">    Pdf2Txt(filePath)</span><br></pre></td></tr></table></figure>
+<pre>
+# coding=utf-8
+
+"""
+Description: PDF文件转化TXT文本
+Author：伏草惟存
+Prompt: code in Python3 env
+"""
+
+import os,fnmatch
+from win32com import client as wc
+from win32com.client import Dispatch,gencache
+
+
+'''
+功能描述：pdf文件转化txt文本
+参数描述：1 filePath：文件路径  2 savePath： 指定保存路径
+'''
+def Pdf2Txt(filePath,savePath=''):
+    # 1 切分文件上级目录和文件名
+    dirs,filename = os.path.split(filePath)
+    # print('目录：',dirs,'\n文件名：',filename)
+
+    # 2 修改转化后的文件名
+    new_name = ""
+    if fnmatch.fnmatch(filename,'*.pdf') or fnmatch.fnmatch(filename,'*.PDF'):
+        new_name = filename[:-4]+'.txt' # 截取".pdf"之前的文件名
+    else: return
+    print('新的文件名：',new_name)
+
+    # 3 文件转化后的保存路径
+    if savePath=="": savePath = dirs
+    else: savePath = savePath
+    pdf_to_txt = os.path.join(savePath,new_name)
+    print('保存路径：',pdf_to_txt)
+
+    # 4 加载处理应用,pdf转化txt
+    wordapp = wc.Dispatch('Word.Application')
+    mytxt = wordapp.Documents.Open(filePath)
+    mytxt.SaveAs(pdf_to_txt,4)
+    mytxt.Close()
+
+
+
+if __name__=='__main__':
+    # 使用绝对路径
+    filePath = os.path.abspath(r'../dataSet/Corpus/pdftotxt/2018年世界新闻自由日.pdf')
+    # savePath = r'E:\\'
+    Pdf2Txt(filePath)
+</pre>
+
 <h2 id="文本抽取工具与编码"><a href="#文本抽取工具与编码" class="headerlink" title="文本抽取工具与编码"></a>文本抽取工具与编码</h2><blockquote>
 <p>算法思路：</p>
 </blockquote>
@@ -727,8 +780,51 @@
 </ul>
 <blockquote>
 <p>代码实现</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Description: 多文档格式转换工具</span></span><br><span class="line"><span class="string">Author：伏草惟存</span></span><br><span class="line"><span class="string">Prompt: code in Python3 env</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os,fnmatch</span><br><span class="line"><span class="keyword">from</span> win32com <span class="keyword">import</span> client <span class="keyword">as</span> wc</span><br><span class="line"><span class="keyword">from</span> win32com.client <span class="keyword">import</span> Dispatch,gencache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：抽取文件文本信息</span></span><br><span class="line"><span class="string">参数描述：1 filePath：文件路径  2 savePath： 指定保存路径</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Files2Txt</span><span class="params">(filePath,savePath=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># 1 切分文件上级目录和文件名</span></span><br><span class="line">        dirs,filename = os.path.split(filePath)</span><br><span class="line">        <span class="comment"># print('目录：',dirs,'\n文件名：',filename)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2 修改转化后的文件名</span></span><br><span class="line">        typename = os.path.splitext(filename)[<span class="number">-1</span>].lower() <span class="comment"># 获取后缀</span></span><br><span class="line">        new_name = TranType(filename,typename)</span><br><span class="line">        <span class="comment"># print('新的文件名：',new_name)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3 文件转化后的保存路径</span></span><br><span class="line">        <span class="keyword">if</span> savePath==<span class="string">""</span>: savePath = dirs</span><br><span class="line">        <span class="keyword">else</span>: savePath = savePath</span><br><span class="line">        new_save_path = os.path.join(savePath,new_name)</span><br><span class="line">        print(<span class="string">'保存路径：'</span>,new_save_path)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4 加载处理应用</span></span><br><span class="line">        wordapp = wc.Dispatch(<span class="string">'Word.Application'</span>)</span><br><span class="line">        mytxt = wordapp.Documents.Open(filePath)</span><br><span class="line">        mytxt.SaveAs(new_save_path,<span class="number">4</span>)</span><br><span class="line">        mytxt.Close()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：根据文件后缀修改文件名</span></span><br><span class="line"><span class="string">参数描述：1 filePath：文件路径  2 typename 文件后缀</span></span><br><span class="line"><span class="string">返回数据：new_name 返回修改后的文件名</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">TranType</span><span class="params">(filename,typename)</span>:</span></span><br><span class="line">    <span class="comment"># 新的文件名称</span></span><br><span class="line">    new_name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span> typename == <span class="string">'.pdf'</span> : <span class="comment"># pdf-&gt;txt</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename,<span class="string">'*.pdf'</span>) :</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span> <span class="comment"># 截取".pdf"之前的文件名</span></span><br><span class="line">        <span class="keyword">else</span>: <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">elif</span> typename == <span class="string">'.doc'</span> <span class="keyword">or</span> typename == <span class="string">'.docx'</span> :  <span class="comment"># word-&gt;txt</span></span><br><span class="line">        <span class="keyword">if</span> fnmatch.fnmatch(filename, <span class="string">'*.doc'</span>) :</span><br><span class="line">            new_name = filename[:<span class="number">-4</span>]+<span class="string">'.txt'</span></span><br><span class="line">        <span class="keyword">elif</span> fnmatch.fnmatch(filename, <span class="string">'*.docx'</span>):</span><br><span class="line">            new_name = filename[:<span class="number">-5</span>]+<span class="string">'.txt'</span></span><br><span class="line">        <span class="keyword">else</span>: <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'警告：\n您输入['</span>,typename,<span class="string">']不合法，本工具支持pdf/doc/docx格式,请输入正确格式。'</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">return</span> new_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    filePath1 = os.path.abspath(<span class="string">r'../dataSet/Corpus/wordtotxt/一种改进的朴素贝叶斯文本分类方法研究.doc'</span>)</span><br><span class="line">    filePath2 = os.path.abspath(<span class="string">r'../dataSet/Corpus/pdftotxt/改进朴素贝叶斯文本分类方法研究.pdf'</span>)</span><br><span class="line">    filePath3 = os.path.abspath(<span class="string">r'../dataSet/Corpus/wordtotxt/科技项目数据挖掘决策架构.docx'</span>)</span><br><span class="line">    Files2Txt(filePath3)</span><br></pre></td></tr></table></figure>
+<p><pre></pre></p>
+<h1 id="coding-utf-8-1"><a href="#coding-utf-8-1" class="headerlink" title="coding=utf-8"></a>coding=utf-8</h1></blockquote>
+<p>“””<br>Description: 多文档格式转换工具<br>Author：伏草惟存<br>Prompt: code in Python3 env<br>“””</p>
+<p>import os,fnmatch<br>from win32com import client as wc<br>from win32com.client import Dispatch,gencache</p>
+<p>‘’’<br>功能描述：抽取文件文本信息<br>参数描述：1 filePath：文件路径  2 savePath： 指定保存路径<br>‘’’<br>def Files2Txt(filePath,savePath=’’):<br>    try:</p>
+<pre><code>    # 1 切分文件上级目录和文件名
+    dirs,filename = os.path.split(filePath)
+    # print(&#39;目录：&#39;,dirs,&#39;\n文件名：&#39;,filename)
+
+    # 2 修改转化后的文件名
+    typename = os.path.splitext(filename)[-1].lower() # 获取后缀
+    new_name = TranType(filename,typename)
+    # print(&#39;新的文件名：&#39;,new_name)
+
+    # 3 文件转化后的保存路径
+    if savePath==&quot;&quot;: savePath = dirs
+    else: savePath = savePath
+    new_save_path = os.path.join(savePath,new_name)
+    print(&#39;保存路径：&#39;,new_save_path)
+
+    # 4 加载处理应用
+    wordapp = wc.Dispatch(&#39;Word.Application&#39;)
+    mytxt = wordapp.Documents.Open(filePath)
+    mytxt.SaveAs(new_save_path,4)
+    mytxt.Close()
+except Exception as e:
+    pass
+</code></pre><p>‘’’<br>功能描述：根据文件后缀修改文件名<br>参数描述：1 filePath：文件路径  2 typename 文件后缀<br>返回数据：new_name 返回修改后的文件名<br>‘’’<br>def TranType(filename,typename):</p>
+<pre><code># 新的文件名称
+new_name = &quot;&quot;
+if typename == &#39;.pdf&#39; : # pdf-&gt;txt
+    if fnmatch.fnmatch(filename,&#39;*.pdf&#39;) :
+        new_name = filename[:-4]+&#39;.txt&#39; # 截取&quot;.pdf&quot;之前的文件名
+    else: return
+elif typename == &#39;.doc&#39; or typename == &#39;.docx&#39; :  # word-&gt;txt
+    if fnmatch.fnmatch(filename, &#39;*.doc&#39;) :
+        new_name = filename[:-4]+&#39;.txt&#39;
+    elif fnmatch.fnmatch(filename, &#39;*.docx&#39;):
+        new_name = filename[:-5]+&#39;.txt&#39;
+    else: return
+else:
+    print(&#39;警告：\n您输入[&#39;,typename,&#39;]不合法，本工具支持pdf/doc/docx格式,请输入正确格式。&#39;)
+    return
+return new_name
+</code></pre><p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    filePath1 = os.path.abspath(r’../dataSet/Corpus/wordtotxt/一种改进的朴素贝叶斯文本分类方法研究.doc’)<br>    filePath2 = os.path.abspath(r’../dataSet/Corpus/pdftotxt/改进朴素贝叶斯文本分类方法研究.pdf’)<br>    filePath3 = os.path.abspath(r’../dataSet/Corpus/wordtotxt/科技项目数据挖掘决策架构.docx’)<br>    Files2Txt(filePath3)<br>&lt;/pre&gt;</p>
 <blockquote>
 <p>遍历读取文件</p>
 </blockquote>
@@ -742,7 +838,58 @@
 <blockquote>
 <p>遍历文件源码实现</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Description: 遍历读取文件名</span></span><br><span class="line"><span class="string">Author：伏草惟存</span></span><br><span class="line"><span class="string">Prompt: code in Python3 env</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os,time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：遍历目录处理子文件</span></span><br><span class="line"><span class="string">参数描述： 1 rootDir 目标文件的根目录</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TraversalFun</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 1 初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,rootDir)</span>:</span></span><br><span class="line">        self.rootDir = rootDir <span class="comment"># 目录路径</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2 遍历目录文件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">TraversalDir</span><span class="params">(self)</span>:</span></span><br><span class="line">        TraversalFun.AllFiles(self,self.rootDir)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3 递归遍历所有文件，并提供具体文件操作功能</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">AllFiles</span><span class="params">(self,rootDir)</span>:</span></span><br><span class="line">        <span class="comment"># 返回指定目录包含的文件或文件夹的名字的列表</span></span><br><span class="line">        <span class="keyword">for</span> lists <span class="keyword">in</span> os.listdir(rootDir):</span><br><span class="line">            <span class="comment"># 待处理文件夹名字集合</span></span><br><span class="line">            path = os.path.join(rootDir, lists)</span><br><span class="line">            <span class="comment"># 核心算法，对文件具体操作</span></span><br><span class="line">            <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">                print(os.path.abspath(path))</span><br><span class="line">            <span class="comment"># 递归遍历文件目录</span></span><br><span class="line">            <span class="keyword">elif</span> os.path.isdir(path):</span><br><span class="line">                TraversalFun.AllFiles(self,path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    time_start=time.time()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 根目录文件路径</span></span><br><span class="line">    rootDir = <span class="string">r"../dataSet/Corpus/EnPapers"</span></span><br><span class="line">    tra=TraversalFun(rootDir) <span class="comment"># 默认方法参数打印所有文件路径</span></span><br><span class="line">    tra.TraversalDir()     <span class="comment"># 遍历文件并进行相关操作</span></span><br><span class="line"></span><br><span class="line">    time_end=time.time()</span><br><span class="line">    print(<span class="string">'totally cost'</span>,time_end-time_start,<span class="string">'s'</span>)</span><br></pre></td></tr></table></figure>
+<pre>
+# coding=utf-8
+
+"""
+Description: 遍历读取文件名
+Author：伏草惟存
+Prompt: code in Python3 env
+"""
+
+import os,time
+
+
+'''
+功能描述：遍历目录处理子文件
+参数描述： 1 rootDir 目标文件的根目录
+'''
+class TraversalFun():
+    # 1 初始化
+    def __init__(self,rootDir):
+        self.rootDir = rootDir # 目录路径
+
+    # 2 遍历目录文件
+    def TraversalDir(self):
+        TraversalFun.AllFiles(self,self.rootDir)
+
+    # 3 递归遍历所有文件，并提供具体文件操作功能
+    def AllFiles(self,rootDir):
+        # 返回指定目录包含的文件或文件夹的名字的列表
+        for lists in os.listdir(rootDir):
+            # 待处理文件夹名字集合
+            path = os.path.join(rootDir, lists)
+            # 核心算法，对文件具体操作
+            if os.path.isfile(path):
+                print(os.path.abspath(path))
+            # 递归遍历文件目录
+            elif os.path.isdir(path):
+                TraversalFun.AllFiles(self,path)
+
+
+
+if __name__ == '__main__':
+    time_start=time.time()
+
+    # 根目录文件路径
+    rootDir = r"../dataSet/Corpus/EnPapers"
+    tra=TraversalFun(rootDir) # 默认方法参数打印所有文件路径
+    tra.TraversalDir()     # 遍历文件并进行相关操作
+
+    time_end=time.time()
+    print('totally cost',time_end-time_start,'s')
+</pre>
+
 <h2 id="实战案例：遍历文件批量抽取新闻文本内容"><a href="#实战案例：遍历文件批量抽取新闻文本内容" class="headerlink" title="实战案例：遍历文件批量抽取新闻文本内容"></a>实战案例：遍历文件批量抽取新闻文本内容</h2><blockquote>
 <p>算法思路</p>
 </blockquote>
@@ -755,7 +902,84 @@
 <blockquote>
 <p>源码实现</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Description: 批量文档格式自动转化txt</span></span><br><span class="line"><span class="string">Author：伏草惟存</span></span><br><span class="line"><span class="string">Prompt: code in Python3 env</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> ExtractTxt <span class="keyword">as</span> ET</span><br><span class="line"><span class="keyword">import</span> os,time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">功能描述：遍历目录，对子文件单独处理</span></span><br><span class="line"><span class="string">参数描述：1 rootDir 根目录  2 deffun：方法参数  3 saveDir: 保存路径</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TraversalFun</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 1 初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,rootDir,func=None,saveDir=<span class="string">""</span>)</span>:</span></span><br><span class="line">        self.rootDir = rootDir <span class="comment"># 目录路径</span></span><br><span class="line">        self.func = func   <span class="comment"># 参数方法</span></span><br><span class="line">        self.saveDir = saveDir <span class="comment"># 保存路径</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2 遍历目录文件</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">TraversalDir</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 切分文件上级目录和文件名</span></span><br><span class="line">        dirs,latername = os.path.split(self.rootDir)</span><br><span class="line">        <span class="comment"># print(rootDir,'\n',dirs,'\n',latername)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保存目录</span></span><br><span class="line">        save_dir = <span class="string">""</span></span><br><span class="line">        <span class="keyword">if</span> self.saveDir==<span class="string">""</span>: <span class="comment"># 默认文件保存路径</span></span><br><span class="line">            save_dir = os.path.abspath(os.path.join(dirs,<span class="string">'new_'</span>+latername))</span><br><span class="line">        <span class="keyword">else</span>: save_dir = self.saveDir</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建目录文件</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_dir): os.makedirs(save_dir)</span><br><span class="line">        print(<span class="string">"保存目录：\n"</span>+save_dir)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 遍历文件并将其转化txt文件</span></span><br><span class="line">        TraversalFun.AllFiles(self,self.rootDir,save_dir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3 递归遍历所有文件，并提供具体文件操作功能</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">AllFiles</span><span class="params">(self,rootDir,save_dir=<span class="string">''</span>)</span>:</span></span><br><span class="line">        <span class="comment"># 返回指定目录包含的文件或文件夹的名字的列表</span></span><br><span class="line">        <span class="keyword">for</span> lists <span class="keyword">in</span> os.listdir(rootDir):</span><br><span class="line">            <span class="comment"># 待处理文件夹名字集合</span></span><br><span class="line">            path = os.path.join(rootDir, lists)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 核心算法，对文件具体操作</span></span><br><span class="line">            <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">                self.func(os.path.abspath(path),os.path.abspath(save_dir))</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 递归遍历文件目录</span></span><br><span class="line">            <span class="keyword">if</span> os.path.isdir(path):</span><br><span class="line">                newpath = os.path.join(save_dir, lists)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newpath):</span><br><span class="line">                    os.mkdir(newpath)</span><br><span class="line">                TraversalFun.AllFiles(self,path,newpath)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    time_start=time.time()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 根目录文件路径</span></span><br><span class="line">    rootDir = <span class="string">r"../dataSet/Corpus/EnPapers"</span></span><br><span class="line">    <span class="comment"># saveDir = r"./Corpus/TxtEnPapers"</span></span><br><span class="line">    tra=TraversalFun(rootDir,ET.Files2Txt) <span class="comment"># 默认方法参数打印所有文件路径</span></span><br><span class="line">    tra.TraversalDir()                   <span class="comment"># 遍历文件并进行相关操作</span></span><br><span class="line"></span><br><span class="line">    time_end=time.time()</span><br><span class="line">    print(<span class="string">'totally cost'</span>,time_end-time_start,<span class="string">'s'</span>)</span><br></pre></td></tr></table></figure>
+<pre>
+# coding=utf-8
+
+"""
+Description: 批量文档格式自动转化txt
+Author：伏草惟存
+Prompt: code in Python3 env
+"""
+
+import ExtractTxt as ET
+import os,time
+
+
+'''
+功能描述：遍历目录，对子文件单独处理
+参数描述：1 rootDir 根目录  2 deffun：方法参数  3 saveDir: 保存路径
+'''
+class TraversalFun():
+    # 1 初始化
+    def __init__(self,rootDir,func=None,saveDir=""):
+        self.rootDir = rootDir # 目录路径
+        self.func = func   # 参数方法
+        self.saveDir = saveDir # 保存路径
+
+    # 2 遍历目录文件
+    def TraversalDir(self):
+        # 切分文件上级目录和文件名
+        dirs,latername = os.path.split(self.rootDir)
+        # print(rootDir,'\n',dirs,'\n',latername)
+
+        # 保存目录
+        save_dir = ""
+        if self.saveDir=="": # 默认文件保存路径
+            save_dir = os.path.abspath(os.path.join(dirs,'new_'+latername))
+        else: save_dir = self.saveDir
+
+        # 创建目录文件
+        if not os.path.exists(save_dir): os.makedirs(save_dir)
+        print("保存目录：\n"+save_dir)
+
+        # 遍历文件并将其转化txt文件
+        TraversalFun.AllFiles(self,self.rootDir,save_dir)
+
+
+    # 3 递归遍历所有文件，并提供具体文件操作功能
+    def AllFiles(self,rootDir,save_dir=''):
+        # 返回指定目录包含的文件或文件夹的名字的列表
+        for lists in os.listdir(rootDir):
+            # 待处理文件夹名字集合
+            path = os.path.join(rootDir, lists)
+
+            # 核心算法，对文件具体操作
+            if os.path.isfile(path):
+                self.func(os.path.abspath(path),os.path.abspath(save_dir))
+
+            # 递归遍历文件目录
+            if os.path.isdir(path):
+                newpath = os.path.join(save_dir, lists)
+                if not os.path.exists(newpath):
+                    os.mkdir(newpath)
+                TraversalFun.AllFiles(self,path,newpath)
+
+
+
+
+if __name__ == '__main__':
+    time_start=time.time()
+
+    # 根目录文件路径
+    rootDir = r"../dataSet/Corpus/EnPapers"
+    # saveDir = r"./Corpus/TxtEnPapers"
+    tra=TraversalFun(rootDir,ET.Files2Txt) # 默认方法参数打印所有文件路径
+    tra.TraversalDir()                   # 遍历文件并进行相关操作
+
+    time_end=time.time()
+    print('totally cost',time_end-time_start,'s')
+</pre>
+
 <h2 id="源码获取"><a href="#源码获取" class="headerlink" title="源码获取"></a>源码获取</h2><blockquote>
 <p>源码请进【机器学习和自然语言QQ群：436303759】文件下载：<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流" title="自然语言处理和机器学习技术交流"></a></p>
 </blockquote>
@@ -1342,7 +1566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型与数据采集"><span class="nav-number">1.</span> <span class="nav-text">数据类型与数据采集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的文本抽取方法"><span class="nav-number">2.</span> <span class="nav-text">常见的文本抽取方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽取Word文档文本"><span class="nav-number">3.</span> <span class="nav-text">抽取Word文档文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽取PDF文档文本"><span class="nav-number">4.</span> <span class="nav-text">抽取PDF文档文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本抽取工具与编码"><span class="nav-number">5.</span> <span class="nav-text">文本抽取工具与编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战案例：遍历文件批量抽取新闻文本内容"><span class="nav-number">6.</span> <span class="nav-text">实战案例：遍历文件批量抽取新闻文本内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码获取"><span class="nav-number">7.</span> <span class="nav-text">源码获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">8.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型与数据采集"><span class="nav-number">1.</span> <span class="nav-text">数据类型与数据采集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的文本抽取方法"><span class="nav-number">2.</span> <span class="nav-text">常见的文本抽取方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽取Word文档文本"><span class="nav-number">3.</span> <span class="nav-text">抽取Word文档文本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding-utf-8"><span class="nav-number"></span> <span class="nav-text">coding=utf-8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽取PDF文档文本"><span class="nav-number">1.</span> <span class="nav-text">抽取PDF文档文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本抽取工具与编码"><span class="nav-number">2.</span> <span class="nav-text">文本抽取工具与编码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding-utf-8-1"><span class="nav-number"></span> <span class="nav-text">coding=utf-8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实战案例：遍历文件批量抽取新闻文本内容"><span class="nav-number">1.</span> <span class="nav-text">实战案例：遍历文件批量抽取新闻文本内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码获取"><span class="nav-number">2.</span> <span class="nav-text">源码获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者声明"><span class="nav-number">3.</span> <span class="nav-text">作者声明</span></a></li></ol></div>
             
 
           </div>

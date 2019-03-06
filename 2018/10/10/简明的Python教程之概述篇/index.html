@@ -170,7 +170,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/J8qiitJ.png">
 <meta property="og:image" content="http://pub.idqqimg.com/wpa/images/group.png">
-<meta property="og:updated_time" content="2018-10-19T07:43:40.313Z">
+<meta property="og:updated_time" content="2019-03-06T08:54:10.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简明的Python教程之概述篇">
 <meta name="twitter:description" content="摘要：Python作为一门简洁优美且功能强大的语言，越来越受编程人员的喜欢。在工业界和学术界也是非常受欢迎的编程语言。python语言可以跨平台跨应用开发。本系列文章首先介绍Python语言及其可以做什么事情。哪些人群适合学习python和python语法特点。其次介绍了Python进阶，以实际案例演示常用的语句和控制流、表达式、函数、数据结构、标准库等知识点。然后扩展介绍了python第三方库">
@@ -482,7 +482,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-10-19 15:43:40" itemprop="dateModified" datetime="2018-10-19T15:43:40+08:00">2018-10-19</time>
+                <time title="修改时间：2019-03-06 16:54:10" itemprop="dateModified" datetime="2019-03-06T16:54:10+08:00">2019-03-06</time>
               
             
           </span>
@@ -635,7 +635,10 @@
 <p>编码</p>
 </blockquote>
 <p>默认情况下，Python 3 源码文件以 UTF-8 编码，所有字符串都是 unicode 字符串。 当然你也可以为源码文件指定不同的编码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: cp-1252 -*-</span></span><br></pre></td></tr></table></figure>
+<pre>
+# -*- coding: cp-1252 -*-
+</pre>
+
 <blockquote>
 <p>标识符：</p>
 </blockquote>
@@ -644,27 +647,40 @@
 <p>python保留字</p>
 </blockquote>
 <p>保留字即关键字，我们不能把它们用作任何标识符名称。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> keyword</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>keyword.kwlist</span><br><span class="line">[<span class="string">'False'</span>, <span class="string">'None'</span>, <span class="string">'True'</span>, <span class="string">'and'</span>, <span class="string">'as'</span>, <span class="string">'assert'</span>, <span class="string">'break'</span>, <span class="string">'class'</span>, <span class="string">'continue'</span>,</span><br><span class="line"> <span class="string">'def'</span>, <span class="string">'del'</span>, <span class="string">'elif'</span>, <span class="string">'else'</span>, <span class="string">'except'</span>, <span class="string">'finally'</span>, <span class="string">'for'</span>, <span class="string">'from'</span>, <span class="string">'global'</span>, </span><br><span class="line"><span class="string">'if'</span>, <span class="string">'import'</span>, <span class="string">'in'</span>, <span class="string">'is'</span>, <span class="string">'lambda'</span>, <span class="string">'nonlocal'</span>, <span class="string">'not'</span>, <span class="string">'or'</span>, <span class="string">'pass'</span>, <span class="string">'raise'</span>,</span><br><span class="line"> <span class="string">'return'</span>, <span class="string">'try'</span>, <span class="string">'while'</span>, <span class="string">'with'</span>, <span class="string">'yield'</span>]</span><br></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>&gt;&gt;&gt; import keyword
+&gt;&gt;&gt; keyword.kwlist
+[&#39;False&#39;, &#39;None&#39;, &#39;True&#39;, &#39;and&#39;, &#39;as&#39;, &#39;assert&#39;, &#39;break&#39;, &#39;class&#39;, &#39;continue&#39;,
+ &#39;def&#39;, &#39;del&#39;, &#39;elif&#39;, &#39;else&#39;, &#39;except&#39;, &#39;finally&#39;, &#39;for&#39;, &#39;from&#39;, &#39;global&#39;, 
+&#39;if&#39;, &#39;import&#39;, &#39;in&#39;, &#39;is&#39;, &#39;lambda&#39;, &#39;nonlocal&#39;, &#39;not&#39;, &#39;or&#39;, &#39;pass&#39;, &#39;raise&#39;,
+ &#39;return&#39;, &#39;try&#39;, &#39;while&#39;, &#39;with&#39;, &#39;yield&#39;]
+</code></pre><blockquote>
 <p>注释</p>
 </blockquote>
 <p>Python中单行注释以 # 开头，实例如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">print</span> (<span class="string">"Hello, Python!"</span>) <span class="comment"># 第二个注释</span></span><br></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>#!/usr/bin/python3
+print (&quot;Hello, Python!&quot;) # 第二个注释
+</code></pre><blockquote>
 <p>行与缩进</p>
 </blockquote>
-<p>python最具特色的就是使用缩进来表示代码块，不需要使用大括号({})。四个空格或者Tab进行缩进。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</span><br><span class="line">	<span class="keyword">print</span> (<span class="string">"True"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="keyword">print</span> (<span class="string">"False"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>python最具特色的就是使用缩进来表示代码块，不需要使用大括号({})。四个空格或者Tab进行缩进。<br>    if True:<br>        print (“True”)<br>    else:<br>        print (“False”)</p>
 <blockquote>
 <p>多行语句：Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠()来实现多行语句，例如：</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">total = item_one + \</span><br><span class="line">        item_two + \</span><br><span class="line">        item_three</span><br></pre></td></tr></table></figure>
-<p>在 [], {}, 或 () 中的多行语句，不需要使用反斜杠()，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total = [<span class="string">'item_one'</span>, <span class="string">'item_two'</span>, <span class="string">'item_three'</span>,</span><br><span class="line">        <span class="string">'item_four'</span>, <span class="string">'item_five'</span>]</span><br></pre></td></tr></table></figure></p>
-<blockquote>
+<pre><code>total = item_one + \
+        item_two + \
+        item_three
+</code></pre><p>在 [], {}, 或 () 中的多行语句，不需要使用反斜杠()，例如：</p>
+<pre><code>total = [&#39;item_one&#39;, &#39;item_two&#39;, &#39;item_three&#39;,
+        &#39;item_four&#39;, &#39;item_five&#39;]
+</code></pre><blockquote>
 <p>引号</p>
 </blockquote>
 <p>Python 接收单引号(‘ )，双引号(“ )，三引号(‘’’ “””) 来表示字符串，引号的开始与结束必须的相同类型的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">word = <span class="string">'word'</span></span><br><span class="line">sentence = <span class="string">"这是一个句子。"</span></span><br><span class="line">paragraph = <span class="string">"""这是一个段落。</span></span><br><span class="line"><span class="string">包含了多个语句"""</span></span><br></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>word = &#39;word&#39;
+sentence = &quot;这是一个句子。&quot;
+paragraph = &quot;&quot;&quot;这是一个段落。
+包含了多个语句&quot;&quot;&quot;
+</code></pre><blockquote>
 <p>字符串</p>
 </blockquote>
 <p>python中单引号和双引号使用完全相同。<br>使用三引号(‘’’或”””)可以指定一个多行字符串。<br>转义符 ‘\’<br>自然字符串， 通过在字符串前加r或R。 如 r”this is a line with \n” 则\n会显示，并不是换行。<br>python允许处理unicode字符串，加前缀u或U， 如 u”this is an unicode string”。<br>字符串是不可变的。<br>按字面意义级联字符串，如”this “ “is “ “string”会被自动转换为this is string。</p>
@@ -675,7 +691,23 @@
 <blockquote>
 <p>Print 输出</p>
 </blockquote>
-<p>print 默认输出是换行的，如果要实现不换行需要在变量末尾加上 end=””：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"></span><br><span class="line">x=<span class="string">"a"</span></span><br><span class="line">y=<span class="string">"b"</span></span><br><span class="line"><span class="comment"># 换行输出</span></span><br><span class="line">print( x )</span><br><span class="line">print( y )</span><br><span class="line"></span><br><span class="line">print(<span class="string">'---------'</span>)</span><br><span class="line"><span class="comment"># 不换行输出</span></span><br><span class="line">print( x, end=<span class="string">" "</span> )</span><br><span class="line">print( y, end=<span class="string">" "</span> )</span><br><span class="line">print()</span><br></pre></td></tr></table></figure></p>
+<p>print 默认输出是换行的，如果要实现不换行需要在变量末尾加上 end=””：</p>
+<pre>
+#!/usr/bin/python3
+
+x="a"
+y="b"
+# 换行输出
+print( x )
+print( y )
+
+print('---------')
+# 不换行输出
+print( x, end=" " )
+print( y, end=" " )
+print()
+</pre>
+
 <p>运行结果：</p>
 <pre><code>a
 b
@@ -688,7 +720,23 @@ a b
 <p>(1) 将整个模块(somemodule)导入，格式为： import somemodule</p>
 <p>(2) 从某个模块中导入某个函数,格式为： from somemodule import somefunction</p>
 <p>(3) 从某个模块中导入多个函数,格式为： from somemodule import firstfunc, secondfunc, thirdfunc</p>
-<p>(4) 将某个模块中的全部函数导入，格式为： from somemodule import *<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">导入 sys 模块</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(<span class="string">'================Python import mode=========================='</span>);</span><br><span class="line"><span class="keyword">print</span> (<span class="string">'命令行参数为:'</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sys.argv:</span><br><span class="line">    <span class="keyword">print</span> (i)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">'\n python 路径为'</span>,sys.path)</span><br><span class="line"></span><br><span class="line">导入 sys 模块的 argv,path 成员</span><br><span class="line"><span class="keyword">from</span> sys <span class="keyword">import</span> argv,path  <span class="comment">#  导入特定的成员</span></span><br><span class="line"> </span><br><span class="line">print(<span class="string">'================python from import==================================='</span>)</span><br><span class="line">print(<span class="string">'path:'</span>,path) <span class="comment"># 因为已经导入path成员，所以此处引用时不需要加sys.path</span></span><br></pre></td></tr></table></figure></p>
+<p>(4) 将某个模块中的全部函数导入，格式为： from somemodule import *</p>
+<pre>
+导入 sys 模块
+import sys
+print('================Python import mode==========================');
+print ('命令行参数为:')
+for i in sys.argv:
+    print (i)
+print ('\n python 路径为',sys.path)
+
+导入 sys 模块的 argv,path 成员
+from sys import argv,path  #  导入特定的成员
+
+print('================python from import===================================')
+print('path:',path) # 因为已经导入path成员，所以此处引用时不需要加sys.path
+</pre>
+
 <blockquote>
 <p>数据类型</p>
 </blockquote>
