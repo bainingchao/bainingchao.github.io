@@ -158,8 +158,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>pywin32</tag>
         <tag>数据预处理</tag>
+        <tag>pywin32</tag>
       </tags>
   </entry>
   <entry>
@@ -218,8 +218,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>数据预处理</tag>
         <tag>数据降维</tag>
+        <tag>数据预处理</tag>
         <tag>SVD</tag>
       </tags>
   </entry>
@@ -486,9 +486,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>数据预处理</tag>
         <tag>PCA</tag>
         <tag>数据降维</tag>
+        <tag>数据预处理</tag>
       </tags>
   </entry>
   <entry>

@@ -334,9 +334,9 @@
     
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
-      <category term="pywin32" scheme="https://bainingchao.github.io/tags/pywin32/"/>
-    
       <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
+    
+      <category term="pywin32" scheme="https://bainingchao.github.io/tags/pywin32/"/>
     
   </entry>
   
@@ -454,9 +454,9 @@
     
       <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
     
-      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    
       <category term="数据降维" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%99%8D%E7%BB%B4/"/>
+    
+      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
     
       <category term="SVD" scheme="https://bainingchao.github.io/tags/SVD/"/>
     
