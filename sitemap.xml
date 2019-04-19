@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bainingchao.github.io/about/index.html</loc>
+    
+    <lastmod>2019-04-19T08:37:15.324Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bainingchao.github.io/videos/index.html</loc>
     
     <lastmod>2019-04-10T10:36:07.898Z</lastmod>
@@ -229,13 +236,6 @@
     <loc>https://bainingchao.github.io/links/index.html</loc>
     
     <lastmod>2018-10-31T06:29:55.565Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bainingchao.github.io/about/index.html</loc>
-    
-    <lastmod>2018-10-19T07:45:07.502Z</lastmod>
     
   </url>
   
