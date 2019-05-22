@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-03-25T05:51:15.050Z</updated>
+  <updated>2019-05-22T10:14:55.982Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 部署Python项目</title>
+    <link href="https://bainingchao.github.io/2019/05/22/Docker-%E9%83%A8%E7%BD%B2Python%E9%A1%B9%E7%9B%AE/"/>
+    <id>https://bainingchao.github.io/2019/05/22/Docker-部署Python项目/</id>
+    <published>2019-05-22T10:13:21.000Z</published>
+    <updated>2019-05-22T10:14:55.982Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;导读： 软件开发最大的麻烦事之一就是环境配置，操作系统设置，各种库和组件的安装。只有它们都正确，软件才能运行。如果从一种操作系统里面运行另一种操作系统，通常我们采取的策略就是引入虚拟机，比如在 Windows 系统里面运行 Linux 系统。这种方式有个很大的缺点就是资源占用多、冗余步骤多、启动慢。目前最流行的 Linux 容器解决方案之一就是Docker，它最大优点就是轻量、资源占用少、启动快。本文从什么是Docker？Docker解决什么问题？有哪些好处？如何去部署实现去全面介绍。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://bainingchao.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
+    
+      <category term="Docker" scheme="https://bainingchao.github.io/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title> Python 科学计算工具</title>
@@ -484,11 +508,11 @@
     
       <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
-      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
-    
       <category term="相关" scheme="https://bainingchao.github.io/tags/%E7%9B%B8%E5%85%B3/"/>
     
       <category term="回归" scheme="https://bainingchao.github.io/tags/%E5%9B%9E%E5%BD%92/"/>
+    
+      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
     
   </entry>
   
@@ -521,44 +545,6 @@
       <category term="正态分布" scheme="https://bainingchao.github.io/tags/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/"/>
     
       <category term="泊松分布" scheme="https://bainingchao.github.io/tags/%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>编程数学之数据度量标准</title>
-    <link href="https://bainingchao.github.io/2018/10/10/%E7%BC%96%E7%A8%8B%E6%95%B0%E5%AD%A6%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%A6%E9%87%8F%E6%A0%87%E5%87%86/"/>
-    <id>https://bainingchao.github.io/2018/10/10/编程数学之数据度量标准/</id>
-    <published>2018-10-10T11:20:55.000Z</published>
-    <updated>2018-10-19T07:42:08.305Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：在数据科学中，统计地位尤为显著。其在数据分析的基础上，研究如何测定、收集、整理、归纳和分析反映数据规律，以便给出正确消息的科学。通过揭示数据背后的规律和隐藏信息，给相关角色提供参照价值，做出相应的决策。这在数据挖掘、自然语言处理、机器学习都广泛应用。本文主要介绍数据度量标准，让读者最短时间掌握基本的统计知识。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="统计学" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E5%AD%A6/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
-    
-    
-      <category term="数学" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="统计学" scheme="https://bainingchao.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
-    
-      <category term="平均值" scheme="https://bainingchao.github.io/tags/%E5%B9%B3%E5%9D%87%E5%80%BC/"/>
-    
-      <category term="众数" scheme="https://bainingchao.github.io/tags/%E4%BC%97%E6%95%B0/"/>
-    
-      <category term="期望" scheme="https://bainingchao.github.io/tags/%E6%9C%9F%E6%9C%9B/"/>
-    
-      <category term="方差" scheme="https://bainingchao.github.io/tags/%E6%96%B9%E5%B7%AE/"/>
-    
-      <category term="标准差" scheme="https://bainingchao.github.io/tags/%E6%A0%87%E5%87%86%E5%B7%AE/"/>
-    
-      <category term="标准分" scheme="https://bainingchao.github.io/tags/%E6%A0%87%E5%87%86%E5%88%86/"/>
     
   </entry>
   
