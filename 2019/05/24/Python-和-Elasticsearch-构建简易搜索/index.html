@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1 ES基本介绍概念介绍 Elasticsearch是一个基于Lucene库的搜索引擎。它提供了一个分布式、支持多租户的全文搜索引擎，它可以快速地储存、搜索和分析海量数据。Elasticsearch可以用于搜索各种文档。它提供可扩展的搜索，具有接近实时的搜索，并支持多租户。Elasticsearch至少需要Java 8。Elasticsearch是分布式的，这意味着索引可以被分成分片，每个分片可以">
+<meta name="keywords" content="Python,Elasticsearech">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python和Elasticsearch 构建简易搜索">
+<meta property="og:url" content="https://bainingchao.github.io/2019/05/24/Python-和-Elasticsearch-构建简易搜索/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="1 ES基本介绍概念介绍 Elasticsearch是一个基于Lucene库的搜索引擎。它提供了一个分布式、支持多租户的全文搜索引擎，它可以快速地储存、搜索和分析海量数据。Elasticsearch可以用于搜索各种文档。它提供可扩展的搜索，具有接近实时的搜索，并支持多租户。Elasticsearch至少需要Java 8。Elasticsearch是分布式的，这意味着索引可以被分成分片，每个分片可以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/1.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/2.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/3.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/4.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/5.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/6.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/7.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/8.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/9.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/10.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/11.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/12.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/13.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/14.png?raw=true">
+<meta property="og:updated_time" content="2019-05-24T08:24:47.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python和Elasticsearch 构建简易搜索">
+<meta name="twitter:description" content="1 ES基本介绍概念介绍 Elasticsearch是一个基于Lucene库的搜索引擎。它提供了一个分布式、支持多租户的全文搜索引擎，它可以快速地储存、搜索和分析海量数据。Elasticsearch可以用于搜索各种文档。它提供可扩展的搜索，具有接近实时的搜索，并支持多租户。Elasticsearch至少需要Java 8。Elasticsearch是分布式的，这意味着索引可以被分成分片，每个分片可以">
+<meta name="twitter:image" content="https://github.com/bainingchao/imgurl/blob/master/2%20ES/1.png?raw=true">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/05/24/Python-和-Elasticsearch-构建简易搜索/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python和Elasticsearch 构建简易搜索 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/05/24/Python-和-Elasticsearch-构建简易搜索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Python和Elasticsearch 构建简易搜索
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-24 16:22:50 / 修改时间：16:24:47" itemprop="dateCreated datePublished" datetime="2019-05-24T16:22:50+08:00">2019-05-24</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-ES基本介绍"><a href="#1-ES基本介绍" class="headerlink" title="1 ES基本介绍"></a>1 ES基本介绍</h2><p><strong>概念介绍</strong></p>
+<p>Elasticsearch是一个基于Lucene库的搜索引擎。它提供了一个分布式、支持多租户的全文搜索引擎，它可以快速地储存、搜索和分析海量数据。Elasticsearch可以用于搜索各种文档。它提供可扩展的搜索，具有接近实时的搜索，并支持多租户。Elasticsearch至少需要Java 8。Elasticsearch是分布式的，这意味着索引可以被分成分片，每个分片可以有0个或多个副本。每个节点托管一个或多个分片，并充当协调器将操作委托给正确的分片。相关数据通常存储在同一个索引中，该索引由一个或多个主分片和零个或多个复制分片组成。一旦创建了索引，就不能更改主分片的数量。</p>
+<a id="more"></a>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/1.png?raw=true" alt="1558598373217"></p>
+<ul>
+<li><p>集群(Cluster)：集群是一个或多个节点（服务器）的集合，它们共同保存您的整个数据，并提供跨所有节点的联合索引和搜索功能。本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个 Elastic 实例。单个 Elastic 实例称为一个节点（node）。一组节点构成一个集群（cluster）。</p>
+</li>
+<li><p>节点（Node）：节点是作为集群一部分的单个服务器，存储数据并参与群集的索引和搜索功能。</p>
+</li>
+<li><p>索引（Index）：索引是具有某些类似特征的文档集合。索引由名称标识（必须全部小写），此名称用于在对其中的文档执行索引，搜索，更新和删除操作时引用索引。 数据管理的顶层单位就叫做 Index（索引）。它是单个数据库的同义词。每个 Index （即数据库）的名字必须是小写。</p>
+</li>
+<li><p>文档（Document）：文档是可以编制索引的基本信息单元。Index 里面单条的记录称为 Document（文档）。许多条 Document 构成了一个 Index。Document 使用 JSON 格式表示，同一个 Index 里面的 Document，不要求有相同的结构（scheme），但是最好保持相同，这样有利于提高搜索效率。</p>
+</li>
+<li><p>分片和副本（Shards &amp; Replicas）：索引可能存储大量可能超过单个节点的硬件限制的数据。为了解决这个问题，Elasticsearch提供了将索引细分为多个称为分片的功能。创建索引时，只需定义所需的分片数即可。每个分片本身都是一个功能齐全且独立的“索引”，可以托管在集群中的任何节点上。</p>
+<p>副本集很重要：它在分片/节点发生故障时提供高可用性。它允许您扩展搜索量/吞吐量，因为可以在所有副本上并行执行搜索。默认情况下，Elasticsearch中的每个索引都分配了5个主分片和1个副本，这意味着如果群集中至少有两个节点，则索引将包含5个主分片和另外5个副本分片（1个完整副本），总计为每个索引10个分片。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/2.png?raw=true" alt="1558602387785"></p>
+</li>
+</ul>
+<p><strong>应用场景</strong></p>
+<ul>
+<li>在线网上商店，允许客户搜索您销售的产品。在这种情况下，可以使用Elasticsearch存储整个产品目录和库存，并为它们提供搜索和自动填充建议。</li>
+<li>收集日志或交易数据，并分析和挖掘此数据以查找趋势，统计信息，摘要或异常。在这种情况下，您可以使用Logstash（Elasticsearch / Logstash / Kibana堆栈的一部分）来收集，聚合和解析数据，然后让Logstash将此数据提供给Elasticsearch。一旦数据在Elasticsearch中，您就可以运行搜索和聚合来挖掘您感兴趣的任何信息。</li>
+<li>价格警报平台，允许精通价格的客户指定一条规则，例如“我有兴趣购买特定的电子产品，如果小工具的价格在下个月内从任何供应商降至X美元以下，我希望收到通知” 。在这种情况下，您可以刮取供应商价格，将其推入Elasticsearch并使用其反向搜索功能来匹配价格变动与客户查询，并最终在发现匹配后将警报推送给客户。</li>
+</ul>
+<p><strong>核心模块</strong></p>
+<ul>
+<li><strong>analysis：</strong>主要负责词法分析及语言处理，也就是我们常说的分词，通过该模块可最终形成存储或者搜索的最小单元 Term。</li>
+<li><strong>index 模块：</strong>主要负责索引的创建工作。</li>
+<li><strong>store 模块：</strong>主要负责索引的读写，主要是对文件的一些操作，其主要目的是抽象出和平台文件系统无关的存储。</li>
+<li><strong>queryParser 模块：</strong>主要负责语法分析，把我们的查询语句生成 Lucene 底层可以识别的条件。</li>
+<li><strong>search 模块：</strong>主要负责对索引的搜索工作。</li>
+<li><strong>similarity 模块：</strong>主要负责相关性打分和排序的实现。</li>
+</ul>
+<p><strong>检索方式</strong></p>
+<p>（1）单个词查询：指对一个 Term 进行查询。比如，若要查找包含字符串“Lucene”的文档，则只需在词典中找到 Term“Lucene”，再获得在倒排表中对应的文档链表即可。</p>
+<p>（2）AND：指对多个集合求交集。比如，若要查找既包含字符串“Lucene”又包含字符串“Solr”的文档，则查找步骤如下：在词典中找到 Term “Lucene”，得到“Lucene”对应的文档链表。在词典中找到 Term “Solr”，得到“Solr”对应的文档链表。合并链表，对两个文档链表做交集运算，合并后的结果既包含“Lucene”也包含“Solr”。</p>
+<p>（3） OR：指多个集合求并集。比如，若要查找包含字符串“Luence”或者包含字符串“Solr”的文档，则查找步骤如下：在词典中找到 Term “Lucene”，得到“Lucene”对应的文档链表。在词典中找到 Term “Solr”，得到“Solr”对应的文档链表。合并链表，对两个文档链表做并集运算，合并后的结果包含“Lucene”或者包含“Solr”。</p>
+<p>（4）NOT：指对多个集合求差集。比如，若要查找包含字符串“Solr”但不包含字符串“Lucene”的文档，则查找步骤如下：在词典中找到 Term “Lucene”，得到“Lucene”对应的文档链表。在词典中找到 Term “Solr”，得到“Solr”对应的文档链表。合并链表，对两个文档链表做差集运算，用包含“Solr”的文档集减去包含“Lucene”的文档集，运算后的结果就是包含“Solr”但不包含“Lucene”。</p>
+<p>通过上述四种查询方式，我们不难发现，由于 Lucene 是以倒排表的形式存储的。所以在 Lucene 的查找过程中只需在词典中找到这些 Term，根据 Term 获得文档链表，然后根据具体的查询条件对链表进行交、并、差等操作，就可以准确地查到我们想要的结果。相对于在关系型数据库中的“Like”查找要做全表扫描来说，这种思路是非常高效的。虽然在索引创建时要做很多工作，但这种一次生成、多次使用的思路也是很高明的。</p>
+<p><strong>ES特性</strong></p>
+<p>Elasticsearch可扩展高达PB级的结构化和非结构化数据。</p>
+<p>Elasticsearch可以用来替代MongoDB和RavenDB等做文档存储。</p>
+<p>Elasticsearch使用非标准化来提高搜索性能。</p>
+<p>Elasticsearch是受欢迎的企业搜索引擎之一，目前被许多大型组织使用，如Wikipedia，The Guardian，StackOverflow，GitHub等。</p>
+<p>Elasticsearch是开放源代码，可在Apache许可证版本<code>2.0</code>下提供。</p>
+<p><strong>ES优点</strong></p>
+<p>Elasticsearch是基于Java开发的，这使得它在几乎每个平台上都兼容。</p>
+<p>Elasticsearch是实时的，换句话说，一秒钟后，添加的文档可以在这个引擎中搜索得到。</p>
+<p>Elasticsearch是分布式的，这使得它易于在任何大型组织中扩展和集成。</p>
+<p>通过使用Elasticsearch中的网关概念，创建完整备份很容易。</p>
+<p>与Apache Solr相比，在Elasticsearch中处理多租户非常容易。</p>
+<p>Elasticsearch使用JSON对象作为响应，这使得可以使用不同的编程语言调用Elasticsearch服务器。</p>
+<p>Elasticsearch支持几乎大部分文档类型，但不支持文本呈现的文档类型。</p>
+<p><strong>ES缺点</strong></p>
+<p>Elasticsearch在处理请求和响应数据方面没有多语言和数据格式支持(仅在JSON中可用)，与Apache Solr不同，Elasticsearch不可以使用CSV，XML等格式。</p>
+<p>Elasticsearch也有一些伤脑的问题发生，虽然在极少数情况下才会发生。</p>
+<h2 id="2-ES的安装部署"><a href="#2-ES的安装部署" class="headerlink" title="2 ES的安装部署"></a>2 ES的安装部署</h2><p>本文主要采用Win10下的Elasticsearch安装，当然Linux安装操作起来更加简便了。完成之后对python安装elasticsearch包，并实现交互案例。</p>
+<p><strong>第一步：条件检查</strong></p>
+<p>Elasticsearch至少需要Java 8，首先需要java -version查看当前版本。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/3.png?raw=true" alt="1558595904099"></p>
+<p><strong>第二步：安装ES</strong>，这里采用elasticsearch-7.1.0-windows-x86_64下载地址链接: <a href="https://pan.baidu.com/s/1k5AOGpMy8uJEXtA6KoNb7g" target="_blank" rel="noopener">https://pan.baidu.com/s/1k5AOGpMy8uJEXtA6KoNb7g</a> 提取码: qtmj 。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/4.png?raw=true" alt="1558669338346"></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bin  ：运行Elasticsearch实例和插件管理所需的脚本</span><br><span class="line"><span class="symbol">confg:</span> 配置文件所在的目录</span><br><span class="line"><span class="class"><span class="keyword">lib</span>  : <span class="title">Elasticsearch</span>使用的库</span></span><br><span class="line">data : Elasticsearch使用的所有数据的存储位置</span><br><span class="line">logs : 关于事件和错误记录的文件</span><br><span class="line"><span class="symbol">plugins:</span>  存储所安装插件的地方，比如中文分词工具</span><br><span class="line">work   : Elasticsearch使用的临时文件，这个文件我这暂时好像没有，可以根据配置文件来 配置这些个文件的目录位置，比如上面的data，logs，</span><br></pre></td></tr></table></figure>
+<p>然后去运行 bin/elasticsearch（Mac 或 Linux）或者 bin\elasticsearch.bat (Windows) 即可启动 Elasticsearch 了。我们启动后发现网页并不现实信息，测试下本地网络是否联通：</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/5.png?raw=true" alt="1558667694462"></p>
+<p>发现是一般性故障，查询资料显示由于防火墙的问题，经过测试关闭”公用网络防火墙“即可：</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/6.png?raw=true" alt="1558668071581"></p>
+<p>之后我们再去ping下本地IP:</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/7.png?raw=true" alt="1558668005607"></p>
+<p>这时已经显示ping通状态，再次启动bin\elasticsearch.bat (Windows)，打开<a href="http://localhost:9200/" target="_blank" rel="noopener">http://localhost:9200/</a>显示如下表示成功安装ES。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/8.png?raw=true" alt="1558668262818"></p>
+<p><strong>第三步：Python安装ES</strong>， 下载地址是<a href="https://www.elastic.co/downloads/elasticsearch。如果在windows下安排部署参考文章" target="_blank" rel="noopener">https://www.elastic.co/downloads/elasticsearch。如果在windows下安排部署参考文章</a><a href="http://www.cnblogs.com/viaiu/p/5715200.html" target="_blank" rel="noopener">http://www.cnblogs.com/viaiu/p/5715200.html</a>。如果是Python开发可以使用pip install elasticsearch安装。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/9.png?raw=true" alt="1558596466859"></p>
+<h2 id="3-Python和ES构建搜索引擎"><a href="#3-Python和ES构建搜索引擎" class="headerlink" title="3 Python和ES构建搜索引擎"></a>3 Python和ES构建搜索引擎</h2><p><strong>插入数据</strong>：打开python运行环境，首先导入【from elasticsearch import Elasticsearch】，然后编写插入数据的方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">InsertDatas</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="comment"># 默认host为localhost,port为9200.但也可以指定host与port</span></span><br><span class="line">    es = Elasticsearch()</span><br><span class="line">    es.create(index=<span class="string">"my_index"</span>,doc_type=<span class="string">"test_type"</span>,id=<span class="number">11</span>,ignore=[<span class="number">400</span>,<span class="number">409</span>],body=&#123;<span class="string">"name"</span>:<span class="string">"python"</span>,<span class="string">"addr"</span>:<span class="string">'四川省'</span>&#125;)</span><br><span class="line">    <span class="comment"># 查询结果</span></span><br><span class="line">    result = es.get(index=<span class="string">"my_index"</span>,doc_type=<span class="string">"test_type"</span>,id=<span class="number">11</span>)</span><br><span class="line">    print(<span class="string">'单条数据插入完成：\n'</span>,result)</span><br></pre></td></tr></table></figure>
+<p>实例化Elasticsearch，其中默认为空即host为localhost,port为9200。为空也可以指定网络IP与端口。通过创建索引index和文档类别doc_type，文档id，body为插入数据的内容,其中ES支持的数据仅为JSON类型，ignore=409忽略异常。运行结果如下：</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/10.png?raw=true" alt="1558596466859"></p>
+<p><strong>批量插入数据</strong>：上面案例我们插入一条信息，查询显示一系列参数包括索引、文档类型、文档ID唯一标识，版本号等。其中资源中包含数据信息，如果我们想插入多条信息可以参考以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 批量插入数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AddDatas</span><span class="params">()</span>:</span></span><br><span class="line">    es = Elasticsearch()</span><br><span class="line">    datas = [&#123;</span><br><span class="line">            <span class="string">'name'</span>: <span class="string">'美国留给伊拉克的是个烂摊子'</span>,</span><br><span class="line">            <span class="string">'addr'</span>: <span class="string">'http://view.news.qq.com/zt2011/usa_iraq/index.htm'</span></span><br><span class="line">            &#125;,&#123;</span><br><span class="line">            <span class="string">"name"</span>:<span class="string">"python"</span>,</span><br><span class="line">            <span class="string">"addr"</span>:<span class="string">'四川省'</span></span><br><span class="line">            &#125;]</span><br><span class="line">    <span class="keyword">for</span> i,data <span class="keyword">in</span> enumerate(datas):</span><br><span class="line">        es.create(index=<span class="string">"my_index"</span>,doc_type=<span class="string">"test_type"</span>,</span><br><span class="line">          id=i,ignore=[<span class="number">400</span>,<span class="number">409</span>],body=data)</span><br><span class="line">    <span class="comment"># 查询结果</span></span><br><span class="line">    result = es.get(index=<span class="string">"my_index"</span>,doc_type=<span class="string">"test_type"</span>,id=<span class="number">0</span>)</span><br><span class="line">    print(<span class="string">'\n批量插入数据完成：\n'</span>,result[<span class="string">'_source'</span>])</span><br></pre></td></tr></table></figure>
+<p>我们将数据放在datas列表中，如果我们数据在一个json文件中存储，也可以通过读取文本信息并保存在datas中，之后对其进行插入即可。这里面文件ID我采用枚举的序号，也可以采用随机数或者指定格式。完成所有插入之后我们选择第一条id=0的信息查询，此处查询与上文不同，我们只看文章内容可以采用result[‘_source’]方法，结果如下：</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/11.png?raw=true" alt="1558596466859"></p>
+<p><strong>更新数据</strong>：如果我们插入数据信息有问题，我们想去修正。可以采用update方法，这里面与我们接触的MySQL，MongoDB等SQL语句差不多。唯一注意的是我们更新数据时候采用{“doc”:{“name”:”python1”,”addr”:”深圳1”}}字典模式，尤其是doc标识不能忘记，代码实现如下：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3 更新数据</span></span><br><span class="line">def UpdateDatas():</span><br><span class="line">    es = Elasticsearch()</span><br><span class="line">    es.update(index=<span class="string">"my_index"</span>,doc_type=<span class="string">"test_type"</span>,</span><br><span class="line">          <span class="built_in">id</span>=<span class="number">11</span>,ignore=[<span class="number">400</span>,<span class="number">409</span>],body=&#123;<span class="string">"doc"</span>:&#123;<span class="string">"name"</span>:<span class="string">"python1"</span>,<span class="string">"addr"</span>:<span class="string">"深圳1"</span>&#125;&#125;)</span><br><span class="line">    <span class="comment"># 更新结果</span></span><br><span class="line">    <span class="literal">result</span> = es.<span class="keyword">get</span>(index=<span class="string">"my_index"</span>,doc_type=<span class="string">"test_type"</span>,<span class="built_in">id</span>=<span class="number">11</span>)</span><br><span class="line">    print('\n数据<span class="built_in">id</span>=<span class="number">11</span>更新完成：\t',<span class="literal">result</span>['_source']['<span class="built_in">name</span>'])</span><br></pre></td></tr></table></figure>
+<p>这里我们假如只想查询更新后信息的name字段，可以采用source后面加[‘name’]方法，为什么这么设置呢？请参看插入数据运行结果分析。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/12.png?raw=true" alt="1558596466859"></p>
+<p><strong>删除数据</strong>：这里面比较简单，我们指定文档的索引、文档类型和文档ID即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DeleteDatas</span><span class="params">()</span>:</span></span><br><span class="line">    es = Elasticsearch()</span><br><span class="line">    result = es.delete(index=<span class="string">'my_index'</span>,doc_type=<span class="string">'test_type'</span>,id=<span class="number">11</span>)</span><br><span class="line">    print(<span class="string">'\n数据id=11删除完成：\t'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>条件查询数据</strong>：我们通过插入数据构建一个简单我数据信息，如果我们想获取索引中的所有文档可以采用{“query”:{“match_all”:{}}}条件查询，这里面指定关注的是使用的search方法，上文查询数据采用get方法，其实两者都是可以作为查询使用的。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 条件查询</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ParaSearch</span><span class="params">()</span>:</span></span><br><span class="line">    es = Elasticsearch()</span><br><span class="line">    query1 = es.search(index=<span class="string">"my_index"</span>, body=&#123;<span class="string">"query"</span>:&#123;<span class="string">"match_all"</span>:&#123;&#125;&#125;&#125;)</span><br><span class="line">    print(<span class="string">'\n查询所有文档\n'</span>,query1)</span><br><span class="line">    query2 = es.search(index=<span class="string">"my_index"</span>, body=&#123;<span class="string">"query"</span>:&#123;<span class="string">"term"</span>:&#123;<span class="string">'name'</span>:<span class="string">'python'</span>&#125;&#125;&#125;)</span><br><span class="line">    print(<span class="string">'\n查找名字Python的文档:\n'</span>,query2[<span class="string">'hits'</span>][<span class="string">'hits'</span>][<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p>我们获取索引所有文档的信息</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/13.png?raw=true" alt="1558596466859"></p>
+<p>获取文档中name为Python的信息</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/2%20ES/14.png?raw=true" alt="1558596466859"></p>
+<h2 id="4-技术交流共享QQ群"><a href="#4-技术交流共享QQ群" class="headerlink" title="4 技术交流共享QQ群"></a>4 技术交流共享QQ群</h2><p>【<strong>机器学习和自然语言QQ群：436303759</strong>】：</p>
+<p>机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/Elasticsearech/" rel="tag"><i class="fa fa-tag"></i> Elasticsearech</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/Docker-部署Python项目/" rel="next" title="Docker 部署Python项目">
+                <i class="fa fa-chevron-left"></i> Docker 部署Python项目
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">102</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ES基本介绍"><span class="nav-number">1.</span> <span class="nav-text">1 ES基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ES的安装部署"><span class="nav-number">2.</span> <span class="nav-text">2 ES的安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Python和ES构建搜索引擎"><span class="nav-number">3.</span> <span class="nav-text">3 Python和ES构建搜索引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-技术交流共享QQ群"><span class="nav-number">4.</span> <span class="nav-text">4 技术交流共享QQ群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/05/24/Python-和-Elasticsearch-构建简易搜索/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
