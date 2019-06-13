@@ -178,7 +178,7 @@
 <meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559791189918.png?raw=true">
 <meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559791334083.png?raw=true">
 <meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559791603479.png?raw=true">
-<meta property="og:updated_time" content="2019-06-13T10:10:39.287Z">
+<meta property="og:updated_time" content="2019-06-13T10:23:39.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔记1：jQuery复习篇">
 <meta name="twitter:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
@@ -473,7 +473,7 @@
                 
               
 
-              <time title="创建时间：2019-06-13 18:09:03 / 修改时间：18:10:39" itemprop="dateCreated datePublished" datetime="2019-06-13T18:09:03+08:00">2019-06-13</time>
+              <time title="创建时间：2019-06-13 18:09:03 / 修改时间：18:23:39" itemprop="dateCreated datePublished" datetime="2019-06-13T18:09:03+08:00">2019-06-13</time>
             
 
             
@@ -655,6 +655,8 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php">header(<span class="string">'Content-type: application/json'</span>);</span></span><br><span class="line"><span class="php"><span class="comment">//获取回调函数名</span></span></span><br><span class="line"><span class="php">$jsoncallback = htmlspecialchars($_REQUEST [<span class="string">'jsoncallback'</span>]);</span></span><br><span class="line"><span class="php"><span class="comment">//json数据</span></span></span><br><span class="line"><span class="php">$json_data = <span class="string">'["customername1","customername2"]'</span>;</span></span><br><span class="line"><span class="php"><span class="comment">//输出jsonp格式的数据</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> $jsoncallback . <span class="string">"("</span> . $json_data . <span class="string">")"</span>;</span></span><br><span class="line"><span class="php"><span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>客户端实现 callbackFunction 函数</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript"><span class="function"><span class="keyword">function</span> <span class="title">callbackFunction</span><span class="params">(result, methodName)</span></span></span></span><br><span class="line"><span class="undefined">&#123;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> html = <span class="string">'&lt;ul&gt;'</span>;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; result.length; i++)</span></span><br><span class="line"><span class="undefined">    &#123;</span></span><br><span class="line"><span class="actionscript">        html += <span class="string">'&lt;li&gt;'</span> + result[i] + <span class="string">'&lt;/li&gt;'</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="actionscript">    html += <span class="string">'&lt;/ul&gt;'</span>;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">'divCustomers'</span>).innerHTML = html;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="技术交流共享QQ群"><a href="#技术交流共享QQ群" class="headerlink" title="技术交流共享QQ群"></a>技术交流共享QQ群</h2><p><font style="color:red">【<strong>机器学习和自然语言QQ群：436303759</strong>】</font>：</p>
+<p>机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks</p>
 
       
     </div>
@@ -795,8 +797,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/13/test/" rel="prev" title="Sublime+Anaconda开发环境部署教程">
-                Sublime+Anaconda开发环境部署教程 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/13/笔记2-BootStrap复习篇/" rel="prev" title="笔记2:BootStrap复习篇">
+                笔记2:BootStrap复习篇 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -879,7 +881,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1171,7 +1173,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">104</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">106</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1248,7 +1254,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本知识"><span class="nav-number">1.</span> <span class="nav-text">1 基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-效果"><span class="nav-number">2.</span> <span class="nav-text">2 效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-获取内容与属性"><span class="nav-number">3.</span> <span class="nav-text">3 获取内容与属性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本知识"><span class="nav-number">1.</span> <span class="nav-text">1 基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-效果"><span class="nav-number">2.</span> <span class="nav-text">2 效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-获取内容与属性"><span class="nav-number">3.</span> <span class="nav-text">3 获取内容与属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术交流共享QQ群"><span class="nav-number">4.</span> <span class="nav-text">技术交流共享QQ群</span></a></li></ol></div>
             
 
           </div>

@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记3:Linux复习篇">
+<meta property="og:url" content="https://bainingchao.github.io/2019/06/13/笔记3-Linux复习篇/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559529871695.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531095401.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531212661.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531236470.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531290707.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531408038.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531491848.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531529930.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531593763.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531636754.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531657325.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531675195.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532594208.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532684797.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532723881.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532783036.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532857097.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532932405.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532947830.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532980763.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533232733.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533317162.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533450382.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533508973.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533520423.png?raw=true">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2015/10/vi-vim-cheat-sheet-sch.gif">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2014/07/vim-vi-workmodel.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556138575.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556195297.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556389935.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556462960.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556516010.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556661249.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559557095809.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559557114442.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559557173383.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559612838299.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559612950950.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614280694.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614484189.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614946450.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614967566.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615100814.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615157024.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615213355.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615236781.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615292229.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615601528.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615764913.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615892869.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616102009.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616151228.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616176332.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616195479.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616245494.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616295148.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616387575.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559618615873.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559619851984.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559619919668.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559619942639.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559620015166.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559620294296.png?raw=true">
+<meta property="og:updated_time" content="2019-06-13T10:23:58.740Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记3:Linux复习篇">
+<meta name="twitter:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559529871695.png?raw=true">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/06/13/笔记3-Linux复习篇/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>笔记3:Linux复习篇 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/06/13/笔记3-Linux复习篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">笔记3:Linux复习篇
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-13 18:19:30 / 修改时间：18:23:58" itemprop="dateCreated datePublished" datetime="2019-06-13T18:19:30+08:00">2019-06-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="1-Linux介绍"><a href="#1-Linux介绍" class="headerlink" title="1 Linux介绍"></a>1 Linux介绍</h2><h3 id="1-1-基本知识"><a href="#1-1-基本知识" class="headerlink" title="1.1 基本知识"></a>1.1 基本知识</h3><ul>
+<li><p>应用领域：服务器使用 LAMP（Linux + Apache + MySQL + PHP）或 LNMP（Linux + Nginx+ MySQL + PHP）组合。</p>
+</li>
+<li><p>linux启动：Linux系统的启动过程可以分为5个阶段：</p>
+<ul>
+<li>内核的引导。当计算机打开电源后，首先是BIOS开机自检，按照BIOS中设置的启动设备（通常是硬盘）来启动。操作系统接管硬件以后，首先读入 /boot 目录下的内核文件。</li>
+<li>运行 init。init 进程是系统所有进程的起点，你可以把它比拟成系统所有进程的老祖宗，没有这个进程，系统中任何进程都不会启动。init 程序首先是需要读取配置文件 /etc/inittab。/boot /init 进程</li>
+<li>系统初始化。在init的配置文件中有这么一行： si::sysinit:/etc/rc.d/rc.sysinit　它调用执行/etc/rc.d/rc.sysinit，而rc.sysinit是一个bash shell的脚本，它主要是完成一些系统初始化的工作，rc.sysinit是每一个运行级别都要首先运行的重要脚本。</li>
+<li>建立终端 。rc执行完毕后，返回init。这时基本系统环境已经设置好了，各种守护进程也已经启动了。</li>
+<li>用户登录系统。命令行登录、ssh登录、图形界面登录。</li>
+</ul>
+</li>
+<li><p>运行级别：</p>
+<ul>
+<li>运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动</li>
+<li>运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登陆</li>
+<li>运行级别2：多用户状态(没有NFS)</li>
+<li>运行级别3：完全的多用户状态(有NFS)，登陆后进入控制台命令行模式</li>
+<li>运行级别4：系统未使用，保留</li>
+<li>运行级别5：X11控制台，登陆后进入图形GUI模式</li>
+<li>运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</li>
+</ul>
+</li>
+<li><p>窗口切换：默认登录就是第一个窗口，也就是tty1，这个六个窗口分别为tty1,tty2 … tty6，你可以按下Ctrl + Alt + F1 ~ F6 来切换它们。当你进入命令窗口界面后再返回图形界面只要按下Ctrl + Alt + F7 就回来了。</p>
+</li>
+<li><p>Linux关机：正确的关机流程为：sync &gt; shutdown &gt; reboot &gt; halt</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sync </span>将数据由内存同步到硬盘中。</span><br><span class="line"><span class="keyword">shutdown </span>–h now 立马关机</span><br><span class="line"><span class="keyword">shutdown </span>–h <span class="number">20</span>:<span class="number">25</span> 系统会在今天<span class="number">20</span>:<span class="number">25</span>关机</span><br><span class="line"><span class="keyword">shutdown </span>–h +<span class="number">10</span> 十分钟后关机</span><br><span class="line"><span class="keyword">shutdown </span>–r now 系统立马重启</span><br><span class="line"><span class="keyword">shutdown </span>–r +<span class="number">10</span> 系统十分钟后重启</span><br><span class="line"></span><br><span class="line">reboot 就是重启，等同于 <span class="keyword">shutdown </span>–r now</span><br><span class="line">halt 关闭系统，等同于<span class="keyword">shutdown </span>–h now 和 poweroff</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Linux 忘记密码：进入单用户模式更改一下root密码即可。</p>
+</li>
+<li><p>远程登陆：Linux系统中是通过ssh服务实现的远程登录功能，默认ssh服务端口号为 22。Window系统上 Linux 远程登录客户端有SecureCRT, Putty, SSH Secure Shell等，本文以Putty为例来登录远程服务器。</p>
+<p>putty下载地址：<a href="http://www.putty.org/" target="_blank" rel="noopener">http://www.putty.org/</a></p>
+</li>
+</ul>
+<h3 id="1-2-Linux-系统目录结构"><a href="#1-2-Linux-系统目录结构" class="headerlink" title="1.2 Linux 系统目录结构"></a>1.2 Linux 系统目录结构</h3><p>登录系统后，在当前命令窗口下输入命令ls /</p>
+<ul>
+<li><strong>/bin</strong>：目录存放着最经常使用的命令。</li>
+<li><strong>/boot：</strong>这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</li>
+<li><strong>/dev ：</strong>dev是Device(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。</li>
+<li><strong>/etc：</strong>存放所有的系统管理所需要的配置文件和子目录。</li>
+<li><strong>/home</strong>：用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</li>
+<li><strong>/lib</strong>：这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</li>
+<li><strong>/media</strong>：linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</li>
+<li><strong>/mnt</strong>：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</li>
+<li><strong>/opt</strong>： 这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</li>
+<li><strong>/proc</strong>：这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。</li>
+<li><strong>/root</strong>：该目录为系统管理员，也称作超级权限者的用户主目录。</li>
+<li><strong>/sbin</strong>：s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</li>
+<li><strong>/selinux</strong>： 这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</li>
+<li><strong>/srv</strong>： 该目录存放一些服务启动之后需要提取的数据。</li>
+<li><strong>/sys</strong>：该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。</li>
+<li><strong>/tmp</strong>：这个目录是用来存放一些临时文件的。</li>
+<li><strong>/usr</strong>： 这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</li>
+<li><strong>/usr/bin：</strong>系统用户使用的应用程序。</li>
+<li><strong>/usr/sbin：</strong>超级用户使用的比较高级的管理程序和系统守护程序。</li>
+<li><strong>/usr/src：</strong>内核源代码默认的放置目录。</li>
+<li><strong>/var</strong>：这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</li>
+<li><strong>/run</strong>：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。</li>
+</ul>
+<h3 id="1-3-文件操作"><a href="#1-3-文件操作" class="headerlink" title="1.3 文件操作"></a>1.3 文件操作</h3><blockquote>
+<p>文件基本操作</p>
+</blockquote>
+<p>在Linux中第一个字符代表这个文件是目录、文件或链接文件等等。</p>
+<ul>
+<li>当为[ <strong>d</strong> ]则是目录</li>
+<li>当为[ <strong>-</strong> ]则是文件；</li>
+<li>若是[ <strong>l</strong> ]则表示为链接文档(link file)；</li>
+<li>若是[ <strong>b</strong> ]则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
+<li>若是[ <strong>c</strong> ]则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@www /]# ls -l</span><br><span class="line">total <span class="number">64</span></span><br><span class="line">dr-xr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Dec <span class="number">14</span>  <span class="number">2012</span> bin</span><br><span class="line">dr-xr-xr-x   <span class="number">4</span> root root <span class="number">4096</span> Apr <span class="number">19</span>  <span class="number">2012</span> boot</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559529871695.png?raw=true" alt="1559529871695"></p>
+<blockquote>
+<p>文件属主和属组</p>
+</blockquote>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@www /]<span class="comment"># ls -l</span></span><br><span class="line">total 64</span><br><span class="line">drwxr-xr-x<span class="number"> 2 </span>root  root <span class="number"> 4096 </span>Feb<span class="number"> 15 </span>14:46 cron</span><br><span class="line">drwxr-xr-x<span class="number"> 3 </span>mysql mysql<span class="number"> 4096 </span>Apr<span class="number"> 21 </span><span class="number"> 2014 </span>mysql</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<ul>
+<li>chgrp：更改文件属组，语法：-R：递归更改文件属组，该目录下的所有文件的属组都会更改。</li>
+</ul>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chgrp <span class="string">[-R]</span> 属组名 文件名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>chown：更改文件属主，也可以同时更改文件属组，语法：</li>
+</ul>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown <span class="string">[–R]</span> 属主名 文件名</span><br><span class="line">chown <span class="string">[-R]</span> 属主名：属组名 文件名</span><br></pre></td></tr></table></figure>
+<p>进入 /root 目录（~）将install.log的拥有者改为bin这个账号：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~] cd ~</span><br><span class="line">[root@www ~]# chown bin install.log</span><br><span class="line">[root@www ~]# ls -l</span><br><span class="line">-rw-r--r--  1 bin <span class="built_in"> users </span>68495 Jun 25 08:53 install.log</span><br></pre></td></tr></table></figure>
+<p>将install.log的拥有者与群组改回为root：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@www ~]</span># <span class="selector-tag">chown</span> <span class="selector-tag">root</span><span class="selector-pseudo">:root</span> <span class="selector-tag">install</span><span class="selector-class">.log</span></span><br><span class="line"><span class="selector-attr">[root@www ~]</span># <span class="selector-tag">ls</span> <span class="selector-tag">-l</span></span><br><span class="line"><span class="selector-tag">-rw-r--r--</span>  1 <span class="selector-tag">root</span> <span class="selector-tag">root</span> 68495 <span class="selector-tag">Jun</span> 25 08<span class="selector-pseudo">:53</span> <span class="selector-tag">install</span><span class="selector-class">.log</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>chmod：更改文件9个属性</li>
+</ul>
+<p>Linux文件属性有两种设置方法，一种是数字，一种是符号。Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。各权限的分数对照表如下：r:4，w:2，x:1</p>
+<p>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为： [-rwxrwx—-] 分数则是：</p>
+<ul>
+<li>owner = rwx = 4+2+1 = 7</li>
+<li>group = rwx = 4+2+1 = 7</li>
+<li>others= —- = 0+0+0 = 0</li>
+</ul>
+<p>所以等一下我们设定权限的变更时，该文件的权限数字就是770啦！变更权限的指令chmod的语法是这样的：xyz : 就是刚刚提到的数字类型的权限属性，为 rwx 属性数值的相加。</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="string">[-R]</span> xyz 文件或目录</span><br></pre></td></tr></table></figure>
+<p>举例来说，如果要将.bashrc这个文件所有的权限都设定启用，那么命令如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@www ~]</span># <span class="selector-tag">ls</span> <span class="selector-tag">-al</span> <span class="selector-class">.bashrc</span></span><br><span class="line"><span class="selector-tag">-rw-r--r--</span>  1 <span class="selector-tag">root</span> <span class="selector-tag">root</span> 395 <span class="selector-tag">Jul</span>  4 11<span class="selector-pseudo">:45</span> <span class="selector-class">.bashrc</span></span><br><span class="line"><span class="selector-attr">[root@www ~]</span># <span class="selector-tag">chmod</span> 777 <span class="selector-class">.bashrc</span></span><br><span class="line"><span class="selector-attr">[root@www ~]</span># <span class="selector-tag">ls</span> <span class="selector-tag">-al</span> <span class="selector-class">.bashrc</span></span><br><span class="line"><span class="selector-tag">-rwxrwxrwx</span>  1 <span class="selector-tag">root</span> <span class="selector-tag">root</span> 395 <span class="selector-tag">Jul</span>  4 11<span class="selector-pseudo">:45</span> <span class="selector-class">.bashrc</span></span><br></pre></td></tr></table></figure>
+<p>那如果要将权限变成 <em>-rwxr-xr—</em> 呢？那么权限的分数就成为 [4+2+1][4+0+1][4+0+0]=754。</p>
+<blockquote>
+<p>处理目录的常用命令</p>
+</blockquote>
+<ul>
+<li><p>ls: 列出目录</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531095401.png?raw=true" alt="1559531095401"></p>
+</li>
+<li><p>cd：切换目录</p>
+</li>
+<li><p>pwd：显示目前的目录</p>
+</li>
+<li><p>mkdir：创建一个新的目录</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531212661.png?raw=true" alt="1559531212661"></p>
+</li>
+<li><p>rmdir：删除一个空的目录</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531236470.png?raw=true" alt="1559531236470"></p>
+</li>
+<li><p>cp: 复制文件或目录</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531290707.png?raw=true" alt="1559531290707"></p>
+</li>
+<li><p>rm: 移除文件或目录</p>
+</li>
+<li><p>mv: 移动文件与目录，或修改文件与目录的名称</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531408038.png?raw=true" alt="1559531408038"></p>
+</li>
+</ul>
+<blockquote>
+<p>文件内容查看</p>
+</blockquote>
+<ul>
+<li><p>cat  由第一行开始显示文件内容</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531491848.png?raw=true" alt="1559531491848"></p>
+</li>
+<li><p>tac  从最后一行开始显示，可以看出 tac 是 cat 的倒著写！</p>
+</li>
+<li><p>nl   显示的时候，顺道输出行号！</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531529930.png?raw=true" alt="1559531529930"></p>
+</li>
+<li><p>more 一页一页的显示文件内容</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531593763.png?raw=true" alt="1559531593763"></p>
+</li>
+<li><p>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531636754.png?raw=true" alt="1559531636754"></p>
+</li>
+<li><p>head 只看头几行</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531657325.png?raw=true" alt="1559531657325"></p>
+</li>
+<li><p>tail 只看尾巴几行</p>
+</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559531675195.png?raw=true" alt="1559531675195"></p>
+<h3 id="1-4-用户和用户组"><a href="#1-4-用户和用户组" class="headerlink" title="1.4 用户和用户组"></a>1.4 用户和用户组</h3><p>实现用户账号的管理，要完成的工作主要有如下几个方面：</p>
+<ul>
+<li><p>用户账号的添加、删除与修改。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532594208.png?raw=true" alt="1559532594208"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> useradd –d /usr/sam -m sam</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532684797.png?raw=true" alt="1559532684797"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532723881.png?raw=true" alt="1559532723881"></p>
+</li>
+<li><p>用户口令的管理。用户管理的一项重要内容是用户口令的管理。用户账号刚创建时没有口令，但是被系统锁定，无法使用，必须为其指定口令后才可以使用，即使是指定空口令。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532783036.png?raw=true" alt="1559532783036"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532857097.png?raw=true" alt="1559532857097"></p>
+</li>
+<li><p>用户组的管理。用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532932405.png?raw=true" alt="1559532932405"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532947830.png?raw=true" alt="1559532947830"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559532980763.png?raw=true" alt="1559532980763"></p>
+</li>
+</ul>
+<h3 id="1-5-磁盘管理"><a href="#1-5-磁盘管理" class="headerlink" title="1.5 磁盘管理"></a>1.5 磁盘管理</h3><p>Linux磁盘管理好坏直接关系到整个系统的性能问题。Linux磁盘管理常用三个命令为df、du和fdisk。</p>
+<ul>
+<li><p>df：列出文件系统的整体磁盘使用量,可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533232733.png?raw=true" alt="1559533232733"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533317162.png?raw=true" alt="1559533317162"></p>
+</li>
+<li><p>du：检查磁盘空间使用量,Linux du命令是对文件和目录磁盘使用的空间的查看。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533450382.png?raw=true" alt="1559533450382"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533508973.png?raw=true" alt="1559533508973"></p>
+</li>
+<li><p>fdisk：用于磁盘分区</p>
+</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559533520423.png?raw=true" alt="1559533520423"></p>
+<p>列出所有分区信息：fdisk -l</p>
+<h3 id="1-6-vim-编辑器"><a href="#1-6-vim-编辑器" class="headerlink" title="1.6  vim 编辑器"></a>1.6  vim 编辑器</h3><p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2015/10/vi-vim-cheat-sheet-sch.gif" alt="img"></p>
+<p>基本上 vi/vim 共分为三种模式，分别是<strong>命令模式（Command mode）</strong>，<strong>输入模式（Insert mode）</strong>和<strong>底线命令模式（Last line mode）</strong>。 这三种模式的作用分别是：</p>
+<p>（1）命令模式</p>
+<p>户刚刚启动 vi/vim，便进入了命令模式。此状态下敲击键盘动作会被Vim识别为命令，而非输入字符。比如我们此时按下i，并不会输入一个字符，i被当作了一个命令。以下是常用的几个命令：</p>
+<ul>
+<li><strong>i</strong> 切换到输入模式，以输入字符。</li>
+<li><strong>x</strong> 删除当前光标所在处的字符。</li>
+<li><strong>:</strong> 切换到底线命令模式，以在最底一行输入命令。</li>
+</ul>
+<p>若想要编辑文本：启动Vim，进入了命令模式，按下i，切换到输入模式。命令模式只有一些最基本的命令，因此仍要依靠底线命令模式输入更多命令。</p>
+<p>（2）输入模式</p>
+<p>在命令模式下按下i就进入了输入模式。在输入模式中，可以使用以下按键：</p>
+<ul>
+<li><strong>字符按键以及Shift组合</strong>，输入字符</li>
+<li><strong>ENTER</strong>，回车键，换行</li>
+<li><strong>BACK SPACE</strong>，退格键，删除光标前一个字符</li>
+<li><strong>DEL</strong>，删除键，删除光标后一个字符</li>
+<li><strong>方向键</strong>，在文本中移动光标</li>
+<li><strong>HOME</strong>/<strong>END</strong>，移动光标到行首/行尾</li>
+<li><strong>Page Up</strong>/<strong>Page Down</strong>，上/下翻页</li>
+<li><strong>Insert</strong>，切换光标为输入/替换模式，光标将变成竖线/下划线</li>
+<li><strong>ESC</strong>，退出输入模式，切换到命令模式</li>
+</ul>
+<p>（3）底线命令模式</p>
+<p>在命令模式下按下:（英文冒号）就进入了底线命令模式。底线命令模式可以输入单个或多个字符的命令，可用的命令非常多。在底线命令模式中，基本的命令有（已经省略了冒号）：</p>
+<ul>
+<li>q 退出程序</li>
+<li>w 保存文件</li>
+</ul>
+<p>按ESC键可随时退出底线命令模式。简单的说，我们可以将这三个模式想成底下的图标来表示：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2014/07/vim-vi-workmodel.png?raw=true" alt="img"></p>
+<blockquote>
+<p>使用案例</p>
+</blockquote>
+<ul>
+<li><p>创建文件，按下i进入编辑模式，Esc回到一般模式，:wq保存且退出，:q退出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vim runoob.txt</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常见按键</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556138575.png?raw=true" alt="1559556138575"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556195297.png?raw=true" alt="1559556195297"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556389935.png?raw=true" alt="1559556389935"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556462960.png?raw=true" alt="1559556462960"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556516010.png?raw=true" alt="1559556516010"></p>
+</li>
+</ul>
+<h3 id="1-7-yum-命令"><a href="#1-7-yum-命令" class="headerlink" title="1.7 yum 命令"></a>1.7 yum 命令</h3><p>yum（ Yellow dog Updater, Modified）是一个Shell前端软件包管理器。可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559556661249.png?raw=true" alt="1559556661249"></p>
+<ul>
+<li>常见命令<ul>
+<li>1.列出所有可更新的软件清单命令：yum check-update</li>
+<li>2.更新所有软件命令：yum update</li>
+<li>3.仅安装指定的软件命令：yum install <package_name></package_name></li>
+<li>4.仅更新指定的软件命令：yum update <package_name></package_name></li>
+<li>5.列出所有可安裝的软件清单命令：yum list</li>
+<li>6.删除软件包命令：yum remove <package_name></package_name></li>
+<li>7.查找软件包 命令：yum search <keyword></keyword></li>
+<li>8.清除缓存命令:<ul>
+<li>yum clean packages: 清除缓存目录下的软件包</li>
+<li>yum clean headers: 清除缓存目录下的 headers</li>
+<li>yum clean oldheaders: 清除缓存目录下旧的 headers</li>
+<li>yum clean, yum clean all (= yum clean packages; yum clean oldheaders) :清除缓存目录下的软件包及旧的headers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559557095809.png?raw=true" alt="1559557095809"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559557114442.png?raw=true" alt="1559557114442"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559557173383.png?raw=true" alt="1559557173383"></p>
+<hr>
+<h2 id="2-Shell编程"><a href="#2-Shell编程" class="headerlink" title="2 Shell编程"></a>2 Shell编程</h2><h3 id="2-1-基础知识"><a href="#2-1-基础知识" class="headerlink" title="2.1 基础知识"></a>2.1 基础知识</h3><p>Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。Shell 脚本（shell script），是一种为 shell 编写的脚本程序。shell 和 shell script 是两个不同的概念。新建一个文件 test.sh，扩展名为 sh（sh代表shell）保存为 test.sh，并 cd 到相应目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"这是我的第一行shell命令"</span></span><br></pre></td></tr></table></figure>
+<p>（1）作为可执行程序运行</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x <span class="string">./test.sh</span>  <span class="comment">#使脚本具有执行权限</span></span><br><span class="line"><span class="string">./test.sh</span>  <span class="comment">#执行脚本</span></span><br></pre></td></tr></table></figure>
+<p>(2) 作为解释器参数运行</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/<span class="keyword">sh</span> <span class="keyword">test</span>.<span class="keyword">sh</span></span><br><span class="line">/bin/php <span class="keyword">test</span>.php</span><br></pre></td></tr></table></figure>
+<ul>
+<li>shell变量，变量名和等号之间不能有空格</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">your_name</span>=<span class="string">"runoob.com"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="keyword">file</span> <span class="keyword">in</span> <span class="string">`ls /etc`</span></span><br><span class="line">或</span><br><span class="line"><span class="keyword">for</span> <span class="keyword">file</span> <span class="keyword">in</span> $(<span class="keyword">ls</span> /etc)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559612838299.png?raw=true" alt="1559612838299"></p>
+<p>以上语句将 /etc 下目录的文件名循环出来。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559612950950.png?raw=true" alt="1559612950950"></p>
+<ul>
+<li>定义只读变量</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">myUrl=<span class="string">"http://www.google.com"</span></span><br><span class="line"><span class="built_in">readonly</span> myUrl</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除变量</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unset</span> variable_name</span><br></pre></td></tr></table></figure>
+<ul>
+<li>变量类型，运行shell时，会同时存在三种变量：<ul>
+<li><strong>1) 局部变量</strong> 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。</li>
+<li><strong>2) 环境变量</strong> 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。</li>
+<li><strong>3) shell变量</strong> shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行</li>
+</ul>
+</li>
+<li>拼接字符串</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">your_name</span>=<span class="string">"runoob"</span></span><br><span class="line"><span class="comment"># 使用双引号拼接</span></span><br><span class="line"><span class="attribute">greeting</span>=<span class="string">"hello, "</span><span class="variable">$your_name</span><span class="string">" !"</span></span><br><span class="line"><span class="attribute">greeting_1</span>=<span class="string">"hello, <span class="variable">$&#123;your_name&#125;</span> !"</span></span><br><span class="line">echo <span class="variable">$greeting</span>  <span class="variable">$greeting_1</span></span><br><span class="line"><span class="comment"># 使用单引号拼接</span></span><br><span class="line"><span class="attribute">greeting_2</span>=<span class="string">'hello, '</span><span class="variable">$your_name</span><span class="string">' !'</span></span><br><span class="line"><span class="attribute">greeting_3</span>=<span class="string">'hello, $&#123;your_name&#125; !'</span></span><br><span class="line">echo <span class="variable">$greeting_2</span>  <span class="variable">$greeting_3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取字符串长度</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">"abcd"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#string&#125;</span> <span class="comment">#输出 4</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>提取子字符串，第 <strong>2</strong> 个字符开始截取 <strong>4</strong> 个字符</li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>=<span class="string">"runoob is a great site"</span></span><br><span class="line">echo $&#123;<span class="built_in">string</span>:<span class="number">1</span>:<span class="number">4</span>&#125; <span class="comment"># 输出 unoo</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查找子字符串，查找字符 <strong>i</strong> 或 <strong>o</strong> 的位置(哪个字母先出现就计算哪个)：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string=<span class="string">"runoob is a great site"</span></span><br><span class="line"><span class="built_in">echo</span> `expr index <span class="string">"<span class="variable">$string</span>"</span> io`  <span class="comment"># 输出 4</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>shell数组，bash支持一维数组（不支持多维数组），没有限定数组大小。数组<code>元素用&quot;空格&quot;符号</code>分割开。定义数组的一般形式为：</li>
+</ul>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">数组名=(值<span class="number">1</span> 值<span class="number">2</span> ... 值n)</span><br><span class="line">array<span class="number">_n</span>ame=(<span class="keyword">value</span><span class="number">0</span> <span class="keyword">value</span><span class="number">1</span> <span class="keyword">value</span><span class="number">2</span> <span class="keyword">value</span><span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>​             可以不使用连续的下标，而且下标的范围没有限制。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">array_name[0]</span>=value0</span><br><span class="line"><span class="attr">array_name[1]</span>=value1</span><br><span class="line"><span class="attr">array_name[n]</span>=valuen</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>读取数组，使用 <strong>@</strong> 符号可以获取数组中的所有元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;数组名[下标]&#125;</span></span><br><span class="line">valuen=<span class="variable">$&#123;array_name[n]&#125;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;array_name[@]&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取数组长度</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取得数组元素的个数</span></span><br><span class="line"><span class="attr">length</span>=<span class="variable">$&#123;#array_name[@]&#125;</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line"><span class="attr">length</span>=<span class="variable">$&#123;#array_name[*]&#125;</span></span><br><span class="line"><span class="comment"># 取得数组单个元素的长度</span></span><br><span class="line"><span class="attr">lengthn</span>=<span class="variable">$&#123;#array_name[n]&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>shell注释。每一行加一个 <strong>#</strong> 号设置多行注释，</p>
+</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614280694.png?raw=true" alt="1559614280694"></p>
+<h3 id="2-2-Shell传参"><a href="#2-2-Shell传参" class="headerlink" title="2.2 Shell传参"></a>2.2 Shell传参</h3><p>向脚本传递参数，脚本内获取参数的格式为：<strong>$n</strong>。<strong>n</strong> 代表一个数字，1 为执行脚本的第一个参数，2 为执行脚本的第二个参数，以此类推……</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Shell 传递参数实例！"</span>;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"执行的文件名：<span class="variable">$0</span>"</span>;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"第一个参数为：<span class="variable">$1</span>"</span>;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"第二个参数为：<span class="variable">$2</span>"</span>;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"第三个参数为：<span class="variable">$3</span>"</span>;</span><br></pre></td></tr></table></figure>
+<p>为脚本设置可执行权限，并执行脚本，输出结果如下所示：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x <span class="keyword">test</span>.<span class="keyword">sh</span> </span><br><span class="line">$ ./<span class="keyword">test</span>.<span class="keyword">sh</span> 1 2 3</span><br><span class="line"><span class="keyword">Shell</span> 传递参数实例！</span><br><span class="line">执行的文件名：./<span class="keyword">test</span>.<span class="keyword">sh</span></span><br><span class="line">第一个参数为：1</span><br><span class="line">第二个参数为：2</span><br><span class="line">第三个参数为：3</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614484189.png?raw=true" alt="1559614484189"></p>
+<ul>
+<li>$* 与 $@ 区别：<ul>
+<li>相同点：都是引用所有参数。</li>
+<li>不同点：只有在双引号中体现出来。假设在脚本运行时写了三个参数 1、2、3，，则 “ * “ 等价于 “1 2 3”（传递了一个参数），而 “@” 等价于 “1” “2” “3”（传递了三个参数）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-运算符"><a href="#2-3-运算符" class="headerlink" title="2.3 运算符"></a>2.3 运算符</h3><p>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。<code>expr</code> 是一款表达式计算工具，使用它能完成表达式的求值操作。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614946450.png?raw=true" alt="1559614946450"></p>
+<p>（1）算数运算符：乘号(*)前边必须加反斜杠()才能实现乘法运算；if…then…fi 是条件语句.</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559614967566.png?raw=true" alt="1559614967566"></p>
+<p>（2）关系运算符</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615100814.png?raw=true" alt="1559615100814"></p>
+<p>（3）布尔运算符</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615157024.png?raw=true" alt="1559615157024"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615213355.png?raw=true" alt="1559615213355"></p>
+<p>（4）字符串运算符</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615236781.png?raw=true" alt="1559615236781"></p>
+<p>（5）文件测试运算符</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615292229.png?raw=true" alt="1559615292229"></p>
+<h3 id="2-4-echo"><a href="#2-4-echo" class="headerlink" title="2.4 echo"></a>2.4 echo</h3><ul>
+<li><p>换行</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615601528.png?raw=true" alt="1559615601528"></p>
+</li>
+<li><p>结果定向到文件</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"It is a test"</span> &gt; myfile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>显示当前时间</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo `date`</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-5-printf命令"><a href="#2-5-printf命令" class="headerlink" title="2.5 printf命令"></a>2.5 printf命令</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615764913.png?raw=true" alt="1559615764913"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559615892869.png?raw=true" alt="1559615892869"></p>
+<p>%s %c %d %f都是格式替代符；%-10s 指一个宽度为10个字符（-表示左对齐，没有则表示右对齐），任何字符都会被显示在10个字符宽的字符内，如果不足则自动以空格填充，超过也会将内容全部显示出来。%-4.2f 指格式化为小数，其中.2指保留2位小数。</p>
+<h2 id="3-流程控制"><a href="#3-流程控制" class="headerlink" title="3 流程控制"></a>3 流程控制</h2><h3 id="3-1-if-else-fi"><a href="#3-1-if-else-fi" class="headerlink" title="3.1 if-else-fi"></a>3.1 if-else-fi</h3><p>Python,Java、PHP等语言不一样，sh的流程控制不可为空.</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616102009.png?raw=true" alt="1559616102009"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616151228.png?raw=true" alt="1559616151228"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616176332.png?raw=true" alt="1559616176332"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616195479.png?raw=true" alt="1559616195479"></p>
+<h3 id="3-2-for"><a href="#3-2-for" class="headerlink" title="3.2 for"></a>3.2 for</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616245494.png?raw=true" alt="1559616245494"></p>
+<h3 id="3-3-while"><a href="#3-3-while" class="headerlink" title="3.3 while"></a>3.3 while</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616295148.png?raw=true" alt="1559616295148"></p>
+<p>使用中使用了 Bash let 命令，它用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量</p>
+<h3 id="3-4-case"><a href="#3-4-case" class="headerlink" title="3.4 case"></a>3.4 case</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559616387575.png?raw=true" alt="1559616387575"></p>
+<p>取值后面必须为单词in，每一模式必须以右括号结束。取值可以为变量或常数。匹配发现取值符合某一模式后，其间所有命令开始执行直至 ;;。取值将检测匹配的每一个模式。一旦模式匹配，则执行完匹配模式相应命令后不再继续其他模式。如果无一匹配模式，使用星号 * 捕获该值，再执行后面的命令。下面的脚本提示输入1到4，与每一种模式进行匹配：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'输入 1 到 4 之间的数字:'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'你输入的数字为:'</span></span><br><span class="line"><span class="built_in">read</span> aNum</span><br><span class="line"><span class="keyword">case</span> <span class="variable">$aNum</span> <span class="keyword">in</span></span><br><span class="line">    1)  <span class="built_in">echo</span> <span class="string">'你选择了 1'</span></span><br><span class="line">    ;;</span><br><span class="line">    2)  <span class="built_in">echo</span> <span class="string">'你选择了 2'</span></span><br><span class="line">    ;;</span><br><span class="line">    3)  <span class="built_in">echo</span> <span class="string">'你选择了 3'</span></span><br><span class="line">    ;;</span><br><span class="line">    4)  <span class="built_in">echo</span> <span class="string">'你选择了 4'</span></span><br><span class="line">    ;;</span><br><span class="line">    *)  <span class="built_in">echo</span> <span class="string">'你没有输入 1 到 4 之间的数字'</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5-break"><a href="#3-5-break" class="headerlink" title="3.5 break"></a>3.5 break</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> :</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"输入 1 到 5 之间的数字:"</span></span><br><span class="line">    <span class="built_in">read</span> aNum</span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$aNum</span> <span class="keyword">in</span></span><br><span class="line">        1|2|3|4|5) <span class="built_in">echo</span> <span class="string">"你输入的数字为 <span class="variable">$aNum</span>!"</span></span><br><span class="line">        ;;</span><br><span class="line">        *) <span class="built_in">echo</span> <span class="string">"你输入的数字不是 1 到 5 之间的! 游戏结束"</span></span><br><span class="line">            <span class="built_in">break</span></span><br><span class="line">        ;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-6-continue"><a href="#3-6-continue" class="headerlink" title="3.6 continue"></a>3.6 continue</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">while</span> :</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"输入 1 到 5 之间的数字: "</span></span><br><span class="line">    <span class="built_in">read</span> aNum</span><br><span class="line">    <span class="keyword">case</span> <span class="variable">$aNum</span> <span class="keyword">in</span></span><br><span class="line">        1|2|3|4|5) <span class="built_in">echo</span> <span class="string">"你输入的数字为 <span class="variable">$aNum</span>!"</span></span><br><span class="line">        ;;</span><br><span class="line">        *) <span class="built_in">echo</span> <span class="string">"你输入的数字不是 1 到 5 之间的!"</span></span><br><span class="line">            <span class="built_in">continue</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">"游戏结束"</span></span><br><span class="line">        ;;</span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-函数"><a href="#4-函数" class="headerlink" title="4 函数"></a>4 函数</h2><h3 id="4-1-函数的使用"><a href="#4-1-函数的使用" class="headerlink" title="4.1 函数的使用"></a>4.1 函数的使用</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559618615873.png?raw=true" alt="1559618615873"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="function"><span class="title">funWithReturn</span></span>()&#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"这个函数会对输入的两个数字进行相加运算..."</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"输入第一个数字: "</span></span><br><span class="line">    <span class="built_in">read</span> aNum</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"输入第二个数字: "</span></span><br><span class="line">    <span class="built_in">read</span> anotherNum</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"两个数字分别为 <span class="variable">$aNum</span> 和 <span class="variable">$anotherNum</span> !"</span></span><br><span class="line">    <span class="built_in">return</span> $((<span class="variable">$aNum</span>+<span class="variable">$anotherNum</span>))</span><br><span class="line">&#125;</span><br><span class="line">funWithReturn</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"输入的两个数字之和为 $? !"</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559619851984.png?raw=true" alt="1559619851984"></p>
+<p>函数返回值在调用该函数后通过 $? 来获得。</p>
+<h3 id="4-2-函数参数"><a href="#4-2-函数参数" class="headerlink" title="4.2 函数参数"></a>4.2 函数参数</h3><p>在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 n 的形式来获取参数的值，例如，​$1表示第一个参数，$2表示第二个参数…</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">funWithParam</span></span>()&#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"第一个参数为 <span class="variable">$1</span> !"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"第二个参数为 <span class="variable">$2</span> !"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"第十个参数为 <span class="variable">$10</span> !"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"第十个参数为 <span class="variable">$&#123;10&#125;</span> !"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"第十一个参数为 <span class="variable">$&#123;11&#125;</span> !"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"参数总数有 <span class="variable">$#</span> 个!"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"作为一个字符串输出所有参数 $* !"</span></span><br><span class="line">&#125;</span><br><span class="line">funWithParam 1 2 3 4 5 6 7 8 9 34 73</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559619919668.png?raw=true" alt="1559619919668"></p>
+<h3 id="4-3-重定向"><a href="#4-3-重定向" class="headerlink" title="4.3 重定向"></a>4.3 重定向</h3><ul>
+<li>输出重定向</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559619942639.png?raw=true" alt="1559619942639"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559620015166.png?raw=true" alt="1559620015166"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="string">"菜鸟教程：www.runoob.com"</span> &gt;&gt; users</span><br><span class="line">$ cat users</span><br><span class="line">菜鸟教程：www.runoob.com</span><br><span class="line">菜鸟教程：www.runoob.com</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>输入重定向</p>
+<p>一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件：</p>
+<ul>
+<li>标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。</li>
+<li>标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。</li>
+<li>标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。</li>
+</ul>
+<p>默认情况下，command &gt; file 将 stdout 重定向到 file，command &lt; file 将stdin 重定向到 file。注意：0 是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）。</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">command</span> 2 &gt; file</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-4-文件包含"><a href="#4-4-文件包含" class="headerlink" title="4.4 文件包含"></a>4.4 文件包含</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559620294296.png?raw=true" alt="1559620294296"></p>
+<p>test1.sh 代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">url=<span class="string">"http://www.runoob.com"</span></span><br></pre></td></tr></table></figure>
+<p>test2.sh 代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#使用 . 号来引用test1.sh 文件</span></span><br><span class="line">. ./test1.sh</span><br><span class="line"><span class="comment"># 或者使用以下包含文件代码</span></span><br><span class="line"><span class="comment"># source ./test1.sh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"菜鸟教程官网地址：<span class="variable">$url</span>"</span></span><br></pre></td></tr></table></figure>
+<p>接下来，我们为 test2.sh 添加可执行权限并执行：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x test2<span class="selector-class">.sh</span> </span><br><span class="line">$ ./test2<span class="selector-class">.sh</span> </span><br><span class="line">菜鸟教程官网地址：http:<span class="comment">//www.runoob.com</span></span><br></pre></td></tr></table></figure>
+<p><strong>注：*</strong>被包含的文件 test1.sh 不需要可执行权限*</p>
+<h2 id="5-Nginx"><a href="#5-Nginx" class="headerlink" title="5 Nginx"></a>5 Nginx</h2><p>Nginx(“engine x”)是一款是由俄罗斯的程序设计师Igor Sysoev所开发高性能的 Web和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。在高连接并发的情况下，Nginx是Apache服务器不错的替代品。</p>
+<h2 id="技术交流共享QQ群"><a href="#技术交流共享QQ群" class="headerlink" title="技术交流共享QQ群"></a>技术交流共享QQ群</h2><p><font style="color:red">【<strong>机器学习和自然语言QQ群：436303759</strong>】</font>：</p>
+<p>机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/13/笔记2-BootStrap复习篇/" rel="next" title="笔记2:BootStrap复习篇">
+                <i class="fa fa-chevron-left"></i> 笔记2:BootStrap复习篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/13/笔记4-Docker复习篇/" rel="prev" title="笔记4:Docker复习篇">
+                笔记4:Docker复习篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">106</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Linux介绍"><span class="nav-number">1.</span> <span class="nav-text">1 Linux介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-基本知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 基本知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Linux-系统目录结构"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Linux 系统目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-文件操作"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-用户和用户组"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 用户和用户组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-磁盘管理"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 磁盘管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-vim-编辑器"><span class="nav-number">1.6.</span> <span class="nav-text">1.6  vim 编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-yum-命令"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 yum 命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Shell编程"><span class="nav-number">2.</span> <span class="nav-text">2 Shell编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基础知识"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Shell传参"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Shell传参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-运算符"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-echo"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-printf命令"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 printf命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-流程控制"><span class="nav-number">3.</span> <span class="nav-text">3 流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-if-else-fi"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 if-else-fi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-for"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 for</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-while"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 while</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-case"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-break"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 break</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-continue"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 continue</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-函数"><span class="nav-number">4.</span> <span class="nav-text">4 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-函数的使用"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 函数的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-函数参数"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-重定向"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-文件包含"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 文件包含</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Nginx"><span class="nav-number">5.</span> <span class="nav-text">5 Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术交流共享QQ群"><span class="nav-number">6.</span> <span class="nav-text">技术交流共享QQ群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/06/13/笔记3-Linux复习篇/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
