@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="mongodb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记6:MongoDB复习篇">
+<meta property="og:url" content="https://bainingchao.github.io/2019/06/13/笔记6-MongoDB复习篇/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559180960324.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559180993023.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559181053403.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559181242965.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559181912166.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186650872.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186656937.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186886391.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186928121.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559187123567.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559187565122.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559187668921.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559188244044.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559188632034.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194456898.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194566238.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194957319.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194705713.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194838850.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194860318.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559195061183.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559195634297.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559195692828.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196000013.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196111264.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196274507.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196456301.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197043081.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197060737.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197168435.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197245689.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267370335.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267428165.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267479014.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267960209.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267982791.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268249351.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268281459.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268398976.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268408273.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268423437.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268467386.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268671773.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269163513.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269178020.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269257022.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269316842.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269505961.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269658919.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269778023.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559271548446.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272583016.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272627022.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272672162.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272811159.png?raw=true">
+<meta property="og:updated_time" content="2019-06-13T10:36:19.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记6:MongoDB复习篇">
+<meta name="twitter:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559180960324.png?raw=true">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/06/13/笔记6-MongoDB复习篇/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>笔记6:MongoDB复习篇 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/06/13/笔记6-MongoDB复习篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">笔记6:MongoDB复习篇
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-13 18:34:39 / 修改时间：18:36:19" itemprop="dateCreated datePublished" datetime="2019-06-13T18:34:39+08:00">2019-06-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="1-基本介绍"><a href="#1-基本介绍" class="headerlink" title="1 基本介绍"></a>1 基本介绍</h2><ul>
+<li>基本概念</li>
+</ul>
+<p>MongoDB**是一种<a href="https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E6%96%87%E6%AA%94%E7%9A%84%E6%95%B8%E6%93%9A%E5%BA%AB" target="_blank" rel="noopener">面向文档</a>的<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">数据库管理系统</a>，由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。2007年10月，MongoDB由<a href="https://zh.wikipedia.org/w/index.php?title=10gen&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">10gen</a>团队所发展。2009年2月首度推出。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</p>
+<ul>
+<li>优缺点</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>文档结构的存储方式，能够更便捷的获取数据</li>
+<li>内置GridFS，支持大容量的存储：GridFS是一个出色的分布式文件系统，可以支持海量的数据存储。 内置了GridFS了MongoDB，能够满足对大数据集的快速范围查询。</li>
+<li>海量数据下，性能优越：在使用场合下，千万级别的文档对象，近10G的数据，对有索引的ID的查询不会比mysql慢，而对非索引字段的查询，则是全面胜出。 mysql实际无法胜任大数据量下任意字段的查询，而mongodb的查询性能实在让我惊讶。写入性能同样很令人满意。</li>
+<li>动态查询</li>
+<li>全索引支持,扩展到内部对象和内嵌数组：索引通常能够极大的提高查询的效率，如果没有索引，MongoDB在读取数据时必须扫描集合中的每个文件并选取那些符合查询条件的记录。这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排序的一种结构。</li>
+<li>查询记录分析</li>
+<li>快速,就地更新</li>
+<li>高效存储二进制大对象 (比如照片和视频)</li>
+<li>复制（复制集）和支持自动故障恢复</li>
+<li>内置 Auto- Sharding 自动分片支持云级扩展性，分片简单</li>
+<li>MapReduce 支持复杂聚合：主要用于处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。</li>
+<li>商业支持,培训和咨询</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>不支持事务操作：事务要求严格的系统（如果银行系统）肯定不能用它。</li>
+<li>MongoDB没有如MySQL那样成熟的维护工具</li>
+<li>无法进行关联表查询，不适用于关系多的数据</li>
+<li>复杂聚合操作通过mapreduce创建，速度慢</li>
+<li>模式自由,自由灵活的文件存储格式带来的数据错</li>
+<li>MongoDB 在你删除记录后不会在文件系统回收空间。除非你删掉数据库。但是空间没有被浪费</li>
+</ul>
+<hr>
+<ul>
+<li>关系型数据库遵循ACID</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559180960324.png?raw=true" alt="1559180960324"></p>
+<ul>
+<li>分布式计算优缺点</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559180993023.png?raw=true" alt="1559180993023"></p>
+<ul>
+<li>NoSQL：not only SQL优缺点</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559181053403.png?raw=true" alt="1559181053403"></p>
+<ul>
+<li>NoSQL数据库分类</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559181242965.png?raw=true" alt="1559181242965"></p>
+<ul>
+<li>MongoDB：C++语言编写，开源，高负载添加节点保证服务器性能。将数据存储为文档，于分布式文件存储的数据库。下载地址：<a href="http://www.mongodb.org/downloads" target="_blank" rel="noopener">http://www.mongodb.org/downloads</a></li>
+<li>MongoDB启动参数</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559181912166.png?raw=true" alt="1559181912166"></p>
+<ul>
+<li>配置MongoDB</li>
+</ul>
+<p>解压下载<a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">https://www.mongodb.com/download-center/community</a>的ZIP包，并更改文件名为mongodb，在其同目录下创建文件夹data和data\db，log和mongo.log。</p>
+<ul>
+<li>打开cmd 进入cd mongodb\bin，执行下面命令启动网络：</li>
+</ul>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --dbpath D:<span class="symbol">\m</span>ongodb<span class="symbol">\d</span>ata<span class="symbol">\d</span>b --logpath=D:<span class="symbol">\m</span>ongodb<span class="symbol">\l</span>og<span class="symbol">\m</span>ongodb.log --logappend</span><br></pre></td></tr></table></figure>
+<p>最后，再次打开cmd 进入cd mongodb\bin，执行下面命令：mongo</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186650872.png?raw=true" alt="1559186650872"></p>
+<p>在浏览器中打开地址：</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186656937.png?raw=true" alt="1559186656937"></p>
+<ul>
+<li>MongoDB概念解析</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186886391.png?raw=true" alt="1559186886391"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559186928121.png?raw=true" alt="1559186928121"></p>
+<ul>
+<li>数据库命令<ul>
+<li><strong>“show dbs”</strong> 命令显示所有数据的列表。</li>
+<li><strong>“db”</strong> 命令显示当前数据库对象或集合</li>
+<li>“use”命令，可以连接到一个指定的数据库。</li>
+</ul>
+</li>
+<li>数据库命名规范</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559187123567.png?raw=true" alt="1559187123567"></p>
+<ul>
+<li>文档（行）：文档是一个键值(key-value)对(即BSON)。MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</li>
+<li>集合（表）：集合就是 MongoDB 文档组，类似于 RDBMS （关系数据库管理系统：Relational Database Management System)中的表格。</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559187565122.png?raw=true" alt="1559187565122"></p>
+<ul>
+<li>数据类型</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559187668921.png?raw=true" alt="1559187668921"></p>
+<ul>
+<li>mongodb连接</li>
+</ul>
+<p>用户名和密码连接到MongoDB，’username:password@hostname/dbname’ </p>
+<h2 id="2-MongoDB操作"><a href="#2-MongoDB操作" class="headerlink" title="2 MongoDB操作"></a>2 MongoDB操作</h2><ul>
+<li>创建数据库 use DATABASE_NAME</li>
+<li>插入数据： </li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559188244044.png?raw=true" alt="1559188244044"></p>
+<ul>
+<li>删除数据库： db.dropDatabase()</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559188632034.png?raw=true" alt="1559188632034"></p>
+<ul>
+<li>删除集合 db.collection.drop()</li>
+<li>插入文档 ： db.COLLECTION_NAME.insert(document)</li>
+<li>更新文档： db.collection.update( criteria, objNew, upsert, multi )</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194456898.png?raw=true" alt="1559194456898"></p>
+<ul>
+<li>查找文档 db.userdetails.find()，find() 方法以非结构化的方式来显示所有文档。还有一个 findOne() 方法，它只返回一个文档。</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194566238.png?raw=true" alt="1559194566238"></p>
+<p>易懂的读取pretty()，</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194957319.png?raw=true" alt="1559194957319"></p>
+<ul>
+<li>删除文档 remove() 方法，</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db<span class="selector-class">.collection</span><span class="selector-class">.remove</span>(</span><br><span class="line">   &lt;query&gt;,</span><br><span class="line">   &lt;justOne&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194705713.png?raw=true" alt="1559194705713"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194838850.png?raw=true" alt="1559194838850"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559194860318.png?raw=true" alt="1559194860318"></p>
+<ul>
+<li>MongoDB 与 RDBMS Where 语句比较</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559195061183.png?raw=true" alt="1559195061183"></p>
+<ul>
+<li>MongoDB AND条件：MongoDB 的 find() 方法可以传入多个键(key)，每个键(key)以逗号隔开，及常规 SQL 的 AND 条件。语法格式如下：</li>
+</ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.col</span><span class="selector-class">.find</span>(&#123;<span class="attribute">key1</span>:value1, <span class="attribute">key2</span>:value2&#125;)<span class="selector-class">.pretty</span>()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>OR查询条件：MongoDB OR 条件语句使用了关键字 <strong>$or</strong>,语法格式如下：</li>
+</ul>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.col</span><span class="selector-class">.find</span>(</span><br><span class="line">   &#123;</span><br><span class="line">      $<span class="attribute">or</span>: [</span><br><span class="line">	     &#123;<span class="attribute">key1</span>: value1&#125;, &#123;<span class="attribute">key2</span>:value2&#125;</span><br><span class="line">      ]</span><br><span class="line">   &#125;</span><br><span class="line">)<span class="selector-class">.pretty</span>()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>$type操作符：操作符是基于BSON类型来检索集合中匹配的数据类型，并返回结果。</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559195634297.png?raw=true" alt="1559195634297"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559195692828.png?raw=true" alt="1559195692828"></p>
+<ul>
+<li>limit与skip，limit()方法接受一个数字参数，该参数指定从MongoDB中读取的记录条数。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.find</span>()<span class="selector-class">.limit</span>(<span class="selector-tag">NUMBER</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196000013.png?raw=true" alt="1559196000013"></p>
+<p>skip()方法来跳过指定数量的数据，skip方法同样接受一个数字参数作为跳过的记录条数。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.find</span>()<span class="selector-class">.limit</span>(<span class="selector-tag">NUMBER</span>)<span class="selector-class">.skip</span>(<span class="selector-tag">NUMBER</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196111264.png?raw=true" alt="1559196111264"></p>
+<ul>
+<li>排序：sort()方法可以通过参数指定排序的字段，并使用 1 和 -1 来指定排序的方式，其中 1 为升序排列，而-1是用于降序排列。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.find</span>()<span class="selector-class">.sort</span>(&#123;<span class="attribute">KEY</span>:<span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196274507.png?raw=true" alt="1559196274507"></p>
+<ul>
+<li>索引： ensureIndex() 方法来创建索引。语法中 Key 值为你要创建的索引字段，1为指定按升序创建索引，如果你想按降序来创建索引指定为-1即可。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.ensureIndex</span>(&#123;<span class="attribute">KEY</span>:<span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559196456301.png?raw=true" alt="1559196456301"></p>
+<ul>
+<li>聚合：处理数据(诸如统计平均值,求和等)，并返回计算后的数据结果。有点类似sql语句中的 count(*)。聚合的方法使用aggregate()。</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db<span class="selector-class">.COLLECTION_NAME</span><span class="selector-class">.aggregate</span>(AGGREGATE_OPERATION)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197043081.png?raw=true" alt="1559197043081"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197060737.png?raw=true" alt="1559197060737"></p>
+<ul>
+<li>管道</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197168435.png?raw=true" alt="1559197168435"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559197245689.png?raw=true" alt="1559197245689"></p>
+<ul>
+<li>复制,复制是将数据同步在多个服务器的过程。复制提供了数据的冗余备份，并在多个服务器上存储数据副本，提高了数据的可用性， 并可以保证数据的安全性。复制还允许您从硬件故障和服务中断中恢复数据。</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267370335.png?raw=true" alt="1559267370335"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267428165.png?raw=true" alt="1559267428165"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267479014.png?raw=true" alt="1559267479014"></p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --port 27017 --dbpath D:<span class="symbol">\m</span>ongodb<span class="symbol">\d</span>ata<span class="symbol">\d</span>b --logpath=D:<span class="symbol">\m</span>ongodb<span class="symbol">\l</span>og<span class="symbol">\m</span>ongodb.log --replSet rs0</span><br></pre></td></tr></table></figure>
+<p>以上实例会启动一个名为rs0的MongoDB实例，其端口号为27017。</p>
+<p>启动后打开命令提示框并连接上mongoDB服务。</p>
+<p>在Mongo客户端使用命令rs.initiate()来启动一个新的副本集。</p>
+<p>我们可以使用rs.conf()来查看副本集的配置</p>
+<p>查看副本集姿态使用 rs.status() 命令</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267960209.png?raw=true" alt="1559267960209"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559267982791.png?raw=true" alt="1559267982791"></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">D:\mongodb\bin&gt;mongo</span><br><span class="line">MongoDB <span class="keyword">shell</span><span class="bash"> version v4.1.11-262-gc237f4c</span></span><br><span class="line"><span class="bash">connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&amp;gssapiServiceName=mongodb</span></span><br><span class="line"><span class="bash">Implicit session: session &#123; <span class="string">"id"</span> : UUID(<span class="string">"7109348e-cade-4128-af30-7cf8776302a9"</span>) &#125;</span></span><br><span class="line"><span class="bash">MongoDB server version: 4.1.11-262-gc237f4c</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 添加副本集</span></span></span><br><span class="line"><span class="bash">&gt; rs.add(<span class="string">"mongod1.net:27017"</span>)</span></span><br><span class="line"><span class="bash">2019-05-30T18:57:26.058-0700 E  QUERY    [js] uncaught exception: Error: assert failed : no config object retrievable from local.system.replset :</span></span><br><span class="line"><span class="bash">doassert@src/mongo/shell/assert.js:20:14</span></span><br><span class="line"><span class="bash">assert@src/mongo/shell/assert.js:152:9</span></span><br><span class="line"><span class="bash">rs.add@src/mongo/shell/utils.js:1441:5</span></span><br><span class="line"><span class="bash">@(shell):1:1</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 查看当前运行是否是主节点</span></span></span><br><span class="line"><span class="bash">&gt; db.isMaster()</span></span><br><span class="line"><span class="bash">&#123;</span></span><br><span class="line"><span class="bash">        <span class="string">"ismaster"</span> : <span class="literal">false</span>,</span></span><br><span class="line"><span class="bash">        <span class="string">"secondary"</span> : <span class="literal">false</span>,</span></span><br><span class="line"><span class="bash">        <span class="string">"info"</span> : <span class="string">"Does not have a valid replica set config"</span>,</span></span><br><span class="line"><span class="bash">        <span class="string">"isreplicaset"</span> : <span class="literal">true</span>,</span></span><br><span class="line"><span class="bash">        <span class="string">"maxBsonObjectSize"</span> : 16777216,</span></span><br><span class="line"><span class="bash">        <span class="string">"maxMessageSizeBytes"</span> : 48000000,</span></span><br><span class="line"><span class="bash">        <span class="string">"maxWriteBatchSize"</span> : 100000,</span></span><br><span class="line"><span class="bash">        <span class="string">"localTime"</span> : ISODate(<span class="string">"2019-05-31T01:57:40.632Z"</span>),</span></span><br><span class="line"><span class="bash">        <span class="string">"logicalSessionTimeoutMinutes"</span> : 30,</span></span><br><span class="line"><span class="bash">        <span class="string">"connectionId"</span> : 1,</span></span><br><span class="line"><span class="bash">        <span class="string">"minWireVersion"</span> : 0,</span></span><br><span class="line"><span class="bash">        <span class="string">"maxWireVersion"</span> : 8,</span></span><br><span class="line"><span class="bash">        <span class="string">"readOnly"</span> : <span class="literal">false</span>,</span></span><br><span class="line"><span class="bash">        <span class="string">"ok"</span> : 1,</span></span><br><span class="line"><span class="bash">        <span class="string">"<span class="variable">$clusterTime</span>"</span> : &#123;</span></span><br><span class="line"><span class="bash">                <span class="string">"clusterTime"</span> : Timestamp(0, 0),</span></span><br><span class="line"><span class="bash">                <span class="string">"signature"</span> : &#123;</span></span><br><span class="line"><span class="bash">                        <span class="string">"hash"</span> : BinData(0,<span class="string">"AAAAAAAAAAAAAAAAAAAAAAAAAAA="</span>),</span></span><br><span class="line"><span class="bash">                        <span class="string">"keyId"</span> : NumberLong(0)</span></span><br><span class="line"><span class="bash">                &#125;</span></span><br><span class="line"><span class="bash">        &#125;,</span></span><br><span class="line"><span class="bash">        <span class="string">"operationTime"</span> : Timestamp(0, 0)</span></span><br><span class="line"><span class="bash">&#125;</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 启动一个新的副本集</span></span></span><br><span class="line"><span class="bash">&gt; rs.initiate()</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 查看副本集的配置</span></span></span><br><span class="line"><span class="bash">rs0:SECONDARY&gt; rs.conf()</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># 查看副本集姿态</span></span></span><br><span class="line"><span class="bash">rs0:PRIMARY&gt; rs.status()</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>MongoDB分片，另一种集群，就是分片技术,可以满足MongoDB数据量大量增长的需求。当MongoDB存储海量的数据时，一台机器可能不足以存储数据也足以提供可接受的读写吞吐量。就可以通过在多台机器上分割数据，使得数据库系统能存储和处理更多的数据。</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268249351.png?raw=true" alt="1559268249351"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268281459.png?raw=true" alt="1559268281459"></p>
+<ul>
+<li>分片实例</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268398976.png?raw=true" alt="1559268398976"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268408273.png?raw=true" alt="1559268408273"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268423437.png?raw=true" alt="1559268423437"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268467386.png?raw=true" alt="1559268467386"></p>
+<ul>
+<li><p>MongoDB数据备份：mongodbdump</p>
+<p>使用mongodump命令来备份MongoDB数据。该命令可以导出所有数据到指定目录中。mongodump命令可以通过参数指定导出的数据量级转存的服务器。</p>
+</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559268671773.png?raw=true" alt="1559268671773">、<img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269163513.png?raw=true" alt="1559269163513"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269178020.png?raw=true" alt="1559269178020"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269257022.png?raw=true" alt="1559269257022"></p>
+<ul>
+<li>MongoDB数据恢复，mongodbstore</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269316842.png?raw=true" alt="1559269316842"></p>
+<ul>
+<li>MongoDB监控</li>
+</ul>
+<p>mongostat 和 mongotop 两个命令来监控MongoDB的运行情况。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269505961.png?raw=true" alt="1559269505961"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269658919.png?raw=true" alt="1559269658919"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559269778023.png?raw=true" alt="1559269778023"></p>
+<h2 id="3连接MongoDB数据库"><a href="#3连接MongoDB数据库" class="headerlink" title="3连接MongoDB数据库"></a>3连接MongoDB数据库</h2><h3 id="3-1-Java代码连接MongoDB数据库"><a href="#3-1-Java代码连接MongoDB数据库" class="headerlink" title="3.1 Java代码连接MongoDB数据库"></a>3.1 Java代码连接MongoDB数据库</h3><p>环境配置，在Java程序中如果要使用MongoDB，你需要确保已经安装了Java环境及MongoDB JDBC 驱动。</p>
+<ul>
+<li>首先你必须下载mongo jar包，下载地址：<a href="https://github.com/mongodb/mongo-java-driver/downloads" target="_blank" rel="noopener">https://github.com/mongodb/mongo-java-driver/downloads</a>, 请确保下载最新版本。</li>
+<li>你需要将mongo.jar包含在你的 classpath 中。。</li>
+<li>连接数据库，你需要指定数据库名称，如果指定的数据库不存在，mongo会自动创建数据库。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.MongoException;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.WriteConcern;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.DB;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.DBCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.BasicDBObject;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.DBObject;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.DBCursor;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.ServerAddress;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MongoDBJDBC</span></span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> void main( <span class="type">String</span> args[] )&#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;   </span><br><span class="line">		 <span class="comment">// 连接到 mongodb 服务</span></span><br><span class="line">         <span class="type">MongoClient</span> mongoClient = new <span class="type">MongoClient</span>( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">         <span class="comment">// 连接到数据库</span></span><br><span class="line">         <span class="type">DB</span> db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">		 <span class="type">System</span>.out.<span class="built_in">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         boolean auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">		 <span class="type">System</span>.out.<span class="built_in">println</span>(<span class="string">"Authentication: "</span>+auth);</span><br><span class="line">      &#125;<span class="keyword">catch</span>(<span class="type">Exception</span> e)&#123;</span><br><span class="line">	     <span class="type">System</span>.err.<span class="built_in">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用com.mongodb.DB类中的createCollection()来创建集合</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class MongoDBJDBC&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( <span class="keyword">String</span> args[] )&#123;</span><br><span class="line">      <span class="built_in">try</span>&#123;   </span><br><span class="line">	     <span class="comment">// 连接到 mongodb 服务</span></span><br><span class="line">         MongoClient mongoClient = <span class="keyword">new</span> MongoClient( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">         <span class="comment">// 连接到数据库</span></span><br><span class="line">         DB db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         <span class="keyword">boolean</span> auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Authentication: "</span>+auth);</span><br><span class="line">         DBCollection coll = db.createCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Collection created successfully"</span>);</span><br><span class="line">      &#125;<span class="built_in">catch</span>(Exception e)&#123;</span><br><span class="line">	     System.err.<span class="built_in">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用com.mongodb.DBCollection类的 getCollection() 方法来获取一个集合</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class MongoDBJDBC&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( <span class="keyword">String</span> args[] )&#123;</span><br><span class="line">      <span class="built_in">try</span>&#123;   </span><br><span class="line">	     <span class="comment">// 连接到 mongodb 服务</span></span><br><span class="line">         MongoClient mongoClient = <span class="keyword">new</span> MongoClient( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">         <span class="comment">// 连接到数据库</span></span><br><span class="line">         DB db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         <span class="keyword">boolean</span> auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Authentication: "</span>+auth);</span><br><span class="line">         DBCollection coll = db.createCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Collection created successfully"</span>);</span><br><span class="line">         DBCollection coll = db.getCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Collection mycol selected successfully"</span>);</span><br><span class="line">      &#125;<span class="built_in">catch</span>(Exception e)&#123;</span><br><span class="line">	     System.err.<span class="built_in">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用com.mongodb.DBCollection类的 insert() 方法来插入一个文档</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> MongoDBJDBC&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( String args[] )&#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;   </span><br><span class="line">		 <span class="comment">// 连接到 mongodb 服务</span></span><br><span class="line">         MongoClient mongoClient = <span class="keyword">new</span> MongoClient( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">         <span class="comment">// 连接到数据库</span></span><br><span class="line">         DB db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">	 System.out.<span class="keyword">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         <span class="keyword">boolean</span> auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">	 System.out.<span class="keyword">println</span>(<span class="string">"Authentication: "</span>+auth);         </span><br><span class="line">         DBCollection coll = db.getCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="keyword">println</span>(<span class="string">"Collection mycol selected successfully"</span>);</span><br><span class="line">         BasicDBObject doc = <span class="keyword">new</span> BasicDBObject(<span class="string">"title"</span>, <span class="string">"MongoDB"</span>).</span><br><span class="line">            <span class="keyword">append</span>(<span class="string">"description"</span>, <span class="string">"database"</span>).</span><br><span class="line">            <span class="keyword">append</span>(<span class="string">"likes"</span>, <span class="number">100</span>).</span><br><span class="line">            <span class="keyword">append</span>(<span class="string">"url"</span>, <span class="string">"//www.w3cschool.cn/mongodb/"</span>).</span><br><span class="line">            <span class="keyword">append</span>(<span class="string">"by"</span>, <span class="string">"w3cschool.cn"</span>);</span><br><span class="line">         coll.insert(doc);</span><br><span class="line">         System.out.<span class="keyword">println</span>(<span class="string">"Document inserted successfully"</span>);</span><br><span class="line">      &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">	     System.err.<span class="keyword">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用com.mongodb.DBCollection类中的 find() 方法来获取集合中的所有文档。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class MongoDBJDBC&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( <span class="keyword">String</span> args[] )&#123;</span><br><span class="line">      <span class="built_in">try</span>&#123;   </span><br><span class="line">		<span class="comment">// 连接到 mongodb 服务</span></span><br><span class="line">         MongoClient mongoClient = <span class="keyword">new</span> MongoClient( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">          <span class="comment">// 连接到数据库</span></span><br><span class="line">         DB db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         <span class="keyword">boolean</span> auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Authentication: "</span>+auth);         </span><br><span class="line">         DBCollection coll = db.getCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Collection mycol selected successfully"</span>);</span><br><span class="line">         DBCursor <span class="built_in">cursor</span> = coll.<span class="built_in">find</span>();</span><br><span class="line">         <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">         <span class="built_in">while</span> (<span class="built_in">cursor</span>.hasNext()) &#123; </span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="string">"Inserted Document: "</span>+i); </span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="built_in">cursor</span>.next()); </span><br><span class="line">            i++;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;<span class="built_in">catch</span>(Exception e)&#123;</span><br><span class="line">	     System.err.<span class="built_in">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 com.mongodb.DBCollection 类中的 update() 方法来更新集合中的文档</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class MongoDBJDBC&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( <span class="keyword">String</span> args[] )&#123;</span><br><span class="line">      <span class="built_in">try</span>&#123;   </span><br><span class="line">	 <span class="comment">// 连接到Mongodb服务</span></span><br><span class="line">         MongoClient mongoClient = <span class="keyword">new</span> MongoClient( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">         <span class="comment">// 连接到你的数据库</span></span><br><span class="line">         DB db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         <span class="keyword">boolean</span> auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Authentication: "</span>+auth);         </span><br><span class="line">         DBCollection coll = db.getCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Collection mycol selected successfully"</span>);</span><br><span class="line">         DBCursor <span class="built_in">cursor</span> = coll.<span class="built_in">find</span>();</span><br><span class="line">         <span class="built_in">while</span> (<span class="built_in">cursor</span>.hasNext()) &#123; </span><br><span class="line">            DBObject updateDocument = <span class="built_in">cursor</span>.next();</span><br><span class="line">            updateDocument.<span class="built_in">put</span>(<span class="string">"likes"</span>,<span class="string">"200"</span>)</span><br><span class="line">            coll.update(updateDocument); </span><br><span class="line">         &#125;</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Document updated successfully"</span>);</span><br><span class="line">         <span class="built_in">cursor</span> = coll.<span class="built_in">find</span>();</span><br><span class="line">         <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">         <span class="built_in">while</span> (<span class="built_in">cursor</span>.hasNext()) &#123; </span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="string">"Updated Document: "</span>+i); </span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="built_in">cursor</span>.next()); </span><br><span class="line">            i++;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;<span class="built_in">catch</span>(Exception e)&#123;</span><br><span class="line">	     System.err.<span class="built_in">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用com.mongodb.DBCollection类中的 findOne()方法来获取第一个文档，然后使用remove 方法删除</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class MongoDBJDBC&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( <span class="keyword">String</span> args[] )&#123;</span><br><span class="line">      <span class="built_in">try</span>&#123;   </span><br><span class="line">	 <span class="comment">// 连接到Mongodb服务</span></span><br><span class="line">         MongoClient mongoClient = <span class="keyword">new</span> MongoClient( <span class="string">"localhost"</span> , <span class="number">27017</span> );</span><br><span class="line">         <span class="comment">// 连接到你的数据库</span></span><br><span class="line">         DB db = mongoClient.getDB( <span class="string">"test"</span> );</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Connect to database successfully"</span>);</span><br><span class="line">         <span class="keyword">boolean</span> auth = db.authenticate(myUserName, myPassword);</span><br><span class="line">	 System.out.<span class="built_in">println</span>(<span class="string">"Authentication: "</span>+auth);         </span><br><span class="line">         DBCollection coll = db.getCollection(<span class="string">"mycol"</span>);</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Collection mycol selected successfully"</span>);</span><br><span class="line">         DBObject myDoc = coll.findOne();</span><br><span class="line">         coll.<span class="built_in">remove</span>(myDoc);</span><br><span class="line">         DBCursor <span class="built_in">cursor</span> = coll.<span class="built_in">find</span>();</span><br><span class="line">         <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">         <span class="built_in">while</span> (<span class="built_in">cursor</span>.hasNext()) &#123; </span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="string">"Inserted Document: "</span>+i); </span><br><span class="line">            System.out.<span class="built_in">println</span>(<span class="built_in">cursor</span>.next()); </span><br><span class="line">            i++;</span><br><span class="line">         &#125;</span><br><span class="line">         System.out.<span class="built_in">println</span>(<span class="string">"Document deleted successfully"</span>);</span><br><span class="line">      &#125;<span class="built_in">catch</span>(Exception e)&#123;</span><br><span class="line">	     System.err.<span class="built_in">println</span>( e.getClass().getName() + <span class="string">": "</span> + e.getMessage() );</span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-MongoDB高级教程"><a href="#4-MongoDB高级教程" class="headerlink" title="4 MongoDB高级教程"></a>4 MongoDB高级教程</h2><h3 id="4-1-关系"><a href="#4-1-关系" class="headerlink" title="4.1 关系"></a>4.1 关系</h3><p>MongoDB 的关系表示多个文档之间在逻辑上的相互联系。文档间可以通过嵌入和引用来建立联系。MongoDB 中的关系可以是：</p>
+<ul>
+<li>1:1 (1对1)</li>
+<li>1: N (1对多)</li>
+<li>N: 1 (多对1)</li>
+<li>N: N (多对多)</li>
+</ul>
+<p>一个用户可以有多个地址，所以是一对多的关系。</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559271548446.png?raw=true" alt="1559271548446"></p>
+<ul>
+<li>使用嵌入式方法，我们可以把用户地址嵌入到用户的文档中</li>
+</ul>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   <span class="string">"_id"</span>:ObjectId(<span class="string">"52ffc33cd85242f436000001"</span>),</span><br><span class="line">   <span class="string">"contact"</span>: <span class="string">"987654321"</span>,</span><br><span class="line">   <span class="string">"dob"</span>: <span class="string">"01-01-1991"</span>,</span><br><span class="line">   <span class="string">"name"</span>: <span class="string">"Tom Benzamin"</span>,</span><br><span class="line">   <span class="string">"address"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="string">"building"</span>: <span class="string">"22 A, Indiana Apt"</span>,</span><br><span class="line">         <span class="string">"pincode"</span>: <span class="number">123456</span>,</span><br><span class="line">         <span class="string">"city"</span>: <span class="string">"Los Angeles"</span>,</span><br><span class="line">         <span class="string">"state"</span>: <span class="string">"California"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="string">"building"</span>: <span class="string">"170 A, Acropolis Apt"</span>,</span><br><span class="line">         <span class="string">"pincode"</span>: <span class="number">456789</span>,</span><br><span class="line">         <span class="string">"city"</span>: <span class="string">"Chicago"</span>,</span><br><span class="line">         <span class="string">"state"</span>: <span class="string">"Illinois"</span></span><br><span class="line">      &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据保存在单一文档中，比较容易的获取很维护数据。 你可以这样查询用户的地址：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db<span class="selector-class">.users</span><span class="selector-class">.findOne</span>(&#123;<span class="string">"name"</span>:<span class="string">"Tom Benzamin"</span>&#125;,&#123;<span class="string">"address"</span>:<span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>这种数据结构的缺点是，如果用户和用户地址在不断增加，数据量不断变大，会影响读写性能。</p>
+<ul>
+<li>引用式关系，把用户数据文档和用户地址数据文档分开，通过引用文档的 <strong>id</strong> 字段来建立关系。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"_id"</span>:ObjectId(<span class="string">"52ffc33cd85242f436000001"</span>),</span><br><span class="line">   <span class="attr">"contact"</span>: <span class="string">"987654321"</span>,</span><br><span class="line">   <span class="attr">"dob"</span>: <span class="string">"01-01-1991"</span>,</span><br><span class="line">   <span class="attr">"name"</span>: <span class="string">"Tom Benzamin"</span>,</span><br><span class="line">   <span class="attr">"address_ids"</span>: [</span><br><span class="line">      ObjectId(<span class="string">"52ffc4a5d85242602e000000"</span>),</span><br><span class="line">      ObjectId(<span class="string">"52ffc4a5d85242602e000001"</span>)</span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要两次查询，第一次查询用户地址的对象id（ObjectId），第二次通过查询的id获取用户的详细地址信息。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">var</span> result = db<span class="selector-class">.users</span><span class="selector-class">.findOne</span>(&#123;<span class="string">"name"</span>:<span class="string">"Tom Benzamin"</span>&#125;,&#123;<span class="string">"address_ids"</span>:<span class="number">1</span>&#125;)</span><br><span class="line">&gt;<span class="selector-tag">var</span> addresses = db<span class="selector-class">.address</span><span class="selector-class">.find</span>(&#123;<span class="string">"_id"</span>:&#123;<span class="string">"$in"</span>:result[<span class="string">"address_ids"</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-MapReduce"><a href="#4-2-MapReduce" class="headerlink" title="4.2 MapReduce"></a>4.2 MapReduce</h3><p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272583016.png?raw=true" alt="1559272583016"></p>
+<ul>
+<li>使用MapReduce</li>
+</ul>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272627022.png?raw=true" alt="1559272627022"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272672162.png?raw=true" alt="1559272672162"></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1559272811159.png?raw=true" alt="1559272811159"></p>
+<ul>
+<li>全文检索，MongoDB 在 2.6 版本以后是默认开启全文检索的</li>
+<li>创建全文索引</li>
+</ul>
+<p>考虑以下 posts 集合的文档数据，包含了文章内容（post_text）及标签(tags)：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"post_text"</span>: <span class="string">"enjoy the mongodb articles on w3cschool.cn"</span>,</span><br><span class="line">   <span class="attr">"tags"</span>: [</span><br><span class="line">      <span class="string">"mongodb"</span>,</span><br><span class="line">      <span class="string">"w3cschool"</span></span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以对 post_text 字段建立全文索引，这样我们可以搜索文章内的内容：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.posts</span><span class="selector-class">.ensureIndex</span>(&#123;<span class="attribute">post_text</span>:<span class="string">"text"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>使用全文索引</li>
+</ul>
+<p>现在我们已经对 post_text 建立了全文索引，我们可以搜索文章中的关键词w3cschool.cn：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db<span class="selector-class">.posts</span><span class="selector-class">.find</span>(&#123;<span class="variable">$text</span>:&#123;<span class="variable">$search</span>:<span class="string">"w3cschool.cn"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>以下命令返回了如下包含NoSQL关键词的文档数据：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">D:\mongodb\bin&gt;mongo</span><br><span class="line">MongoDB shell version v4.1.11-262-gc237f4c</span><br><span class="line"></span><br><span class="line">&gt; show dbs</span><br><span class="line">admin        0.000GB</span><br><span class="line">config       0.000GB</span><br><span class="line">local        0.000GB</span><br><span class="line">myinfo       0.000GB</span><br><span class="line">w3cschooldb  0.000GB</span><br><span class="line">youj         0.000GB</span><br><span class="line">&gt; use youj</span><br><span class="line">switched <span class="keyword">to</span> db youj</span><br><span class="line">&gt; db.col.<span class="builtin-name">find</span>()</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"5cef550377781c00a00de949"</span>), <span class="string">"title"</span> : <span class="string">"MongoDB 教程"</span>, <span class="string">"description"</span> : <span class="string">"MongoDB 是一个 Nosql 数据库"</span>, <span class="string">"by"</span> : <span class="string">"w3cschool"</span>, <span class="string">"url"</span> : <span class="string">"http://www.w3cschool.cn"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"database"</span>, <span class="string">"NoSQL"</span> ], <span class="string">"likes"</span> : 100 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"5cef690677781c00a00de94a"</span>), <span class="string">"title"</span> : <span class="string">"MongoDB 教程"</span>, <span class="string">"description"</span> : <span class="string">"MongoDB 是一个 Nosql 数据库"</span>, <span class="string">"by"</span> : <span class="string">"w3cschool"</span>, <span class="string">"url"</span> : <span class="string">"http://www.w3cschool.cn"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"database"</span>, <span class="string">"NoSQL"</span> ], <span class="string">"likes"</span> : 100 &#125;</span><br><span class="line"></span><br><span class="line">&gt; db.col.ensureIndex(&#123;description:<span class="string">"text"</span>&#125;)</span><br><span class="line">&#123;</span><br><span class="line">        <span class="string">"createdCollectionAutomatically"</span> : <span class="literal">false</span>,</span><br><span class="line">        <span class="string">"numIndexesBefore"</span> : 1,</span><br><span class="line">        <span class="string">"numIndexesAfter"</span> : 2,</span><br><span class="line">        <span class="string">"ok"</span> : 1</span><br><span class="line">&#125;</span><br><span class="line">&gt; db.col.<span class="builtin-name">find</span>(&#123;<span class="variable">$text</span>:&#123;<span class="variable">$search</span>:<span class="string">"NoSQL"</span>&#125;&#125;)</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"5cef690677781c00a00de94a"</span>), <span class="string">"title"</span> : <span class="string">"MongoDB 教程"</span>, <span class="string">"description"</span> : <span class="string">"MongoDB 是一个 Nosql 数据库"</span>, <span class="string">"by"</span> : <span class="string">"w3cschool"</span>, <span class="string">"url"</span> : <span class="string">"http://www.w3cschool.cn"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"database"</span>, <span class="string">"NoSQL"</span> ], <span class="string">"likes"</span> : 100 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"5cef550377781c00a00de949"</span>), <span class="string">"title"</span> : <span class="string">"MongoDB 教程"</span>, <span class="string">"description"</span> : <span class="string">"MongoDB 是一个 Nosql 数据库"</span>, <span class="string">"by"</span> : <span class="string">"w3cschool"</span>, <span class="string">"url"</span> : <span class="string">"http://www.w3cschool.cn"</span>, <span class="string">"tags"</span> : [ <span class="string">"mongodb"</span>, <span class="string">"database"</span>, <span class="string">"NoSQL"</span> ], <span class="string">"likes"</span> : 100 &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-删除全文索引"><a href="#4-3-删除全文索引" class="headerlink" title="4.3 删除全文索引"></a>4.3 删除全文索引</h3><p>删除已存在的全文索引，可以使用 find 命令查找索引名：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db<span class="selector-class">.col</span><span class="selector-class">.getIndexes</span>()</span><br></pre></td></tr></table></figure>
+<p>通过以上命令获取索引名，本例的索引名为post_text_text，执行以下命令来删除索引：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; db<span class="selector-class">.col</span><span class="selector-class">.dropIndex</span>(<span class="string">'description_text'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="4-4-正则"><a href="#4-4-正则" class="headerlink" title="4.4 正则"></a>4.4 正则</h3><p>使用 <strong>$regex</strong> 操作符来设置匹配字符串的正则表达式。</p>
+<ul>
+<li>使用正则表达式，使用正则查找包含 w3cschool.cn 字符串的文章：</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.posts</span><span class="selector-class">.find</span>(&#123;<span class="attribute">post_text</span>:&#123;$regex:<span class="string">"w3cschool.cn"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上查询也可以写为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.posts</span><span class="selector-class">.find</span>(&#123;<span class="attribute">post_text</span>:/w3cschool.cn/&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不区分大小写的正则表达式</li>
+</ul>
+<p>如果检索需要不区分大小写，我们可以设置 $options 为 $i。以下命令将查找不区分大小写的字符串 w3cschool.cn：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.posts</span><span class="selector-class">.find</span>(&#123;<span class="attribute">post_text</span>:&#123;$regex:<span class="string">"w3cschool.cn"</span>,$options:<span class="string">"$i"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>集合中会返回所有包含字符串 w3cschool.cn 的数据，且不区分大小写：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"_id"</span> : ObjectId(<span class="string">"53493d37d852429c10000004"</span>),</span><br><span class="line">   <span class="attr">"post_text"</span> : <span class="string">"hey! this is my post on  W3Cschool.cc"</span>, </span><br><span class="line">   <span class="attr">"tags"</span> : [ <span class="string">"tutorialspoint"</span> ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>数组元素使用正则表达式</p>
+<p>这在标签的实现上非常有用，如果你需要查找包含以 tutorial 开头的标签数据(tutorial 或 tutorials 或 tutorialpoint 或 tutorialphp)， 你可以使用以下代码：</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.posts</span><span class="selector-class">.find</span>(&#123;<span class="attribute">tags</span>:&#123;$regex:<span class="string">"tutorial"</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>优化正则表达式查询</li>
+</ul>
+<p>如果你的文档中字段设置了索引，那么使用索引相比于正则表达式匹配查找所有的数据查询速度更快。</p>
+<p>如果正则表达式是前缀表达式，所有匹配的数据将以指定的前缀字符串为开始。例如： 如果正则表达式为<strong>^tut</strong> ，查询语句将查找以 tut 为开头的字符串。</p>
+<h3 id="4-5-GridFS"><a href="#4-5-GridFS" class="headerlink" title="4.5 GridFS"></a>4.5 GridFS</h3><p>GridFS 用于存储和恢复那些超过16M（BSON文件限制）的文件(如：图片、音频、视频等)。也是文件存储的一种方式，但是它是存储在MonoDB的集合中。GridFS 会将大文件对象分割成多个小的chunk(文件片段),一般为256k/个,每个chunk将作为MongoDB的一个文档(document)被存储在chunks集合中。</p>
+<p>GridFS 用两个集合来存储一个文件：fs.files与fs.chunks。每个文件的实际内容被存在chunks(二进制数据)中,和文件有关的meta数据(filename,content_type,还有用户自定义的属性)将会被存在files集合中。</p>
+<p>以下是简单的 fs.files 集合文档：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"filename"</span>: <span class="string">"test.txt"</span>,</span><br><span class="line">   <span class="attr">"chunkSize"</span>: NumberInt(<span class="number">261120</span>),</span><br><span class="line">   <span class="attr">"uploadDate"</span>: ISODate(<span class="string">"2014-04-13T11:32:33.557Z"</span>),</span><br><span class="line">   <span class="attr">"md5"</span>: <span class="string">"7b762939321e146569b07f72c62cca4f"</span>,</span><br><span class="line">   <span class="attr">"length"</span>: NumberInt(<span class="number">646</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下是简单的 fs.chunks 集合文档：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attr">"files_id"</span>: ObjectId(<span class="string">"534a75d19f54bfec8a2fe44b"</span>),</span><br><span class="line">   <span class="attr">"n"</span>: NumberInt(<span class="number">0</span>),</span><br><span class="line">   <span class="attr">"data"</span>: <span class="string">"Mongo Binary Data"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>GridFS 添加文件</li>
+</ul>
+<p>现在我们使用 GridFS 的 put 命令来存储 mp3 文件。 调用 MongoDB 安装目录下bin的 mongofiles.exe工具。</p>
+<p>打开命令提示符，进入到MongoDB的安装目录的bin目录中，找到mongofiles.exe，并输入下面的代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">mongofiles</span><span class="selector-class">.exe</span> <span class="selector-tag">-d</span> <span class="selector-tag">gridfs</span> <span class="selector-tag">put</span> <span class="selector-tag">song</span><span class="selector-class">.mp3</span></span><br></pre></td></tr></table></figure>
+<p>GridFS 是存储文件的数据名称。如果不存在该数据库，MongoDB会自动创建。Song.mp3 是音频文件名。使用以下命令来查看数据库中文件的文档：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db<span class="selector-class">.fs</span><span class="selector-class">.files</span><span class="selector-class">.find</span>()</span><br></pre></td></tr></table></figure>
+<p>以上命令执行后返回以下文档数据：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="attribute">_id</span>: <span class="built_in">ObjectId</span>(<span class="string">'534a811bf8b4aa4d33fdf94d'</span>), </span><br><span class="line">   filename: <span class="string">"song.mp3"</span>, </span><br><span class="line">   chunkSize: <span class="number">261120</span>, </span><br><span class="line">   uploadDate: new <span class="built_in">Date</span>(1397391643474), md5: <span class="string">"e4f53379c909f7bed2e9d631e15c1c41"</span>,</span><br><span class="line">   length: <span class="number">10401959</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到 fs.chunks 集合中所有的区块，以下我们得到了文件的 _id 值，我们可以根据这个 _id 获取区块(chunk)的数据：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.fs</span><span class="selector-class">.chunks</span><span class="selector-class">.find</span>(&#123;<span class="attribute">files_id</span>:<span class="built_in">ObjectId</span>(<span class="string">'534a811bf8b4aa4d33fdf94d'</span>)&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上实例中，查询返回了 40 个文档的数据，意味着mp3文件被存储在40个区块中。</p>
+<h3 id="4-6-自动增长"><a href="#4-6-自动增长" class="headerlink" title="4.6  自动增长"></a>4.6  自动增长</h3><p>MongoDB 没有像 SQL 一样有自动增长的功能， MongoDB 的id是系统自动生成的12字节唯一标识。但在某些情况下，我们可能需要实现 ObjectId 自动增长功能。由于 MongoDB 没有实现这个功能，我们可以通过编程的方式来实现，以下我们将在 counters 集合中实现id字段自动增长。</p>
+<ul>
+<li>使用集合</li>
+</ul>
+<p>以下 products 文档。id 字段实现 从 1,2,3,4 到 n 的自动增长功能。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"_id"</span>:<span class="number">1</span>,</span><br><span class="line">  <span class="attr">"product_name"</span>: <span class="string">"Apple iPhone"</span>,</span><br><span class="line">  <span class="attr">"category"</span>: <span class="string">"mobiles"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为此，创建 counters 集合，序列字段值可以实现自动长：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">db.createCollection(<span class="string">"counters"</span>)</span></span><br></pre></td></tr></table></figure>
+<p>向 counters 集合中插入以下文档，使用 productid 作为 key:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"_id"</span>:<span class="string">"productid"</span>,</span><br><span class="line">  <span class="attr">"sequence_value"</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sequence_value 字段是序列通过自动增长后的一个值。使用以下命令插入 counters 集合的序列文档中：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="selector-tag">db</span><span class="selector-class">.counters</span><span class="selector-class">.insert</span>(&#123;<span class="attribute">_id</span>:<span class="string">"productid"</span>,sequence_value:<span class="number">0</span>&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建 Javascript 函数</li>
+</ul>
+<p>创建函数 getNextSequenceValue 来作为序列名的输入， 指定的序列会自动增长 1 并返回最新序列值。在本文的实例中序列名为 productid 。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="function"><span class="keyword">function</span> <span class="title">getNextSequenceValue</span><span class="params">(sequenceName)</span></span>&#123;</span><br><span class="line">   <span class="keyword">var</span> sequenceDocument = db.counters.findAndModify(</span><br><span class="line">      &#123;</span><br><span class="line">         query:&#123;_id: sequenceName &#125;,</span><br><span class="line">         update: &#123;$inc:&#123;sequence_value:<span class="number">1</span>&#125;&#125;,</span><br><span class="line">         <span class="keyword">new</span>:<span class="keyword">true</span></span><br><span class="line">      &#125;);</span><br><span class="line">   <span class="keyword">return</span> sequenceDocument.sequence_value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 Javascript 函数</li>
+</ul>
+<p>使用 getNextSequenceValue 函数创建一个新的文档， 并设置文档 _id 自动为返回的序列值：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;db<span class="selector-class">.products</span><span class="selector-class">.insert</span>(&#123;</span><br><span class="line">   <span class="string">"_id"</span>:getNextSequenceValue(<span class="string">"productid"</span>),</span><br><span class="line">   <span class="string">"product_name"</span>:<span class="string">"Apple iPhone"</span>,</span><br><span class="line">   <span class="string">"category"</span>:<span class="string">"mobiles"</span>&#125;)</span><br><span class="line"></span><br><span class="line">&gt;db<span class="selector-class">.products</span><span class="selector-class">.insert</span>(&#123;</span><br><span class="line">   <span class="string">"_id"</span>:getNextSequenceValue(<span class="string">"productid"</span>),</span><br><span class="line">   <span class="string">"product_name"</span>:<span class="string">"Samsung S3"</span>,</span><br><span class="line">   <span class="string">"category"</span>:<span class="string">"mobiles"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>使用 getNextSequenceValue 函数来设置 _id 字段。为了验证函数是否有效，我们可以使用以下命令读取文档：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db<span class="selector-class">.prodcuts</span><span class="selector-class">.find</span>()</span><br></pre></td></tr></table></figure>
+<p>以上命令将返回以下结果，我们发现 _id 字段是自增长的：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">"_id"</span> : <span class="number">1</span>, <span class="attr">"product_name"</span> : <span class="string">"Apple iPhone"</span>, <span class="attr">"category"</span> : <span class="string">"mobiles"</span>&#125;</span><br><span class="line"></span><br><span class="line">&#123; <span class="attr">"_id"</span> : <span class="number">2</span>, <span class="attr">"product_name"</span> : <span class="string">"Samsung S3"</span>, <span class="attr">"category"</span> : <span class="string">"mobiles"</span> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="技术交流共享QQ群"><a href="#技术交流共享QQ群" class="headerlink" title="技术交流共享QQ群"></a>技术交流共享QQ群</h2><p><font style="color:red">【<strong>机器学习和自然语言QQ群：436303759</strong>】</font>：</p>
+<p>机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb/" rel="tag"><i class="fa fa-tag"></i> mongodb</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/13/笔记4-Docker复习篇/" rel="next" title="笔记4:Docker复习篇">
+                <i class="fa fa-chevron-left"></i> 笔记4:Docker复习篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">107</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-基本介绍"><span class="nav-number">1.</span> <span class="nav-text">1 基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MongoDB操作"><span class="nav-number">2.</span> <span class="nav-text">2 MongoDB操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3连接MongoDB数据库"><span class="nav-number">3.</span> <span class="nav-text">3连接MongoDB数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Java代码连接MongoDB数据库"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Java代码连接MongoDB数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-MongoDB高级教程"><span class="nav-number">4.</span> <span class="nav-text">4 MongoDB高级教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-关系"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-MapReduce"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-删除全文索引"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 删除全文索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-正则"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-GridFS"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 GridFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-自动增长"><span class="nav-number">4.6.</span> <span class="nav-text">4.6  自动增长</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术交流共享QQ群"><span class="nav-number">5.</span> <span class="nav-text">技术交流共享QQ群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/06/13/笔记6-MongoDB复习篇/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-06-13T10:21:30.715Z</updated>
+  <updated>2019-06-13T10:36:19.461Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记6:MongoDB复习篇</title>
+    <link href="https://bainingchao.github.io/2019/06/13/%E7%AC%94%E8%AE%B06-MongoDB%E5%A4%8D%E4%B9%A0%E7%AF%87/"/>
+    <id>https://bainingchao.github.io/2019/06/13/笔记6-MongoDB复习篇/</id>
+    <published>2019-06-13T10:34:39.000Z</published>
+    <updated>2019-06-13T10:36:19.461Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="mongodb" scheme="https://bainingchao.github.io/tags/mongodb/"/>
+    
+  </entry>
   
   <entry>
     <title>笔记4:Docker复习篇</title>
@@ -472,30 +494,6 @@
       <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
     
       <category term="pywin32" scheme="https://bainingchao.github.io/tags/pywin32/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>天府大讲堂：5G时代的物联网发展趋势与产业变革</title>
-    <link href="https://bainingchao.github.io/2018/11/29/%E5%A4%A9%E5%BA%9C%E5%A4%A7%E8%AE%B2%E5%A0%82%EF%BC%9A5G%E6%97%B6%E4%BB%A3%E7%9A%84%E7%89%A9%E8%81%94%E7%BD%91%E5%8F%91%E5%B1%95%E8%B6%8B%E5%8A%BF%E4%B8%8E%E4%BA%A7%E4%B8%9A%E5%8F%98%E9%9D%A9/"/>
-    <id>https://bainingchao.github.io/2018/11/29/天府大讲堂：5G时代的物联网发展趋势与产业变革/</id>
-    <published>2018-11-29T12:28:53.943Z</published>
-    <updated>2018-11-29T12:34:45.835Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：国家973物联网首席科学家，中科院上海微系统与信息技术研究所副所长，无锡物联网产业研究院院长刘海涛教授讲授的5G时代的物联网发展趋势与产业变革意义深刻。作者根据&lt;code&gt;天府大讲堂&lt;/code&gt;听讲内容加工整理所得，旨在进行学术交流使用，严禁商业炒作和不法行为。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="物联网" scheme="https://bainingchao.github.io/categories/%E7%89%A9%E8%81%94%E7%BD%91/"/>
-    
-    
-      <category term="物联网" scheme="https://bainingchao.github.io/tags/%E7%89%A9%E8%81%94%E7%BD%91/"/>
-    
-      <category term="人工智能" scheme="https://bainingchao.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
   </entry>
   
