@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta name="google-site-verification" content="o9IkI77-fxkhBZW-n0ww9JALMCqdDbeTgdcXO_Bw4Zc" />
+<meta name="baidu-site-verification" content="3frqY9KiVO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta name="keywords" content="django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记8:Django基础篇">
+<meta property="og:url" content="https://bainingchao.github.io/2019/06/13/笔记8-Django基础篇/index.html">
+<meta property="og:site_name" content="白宁超的官网">
+<meta property="og:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560157077719.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560158954875.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560159957646.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560224171794.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560225187403.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560232295937.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560238410789.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560238566648.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560238740884.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560239307381.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560241682953.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560245385467.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560246196010.png?raw=true">
+<meta property="og:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560246347716.png?raw=true">
+<meta property="og:updated_time" content="2019-06-13T11:07:57.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笔记8:Django基础篇">
+<meta name="twitter:description" content="摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）">
+<meta name="twitter:image" content="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560157077719.png?raw=true">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="白宁超的官网" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://bainingchao.github.io/2019/06/13/笔记8-Django基础篇/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>笔记8:Django基础篇 | 白宁超的官网</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+	<!-- <a href="https://github.com/bainingchao"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a> !-->
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白宁超的官网</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">专注人工智能领域研究</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-视频">
+    <a href="/videos/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />视频</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-书籍">
+    <a href="/books/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />书籍</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-链接">
+    <a href="/links/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />链接</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bainingchao.github.io/2019/06/13/笔记8-Django基础篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白宁超">
+      <meta itemprop="description" content="本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span>">
+      <meta itemprop="image" content="/../images/header.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白宁超的官网">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">笔记8:Django基础篇
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-13 18:43:52 / 修改时间：19:07:57" itemprop="dateCreated datePublished" datetime="2019-06-13T18:43:52+08:00">2019-06-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+		  
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）</p>
+</blockquote>
+<a id="more"></a>
+<p>（1）查看python版本号：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> -<span class="keyword">m</span> django --<span class="keyword">version</span></span><br></pre></td></tr></table></figure>
+<p>（2） 创建Django项目</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">django-admin startproject mysite</span></span><br></pre></td></tr></table></figure>
+<p>（3）测试开发服务器是否成功</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Desktop\bncDjango\mysite&gt;python manage<span class="selector-class">.py</span> runserver</span><br></pre></td></tr></table></figure>
+<font style="color:red">Django 自带一个用纯 Python 写的轻量级的 Web 服务器。为了让你能快速的开发出想要的东西，因为你不需要进行配置生产级别的服务器（比如 Apache）方面的工作，除非你已经准备好投入生产环境了。**千万不要** 将这个服务器用于和生产环境相关的任何地方。这个服务器只是为了开发而设计的。(我们在 Web 框架方面是专家，在 Web 服务器方面并不是。)</font>
+
+<p>（4）创建应用模块</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> startapp polls</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Application <span class="keyword">definition</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>, #  管理员站点</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>, #  认证授权系统</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>, # 内容类型框架</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>, # 会话框架</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>, # 消息框架</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>, #管理静态文件的框架</span><br><span class="line">    <span class="string">'polls'</span>, # 投票模块</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>（5）polls模型下编辑视图view</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"Hello,this is my frist polls index."</span>)</span><br></pre></td></tr></table></figure>
+<p>（6）polls模块下映射url</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from django.urls <span class="keyword">import</span> <span class="built_in">path</span></span><br><span class="line">from . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="built_in">path</span>(<span class="string">''</span>, views.index,<span class="keyword">name</span>=<span class="string">'index'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>（7）mysite主模块下配置url</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,<span class="keyword">include</span> # 注意导入<span class="keyword">include</span>模块</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'polls/'</span>, <span class="keyword">include</span>(<span class="string">'polls.urls'</span>)), # 配置polls子模板url，支持正则</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>（8）网页查询<a href="http://localhost:8000/polls/" target="_blank" rel="noopener">http://localhost:8000/polls/</a></p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560157077719.png?raw=true" alt="1560157077719"></p>
+<p>（9）数据库配置与迁移</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        # <span class="string">'django.db.backends.sqlite3'</span>，</span><br><span class="line">        # <span class="string">'django.db.backends.postgresql'</span>，</span><br><span class="line">        # <span class="string">'django.db.backends.mysql'</span>，</span><br><span class="line">        # <span class="string">'django.db.backends.oracle'</span></span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    # MySQL数据库配置</span><br><span class="line">    # <span class="string">'mysql'</span>: &#123;</span><br><span class="line">    #     <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">    #     <span class="string">'NAME'</span>: <span class="string">'all_news'</span>, # 数据库名</span><br><span class="line">    #     <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">    #     <span class="string">'PASSWORD'</span>: <span class="string">'root'</span>,</span><br><span class="line">    #     <span class="string">'HOST'</span>: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">    #     <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">    # &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> migrate</span><br></pre></td></tr></table></figure>
+<p>（10）编写模型M</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Question</span>(<span class="title">models</span>.<span class="title">Model</span>):</span></span><br><span class="line">    question_text = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    pub_data = models.DateField(<span class="string">'date published'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.question_text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Choice</span>(<span class="title">models</span>.<span class="title">Model</span>):</span></span><br><span class="line">    question = models.ForeignKey(Question,on_delete=models.CASCADE)</span><br><span class="line">    choice_text = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">    votes = models.IntegerField(default=<span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.choice_text</span><br></pre></td></tr></table></figure>
+<p>（11）激活模型</p>
+<font style="color:red">为模型的改变生成迁移文件</font>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> makemigrations polls</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560158954875.png?raw=true" alt="1560158954875"></p>
+<font style="color:blue"><em>另一种查看，选择执行</em>接收一个迁移的名称，然后返回对应的 SQL</font>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> sqlmigrate polls <span class="number">0001</span></span><br></pre></td></tr></table></figure>
+<font style="color:red">应用数据库迁移</font>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> migrate</span><br></pre></td></tr></table></figure>
+<p>（12）全自动后台管理页面</p>
+<p>12.1 创建一个能登录管理页面的用户,均为admin</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> createsuperuser</span><br></pre></td></tr></table></figure>
+<p>12.2 启动开发服务器：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> runserver</span><br></pre></td></tr></table></figure>
+<p><a href="http://127.0.0.1:8000/admin/login/?next=/admin/" target="_blank" rel="noopener">http://127.0.0.1:8000/admin/login/?next=/admin/</a></p>
+<p>12.3 进入站点</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560159957646.png?raw=true" alt="1560159957646"></p>
+<p>12.4 管理页面中加入配置应用</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Question,Choice</span><br><span class="line"></span><br><span class="line">admin.site.register(Question)</span><br><span class="line">admin.site.register(Choice)</span><br></pre></td></tr></table></figure>
+<p>（13）编写更多视图</p>
+<p>13.1 polls下的views</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题索引页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"Hello,this is my frist polls index."</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题详情页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"You're looking at question %s."</span> % question_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题结果页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">results</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"You're looking at the results of question %s."</span>  % question_id)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 投票处理器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">vote</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"You're voting on question %s."</span> % question_id)</span><br></pre></td></tr></table></figure>
+<p>13.2 polls下的urls<font style="color:red">记得添加命名空间</font></p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from django.urls <span class="keyword">import</span> <span class="built_in">path</span></span><br><span class="line">from . <span class="keyword">import</span> views</span><br><span class="line">app_name = <span class="string">'polls'</span> #添加命名空间</span><br><span class="line">urlpatterns = [</span><br><span class="line">    # ex: /polls/</span><br><span class="line">    <span class="built_in">path</span>(<span class="string">''</span>, views.index,<span class="keyword">name</span>=<span class="string">'index'</span>),</span><br><span class="line">    # ex: /polls/<span class="number">5</span>/</span><br><span class="line">    <span class="built_in">path</span>(<span class="string">'&lt;int:question_id&gt;/'</span>, views.detail, <span class="keyword">name</span>=<span class="string">'detail'</span>),</span><br><span class="line">    # ex: /polls/<span class="number">5</span>/results/</span><br><span class="line">    <span class="built_in">path</span>(<span class="string">'&lt;int:question_id&gt;/results/'</span>, views.results, <span class="keyword">name</span>=<span class="string">'results'</span>),</span><br><span class="line">    # ex: /polls/<span class="number">5</span>/vote/</span><br><span class="line">    <span class="built_in">path</span>(<span class="string">'&lt;int:question_id&gt;/vote/'</span>, views.vote, <span class="keyword">name</span>=<span class="string">'vote'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>13.3 查询数据库信息并页面显示</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 问题索引页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span></span><span class="symbol">:</span></span><br><span class="line">    latest_question_list = Question.objects.order_by(<span class="string">'pub_data'</span>)[<span class="symbol">:</span><span class="number">3</span>]</span><br><span class="line">    output = <span class="string">'&lt;br/&gt;'</span>.join([q.question_text <span class="keyword">for</span> q <span class="keyword">in</span> latest_question_list])</span><br><span class="line">HttpResponse(template.render(context,request))</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(output)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560224171794.png?raw=true" alt="1560224171794"></p>
+<p>（14）编写模板T</p>
+<p>14.1 在mysite下创建templates，并创建polls文件夹下创建index.html</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>投票页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> latest_question_list %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">    </span><span class="template-tag">&#123;% <span class="name"><span class="name">for</span></span> question <span class="keyword">in</span> latest_question_list %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/polls/</span></span></span><span class="template-variable">&#123;&#123; question.id &#125;&#125;</span><span class="xml"><span class="tag"><span class="string">/"</span>&gt;</span></span><span class="template-variable">&#123;&#123; question.question_text &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">    </span><span class="template-tag">&#123;% <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">else</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>No polls are available.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<font style="color:red">可以修改为（常用）</font>.想改成 `polls/specifics/12/` ，你不用在模板里修改任何东西（包括其它模板），只要在 `polls/urls.py` 里稍微修改一下就行：
+
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">for</span></span> question <span class="keyword">in</span> latest_question_list %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">url</span></span> 'polls:detail' question.id %&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span><span class="template-variable">&#123;&#123; question.question_text &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+14.2 在mysite的settings修改DIRS
+
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">TEMPLATES</span> = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</span><br><span class="line">        <span class="string">'DIRS'</span>: [os.path.join(<span class="symbol">BASE_DIR</span>,<span class="string">'template/'</span>)],</span><br><span class="line">        <span class="string">'APP_DIRS'</span>: <span class="symbol">True</span>,</span><br><span class="line">        <span class="string">'OPTIONS'</span>: &#123;</span><br><span class="line">            <span class="string">'context_processors'</span>: [</span><br><span class="line">                <span class="string">'django.template.context_processors.debug'</span>,</span><br><span class="line">                <span class="string">'django.template.context_processors.request'</span>,</span><br><span class="line">                <span class="string">'django.contrib.auth.context_processors.auth'</span>,</span><br><span class="line">                <span class="string">'django.contrib.messages.context_processors.messages'</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+14.3 polls/views.py 修改
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">from</span> django.template <span class="keyword">import</span> loader</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> polls.models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题索引页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    latest_question_list = Question.objects.order_by(<span class="string">'pub_data'</span>)[:<span class="number">5</span>]</span><br><span class="line">    <span class="comment"># output = '&lt;br/&gt;'.join([q.question_text for q in latest_question_list])</span></span><br><span class="line">    template = loader.get_template(<span class="string">'polls/index.html'</span>)</span><br><span class="line">    context = &#123;</span><br><span class="line">        <span class="string">'latest_question_list'</span>: latest_question_list,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(template.render(context,request))</span><br></pre></td></tr></table></figure>
+
+<font style="color:red">进一步可以修改为(常用)：</font>
+
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 问题索引页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span></span><span class="symbol">:</span></span><br><span class="line">    latest_question_list = Question.objects.order_by(<span class="string">'pub_data'</span>)[<span class="symbol">:</span><span class="number">5</span>]</span><br><span class="line">    context = &#123;<span class="string">'latest_question_list'</span>: latest_question_list&#125;</span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'polls/index.html'</span>,context)</span><br></pre></td></tr></table></figure>
+<p>14.4 在浏览器访问 “/polls/“ 查看：</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560225187403.png?raw=true" alt="1560225187403"></p>
+<p>（15）查看详细页面</p>
+<p>15.1 polls下views.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> Http404</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题详情页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        question = Question.objects.get(pk=question_id)</span><br><span class="line">    <span class="keyword">except</span> Question.DoesNotExist:</span><br><span class="line">        <span class="keyword">raise</span> Http404(<span class="string">"Question does not exist"</span>)</span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'polls/detail.html'</span>, &#123;<span class="string">'question'</span>:question,<span class="string">'question_id'</span>:question_id&#125;)</span><br></pre></td></tr></table></figure>
+<font style="color:red">优化后的算法（常用）</font>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render,get_object_or_404</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题详情页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'polls/detail.html'</span>, &#123;<span class="string">'question'</span>: question,<span class="string">'question_id'</span>:question_id&#125;)</span><br></pre></td></tr></table></figure>
+<p>15.2 template下detail.html</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE html&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>详细问题页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><span class="template-variable">&#123;&#123; question.question_text &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">for</span></span> choice <span class="keyword">in</span> question.choice_set.all %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><span class="template-variable">&#123;&#123; choice.choice_text &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>15.3 运行结果</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560232295937.png?raw=true" alt="1560232295937"></p>
+<p>（16）polls/detail.html详细页面添加一个表单form</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>`</span><span class="template-variable">&#123;&#123; question.question_text &#125;&#125;</span><span class="xml">`<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> error_message %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>    '</span><span class="template-variable">&#123;&#123; error_message&#125;&#125;</span><span class="xml">'<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">url</span></span> 'polls:vote' question.id %&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">csrf_token</span></span> %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">for</span></span> choice <span class="keyword">in</span> question.choice_set.all %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"choice"</span> <span class="attr">id</span>=<span class="string">"choice</span></span></span><span class="template-variable">&#123;&#123; forloop.counter&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> <span class="attr">value</span>=<span class="string">"</span></span></span><span class="template-variable">&#123;&#123; choice.id&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"choice</span></span></span><span class="template-variable">&#123;&#123; forloop.counter&#125;&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span>`</span><span class="template-variable">&#123;&#123; choice.choice_text &#125;&#125;</span><span class="xml">`<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Vote"</span>/&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>每个单选按钮的 <code>value</code> 属性是对应的各个 Choice 的 ID。每个单选按钮的 <code>name</code> 是 <code>&quot;choice&quot;</code> 。这意味着，当有人选择一个单选按钮并提交表单提交时，它将发送一个 POST 数据 <code>choice=#</code> ，其中# 为选择的 Choice 的 ID。这是 HTML 表单的基本概念。</li>
+<li>我们设置表单的 <code>action</code> 为 { % url “polls:vote” question.id %}  ，并设置 <code>method=&quot;post&quot;</code> 。使用 method=”post”是非常重要的，因为这个提交表单的行为会改变服务器端的数据。当你需要创建一个改变服务器端数据的表单时，请使用<code>`method=&quot;post&quot;</code> 。这不是 Django 的特定技巧；这是优秀的网站开发技巧。</li>
+<li>forloop.counter<code>指示 [</code>for`](<a href="https://docs.djangoproject.com/zh-hans/2.2/ref/templates/builtins/#std:templatetag-for" target="_blank" rel="noopener">https://docs.djangoproject.com/zh-hans/2.2/ref/templates/builtins/#std:templatetag-for</a>) 标签已经循环多少次。</li>
+<li>由于我们创建一个 POST 表单（它具有修改数据的作用），所以我们需要小心跨站点请求伪造。 谢天谢地，你不必太过担心，因为 Django 已经拥有一个用来防御它的非常容易使用的系统。 简而言之，所有针对内部 URL 的 POST 表单都应该使用{ % csrf_token %}模板标签。</li>
+</ul>
+<p>（17） <code>polls/views.py</code> 视图编辑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 投票处理器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">vote</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        selected_choice = question.choice_set.get(pk=request.POST[<span class="string">'choice'</span>])</span><br><span class="line">    <span class="keyword">except</span> (KeyError, Choice.DoesNotExist):</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'polls/detail.html'</span>, &#123;</span><br><span class="line">            <span class="string">'question'</span>: question,</span><br><span class="line">            <span class="string">'error_message'</span>: <span class="string">"You didn't select a choice."</span>,&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        selected_choice.votes +=<span class="number">1</span></span><br><span class="line">        selected_choice.save()</span><br><span class="line">        <span class="keyword">return</span> HttpResponseRedirect(reverse(<span class="string">'polls:results'</span>, args=(question.id,)))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpRequest.POST" target="_blank" rel="noopener"><code>request.POST</code></a> 是一个类字典对象，让你可以通过关键字的名字获取提交的数据。 这个例子中， <code>request.POST[&#39;choice&#39;]</code> 以字符串形式返回选择的 Choice 的 ID。 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpRequest.POST" target="_blank" rel="noopener"><code>request.POST</code></a> 的值永远是字符串。</li>
+<li>如果在 <code>request.POST[&#39;choice&#39;]</code> 数据中没有提供 <code>choice</code> ， POST 将引发一个 <a href="https://docs.python.org/3/library/exceptions.html#KeyError" target="_blank" rel="noopener"><code>KeyError</code></a> 。上面的代码检查 <a href="https://docs.python.org/3/library/exceptions.html#KeyError" target="_blank" rel="noopener"><code>KeyError</code></a> ，如果没有给出 <code>choice</code> 将重新显示 Question 表单和一个错误信息。</li>
+<li>在增加 Choice 的得票数之后，代码返回一个 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponseRedirect" target="_blank" rel="noopener"><code>HttpResponseRedirect</code></a> 而不是常用的 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponse" target="_blank" rel="noopener"><code>HttpResponse</code></a> 、 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/request-response/#django.http.HttpResponseRedirect" target="_blank" rel="noopener"><code>HttpResponseRedirect</code></a> 只接收一个参数：用户将要被<font style="color:red">重定向</font>的 URL。构造函数中使用 <code>reverse()</code>函数。这个函数避免了我们在视图函数中硬编码 URL。重定向的 URL 将调用 <code>&#39;results&#39;</code> 视图来显示最终的页面。</li>
+</ul>
+<p>(18) 重定向results.html</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> get_object_or_404, render</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">results</span><span class="params">(request, question_id)</span>:</span></span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'polls/results.html'</span>, &#123;<span class="string">'question'</span>: question&#125;)</span><br></pre></td></tr></table></figure>
+<p>（19）通用视图，代码重构</p>
+<p>19.1 <code>detail()</code> 视图几乎一模一样。唯一的不同是模板的名字。 </p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 问题索引页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span></span><span class="symbol">:</span></span><br><span class="line">    latest_question_list = Question.objects.order_by(<span class="string">'pub_data'</span>)[<span class="symbol">:</span><span class="number">5</span>]</span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'polls/index.html'</span>,&#123;<span class="string">'latest_question_list'</span>: latest_question_list&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题详情页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request,question_id)</span></span><span class="symbol">:</span></span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'polls/detail.html'</span>, &#123;<span class="string">'question'</span>: question,<span class="string">'question_id'</span><span class="symbol">:question_id</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题结果页</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">results</span><span class="params">(request,question_id)</span></span><span class="symbol">:</span></span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'polls/results.html'</span>, &#123;<span class="string">'question'</span>: question&#125;)</span><br></pre></td></tr></table></figure>
+<p>19.2 创建一个 <code>polls/results.html</code> 模板</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><span class="template-variable">&#123;&#123; question.question_text &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">for</span></span> choice <span class="keyword">in</span> question.choice_set.all %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>`</span><span class="template-variable">&#123;&#123; choice.choice_text &#125;&#125;</span><span class="xml"> -- </span><span class="template-variable">&#123;&#123; choice.votes &#125;&#125;</span><span class="xml"> vote</span><span class="template-variable">&#123;&#123; choice.votes|<span class="name">pluralize</span> &#125;&#125;</span><span class="xml">`<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endfor</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">url</span></span> 'polls:detail' question.id %&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span>Vote again?<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>19.3 通用视图系统</p>
+<p>通用视图将常见的模式抽象化，可以使你在编写应用时甚至不需要编写Python代码。将我们的投票应用转换成使用通用视图系统，这样我们可以删除许多我们的代码。我们仅仅需要做以下几步来完成转换，</p>
+<ul>
+<li>转换 URLconf。</li>
+<li>删除一些旧的、不再需要的视图。</li>
+<li>基于 Django 的通用视图引入新的视图</li>
+</ul>
+<p>1 改良URLconf</p>
+<p>打开 <code>polls/urls.py</code> 这个 URLconf 并将它修改成：路径字符串中匹配模式的名称已经由 <code>&lt;question_id&gt;</code> 改为 <code>&lt;pk&gt;</code>。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from django<span class="selector-class">.urls</span> import path</span><br><span class="line">from . import views</span><br><span class="line"></span><br><span class="line">app_name = <span class="string">'polls'</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">''</span>, views<span class="selector-class">.IndexView</span><span class="selector-class">.as_view</span>(), name=<span class="string">'index'</span>),</span><br><span class="line">    path(<span class="string">'&lt;int:pk&gt;/'</span>, views<span class="selector-class">.DetailView</span><span class="selector-class">.as_view</span>(), name=<span class="string">'detail'</span>),</span><br><span class="line">    path(<span class="string">'&lt;int:pk&gt;/results/'</span>, views<span class="selector-class">.ResultsView</span><span class="selector-class">.as_view</span>(), name=<span class="string">'results'</span>),</span><br><span class="line">    path(<span class="string">'&lt;int:question_id&gt;/vote/'</span>, views<span class="selector-class">.vote</span>, name=<span class="string">'vote'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>2 改良视图</p>
+<p>删除旧的 <code>index</code>, <code>detail</code>, 和 <code>results</code> 视图，并用 Django 的通用视图代替。打开 <code>polls/views.py</code> 文件，并将它修改成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponseRedirect</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> get_object_or_404, render</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> reverse</span><br><span class="line"><span class="keyword">from</span> django.views <span class="keyword">import</span> generic</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Choice, Question</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexView</span><span class="params">(generic.ListView)</span>:</span></span><br><span class="line">    template_name = <span class="string">'polls/index.html'</span></span><br><span class="line">    context_object_name = <span class="string">'latest_question_list'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> Question.objects.order_by(<span class="string">'pub_date'</span>)[:<span class="number">5</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DetailView</span><span class="params">(generic.DetailView)</span>:</span></span><br><span class="line">    model = Question</span><br><span class="line">    template_name = <span class="string">'polls/detail.html'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResultsView</span><span class="params">(generic.DetailView)</span>:</span></span><br><span class="line">    model = Question</span><br><span class="line">    template_name = <span class="string">'polls/results.html'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">vote</span><span class="params">(request,question_id)</span>:</span></span><br><span class="line">    question = get_object_or_404(Question, pk=question_id)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        selected_choice = question.choice_set.get(pk=request.POST[<span class="string">'choice'</span>])</span><br><span class="line">    <span class="keyword">except</span> (KeyError, Choice.DoesNotExist):</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">'polls/detail.html'</span>, &#123;</span><br><span class="line">            <span class="string">'question'</span>: question,</span><br><span class="line">            <span class="string">'error_message'</span>: <span class="string">"You didn't select a choice."</span>,</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        selected_choice.votes +=<span class="number">1</span></span><br><span class="line">        selected_choice.save()</span><br><span class="line">        <span class="keyword">return</span> HttpResponseRedirect(reverse(<span class="string">'polls:results'</span>, args=(question.id,)))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>每个通用视图需要知道它将作用于哪个模型。 这由 <code>model</code> 属性提供。</li>
+<li><a href="https://docs.djangoproject.com/zh-hans/2.2/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView" target="_blank" rel="noopener"><code>DetailView</code></a> 期望从 URL 中捕获名为 <code>&quot;pk&quot;</code> 的主键值，所以我们为通用视图把 <code>question_id</code> 改成 <code>pk</code> 。</li>
+</ul>
+<p>19.4 运行程序</p>
+<p>主页面</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560238410789.png?raw=true" alt="1560238410789"></p>
+<p>子页面</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560238566648.png?raw=true" alt="1560238566648"></p>
+<p>详情页面</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560238740884.png?raw=true" alt="1560238740884"></p>
+<p>（20）自动化测试</p>
+<p>20.1 测试的策略</p>
+<ul>
+<li>测试驱动：写代码之前先写测试。「测试驱动」的开发方法只是将问题的描述抽象为了 Python 的测试样例。</li>
+<li>更普遍的情况是，一个刚接触自动化测试的新手更倾向于先写代码，然后再写测试。</li>
+<li>如果你才写了几千行 Python 代码，选择从哪里开始写测试确实不怎么简单。如果是这种情况，那么在你下次修改代码（比如加新功能，或者修复 Bug）之前写个测试是比较合理且有效的。</li>
+</ul>
+<p>20.2 第一个测试</p>
+<p>需求：我们的要求是如果 Question 是在一天之内发布，was_published_recently()<code>方法将会返回</code>True<code>，然而现在这个方法在</code>Question<code>的</code>pub_date` 字段比当前时间还晚时也会返回 True</p>
+<p>编写测试代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.test <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your tests here.</span></span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QuestionModelTests</span><span class="params">(TestCase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_was_published_recently_with_future_question</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        was_published_recently() returns False for questions whose pub_date</span></span><br><span class="line"><span class="string">        is in the future.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        time = timezone.now() + datetime.timedelta(days=<span class="number">30</span>)</span><br><span class="line">        future_question = Question(pub_date=time)</span><br><span class="line">        self.assertIs(future_question.was_published_recently(), <span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<p>运行代码：$ python manage.py test polls</p>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560239307381.png?raw=true" alt="1560239307381"></p>
+<p>测试结果：</p>
+<ul>
+<li><code>python manage.py test polls</code> 将会寻找 <code>polls</code> 应用里的测试代码</li>
+<li>它找到了 <a href="https://docs.djangoproject.com/zh-hans/2.2/topics/testing/tools/#django.test.TestCase" target="_blank" rel="noopener"><code>django.test.TestCase</code></a> 的一个子类</li>
+<li>它创建一个特殊的数据库供测试使用</li>
+<li>它在类中寻找测试方法——以 <code>test</code> 开头的方法。</li>
+<li>在 <code>test_was_published_recently_with_future_question</code> 方法中，它创建了一个 <code>pub_date</code> 值为 30 天后的 <code>Question</code> 实例。</li>
+<li>接着使用 <code>assertls()</code> 方法，发现 <code>was_published_recently()</code> 返回了 <code>True</code>，而我们期望它返回 <code>False</code>。</li>
+</ul>
+<font style="color:red">测试系统通知我们哪些测试样例失败了，和造成测试失败的代码所在的行号。</font>
+
+<p>（21）静态文件（图片/脚本/样式）</p>
+<p>对于小项目来说，静态文件随便放在哪，只要服务程序能够找到它们就行。然而在大项目中，处理不同应用所需要的静态文件的工作就显得有点麻烦了。这就是 <code>django.contrib.staticfiles</code> 存在的意义</p>
+<p>创建的 <code>static</code> 文件夹中创建 <code>polls</code> 的文件夹，再在 <code>polls</code> 文件夹中创建一个名为 <code>style.css</code> 的文件。样式表路径应是 <code>polls/static/polls/style.css</code>。因为 <code>AppDirectoriesFinder</code> 的存在，你可以在 Django 中简单地使用以 <code>polls/style.css</code> 的形式引用此文件，类似你引用模板路径的方式。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>polls的index.html引用</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>投票页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">   `</span><span class="template-tag">&#123;% <span class="name"><span class="name">load</span></span> static %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">static</span></span> 'polls/style.css' %&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>添加图片</p>
+<p>我们会创建一个用于存在图像的目录。在 <code>polls/static/polls</code> 目录下创建一个名为 <code>images</code> 的子目录。在这个目录中，放一张名为 <code>background.gif</code> 的图片。换言之，在目录 <code>polls/static/polls/images/background.jpg</code> 中放一张图片。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: white <span class="built_in">url</span>(<span class="string">"images/background.gif"</span>) no-repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560241682953.png?raw=true" alt="1560241682953"></p>
+<p>更多关于设置和框架的资料，参考 <a href="https://docs.djangoproject.com/zh-hans/2.2/howto/static-files/" target="_blank" rel="noopener">静态文件解惑</a> 和 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/contrib/staticfiles/" target="_blank" rel="noopener">静态文件指南</a>。<a href="https://docs.djangoproject.com/zh-hans/2.2/howto/static-files/deployment/" target="_blank" rel="noopener">部署静态文件</a> 介绍了如何在真实服务器上使用静态文件。</p>
+<p>(22) 编写第一个django应用</p>
+<p>22.1 polls/admin定义后台表单,列表为字段显示顺序</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"># Register your models here.</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Question,Choice</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> QuestionAdmin(admin.ModelAdmin):</span><br><span class="line">   # fieldsets = [</span><br><span class="line">        # (<span class="string">'问题内容'</span>, &#123;<span class="string">'fields'</span>: [<span class="string">'question_text'</span>]&#125;),</span><br><span class="line">        # (<span class="string">'发布时间'</span>, &#123;<span class="string">'fields'</span>: [<span class="string">'pub_data'</span>]&#125;),</span><br><span class="line">    # ]</span><br><span class="line">    # fields = [<span class="string">'pub_data'</span>, <span class="string">'question_text'</span>]</span><br><span class="line">    list_display = (<span class="string">'question_text'</span>, <span class="string">'pub_data'</span>)</span><br><span class="line"></span><br><span class="line">admin.site.register(Question, QuestionAdmin)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> ChoiceAdmin(admin.ModelAdmin):</span><br><span class="line">    # fields = [<span class="string">'question'</span>,<span class="string">'choice_text'</span>, <span class="string">'votes'</span>]</span><br><span class="line">    list_display = (<span class="string">'question'</span>,<span class="string">'choice_text'</span>, <span class="string">'votes'</span>)</span><br><span class="line"></span><br><span class="line">admin.site.register(Choice, ChoiceAdmin)</span><br></pre></td></tr></table></figure>
+<p>22.2 字段过滤器</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">QuestionAdmin</span>(<span class="title">admin</span>.<span class="type">ModelAdmin</span>):</span></span><br><span class="line"><span class="class">    list_display = ('<span class="title">question_text'</span>, '<span class="title">pub_data'</span>)</span></span><br><span class="line"><span class="class">    list_filter = ['pub_data'] # 过滤器</span></span><br><span class="line"><span class="class">admin.site.register(<span class="type">Question</span>, <span class="type">QuestionAdmin</span>)</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560245385467.png?raw=true" alt="1560245385467"></p>
+<p>22.3 自定义后台界面与风格</p>
+<ul>
+<li>打开你的设置文件（<code>mysite/settings.py</code>，牢记），在 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/settings/#std:setting-TEMPLATES" target="_blank" rel="noopener"><code>TEMPLATES</code></a> 设置中添加 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/settings/#std:setting-TEMPLATES-DIRS" target="_blank" rel="noopener"><code>DIRS</code></a> 选项：</li>
+<li>在 <code>templates</code> 目录内创建名为 <code>admin</code> 的目录，随后，将存放 Django 默认模板的目录（<code>django/contrib/admin/templates</code>）内的模板文件 <code>admin/base_site.html</code> 复制到这个目录内。<strong>Django 的源文件在哪里？</strong>$ python -c “import django; print(django.<strong>path</strong>)”<img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560246196010.png?raw=true" alt="1560246196010"></li>
+<li>完成后，你应该看到如下代码：</li>
+</ul>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">block</span></span> branding %&#125;</span><span class="xml">`</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"site-name"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">url</span></span> 'admin:index' %&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span>Polls Administration<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">`</span><span class="template-tag">&#123;% <span class="name"><span class="name">endblock</span></span> %&#125;</span><span class="xml">`</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/bainingchao/imgurl/blob/master/dockerimg/1560246347716.png?raw=true" alt="1560246347716"></p>
+<h2 id="技术交流共享QQ群"><a href="#技术交流共享QQ群" class="headerlink" title="技术交流共享QQ群"></a>技术交流共享QQ群</h2><p><font style="color:red">【<strong>机器学习和自然语言QQ群：436303759</strong>】</font>：</p>
+<p>机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat.png" alt="白宁超 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>扫一扫关注微信公众号，机器学习和自然语言处理，订阅号datathinks！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="白宁超 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="白宁超 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/django/" rel="tag"><i class="fa fa-tag"></i> django</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+               <div>
+                 
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+               </div>
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/13/笔记7-Python复习篇/" rel="next" title="笔记7:Python复习篇">
+                <i class="fa fa-chevron-left"></i> 笔记7:Python复习篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTc5NC8xNjMyMQ=="></div>
+    </div>
+
+  
+ 
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/../images/header.png"
+                alt="白宁超" />
+            
+              <p class="site-author-name" itemprop="name">白宁超</p>
+              <p class="site-description motion-element" itemprop="description">本站主要研究深度学习、机器学习、自然语言处理等前沿技术。ML&NLP交流群：436303759 <span><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=ef3bbb679b06ac59b136c57ba9e7935ff9d3b10faeabde6e4efcafe523bbbf4d"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="自然语言处理和机器学习技术QQ交流：436303759 " title="自然语言处理和机器学习技术交流"></a></span></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">110</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/bainingchao" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.google.com.hk/" target="_blank" title="Google" rel="external nofollow"><i class="fa fa-fw fa-google"></i>Google</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.baidu.com/" target="_blank" title="百度" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>百度</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/p/1005056002073632?is_all=1" target="_blank" title="微博" rel="external nofollow"><i class="fa fa-fw fa-weibo"></i>微博</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/baiboy/" target="_blank" title="博客园" rel="external nofollow"><i class="fa fa-fw fa-globe"></i>博客园</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://mp.weixin.qq.com/s/s97I4gtEJIt5rMivWMkPkQ" target="_blank" title="微信公众号" rel="external nofollow"><i class="fa fa-fw fa-weixin"></i>微信公众号</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术交流共享QQ群"><span class="nav-number">1.</span> <span class="nav-text">技术交流共享QQ群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白宁超</span>
+
+  
+
+  
+</div>
+
+
+
+
+  
+
+
+
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div> -->
+
+
+
+   <!--<span class="post-meta-divider">|</span>-->
+
+
+
+   <!--<div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>-->
+
+
+
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<div class="busuanzi-count">
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+    <script type="text/javascript">
+      window.livereOptions = {
+        refer: '2019/06/13/笔记8-Django基础篇/'
+      };
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Linkedin,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="../js/src/love.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
