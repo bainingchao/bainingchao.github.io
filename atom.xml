@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-06-13T11:07:57.646Z</updated>
+  <updated>2019-06-13T11:10:22.269Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记9:Django提升篇</title>
+    <link href="https://bainingchao.github.io/2019/06/13/%E7%AC%94%E8%AE%B09-Django%E6%8F%90%E5%8D%87%E7%AF%87/"/>
+    <id>https://bainingchao.github.io/2019/06/13/笔记9-Django提升篇/</id>
+    <published>2019-06-13T11:09:25.000Z</published>
+    <updated>2019-06-13T11:10:22.269Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="django" scheme="https://bainingchao.github.io/tags/django/"/>
+    
+  </entry>
   
   <entry>
     <title>笔记8:Django基础篇</title>
@@ -470,28 +492,6 @@
       <category term="模型选择" scheme="https://bainingchao.github.io/tags/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9/"/>
     
       <category term="模型评估" scheme="https://bainingchao.github.io/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>命名实体识别技术</title>
-    <link href="https://bainingchao.github.io/2019/02/13/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB%E6%8A%80%E6%9C%AF/"/>
-    <id>https://bainingchao.github.io/2019/02/13/命名实体识别技术/</id>
-    <published>2019-02-13T09:26:27.146Z</published>
-    <updated>2019-02-13T09:29:55.003Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：命名实体识别在自然语言处理占据着非常重要的地位，也是不可逾越的学术问题。关于命名实体识别的学术理论和研究方法众多，本章侧重整体介绍。首先阐述了命名实体识别的背景知识和研究概况；其次主要介绍中文命名实体识别的特点与难点，加以案例加深理解；然后对命名实体识别当前研究方法和核心技术进行详细介绍；最后，展望其在未来人工智能方面的发展前景。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="命名实体识别" scheme="https://bainingchao.github.io/tags/%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/"/>
     
   </entry>
   
