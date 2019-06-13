@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-06-13T10:36:19.461Z</updated>
+  <updated>2019-06-13T10:39:38.674Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记5:Elasticsearch复习篇</title>
+    <link href="https://bainingchao.github.io/2019/06/13/%E7%AC%94%E8%AE%B05-Elasticsearch%E5%A4%8D%E4%B9%A0%E7%AF%87/"/>
+    <id>https://bainingchao.github.io/2019/06/13/笔记5-Elasticsearch复习篇/</id>
+    <published>2019-06-13T10:38:43.000Z</published>
+    <updated>2019-06-13T10:39:38.674Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="elasticserch" scheme="https://bainingchao.github.io/tags/elasticserch/"/>
+    
+      <category term="es" scheme="https://bainingchao.github.io/tags/es/"/>
+    
+  </entry>
   
   <entry>
     <title>笔记6:MongoDB复习篇</title>
@@ -468,32 +492,6 @@
     
     
       <category term="课程导学" scheme="https://bainingchao.github.io/tags/%E8%AF%BE%E7%A8%8B%E5%AF%BC%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python数据预处理之抽取文本信息（2）</title>
-    <link href="https://bainingchao.github.io/2018/12/21/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86%E4%B9%8B%E6%8A%BD%E5%8F%96%E6%96%87%E6%9C%AC%E4%BF%A1%E6%81%AF%EF%BC%882%EF%BC%89/"/>
-    <id>https://bainingchao.github.io/2018/12/21/数据预处理之抽取文本信息（2）/</id>
-    <published>2018-12-21T06:06:12.000Z</published>
-    <updated>2019-03-06T09:06:38.236Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：大数据技术与我们日常生活越来越紧密，要做大数据，首要解决数据问题。原始数据存在大量不完整、不一致、有异常的数据，严重影响到数据建模的执行效率，甚至可能导致模型结果的偏差，因此要数据预处。数据预处理主要是将原始数据经过文本抽取、数据清理、数据集成、数据处理、数据变换、数据降维等处理后，不仅提高了数据质量，而且更好的提升算法模型性能。数据预处理在数据挖掘、自然语言处理、机器学习、深度学习算法中起着重要的作用。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数据预处理" scheme="https://bainingchao.github.io/categories/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="Python" scheme="https://bainingchao.github.io/tags/Python/"/>
-    
-      <category term="数据预处理" scheme="https://bainingchao.github.io/tags/%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    
-      <category term="pywin32" scheme="https://bainingchao.github.io/tags/pywin32/"/>
     
   </entry>
   
