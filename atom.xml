@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-06-13T11:10:22.269Z</updated>
+  <updated>2019-06-14T09:30:19.065Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记10：PostgreSQL学习篇</title>
+    <link href="https://bainingchao.github.io/2019/06/14/%E7%AC%94%E8%AE%B010%EF%BC%9APGSQL%E5%AD%A6%E4%B9%A0%E7%AF%87/"/>
+    <id>https://bainingchao.github.io/2019/06/14/笔记10：PGSQL学习篇/</id>
+    <published>2019-06-14T09:29:05.000Z</published>
+    <updated>2019-06-14T09:30:19.065Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="PGSQL" scheme="https://bainingchao.github.io/tags/PGSQL/"/>
+    
+  </entry>
   
   <entry>
     <title>笔记9:Django提升篇</title>
@@ -307,9 +329,9 @@
       <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
     
     
-      <category term="python" scheme="https://bainingchao.github.io/tags/python/"/>
-    
       <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
+    
+      <category term="python" scheme="https://bainingchao.github.io/tags/python/"/>
     
   </entry>
   
@@ -460,38 +482,6 @@
       <category term="条件随机场" scheme="https://bainingchao.github.io/tags/%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/"/>
     
       <category term="CRF" scheme="https://bainingchao.github.io/tags/CRF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习之模型评估</title>
-    <link href="https://bainingchao.github.io/2019/02/13/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
-    <id>https://bainingchao.github.io/2019/02/13/机器学习之模型评估/</id>
-    <published>2019-02-13T09:31:53.945Z</published>
-    <updated>2019-02-13T09:41:05.322Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：本文写作的初衷源于基于HMM模型序列标注的一个实验，在实验完成之后，如果迫切想知道采用的序列标注模型好坏，有哪些指标可以度量。于是，就产生了对这一专题进度的学习总结，这样也便于其他人参考，节约大家的时间。本文依旧旨在简明扼要地梳理出模型评估核心指标，关键以期达到实用的目的。本章首先介绍基于统计角度的模型评估，然后介绍模型评估的方法，最后对模型选择进行介绍。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="机器学习" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="模型评估" scheme="https://bainingchao.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
-    
-    
-      <category term="准确率" scheme="https://bainingchao.github.io/tags/%E5%87%86%E7%A1%AE%E7%8E%87/"/>
-    
-      <category term="召回率" scheme="https://bainingchao.github.io/tags/%E5%8F%AC%E5%9B%9E%E7%8E%87/"/>
-    
-      <category term="F度量值" scheme="https://bainingchao.github.io/tags/F%E5%BA%A6%E9%87%8F%E5%80%BC/"/>
-    
-      <category term="模型选择" scheme="https://bainingchao.github.io/tags/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9/"/>
-    
-      <category term="模型评估" scheme="https://bainingchao.github.io/tags/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/"/>
     
   </entry>
   
