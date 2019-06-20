@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[笔记11:Django入门]]></title>
+    <url>%2F2019%2F06%2F20%2F%E7%AC%94%E8%AE%B011-Django%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.） MVC的核心思想就是解耦。 MVTDjango遵循MVC思想，其称为MVT。其中： M: Model模型：和MVC中的M相同和数据库交互 V:View视图，和MVC中的C相同，接收请求并处理，与M和T交互，返回应答 T:Template模板，和MVC中的V功能相同，产生HTML 解决python安装包依赖问题 安装：pip install -i https://pypi.douban.com/simple django 在虚拟环境里面配置，减少依赖。 Django项目创建 项目结构 创建应用 C:\Users\admin\Desktop\bncDome\test1&gt;django-admin startapp booktest 启动服务器 添加app ORM框架 ORM模型类生产表 1 设计testbook app中的model.py 2 生成迁移文件 3 执行迁移生成表 sqlite3是一个小型数据库，经常使用在手机登移动端 通过模型操作数据表。操作sqlite3 123456789101112131415161718192021222324252627C:\Users\admin&gt;cd Desktop\bncDome\test1C:\Users\admin\Desktop\bncDome\test1&gt;python manage.py shellIn [3]: from booktest.models import BookInfoIn [6]: from datetime import dateIn [4]: b=BookInfo()# 插入In [5]: b.btitle = '天龙八部'In [9]: b.bpub_date = date(1990,1,1)In [10]: b.save()# 查找In [14]: b2=BookInfo.objects.get(id=1)In [15]: type(b2)Out[15]: booktest.models.BookInfoIn [16]: b2.btitleOut[16]: '天龙八部'# 更新In [17]: b2.btitle ='笑傲江湖'In [18]: b2.save()In [19]: b2.btitleOut[19]: '笑傲江湖'#删除In [23]: b2.delete() 模型M 模型与模型关系 生成迁移文件 生成迁移表 Django操作后台管理 （1）本地化语言与时间 （2）创建管理员 （3）启动服务器 （4）浏览器访问 （5）注册模型类 （6）列表文本显示 （7）自定义管理页面 视图V 视图使用：当视图与T交互时候，首先浏览器地址中127.0.0.1\index。找到项目第三步中的url中的urlpatterns中查找，\与^ 一样，逐渐往下匹配。找到booktest.urls。然后跳到app中的booktest中的urls(第二步)继续匹配。对应的是一个视图views.index,就会跳到视图views.py匹配，即第一步 （1）编写view代码，定义视图函数，返回浏览器的内容 （2）创建urls.py：配置url路由，注意严格匹配开头结尾。地址视图都在这里直接匹配 （3） 项目的url文件配置，包含对应的app中的视图 ur与视图匹配过程 l Template模板（1）根项目下创建模板templates文件夹 （2）配置模板目录 项目绝对路径，查看即可 设置目录文件路径 配置模板文件，每个app下创建一个模板文件名如booktest 这里面的模板文件为html，而模板中不仅仅为html。其中支持变量，变量使用两个花括号，；里面是view.py中设置的字典键名。 模板中的遍历 （3）使用模板文件 模板渲染：产生标准的html 封装以上步骤 注意：使用模板文件中需要以上四个步骤，对以上四步进行封装为my_render遍历高效执行。幸运的是django已经帮我们封装好了这个方法为render。其中第一个参数为request，第二个是模板路径，第三个参数是变量字典，没有变量则为空 显示结果 MVT综合案例(1)启动项目解决端口号占用，指定端口号 (2)案例介绍 (3)视图编写，先导入模型model类，查找MongoDB数据库的表信息 (4)配置url,记得配置主项目下的urls.py，这个文件一次配置多次使用 （5）创建模板文件 （6）显示图书信息，主页信息 （7） 在视图里面编写图书管理的详细信息 （8） 设置URL地址以及传参 Django在页面间传参的原理是，在页面url配置时候通过括号里面的组进行传参，后面视图会自动解析组内容进行参数填充。多个参数多个组 （8）创建子页面信息 Django使用MySQL(1）创建新的项目：django-admin startproject tets2 (2) 创建app： django-admin startapp booktest (3) setting.py中的INSTALLED_APPS注册应用booktest (4) setting.py中的DATABASES中配置数据库 123456789101112DATABASES = &#123; 'default': &#123; # 'ENGINE': 'django.db.backends.sqlite3', # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), 'ENGINE': 'django.db.backends.mysql', 'NAME':'bj18', 'USER':'root', 'PASSWORD':'admin', 'HOST':'127.0.0.1', 'PORT':3306, &#125;&#125; (5) 预先安装pip install pymysql，之后在test2中需要加两句话： (6) 根目录下启动服务： python manage.py runserver (7) 迁移表：python manage.py makemigrations (8) mysql数据库同步表：python manage.py migrate (9) 编写views 12345678910from django.shortcuts import renderfrom booktest.models import BookInfo# Create your views here.def index(request): # 1 查询所有信息 books = BookInfo.objects.all() # 2 使用模板 return render(request,'booktest/index.html',&#123;'books':books&#125;) (10) 设置模板目录DIRS 123456789101112131415TEMPLATES = [ &#123; 'BACKEND': 'django.template.backends.django.DjangoTemplates', 'DIRS': [os.path.join(BASE_DIR,'templates')], 'APP_DIRS': True, 'OPTIONS': &#123; 'context_processors': [ 'django.template.context_processors.debug', 'django.template.context_processors.request', 'django.contrib.auth.context_processors.auth', 'django.contrib.messages.context_processors.messages', ], &#125;, &#125;,] (11) 在templates下新建booktest文件夹，然后创建html （12） 配置urls 12345678from django.contrib import adminfrom django.urls import path,includeurlpatterns = [ path('admin/', admin.site.urls), path('booktest/', include('booktest.urls') )] booktest的urls 123456from django.urls import path,includefrom booktest import viewsurlpatterns = [ path('',views.index,name='index')] 重定向 123456789from django.shortcuts import render,redirectdef create(request): b = BookInfo() b.btitle = '流星蝴蝶剑' b.bpub_date= datetime.date(1990,1,1) b.save() # return HttpResponse('ok') return redirect('index') （13）mysql日志文件 （14）模型-模型关系：1:1,1：多，多：多 两个类之间有多对多的关系，ManyToManyField定义在哪个类里面都可以 （15）模型-关联查询 （16）管理器对象 （17）元选项：不会因为app改变影响模型类，然后重新做下迁移 模型类对应的表名不依赖于应用的名字 【机器学习和自然语言QQ群：436303759】： 机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>django</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[笔记10：PostgreSQL学习篇]]></title>
     <url>%2F2019%2F06%2F14%2F%E7%AC%94%E8%AE%B010%EF%BC%9APGSQL%E5%AD%A6%E4%B9%A0%E7%AF%87%2F</url>
     <content type="text"><![CDATA[摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.） PGSQLPostgreSQL是一个开源对象关系数据库管理系统(ORDBMS)。包括PostgreSQL语言的所有主题，如创建数据库，创建表，删除数据库，删除表，选择数据库，选择表，插入记录，更新记录，删除记录，触发器，功能，过程，游标等。帮助您更好地了解PostgreSQL语言和使用PostgreSQL数据库。PostgreSQL是跨平台的，可以在许多操作系统上运行，如Linux，FreeBSD，OS X，Solaris和Microsoft Windows等。 1 PGSQL特点 PostgreSQL可在所有主要操作系统(即Linux，UNIX(AIX，BSD，HP-UX，SGI IRIX，Mac OS X，Solaris，Tru64)和Windows等)上运行。 PostgreSQL支持文本，图像，声音和视频，并包括用于C/C++，Java，Perl，Python，Ruby，Tcl和开放数据库连接(ODBC)的编程接口。 PostgreSQL支持SQL的许多功能，例如复杂SQL查询，SQL子选择，外键，触发器，视图，事务，多进程并发控制(MVCC)，流式复制(9.0)，热备(9.0))。 在PostgreSQL中，表可以设置为从“父”表继承其特征。 可以安装多个扩展以向PostgreSQL添加附加功能。 （2）基本操作 创建数据库：CREATE DATABASE database_name; 查看数据库：postgres=# 删除数据库：DROP DATABASE 创建表： 1234567891011121314CREATE TABLE public.student2( id integer NOT NULL, name character(100), subjects character(1), CONSTRAINT student2_pkey PRIMARY KEY (id))WITH ( OIDS=FALSE);ALTER TABLE public.student2 OWNER TO postgres;COMMENT ON TABLE public.student2 IS '这是一个学生信息表2'; 删除表 1234postgres=#postgres=# drop table student2;DROP TABLEpostgres=# 模式(也叫架构)是指定的表集合。 它还可以包含视图，索引，序列，数据类型，运算符和函数。 1CREATE SCHEMA schema_name; 在架构中创建表 12345678910111213-- Table: myschema.tb_test-- DROP TABLE myschema.tb_test;CREATE TABLE myschema.tb_test( id integer, name character(254))WITH ( OIDS=FALSE);ALTER TABLE myschema.tb_test OWNER TO postgres; 使用架构的优点： 模式有助于多用户使用一个数据库，而不会互相干扰。 它将数据库对象组织成逻辑组，使其更易于管理。 可以将第三方模式放入单独的模式中，以避免与其他对象的名称相冲突。 2 查询（1）插入语句 12345678910INSERT INTO TABLE_NAME (column1, column2, column3,...columnN) VALUES (value1, value2, value3,...valueN);INSERT INTO EMPLOYEES( ID, NAME, AGE, ADDRESS, SALARY) VALUES (1, 'Maxsu', 25, '海口市人民大道2880号', 109990.00 ), (2, 'minsu', 25, '广州中山大道 ', 125000.00 ), (3, '李洋', 21, '北京市朝阳区', 185000.00), (4, 'Manisha', 24, 'Mumbai', 65000.00), (5, 'Larry', 21, 'Paris', 85000.00); （2）基本数据库操作查询，修改，删除，添加，order by，分组group，条件查询，and，or，like，not，in，between，全连接，内连接，右连接，左连接等跟mysql数据库操作基本一样 3 高级操作（1）视图 12345CREATE VIEW current_employees AS SELECT NAME, ID, SALARY FROM EMPLOYEES;drop view view_name （2）存储过程 1234567891011CREATE OR REPLACE FUNCTION totalRecords () RETURNS integer AS $total$ declare total integer; BEGIN SELECT count(*) into total FROM EMPLOYEES; RETURN total; END; $total$ LANGUAGE plpgsql;select totalRecords () (3) 触发器，可以使用某个表插入一条信息之后，触发器将记录写进日志表中，配合存储过程调用触发器例子 12CREATE TRIGGER example_trigger AFTER INSERT ON COMPANY FOR EACH ROW EXECUTE PROCEDURE auditlogfunc(); PostgreSQL触发器可用于以下目的： 验证输入数据。 执行业务规则。 为不同文件中新插入的行生成唯一值。 写入其他文件以进行审计跟踪。 从其他文件查询交叉引用目的。 访问系统函数。 将数据复制到不同的文件以实现数据一致性。 使用触发器的优点 它提高了应用程序的开发速度。 因为数据库存储触发器，所以您不必将触发器操作编码到每个数据库应用程序中。 全局执法业务规则。定义触发器一次，然后将其重用于使用数据库的任何应用程序。 更容易维护 如果业务策略发生变化，则只需更改相应的触发程序，而不是每个应用程序。 提高客户/服务器环境的性能。 所有规则在结果返回之前在服务器中运行。 （4）索引 数据库索引的重要特点 索引使用SELECT查询和WHERE子句加速数据输出，但是会减慢使用INSERT和UPDATE语句输入的数据。 您可以在不影响数据的情况下创建或删除索引。 可以通过使用CREATE INDEX语句创建索引，指定创建索引的索引名称和表或列名称。 还可以创建一个唯一索引，类似于唯一约束，该索引防止列或列的组合上有一个索引重复的项。 1234567891011# 单列索引CREATE INDEX index_name ON table_name (column_name);# 多列索引CREATE INDEX multicolumn_index ON EMPLOYEES (name, salary);# 唯一索引CREATE UNIQUE INDEX index_name on table_name (column_name);# 删除索引DROP INDEX index_name; 避免使用索引？ 应该避免在小表上使用索引。 不要为具有频繁，大批量更新或插入操作的表创建索引。 索引不应用于包含大量NULL值的列。 不要在经常操作(修改)的列上创建索引。 （5）UNIONS PostgreSQL UNION子句/运算符用于组合两个或多个SELECT语句的结果，而不返回任何重复的行。要使用UNION，每个SELECT必须具有相同的列数，相同数量的列表达式，相同的数据类型，并且具有相同的顺序，但不一定要相同。 1234567SELECT EMP_ID, NAME, DEPT FROM COMPANY INNER JOIN DEPARTMENT ON COMPANY.ID = DEPARTMENT.EMP_IDUNIONSELECT EMP_ID, NAME, DEPT FROM COMPANY LEFT OUTER JOIN DEPARTMENT ON COMPANY.ID = DEPARTMENT.EMP_ID; UNION ALL运算符用于组合两个SELECT语句(包括重复行)的结果。 （6）修改表 123456789101112131415# 添加新列alter table table_name add column_name datatype;# 删除列alter table table_name drop column_name;# 修改列不为空ALTER TABLE table_name MODIFY column_name datatype NOT NULL;# 添加唯一约束ALTER TABLE table_nameADD CONSTRAINT MyUniqueConstraint UNIQUE(column1, column2...);# 添加主键ALTER TABLE table_nameADD CONSTRAINT MyPrimaryKey PRIMARY KEY (column1, column2...);# 删除主键ALTER TABLE table_nameDROP CONSTRAINT MyPrimaryKey; (7) 事务 以下命令用于控制事务： BEGIN TRANSACTION：开始事务。 COMMIT：保存更改，或者您可以使用END TRANSACTION命令。 ROLLBACK：回滚更改。 事务控制命令仅用于DML命令INSERT，UPDATE和DELETE。 创建表或删除它们时不能使用它们，因为这些操作会在数据库中自动提交。 123BEGIN;DELETE FROM COMPANY WHERE AGE = 25;COMMIT; (8) 锁 锁或独占锁或写锁阻止用户修改行或整个表。 在UPDATE和DELETE修改的行在事务的持续时间内被自动独占锁定。 这将阻止其他用户更改行，直到事务被提交或回退。用户必须等待其他用户当他们都尝试修改同一行时。 如果他们修改不同的行，不需要等待。 SELECT查询不必等待。数据库自动执行锁定。 然而，在某些情况下，必须手动控制锁定。 手动锁定可以通过使用LOCK命令完成。 它允许指定事务的锁类型和范围。 LOCK命令的基本语法如下： 1234567LOCK [ TABLE ]name INlock_modeSQL name：要锁定的现有表的锁名称(可选模式限定)。 如果在表名之前指定了ONLY，则仅该表被锁定 如果未指定ONLY，则表及其所有后代表(如果有)被锁定。 lock_mode：锁模式指定此锁与之冲突的锁。 如果未指定锁定模式，则使用最严格的访问模式ACCESS EXCLUSIVE。 可能的值是：ACCESS SHARE，ROW SHARE，ROW EXCLUSIVE，SHARE UPDATE EXCLUSIVE，SHARE，SHARE ROW EXCLUSIVE，EXCLUSIVE，ACCESS EXCLUSIVE。 （9）自动增长：REAL 1234567CREATE TABLE COMPANY( ID SERIAL PRIMARY KEY, NAME TEXT NOT NULL, AGE INT NOT NULL, ADDRESS CHAR(50), SALARY REAL); 4 Python连接PGSQLPostgreSQL可以使用psycopg2模块与Python集成。sycopg2是用于Python编程语言的PostgreSQL数据库适配器。 psycopg2是非常小，快速，稳定的。 您不需要单独安装此模块，因为默认情况下它会随着Python 2.5.x版本一起发布。 如果还没有在您的机器上安装它，那么可以使用yum命令安装它，如下所示： 123$yum install python-psycopg2Shell 要使用psycopg2模块，必须首先创建一个表示数据库的Connection对象，然后可以选择创建可以帮助您执行所有SQL语句的游标对象。 （1）连接到数据库 123456#!/usr/bin/pythonimport psycopg2conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")print "Opened database successfully" （2）创建表 以下Python程序将用于在先前创建的数据库(testdb)中创建一个表： 123456789101112131415161718#!/usr/bin/pythonimport psycopg2conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")print "Opened database successfully"cur = conn.cursor()cur.execute('''CREATE TABLE COMPANY (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL, AGE INT NOT NULL, ADDRESS CHAR(50), SALARY REAL);''')print "Table created successfully"conn.commit()conn.close() （3）插入操作 在上述示例中创建的COMPANY表中创建记录： 123456789101112131415#!/usr/bin/pythonimport psycopg2conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")print "Opened database successfully"cur = conn.cursor()cur.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \ VALUES (1, 'Paul', 32, 'California', 20000.00 )");conn.commit()print "Records created successfully";conn.close() （4）SELECT操作 以下Python程序显示了如何从上述示例中创建的COMPANY表中获取和显示记录： 12345678910111213141516171819#!/usr/bin/pythonimport psycopg2conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")print "Opened database successfully"cur = conn.cursor()cur.execute("SELECT id, name, address, salary from COMPANY")rows = cur.fetchall()for row in rows: print "ID = ", row[0] print "NAME = ", row[1] print "ADDRESS = ", row[2] print "SALARY = ", row[3], "\n"print "Operation done successfully";conn.close() （5）更新操作 使用UPDATE语句来更新任何记录，然后从COMPANY表中获取并显示更新的记录： 1234567891011121314151617181920212223#!/usr/bin/pythonimport psycopg2conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")print "Opened database successfully"cur = conn.cursor()cur.execute("UPDATE COMPANY set SALARY = 25000.00 where ID=1")conn.commitprint "Total number of rows updated :", cur.rowcountcur.execute("SELECT id, name, address, salary from COMPANY")rows = cur.fetchall()for row in rows: print "ID = ", row[0] print "NAME = ", row[1] print "ADDRESS = ", row[2] print "SALARY = ", row[3], "\n"print "Operation done successfully";conn.close() （6）删除操作 使用DELETE语句来删除记录，然后从COMPANY表中获取并显示剩余的记录： 1234567891011121314151617181920212223#!/usr/bin/pythonimport psycopg2conn = psycopg2.connect(database="testdb", user="postgres", password="pass123", host="127.0.0.1", port="5432")print "Opened database successfully"cur = conn.cursor()cur.execute("DELETE from COMPANY where ID=2;")conn.commitprint "Total number of rows deleted :", cur.rowcountcur.execute("SELECT id, name, address, salary from COMPANY")rows = cur.fetchall()for row in rows: print "ID = ", row[0] print "NAME = ", row[1] print "ADDRESS = ", row[2] print "SALARY = ", row[3], "\n"print "Operation done successfully";conn.close() 技术交流共享QQ群【机器学习和自然语言QQ群：436303759】： 机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks]]></content>
@@ -156,8 +167,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>Django</tag>
         <tag>python</tag>
+        <tag>Django</tag>
       </tags>
   </entry>
   <entry>
@@ -319,10 +330,10 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>文本分类</tag>
         <tag>支持向量机</tag>
         <tag>SVM</tag>
         <tag>机器学习算法</tag>
+        <tag>文本分类</tag>
         <tag>sklean</tag>
       </tags>
   </entry>
@@ -336,10 +347,10 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>文本分类</tag>
         <tag>支持向量机</tag>
         <tag>SVM</tag>
         <tag>机器学习算法</tag>
+        <tag>文本分类</tag>
         <tag>sklean</tag>
       </tags>
   </entry>
@@ -719,8 +730,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>文本分类</tag>
         <tag>机器学习算法</tag>
+        <tag>文本分类</tag>
         <tag>sklean</tag>
         <tag>K-均值算法</tag>
         <tag>k-means</tag>
@@ -737,8 +748,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Logistic regression</tag>
-        <tag>文本分类</tag>
         <tag>机器学习算法</tag>
+        <tag>文本分类</tag>
         <tag>逻辑回归</tag>
       </tags>
   </entry>
@@ -752,9 +763,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
-        <tag>文本分类</tag>
         <tag>sklearn</tag>
       </tags>
   </entry>
@@ -768,9 +779,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
-        <tag>文本分类</tag>
         <tag>实战案例</tag>
       </tags>
   </entry>
@@ -785,9 +796,9 @@
       <tags>
         <tag>Python</tag>
         <tag>自然语言处理</tag>
+        <tag>文本分类</tag>
         <tag>Naive Bayes</tag>
         <tag>ML</tag>
-        <tag>文本分类</tag>
         <tag>理论学习</tag>
       </tags>
   </entry>

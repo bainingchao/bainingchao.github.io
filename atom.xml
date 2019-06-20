@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-06-14T09:30:19.065Z</updated>
+  <updated>2019-06-20T03:15:37.586Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记11:Django入门</title>
+    <link href="https://bainingchao.github.io/2019/06/20/%E7%AC%94%E8%AE%B011-Django%E5%85%A5%E9%97%A8/"/>
+    <id>https://bainingchao.github.io/2019/06/20/笔记11-Django入门/</id>
+    <published>2019-06-20T03:11:08.000Z</published>
+    <updated>2019-06-20T03:15:37.586Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="django" scheme="https://bainingchao.github.io/tags/django/"/>
+    
+  </entry>
   
   <entry>
     <title>笔记10：PostgreSQL学习篇</title>
@@ -329,9 +351,9 @@
       <category term="Python" scheme="https://bainingchao.github.io/categories/Python/"/>
     
     
-      <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
-    
       <category term="python" scheme="https://bainingchao.github.io/tags/python/"/>
+    
+      <category term="Django" scheme="https://bainingchao.github.io/tags/Django/"/>
     
   </entry>
   
@@ -458,30 +480,6 @@
       <category term="隐马尔可夫模型" scheme="https://bainingchao.github.io/tags/%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B/"/>
     
       <category term="HMM" scheme="https://bainingchao.github.io/tags/HMM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>漫谈条件随机场</title>
-    <link href="https://bainingchao.github.io/2019/02/13/%E6%BC%AB%E8%B0%88%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/"/>
-    <id>https://bainingchao.github.io/2019/02/13/漫谈条件随机场/</id>
-    <published>2019-02-13T09:49:01.649Z</published>
-    <updated>2019-02-13T09:51:38.666Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：条件随机场常用于序列标注、数据分割等自然语言处理任务中，此外其在中文分词、中文人名识别和歧义消解等任务中也有应用。本文基于笔者在做语句识别序列标注过程中，对条件随机场产生的了解。全篇内容主要源于自然语言处理、机器学习、统计学习方法和部分网上资料对CRF的相关介绍，最后由笔者进行大量研究整理后汇总成体系知识。本章首先介绍条件随机场的相关概念，然后结合实例以期让读者深入理解条件随机场的应用。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="条件随机场" scheme="https://bainingchao.github.io/tags/%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA/"/>
-    
-      <category term="CRF" scheme="https://bainingchao.github.io/tags/CRF/"/>
     
   </entry>
   
