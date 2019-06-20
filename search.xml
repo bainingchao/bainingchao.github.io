@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[笔记15:Python操作MySQL篇]]></title>
+    <url>%2F2019%2F06%2F20%2F%E7%AC%94%E8%AE%B015-MySQL%E5%A4%8D%E4%B9%A0%E7%AF%87%2F</url>
+    <content type="text"><![CDATA[摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.） 1 基本概念 常见sql命令： show database 查看所有数据库 select now(); 显示当前时间 select version(); 显示当前版本 create database 数据库名 charset=utf8; show create database 数据库名; 查看创建数据库 drop database 数据库名; 删除数据库 use 数据库名; 跳进当前数据库 create table test(id int primary ket not null auto_increment,name varchar(30)) ; 创建表 desc 表名; 查看表结构 insert into 表名(字段1，字段2,…)； select * from 表名; alter table 表名 add 字段k 类型; 修改表添加字段 alter table 表名 modify 字段k 类型; 修改字段 alter table 表名 drop 列名; 删除字段 drop table 表名; 删除表名 update 表名 set 字段=值 where id=?; delete from 表名 where 条件;； select name as 姓名，age as 性别； show create table 表名; 查看数据库如何创建的 select distinct 字段 from 表名； 去重 2 数据库查询 sql以正则形式查询数据 排序 order by 聚合、分组 分页limit(开始索引，查询条数) 链接查询：inner join内连接就是交集，外连接为left join左连接与right join右链接， 自关联 子查询 数据库设计的三范式 第一范式，不能再分割 第二范式：必须有主键，其他列必须依赖主键 第三范式：非主键的必须依赖主键，不能传递 E-R模型 3 MySQL与Python交互 查询数据库 防止SQL注入攻击，其中[find_name]传入参数值，fetchall获取所有信息 4 MySQL高级知识 视图：一张虚拟表，复杂的表查询结果，不支持修改，主要用于查询 1create view 视图名 as 名字 复杂表查询 事务：原子性（保证数据要么都成功要么都不成功）、一致性（保证数据一致）、隔离性（多个客户端对同一个表同一个字段操作，等待commit）、持久性（一旦提交，永久保存）；，失败即回滚。 索引：一种特殊的数据，存着其他数据的引用。目的是提高查询的效率， 账户管理： mysql主从 5 Pymongo的Python操作 6 技术QQ群【机器学习和自然语言QQ群：436303759】： 机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[笔记14:理解网络编程]]></title>
+    <url>%2F2019%2F06%2F20%2F%E7%AC%94%E8%AE%B014-%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.） 1 相关概念认识 网络通信：万维网通信使用，目的让电脑上不同软件之间通信。 IP地址：分为IP4与IP6 IP地址分类：电脑唯一区分号 端口号：同一个Ip下的不同程序的识别 进程：运行的程序就叫做进程，知名端口0—-1023，动态端口1024—65535。其中网站浏览默认端口80，ftp端口21 socket套接字：用来完成网络通信必备的东西。 1234567891011121314151617181920# !/usr/bin/env python# coding:utf-8import socketdef handle_request(client): buf = client.recv(1024) client.send("HTTP/1.1 200 OK\r\n\r\n") client.send("Hello, World")def main(): # 创建socket对象,socket.AF_INET表示IP4， socket.SOCK_STREAM表示TCP通信 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) sock.bind(('localhost',8080))# 绑定端口和ip，本机ip，与客户端相同的端口号 sock.listen(5) # 最大连接数 while True: connection, address = sock.accept() handle_request(connection) connection.close()if __name__ == '__main__': main() 通信模型：UDP与TCP，udp可以理解成写信模式，每封信都需要地址端口等，另外存在不安全性，数据可能丢失。TCP可以理解为打电话的形式，相对就安全很多。TCP还具有超时重传，错误校验，流量控制和阻塞管理。 下载文件 2 进程、线程与协程2.1 多任务123456789101112131415161718192021222324252627282930313233343536373839'''多任务操作：我们希望两个线程同时执行'''import timeimport threading# 唱歌def sing(): for i in range(5): print('正在唱歌===========&gt;.......光辉岁月') time.sleep(1)# 跳舞def dance(): for i in range(5): print('正在跳舞===========&gt;.......新疆舞') time.sleep(1)#---------------------------------非多线程操作-----------------------------def main1(): sing() dance()#---------------------------------线程:多任务操作-----------------------------def main2(): t1 = threading.Thread(target=sing) t2 = threading.Thread(target=dance) t1.start() t2.start()if __name__ == '__main__': # main1() main2() 时间片轮转：单核cpu处理多个应用程序，每个程序分配极少的时间如0.001s，轮换切换时间极短，人工难以区分，就误以为一起同时运行了。这里只是完成多任务的一种策略。例子：单核CUP运行QQ，切换微信等 并行：真正的多任务，每个程序一个内核cpu。例如：双核CPU分别运行QQ与微信 并发：假的多任务，cup核数量少于任务数。例如：单核CPU运行QQ与微信 2.2 线程 红色箭头表示程序的线程，调用start方法时候，生成新的线程。这时候可以有两个线程同时执行代码，由此出现多任务的情况。 线程的封装 全局变量：如果指定固定值不加global，如果指的同一个地址不需要加 线程传参 互斥锁 死锁：银行家算法 死锁是一种状态，在多任务中A任务在等待。B任务也在等待，。。。，N任务也在等待。就造成一种死锁现象。都在等待解锁，就造成阻塞，程序永远卡住。为了避免死锁出现以下策略： （1） 添加超时时间 （2）程序设计时要尽量避免（例如，银行家算法）等 银行家算法核心思想就是将现有的资源分配给多个任务，任务执行完解锁，以此类推完成所有任务。 2.3 进程 exe就是二进制文件，就是一个静态的程序。将这个程序运行起来就是进程了。程序只有一个，但是可以包含多个进程，一个进程可以包含多个线程。最简单的理解，比如微信是一个程序，运行起来以后会使用语音、视频、网络、声卡等功能，每个功能是一个进程。这样看起来程序运行起来就包含多个进程了。进程是操作系统分配的单位。 进程的状态 进程也可以完成多任务，不过占用资源比较大。线程可以完成多任务，占用资源少。 进程和线程对比 进程是一堆资源的继承，包括网络，硬盘，声卡等。进程是资源分配单位。一个进程里面至少一个主线程。进程可以理解为工厂上面的流水线，线程就是流水线上的工人。 线程比较轻量级。线程执行开销小，不利于资源管理和保护。进程相反。 进程间的通信Queue：放数据put,取数据get，判空empty，判满full 进程通信案例，其中一个进程是网上下载数据，一个进程是分析数据。如果是线程可以通过全局变量共享数据。如果是进程需要引入通信queue的get和put读写数据达到共享。 进程池pool：对进程管理，join阻塞主进程，等待进程池里面进程执行。进程池中如果有异常是不会在屏幕上打印的 2.4 协程 range与xrange的区别，前者基于迭代器返回的结果，占用大量空间；后者返回可以迭代对象，什么时候用什么时候取。Python3经过改进后，将range改进近似xrange节约空间 迭代器执行保存的结果，迭代器生成代码next控制结果，具备yield标识有return的效果，而且运行速度快。 yield实现多任务 pip安装到python2里面，pip3安装到python里面 greenlet是对yield的高端封装，可以直接写greenlet不用再添加yeild。通过switch切换函数 gevent异步并发库，其采用协程方式。（推荐使用，yield和greenlet了解即可） gevent图片下载案例 2.5 进程、线程与协程的区别 进程是资源分配单位，线程是操作系统调度单位 进程切换需要很大的资源，效率低；线程切换资源一般效率一般 协程切换任务资源很小，效率高 多进程多线程根据cpu核数不同可能是并发，但是协程在一个线程中是并发 3 技术QQ群【机器学习和自然语言QQ群：436303759】： 机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>网络编程</tag>
+        <tag>进程</tag>
+        <tag>线程</tag>
+        <tag>协程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[笔记13:Web服务器]]></title>
     <url>%2F2019%2F06%2F20%2F%E7%AC%94%E8%AE%B013-Web%E6%9C%8D%E5%8A%A1%E5%99%A8%2F</url>
     <content type="text"><![CDATA[摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.） 1 HTTP协议 http：超文本传输协议，基于tcp的方式，会更稳当更安全。协议就是规定了怎样去请求服务器，服务器如何返回信息。如下图红色方框标记所示： 打开浏览器电商广告原理： 我们打开一个浏览器访问电商平台某个商品或者访问百度等，服务器在请求时候会获取到Cookie值，并解析后获取你的访问历史。下次打开页面时候，会从本地加载该历史作为推荐广告。也就是说网站通过Cookie追踪用户。 2 TCP三次握手四次挥手三次握手本质上是四次握手，C请求数据syn传入S请求链接，S服务器应答数据ack；S服务器再次请求C客户端建立链接，C应答给S服务器。由于中间的S应答和请求可以合并一起，造成3次握手。本质上是建立连接的。 四次挥手时候，主要是关闭时候有可能是通信延时或者通信结束。所以不能合并。本质是关闭连接。 长连接与短连接 3 TCP-IP协议 浏览器访问服务器的过程 4 Python知识 GIL全局解释器锁 python中多进程引发起并发，多线程不能引进并发，GIL 深拷贝 浅拷贝 私有化 5 技术QQ群【机器学习和自然语言QQ群：436303759】： 机器学习和自然语言（QQ群号：436303759）是一个研究深度学习、机器学习、自然语言处理、数据挖掘、图像处理、目标检测、数据科学等AI相关领域的技术群。其宗旨是纯粹的AI技术圈子、绿色的交流环境。本群禁止有违背法律法规和道德的言谈举止。群成员备注格式：城市-自命名。微信订阅号：datathinks]]></content>

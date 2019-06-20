@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bainingchao.github.io/"/>
-  <updated>2019-06-20T03:23:26.692Z</updated>
+  <updated>2019-06-20T03:29:48.772Z</updated>
   <id>https://bainingchao.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>笔记15:Python操作MySQL篇</title>
+    <link href="https://bainingchao.github.io/2019/06/20/%E7%AC%94%E8%AE%B015-MySQL%E5%A4%8D%E4%B9%A0%E7%AF%87/"/>
+    <id>https://bainingchao.github.io/2019/06/20/笔记15-MySQL复习篇/</id>
+    <published>2019-06-20T03:28:10.000Z</published>
+    <updated>2019-06-20T03:29:48.772Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="mysql" scheme="https://bainingchao.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>笔记14:理解网络编程</title>
+    <link href="https://bainingchao.github.io/2019/06/20/%E7%AC%94%E8%AE%B014-%E7%90%86%E8%A7%A3%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    <id>https://bainingchao.github.io/2019/06/20/笔记14-理解网络编程/</id>
+    <published>2019-06-20T03:25:34.000Z</published>
+    <updated>2019-06-20T03:28:54.344Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;摘要：日常学习中对一些知识点进行总结得出该系列文章。学习笔记内容包括前端技术，Django web开发技术，数据库技术如MySQL，MongoDB，PGSQL等等。此外还有一些工具如Dock，ES等等。（本文原创，转载必须注明出处.）&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="https://bainingchao.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="网络编程" scheme="https://bainingchao.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="进程" scheme="https://bainingchao.github.io/tags/%E8%BF%9B%E7%A8%8B/"/>
+    
+      <category term="线程" scheme="https://bainingchao.github.io/tags/%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="协程" scheme="https://bainingchao.github.io/tags/%E5%8D%8F%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>笔记13:Web服务器</title>
@@ -424,56 +474,6 @@
       <category term="分词处理" scheme="https://bainingchao.github.io/tags/%E5%88%86%E8%AF%8D%E5%A4%84%E7%90%86/"/>
     
       <category term="特征构造" scheme="https://bainingchao.github.io/tags/%E7%89%B9%E5%BE%81%E6%9E%84%E9%80%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自然语言处理之中文自动分词</title>
-    <link href="https://bainingchao.github.io/2019/02/13/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B9%8B%E4%B8%AD%E6%96%87%E8%87%AA%E5%8A%A8%E5%88%86%E8%AF%8D/"/>
-    <id>https://bainingchao.github.io/2019/02/13/自然语言处理之中文自动分词/</id>
-    <published>2019-02-13T10:01:13.981Z</published>
-    <updated>2019-03-06T08:26:35.363Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：中文分词技术属于自然语言处理技术范畴，中文分词是其他中文信息处理的基础，搜索引擎只是中文分词的一个应用。诸如机器翻译（MT）、语音合成、自动分类、自动摘要、自动校对等等。本章首先介绍中文分词及其特点和难点，其次对常用的中文分词方法进行阐述；紧接着我们将介绍几个典型的中文分词工具，有兴趣的读者还可对文中所列出的其他工具自行深入研究。最后，本章将对结巴中文分词进行详细介绍，从原理到使用逐渐深入，力求让读者快速掌握其思想及原理。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="中文分词" scheme="https://bainingchao.github.io/tags/%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D/"/>
-    
-      <category term="jieba" scheme="https://bainingchao.github.io/tags/jieba/"/>
-    
-      <category term="hanlp" scheme="https://bainingchao.github.io/tags/hanlp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自然语言处理之语料库技术</title>
-    <link href="https://bainingchao.github.io/2019/02/13/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B9%8B%E8%AF%AD%E6%96%99%E5%BA%93%E6%8A%80%E6%9C%AF/"/>
-    <id>https://bainingchao.github.io/2019/02/13/自然语言处理之语料库技术/</id>
-    <published>2019-02-13T09:58:01.231Z</published>
-    <updated>2019-02-13T10:00:36.632Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;摘要：大数据发展的基石就是数据量的快速增加，无论是自然语言处理、数据挖掘、文本处理还是机器学习领域，都是在此基础上通过规则或统计方法进行模型构建的。但是不是数据足够大就叫大数据了呢？是不是数据足够多就构成语料库了呢？带着这些疑问，本章将带你走进语料库的世界，对语料知识进行一次全面而深入的了解。（本文原创，转载必须注明出处.）&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="自然语言处理" scheme="https://bainingchao.github.io/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/"/>
-    
-    
-      <category term="语料库" scheme="https://bainingchao.github.io/tags/%E8%AF%AD%E6%96%99%E5%BA%93/"/>
-    
-      <category term="NLTK" scheme="https://bainingchao.github.io/tags/NLTK/"/>
     
   </entry>
   
